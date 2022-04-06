@@ -16,6 +16,10 @@ const canvas = document.querySelector('canvas.webgl')
 const scene = new THREE.Scene()
 scene.background = new THREE.Color(12571109);
 
+//fog
+const fog=new THREE.Fog('#262837',1,5)
+scene.fog=fog
+
 // Objects
 const geometry = new THREE.TorusGeometry( .7, .2, 16, 100 );
 
@@ -83,7 +87,7 @@ window.addEventListener('resize', () =>
 // Base camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
 camera.position.x = 0
-camera.position.y = 0
+camera.position.y = 2
 camera.position.z = 2
 scene.add(camera)
 
@@ -91,6 +95,12 @@ scene.add(camera)
 //controls
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
+
+//orbit angle limitation
+controls.maxPolarAngle =  Math.PI * 0.4;
+//orbit zoom limitation
+controls.minDistance = 1;
+controls.maxDistance = 3;
 
 /**
  * Renderer
@@ -151,11 +161,19 @@ guiChanged();
 
 
 const clock = new THREE.Clock()
-
+var oldElaspsedTime=0
 const tick = () =>
 {
 
     const elapsedTime = clock.getElapsedTime()
+    var deltaTime=elapsedTime-oldElaspsedTime
+    oldElaspsedTime=elapsedTime
+
+    // update mixer
+if(mixer1){
+
+    mixer1.update(deltaTime)
+}
 
     // Update objects
 
