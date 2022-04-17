@@ -15,8 +15,8 @@ const canvas = document.querySelector('canvas.webgl')
 // Scene
 const scene = new THREE.Scene()
 scene.background = new THREE.Color(0xdddddddd);
-// var fog = new THREE.FogExp2( 0xefd1b5, 0.08 );
-// scene.fog = fog
+var fog = new THREE.FogExp2( 0xefd1b5, 0.1 );
+scene.fog = fog
 
   
 const sizes = {
@@ -35,7 +35,7 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 renderer.physicallyCorrectLights = !0
 renderer.shadowMap.enabled=true
 // Objects
-const geometry = new THREE.TorusGeometry( .7, .2, 16, 100 );
+// const geometry = new THREE.TorusGeometry( .7, .2, 16, 100 );
 
 // Materials
 const gltfloader = new GLTFLoader();
@@ -106,7 +106,7 @@ scene.add(camera)
 
 // scene.add( new THREE.AmbientLight( 0xffffff,1 ) );
 
-const hemiLight = new THREE.HemisphereLight( 0xa9a9a9a9,0xff8c33, 2 );
+const hemiLight = new THREE.HemisphereLight( 0xa9a9a9a9,0xff8c31, 2 );
 // pointLight.layers.set(1)
 scene.add( hemiLight );
 
@@ -179,13 +179,65 @@ controls.enableDamping = true
 // gui.add( effectController, 'exposure', 0, 1, 0.0001 ).onChange( guiChanged );
 // guiChanged();
 
+//particles
+const geometry = new THREE.BufferGeometry();
+				const vertices = [];
+
+				const textureLoader = new THREE.TextureLoader();
+
+				const sprite1 = textureLoader.load( './particle.png' );
+				const sprite2 = textureLoader.load( './particle.png' );
+				const sprite3 = textureLoader.load( './particle.png' );
+				const sprite4 = textureLoader.load( './particle.png' );
+				const sprite5 = textureLoader.load( './particle.png' );
+
+				for ( let i = 0; i < 10000; i ++ ) {
+
+					const x = Math.random() * 2000 - 1000;
+					const y = Math.random() * 2000 - 1000;
+					const z = Math.random() * 2000 - 1000;
+
+					vertices.push( x, y, z );
+
+				}
+
+				geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
+
+				var parameters = [
+					[[ 1.0, 0.2, 0.5 ], sprite2, 2],
+					[[ 0.95, 0.1, 0.5 ], sprite3, 2 ],
+					[[ 0.90, 0.05, 0.5 ], sprite1, 2 ],
+					[[ 0.85, 0, 0.5 ], sprite5, 2 ],
+					[[ 0.80, 0, 0.5 ], sprite4, 2 ]
+				];
+
+				for ( let i = 0; i < parameters.length; i ++ ) {
+
+					const color = parameters[ i ][ 0 ];
+					const sprite = parameters[ i ][ 1 ];
+					const size = parameters[ i ][ 2 ];
+                    var materials
+					 materials = new THREE.PointsMaterial( { size: size, map: sprite, blending: THREE.AdditiveBlending, depthTest: false, transparent: true } );
+					materials.color.set(0xA0522D);
+                    materials.fog=false
+
+					const particles = new THREE.Points( geometry, materials );
+
+					particles.rotation.x = Math.random() * 6;
+					particles.rotation.y = Math.random() * 6;
+					particles.rotation.z = Math.random() * 6;
+
+					scene.add( particles );
+                }
+////////////
+
 
 const clock = new THREE.Clock()
 
 const tick = () =>
 {
 
-    const elapsedTime = clock.getElapsedTime()
+    const elapsedTime = clock.getElapsedTime()/100
 
     // Update objects
 
@@ -197,6 +249,20 @@ const tick = () =>
 // spotLight.position.set(camera.position.x+10,camera.position.y+10,camera.position.z+10)
     // Call tick again on the next frame
     window.requestAnimationFrame(tick)
+
+    for ( let i = 0; i < scene.children.length; i ++ ) {
+
+        const object = scene.children[ i ];
+
+        if ( object instanceof THREE.Points ) {
+
+            object.rotation.y = elapsedTime * ( i < 4 ? i + 1 : - ( i + 1 ) );
+
+        }
+
+    }
+
+
 }
 
 tick()
