@@ -26,10 +26,10 @@ const scene = new THREE.Scene()
 // var fog = new THREE.FogExp2( new THREE.Color("rgb(133, 117, 223)"), 0.100 );
 // scene.fog = fog
 
-    const color = 0xFFFFFF;  // white
-    const near = 3;
-    const far = 5;
-    scene.fog = new THREE.Fog(color, near, far);
+    // const color = 0xFFFFFF;  // white
+    // const near = 3;
+    // const far = 5;
+    // scene.fog = new THREE.Fog(color, near, far);
   
   
 const sizes = {
@@ -65,7 +65,8 @@ gltfloader.load("./CityTest_Final.glb", function (gltf) {
             const action = mixer1.clipAction(gltf.animations[1]);
             action.play();
   (gltf.scene.rotation.y = 3.1),
-  (gltf.scene.position.y = -3);
+  (gltf.scene.position.y = -3),
+  (gltf.scene.position.x = -3.5);
   const cubeFolder1 = gui.addFolder('position');
   cubeFolder1.add(gltf.scene.position, 'x');
   cubeFolder1.add(gltf.scene.position, 'y');
