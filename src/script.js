@@ -8,6 +8,7 @@ import * as dat from "dat.gui";
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 			import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 			import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
+            import gsap from "gsap";
 
 // Debug
 const gui = new dat.GUI();
@@ -26,10 +27,10 @@ const scene = new THREE.Scene()
 // var fog = new THREE.FogExp2( new THREE.Color("rgb(133, 117, 223)"), 0.100 );
 // scene.fog = fog
 
-    const color = 0xFFFFFF;  // white
-    const near = 3;
-    const far = 5;
-    scene.fog = new THREE.Fog(color, near, far);
+    // const color = 0xFFFFFF;  // white
+    // const near = 3;
+    // const far = 5;
+    // scene.fog = new THREE.Fog(color, near, far);
   
   
 const sizes = {
@@ -65,7 +66,8 @@ gltfloader.load("./CityTest_Final.glb", function (gltf) {
             const action = mixer1.clipAction(gltf.animations[1]);
             action.play();
   (gltf.scene.rotation.y = 3.1),
-  (gltf.scene.position.y = -3);
+  (gltf.scene.position.y = -3),
+  (gltf.scene.position.x = -3.5);
   const cubeFolder1 = gui.addFolder('position');
   cubeFolder1.add(gltf.scene.position, 'x');
   cubeFolder1.add(gltf.scene.position, 'y');
@@ -109,11 +111,16 @@ window.addEventListener('resize', () =>
  */
 // Base camera
 const camera = new THREE.PerspectiveCamera(60, sizes.width / sizes.height, 0.05, 5000)
-camera.position.x = 5
-camera.position.y = 5
-camera.position.z = 2
+camera.position.x = 5.3
+camera.position.y = -0.2
+camera.position.z = 9
 scene.add(camera)
-
+gsap.to(camera.position,{duration:4, z: 5,  ease: "power1.inOut"},3)
+gsap.to(camera.position,{duration:4,y:1 ,ease: "power1.inOut"},"-=1")
+gsap.to(camera.position,{duration:4,x:2 ,ease: "power1.inOut"},"-=1")
+gsap.to(camera.position,{duration:4,z:0.5 ,ease: "power1.inOut"},"-=1")
+gsap.to(camera.position,{duration:4,y:-0.05 ,ease: "power1.inOut"},"-=1")
+gsap.to(camera.rotation,{duration:1,y:1 ,ease: "power1.inOut"},"-=1")
 // Lights
 
 // const renderScene = new RenderPass( scene, camera );
@@ -249,16 +256,16 @@ const starMesh = new THREE.Mesh(starGeometry, starMaterial);
 scene.add(starMesh);
 
 //sun object
-const color2 = new THREE.Color("#FDB813");
-const geometry2 = new THREE.IcosahedronGeometry(1, 15);
-const material = new THREE.MeshBasicMaterial({ color: color2 });
-const sphere = new THREE.Mesh(geometry2, material);
-sphere.fog=false
-geometry2.fog=false
-material.fog=false
-sphere.position.set(-50, 20, -60);
-sphere.scale.set(5, 5, 5);
-scene.add(sphere);
+// const color2 = new THREE.Color("#FDB813");
+// const geometry2 = new THREE.IcosahedronGeometry(1, 15);
+// const material = new THREE.MeshBasicMaterial({ color: color2 });
+// const sphere = new THREE.Mesh(geometry2, material);
+// sphere.fog=false
+// geometry2.fog=false
+// material.fog=false
+// sphere.position.set(-50, 20, -60);
+// sphere.scale.set(5, 5, 5);
+// scene.add(sphere);
 
 
 //moon geometry
@@ -279,8 +286,8 @@ const moonMesh = new THREE.Mesh(moongeometry, moonMaterial);
 moonMesh.receiveShadow = true;
 moonMesh.castShadow = true;
 moonMesh.position.x = 2;
-moonMesh.position.set(-20,2,40)
-moonMesh.scale.set(20,20,20)
+moonMesh.position.set(-50, 20, -60);
+moonMesh.scale.set(30,30,30)
 scene.add(moonMesh);
 
 
@@ -376,7 +383,7 @@ const tick = () =>
 
     }
 
-
+// console.log(camera.position);
 }
 
 tick()
