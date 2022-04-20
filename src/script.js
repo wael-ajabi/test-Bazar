@@ -23,14 +23,14 @@ const canvas = document.querySelector('canvas.webgl')
 // };
 // Scene
 const scene = new THREE.Scene()
-// scene.background = new THREE.Color(0x000000);
-// var fog = new THREE.FogExp2( new THREE.Color("rgb(133, 117, 223)"), 0.100 );
+scene.background = new THREE.Color(0x000000);
+// var fog = new THREE.FogExp2( new THREE.Color("rgb(133, 117, 223)"), 0.3 );
 // scene.fog = fog
 
-    // const color = 0xFFFFFF;  // white
-    // const near = 3;
-    // const far = 5;
-    // scene.fog = new THREE.Fog(color, near, far);
+    const color = "rgb(133, 117, 223)";  // white
+    const near = 1;
+    const far = 5;
+    scene.fog = new THREE.Fog(color, near, far);
   
   
 const sizes = {
@@ -156,7 +156,7 @@ pointLight.intensity=5
 pointLight.frustumCulled=true
 scene.add(pointLight)
 const pointLightHelper= new THREE.PointLightHelper(pointLight)
-scene.add(pointLightHelper)
+// scene.add(pointLightHelper)
 // const shadowCameraHelper2 = new THREE.CameraHelper( pointLight.shadow.camera );
 // 				scene.add( shadowCameraHelper2 );
 
@@ -244,6 +244,7 @@ const starMaterial = new THREE.MeshBasicMaterial({
   map: THREE.ImageUtils.loadTexture("./galaxy1.png"),
   side: THREE.BackSide,
   transparent: true,
+  fog:true,
 });
 
 // galaxy mesh
