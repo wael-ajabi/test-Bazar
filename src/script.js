@@ -5,19 +5,32 @@ import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { Sky } from "three/examples/jsm/objects/Sky.js";
 import * as dat from "dat.gui";
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+			import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+			import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 
 // Debug
 const gui = new dat.GUI();
-
+// let composer
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
-
+// const params = {
+//     exposure: 1,
+//     bloomStrength: 1.5,
+//     bloomThreshold: 0,
+//     bloomRadius: 0
+// };
 // Scene
 const scene = new THREE.Scene()
-scene.background = new THREE.Color(0xdddddddd);
-var fog = new THREE.FogExp2( 0xefd1b5, 0.1 );
-scene.fog = fog
+// scene.background = new THREE.Color(0x000000);
+// var fog = new THREE.FogExp2( new THREE.Color("rgb(133, 117, 223)"), 0.100 );
+// scene.fog = fog
 
+    const color = 0xFFFFFF;  // white
+    const near = 3;
+    const far = 5;
+    scene.fog = new THREE.Fog(color, near, far);
+  
   
 const sizes = {
     width: window.innerWidth,
@@ -36,7 +49,6 @@ renderer.physicallyCorrectLights = !0
 renderer.shadowMap.enabled=true
 // Objects
 // const geometry = new THREE.TorusGeometry( .7, .2, 16, 100 );
-
 // Materials
 const gltfloader = new GLTFLoader();
 var   mixer1=null
@@ -44,13 +56,13 @@ var dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/js/libs/draco/');
 dracoLoader.preload();
 gltfloader.setDRACOLoader(dracoLoader);
-gltfloader.load("./CityLP_Wael.glb", function (gltf) {
+gltfloader.load("./CityTest_Final.glb", function (gltf) {
     gltf.scene.traverse(n=>{if (n.isMesh){n.castShadow=true;n.receiveShadow=true;
     if(n.material.map){n.material.map.anisotropy=16;}
     }})
   console.log(gltf);
   mixer1 = new THREE.AnimationMixer(gltf.scene);
-            const action = mixer1.clipAction(gltf.animations[0]);
+            const action = mixer1.clipAction(gltf.animations[1]);
             action.play();
   (gltf.scene.rotation.y = 3.1),
   (gltf.scene.position.y = -3);
@@ -96,7 +108,7 @@ window.addEventListener('resize', () =>
  * Camera
  */
 // Base camera
-const camera = new THREE.PerspectiveCamera(60, sizes.width / sizes.height, 1, 5000)
+const camera = new THREE.PerspectiveCamera(60, sizes.width / sizes.height, 0.05, 5000)
 camera.position.x = 5
 camera.position.y = 5
 camera.position.z = 2
@@ -104,33 +116,76 @@ scene.add(camera)
 
 // Lights
 
-// scene.add( new THREE.AmbientLight( 0xffffff,1 ) );
+// const renderScene = new RenderPass( scene, camera );
 
-const hemiLight = new THREE.HemisphereLight( 0xa9a9a9a9,0xff8c31, 2 );
-// pointLight.layers.set(1)
-scene.add( hemiLight );
+// const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 1.5, 0.4, 0.85 );
+// 				bloomPass.threshold = params.bloomThreshold;
+// 				bloomPass.strength = params.bloomStrength;
+// 				bloomPass.radius = params.bloomRadius;
 
-const spotLight = new THREE.SpotLight(0xffffff,20)
-spotLight.position.set( 0, 2.6, -12.6 );
-spotLight.scale.set( 0.005, 0.005, 0.005 );
-spotLight.castShadow=true
-spotLight.shadow.bias=-0.0001;
-spotLight.shadow.mapSize.width=1024*4
-spotLight.shadow.mapSize.height=1024*4
-spotLight.shadow.bias=-0.0001;
-scene.add(spotLight)
-const spotLightHelper = new THREE.SpotLightHelper( spotLight );
-scene.add( spotLightHelper );
-const shadowCameraHelper = new THREE.CameraHelper( spotLight.shadow.camera );
-				scene.add( shadowCameraHelper );
+// 				composer = new EffectComposer( renderer );
+// 				composer.addPass( renderScene );
+// 				composer.addPass( bloomPass );
+scene.add( new THREE.AmbientLight( 0xffffff,1 ) );
+
+// const hemiLight = new THREE.HemisphereLight( 0xa9a9a9a9,0xff8c31, 2 );
+// // pointLight.layers.set(1)
+// // scene.add( hemiLight );
+
+// const spotLight = new THREE.SpotLight(0xffffff,50)
+// spotLight.position.set( 0, 2.6, -12.6 );
+// spotLight.scale.set( 0.005, 0.005, 0.005 );
+// spotLight.castShadow=true
+// spotLight.shadow.bias=-0.0001;
+// spotLight.shadow.mapSize.width=1024*4
+// spotLight.shadow.mapSize.height=1024*4
+// spotLight.shadow.bias=-0.0001;
+// scene.add(spotLight)
+// const spotLightHelper = new THREE.SpotLightHelper( spotLight );
+// scene.add( spotLightHelper );
+// const shadowCameraHelper = new THREE.CameraHelper( spotLight.shadow.camera );
+// 				scene.add( shadowCameraHelper );
 
 				//
+const pointLight = new THREE.PointLight(0xffffff,3.66,2)
+// pointLight.position.set(-3.320,2.900,0.272)
+pointLight.scale.set(1,1,1)
+pointLight.intensity=5
+pointLight.frustumCulled=true
+scene.add(pointLight)
+const pointLightHelper= new THREE.PointLightHelper(pointLight)
+scene.add(pointLightHelper)
+// const shadowCameraHelper2 = new THREE.CameraHelper( pointLight.shadow.camera );
+// 				scene.add( shadowCameraHelper2 );
 
 // Controls
 //controls
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
 
+// gui.add( params, 'exposure', 0.1, 2 ).onChange( function ( value ) {
+
+//     renderer.toneMappingExposure = Math.pow( value, 4.0 );
+
+// } );
+
+// gui.add( params, 'bloomThreshold', 0.0, 1.0 ).onChange( function ( value ) {
+
+//     bloomPass.threshold = Number( value );
+
+// } );
+
+// gui.add( params, 'bloomStrength', 0.0, 3.0 ).onChange( function ( value ) {
+
+//     bloomPass.strength = Number( value );
+
+// } );
+
+// gui.add( params, 'bloomRadius', 0.0, 1.0 ).step( 0.01 ).onChange( function ( value ) {
+
+//     bloomPass.radius = Number( value );
+
+// } );
 
 //  * Animate
 //  */
@@ -179,10 +234,61 @@ controls.enableDamping = true
 // gui.add( effectController, 'exposure', 0, 1, 0.0001 ).onChange( guiChanged );
 // guiChanged();
 
+// galaxy geometry
+const starGeometry = new THREE.SphereGeometry(80, 64, 64);
+
+// galaxy material
+const starMaterial = new THREE.MeshBasicMaterial({
+  map: THREE.ImageUtils.loadTexture("./galaxy1.png"),
+  side: THREE.BackSide,
+  transparent: true,
+});
+
+// galaxy mesh
+const starMesh = new THREE.Mesh(starGeometry, starMaterial);
+scene.add(starMesh);
+
+//sun object
+const color2 = new THREE.Color("#FDB813");
+const geometry2 = new THREE.IcosahedronGeometry(1, 15);
+const material = new THREE.MeshBasicMaterial({ color: color2 });
+const sphere = new THREE.Mesh(geometry2, material);
+sphere.fog=false
+geometry2.fog=false
+material.fog=false
+sphere.position.set(-50, 20, -60);
+sphere.scale.set(5, 5, 5);
+scene.add(sphere);
+
+
+//moon geometry
+const moongeometry = new THREE.SphereGeometry(0.1, 32, 32);
+
+//moon material
+const moonMaterial = new THREE.MeshPhongMaterial({
+  roughness: 5,
+  metalness: 0,
+  map: THREE.ImageUtils.loadTexture("./moonmap4k.jpg"),
+  bumpMap: THREE.ImageUtils.loadTexture("./moonbump4k.jpg"),
+  bumpScale: 0.02,
+  fog:false
+});
+
+//moonMesh
+const moonMesh = new THREE.Mesh(moongeometry, moonMaterial);
+moonMesh.receiveShadow = true;
+moonMesh.castShadow = true;
+moonMesh.position.x = 2;
+moonMesh.position.set(-20,2,40)
+moonMesh.scale.set(20,20,20)
+scene.add(moonMesh);
+
+
 //particles
 const geometry = new THREE.BufferGeometry();
 				const vertices = [];
 
+                if (mixer1){mixer1.update()}
 				const textureLoader = new THREE.TextureLoader();
 
 				const sprite1 = textureLoader.load( './particle.png' );
@@ -237,7 +343,8 @@ const clock = new THREE.Clock()
 const tick = () =>
 {
 
-    const elapsedTime = clock.getElapsedTime()/100
+    const elapsedTime = clock.getElapsedTime()/1500
+    const elapsedTime2 = clock.getElapsedTime()/500
 
     // Update objects
 
@@ -245,18 +352,25 @@ const tick = () =>
     // controls.update()
 
     // Render
+    
     renderer.render(scene, camera)
+
+    // composer.render();
+
 // spotLight.position.set(camera.position.x+10,camera.position.y+10,camera.position.z+10)
     // Call tick again on the next frame
     window.requestAnimationFrame(tick)
+    if(mixer1){
 
+        mixer1.update(elapsedTime)
+    }
     for ( let i = 0; i < scene.children.length; i ++ ) {
 
         const object = scene.children[ i ];
 
         if ( object instanceof THREE.Points ) {
 
-            object.rotation.y = elapsedTime * ( i < 4 ? i + 1 : - ( i + 1 ) );
+            object.rotation.y = elapsedTime2 * ( i < 4 ? i + 1 : - ( i + 1 ) );
 
         }
 
