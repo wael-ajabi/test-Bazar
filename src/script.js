@@ -191,7 +191,7 @@ const geometry = new THREE.BufferGeometry();
 				const sprite4 = textureLoader.load( './particle.png' );
 				const sprite5 = textureLoader.load( './particle.png' );
 
-				for ( let i = 0; i < 10000; i ++ ) {
+				for ( let i = 0; i < 3000; i ++ ) {
 
 					const x = Math.random() * 2000 - 1000;
 					const y = Math.random() * 2000 - 1000;
