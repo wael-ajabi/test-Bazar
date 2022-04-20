@@ -1,5 +1,6 @@
 import './style.css'
 import * as THREE from 'three'
+import * as TWEEN from '@tweenjs/tween.js'
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
@@ -26,10 +27,10 @@ const scene = new THREE.Scene()
 // var fog = new THREE.FogExp2( new THREE.Color("rgb(133, 117, 223)"), 0.100 );
 // scene.fog = fog
 
-    const color = 0xFFFFFF;  // white
-    const near = 3;
-    const far = 5;
-    scene.fog = new THREE.Fog(color, near, far);
+    // const color = 0xFFFFFF;  // white
+    // const near = 3;
+    // const far = 5;
+    // scene.fog = new THREE.Fog(color, near, far);
   
   
 const sizes = {
@@ -65,7 +66,8 @@ gltfloader.load("./CityTest_Final.glb", function (gltf) {
             const action = mixer1.clipAction(gltf.animations[1]);
             action.play();
   (gltf.scene.rotation.y = 3.1),
-  (gltf.scene.position.y = -3);
+  (gltf.scene.position.y = -3),
+  (gltf.scene.position.x = -3.5);
   const cubeFolder1 = gui.addFolder('position');
   cubeFolder1.add(gltf.scene.position, 'x');
   cubeFolder1.add(gltf.scene.position, 'y');
@@ -297,7 +299,7 @@ const geometry = new THREE.BufferGeometry();
 				const sprite4 = textureLoader.load( './particle.png' );
 				const sprite5 = textureLoader.load( './particle.png' );
 
-				for ( let i = 0; i < 3000; i ++ ) {
+				for ( let i = 0; i < 10000; i ++ ) {
 
 					const x = Math.random() * 2000 - 1000;
 					const y = Math.random() * 2000 - 1000;
@@ -310,11 +312,11 @@ const geometry = new THREE.BufferGeometry();
 				geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
 
 				var parameters = [
-					[[ 1.0, 0.2, 0.5 ], sprite2, 2],
-					[[ 0.95, 0.1, 0.5 ], sprite3, 2 ],
-					[[ 0.90, 0.05, 0.5 ], sprite1, 2 ],
-					[[ 0.85, 0, 0.5 ], sprite5, 2 ],
-					[[ 0.80, 0, 0.5 ], sprite4, 2 ]
+					[[ 1.0, 0.2, 0.5 ], sprite2, 1],
+					[[ 0.95, 0.1, 0.5 ], sprite3, 1 ],
+					[[ 0.90, 0.05, 0.5 ], sprite1, 1 ],
+					[[ 0.85, 0, 0.5 ], sprite5, 1 ],
+					[[ 0.80, 0, 0.5 ], sprite4, 1 ]
 				];
 
 				for ( let i = 0; i < parameters.length; i ++ ) {
@@ -337,11 +339,29 @@ const geometry = new THREE.BufferGeometry();
                 }
 ////////////
 
+const tweenCamera1 = new TWEEN.Tween( {x: -5, y: 0, z: 10, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
+  .to( {x: -1, y: 0.5, z: 0.1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 12000 )
+const tweenCamera2 = new TWEEN.Tween( {x: -1, y: 0.5, z: 0.1, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
+  .to( {x: 1, y: 0.1, z: -1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 12000 )
+
+tweenCamera1.chain(tweenCamera2)
+
+
+const updateCamera = function (object ) {
+  camera.position.set(object.x, object.y, object.z);
+  camera.lookAt(new THREE.Vector3(object.lookAtX, object.lookAtY, object.lookAtZ))
+}
+tweenCamera1.onUpdate(updateCamera)
+tweenCamera2.onUpdate(updateCamera)
+
+tweenCamera1.start()
+
 
 const clock = new THREE.Clock()
-
+//cam animation
 const tick = () =>
 {
+    TWEEN.update()
 
     const elapsedTime = clock.getElapsedTime()/1500
     const elapsedTime2 = clock.getElapsedTime()/500
