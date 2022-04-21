@@ -9,6 +9,7 @@ import * as dat from "dat.gui";
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 			import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 			import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
+            import gsap from "gsap";
 
 // Debug
 const gui = new dat.GUI();
@@ -23,12 +24,12 @@ const canvas = document.querySelector('canvas.webgl')
 // };
 // Scene
 const scene = new THREE.Scene()
-scene.background = new THREE.Color(0x000000);
-// var fog = new THREE.FogExp2( new THREE.Color("rgb(133, 117, 223)"), 0.3 );
+// scene.background = new THREE.Color(0x000000);
+// var fog = new THREE.FogExp2( new THREE.Color("rgb(133, 117, 223)"), 0.5 );
 // scene.fog = fog
 
     const color = "rgb(133, 117, 223)";  // white
-    const near = 1;
+    const near = 0.5;
     const far = 5;
     scene.fog = new THREE.Fog(color, near, far);
   
@@ -61,6 +62,7 @@ gltfloader.load("./CityTest_Final.glb", function (gltf) {
     gltf.scene.traverse(n=>{if (n.isMesh){n.castShadow=true;n.receiveShadow=true;
     if(n.material.map){n.material.map.anisotropy=16;}
     }})
+
   console.log(gltf);
   mixer1 = new THREE.AnimationMixer(gltf.scene);
             const action = mixer1.clipAction(gltf.animations[1]);
@@ -68,14 +70,6 @@ gltfloader.load("./CityTest_Final.glb", function (gltf) {
   (gltf.scene.rotation.y = 3.1),
   (gltf.scene.position.y = -3),
   (gltf.scene.position.x = -3.5);
-  const cubeFolder1 = gui.addFolder('position');
-  cubeFolder1.add(gltf.scene.position, 'x');
-  cubeFolder1.add(gltf.scene.position, 'y');
-  cubeFolder1.add(gltf.scene.position, 'z');
-  cubeFolder1.add(gltf.scene.rotation, 'x');
-  cubeFolder1.add(gltf.scene.rotation, 'y');
-  cubeFolder1.add(gltf.scene.rotation, 'z');
-  cubeFolder1.open();
     // gltf.scene.position.set(pos_x, pos_y, pos_z),
     // gltf.scene.scale.set(scale_x, scale_y, scale_z),
     (gltf.scene.castShadow = !0),
@@ -111,11 +105,16 @@ window.addEventListener('resize', () =>
  */
 // Base camera
 const camera = new THREE.PerspectiveCamera(60, sizes.width / sizes.height, 0.05, 5000)
-camera.position.x = 5
-camera.position.y = 5
-camera.position.z = 2
+camera.position.x = 5.3
+camera.position.y = -0.2
+camera.position.z = 9
 scene.add(camera)
-
+// gsap.to(camera.position,{duration:4, z: 5,  ease: "power1.inOut"},3)
+// gsap.to(camera.position,{duration:4,y:1 ,ease: "power1.inOut"},"-=1")
+// gsap.to(camera.position,{duration:4,x:2 ,ease: "power1.inOut"},"-=1")
+// gsap.to(camera.position,{duration:4,z:0.5 ,ease: "power1.inOut"},"-=1")
+// gsap.to(camera.position,{duration:4,y:-0.05 ,ease: "power1.inOut"},"-=1")
+// gsap.to(camera.rotation,{duration:1,y:1 ,ease: "power1.inOut"},"-=1")
 // Lights
 
 // const renderScene = new RenderPass( scene, camera );
@@ -128,7 +127,7 @@ scene.add(camera)
 // 				composer = new EffectComposer( renderer );
 // 				composer.addPass( renderScene );
 // 				composer.addPass( bloomPass );
-scene.add( new THREE.AmbientLight( 0xffffff,1 ) );
+// scene.add( new THREE.AmbientLight( 0xffffff,1 ) );
 
 // const hemiLight = new THREE.HemisphereLight( 0xa9a9a9a9,0xff8c31, 2 );
 // // pointLight.layers.set(1)
@@ -152,14 +151,53 @@ scene.add( new THREE.AmbientLight( 0xffffff,1 ) );
 const pointLight = new THREE.PointLight(0xffffff,3.66,2)
 // pointLight.position.set(-3.320,2.900,0.272)
 pointLight.scale.set(1,1,1)
-pointLight.intensity=5
+pointLight.position.x=-3.5
+pointLight.position.z=3
+pointLight.intensity=1.5
 pointLight.frustumCulled=true
+pointLight.decay=1
+pointLight.distance=3.68
 scene.add(pointLight)
 const pointLightHelper= new THREE.PointLightHelper(pointLight)
-// scene.add(pointLightHelper)
-// const shadowCameraHelper2 = new THREE.CameraHelper( pointLight.shadow.camera );
-// 				scene.add( shadowCameraHelper2 );
+scene.add(pointLightHelper)
+const shadowCameraHelper2 = new THREE.CameraHelper( pointLight.shadow.camera );
+				scene.add( shadowCameraHelper2 );
 
+                // const cubeFolder1 = gui.addFolder('position');
+                // cubeFolder1.add(pointLight.position, 'x');
+                // cubeFolder1.add(pointLight.position, 'y');
+                // cubeFolder1.add(pointLight.position, 'z');
+                // cubeFolder1.add(pointLight.rotation, 'x');
+                // cubeFolder1.add(pointLight.rotation, 'y');
+                // cubeFolder1.add(pointLight.rotation, 'z');
+
+                // cubeFolder1.open();
+                
+
+                
+const PointLight2 = new THREE.PointLight(0xffffff,3.66,2)
+// PointLight2.position.set(-3.320,2.900,0.272)
+PointLight2.scale.set(1,1,1)
+PointLight2.intensity=1.5
+PointLight2.frustumCulled=true
+PointLight2.decay=1
+PointLight2.distance=3.68
+scene.add(PointLight2)
+const PointLight2Helper= new THREE.PointLightHelper(PointLight2)
+scene.add(PointLight2Helper)
+const shadowCameraHelper3 = new THREE.CameraHelper( PointLight2.shadow.camera );
+				scene.add( shadowCameraHelper3 );
+
+                const cubeFolder2 = gui.addFolder('position');
+                cubeFolder2.add(PointLight2.position, 'x');
+                cubeFolder2.add(PointLight2.position, 'y');
+                cubeFolder2.add(PointLight2.position, 'z');
+                cubeFolder2.add(PointLight2.rotation, 'x');
+                cubeFolder2.add(PointLight2.rotation, 'y');
+                cubeFolder2.add(PointLight2.rotation, 'z');
+
+                cubeFolder2.open();
+                
 // Controls
 //controls
 const controls = new OrbitControls(camera, canvas)
@@ -189,53 +227,6 @@ controls.enableDamping = true
 
 // } );
 
-//  * Animate
-//  */
-// sky
-// var sky = new Sky();
-// sky.scale.setScalar(450000);
-// scene.add(sky);
-
-// var sun = new THREE.Vector3();
-
-// const effectController = {
-//     turbidity: 10,
-//     rayleigh: 3,
-//     mieCoefficient: 0.005,
-//     mieDirectionalG: 0.7,
-//     elevation: 2,
-//     azimuth: 180,
-//     exposure: renderer.toneMappingExposure,
-// };
-
-// function guiChanged() {
-//     const uniforms = sky.material.uniforms;
-//     uniforms["turbidity"].value = effectController.turbidity;
-//     uniforms["rayleigh"].value = effectController.rayleigh;
-//     uniforms["mieCoefficient"].value = effectController.mieCoefficient;
-//     uniforms["mieDirectionalG"].value =
-//         effectController.mieDirectionalG;
-
-//     const phi = THREE.MathUtils.degToRad(
-//         90 - effectController.elevation
-//     );
-//     const theta = THREE.MathUtils.degToRad(effectController.azimuth);
-
-//     sun.setFromSphericalCoords(1, phi, theta);
-
-//     uniforms["sunPosition"].value.copy(sun);
-
-//     renderer.toneMappingExposure = effectController.exposure;
-// }
-// gui.add( effectController, 'turbidity', 0.0, 20.0, 0.1 ).onChange( guiChanged );
-// gui.add( effectController, 'rayleigh', 0.0, 4, 0.001 ).onChange( guiChanged );
-// gui.add( effectController, 'mieCoefficient', 0.0, 0.1, 0.001 ).onChange( guiChanged );
-// gui.add( effectController, 'mieDirectionalG', 0.0, 1, 0.001 ).onChange( guiChanged );
-// gui.add( effectController, 'elevation', 0, 90, 0.1 ).onChange( guiChanged );
-// gui.add( effectController, 'azimuth', - 180, 180, 0.1 ).onChange( guiChanged );
-// gui.add( effectController, 'exposure', 0, 1, 0.0001 ).onChange( guiChanged );
-// guiChanged();
-
 // galaxy geometry
 const starGeometry = new THREE.SphereGeometry(80, 64, 64);
 
@@ -244,7 +235,7 @@ const starMaterial = new THREE.MeshBasicMaterial({
   map: THREE.ImageUtils.loadTexture("./galaxy1.png"),
   side: THREE.BackSide,
   transparent: true,
-  fog:true,
+  fog:false
 });
 
 // galaxy mesh
@@ -252,16 +243,16 @@ const starMesh = new THREE.Mesh(starGeometry, starMaterial);
 scene.add(starMesh);
 
 //sun object
-const color2 = new THREE.Color("#FDB813");
-const geometry2 = new THREE.IcosahedronGeometry(1, 15);
-const material = new THREE.MeshBasicMaterial({ color: color2 });
-const sphere = new THREE.Mesh(geometry2, material);
-sphere.fog=false
-geometry2.fog=false
-material.fog=false
-sphere.position.set(-50, 20, -60);
-sphere.scale.set(5, 5, 5);
-scene.add(sphere);
+// const color2 = new THREE.Color("#FDB813");
+// const geometry2 = new THREE.IcosahedronGeometry(1, 15);
+// const material = new THREE.MeshBasicMaterial({ color: color2 });
+// const sphere = new THREE.Mesh(geometry2, material);
+// sphere.fog=false
+// geometry2.fog=false
+// material.fog=false
+// sphere.position.set(-50, 20, -60);
+// sphere.scale.set(5, 5, 5);
+// scene.add(sphere);
 
 
 //moon geometry
@@ -282,10 +273,9 @@ const moonMesh = new THREE.Mesh(moongeometry, moonMaterial);
 moonMesh.receiveShadow = true;
 moonMesh.castShadow = true;
 moonMesh.position.x = 2;
-moonMesh.position.set(-20,2,40)
-moonMesh.scale.set(20,20,20)
+moonMesh.position.set(-27, 9, 52);
+moonMesh.scale.set(30,30,30)
 scene.add(moonMesh);
-
 
 //particles
 const geometry = new THREE.BufferGeometry();
@@ -341,7 +331,7 @@ const geometry = new THREE.BufferGeometry();
 ////////////
 
 const tweenCamera1 = new TWEEN.Tween( {x: -5, y: 0, z: 10, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
-  .to( {x: -1, y: 0.5, z: 0.1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 12000 )
+  .to( {x: -1, y: 0.5, z: 0.1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 18000 )
 const tweenCamera2 = new TWEEN.Tween( {x: -1, y: 0.5, z: 0.1, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
   .to( {x: 1, y: 0.1, z: -1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 12000 )
 
@@ -364,7 +354,7 @@ const tick = () =>
 {
     TWEEN.update()
 
-    const elapsedTime = clock.getElapsedTime()/1500
+    const elapsedTime = 0.015
     const elapsedTime2 = clock.getElapsedTime()/500
 
     // Update objects
@@ -397,7 +387,7 @@ const tick = () =>
 
     }
 
-
+// console.log(camera.position);
 }
 
 tick()
