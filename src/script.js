@@ -11,6 +11,7 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 			import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
             import gsap from "gsap";
 
+
 // Debug
 const gui = new dat.GUI();
 // let composer
@@ -28,10 +29,10 @@ const scene = new THREE.Scene()
 // var fog = new THREE.FogExp2( new THREE.Color("rgb(133, 117, 223)"), 0.5 );
 // scene.fog = fog
 
-    const color = "rgb(133, 117, 223)";  // white
-    const near = 0.5;
-    const far = 5;
-    scene.fog = new THREE.Fog(color, near, far);
+    // const color = "rgb(133, 117, 223)";  // white
+    // const near = 0.5;
+    // const far = 5;
+    // scene.fog = new THREE.Fog(color, near, far);
   
   
 const sizes = {
@@ -70,6 +71,49 @@ gltfloader.load("./CityTest_Final.glb", function (gltf) {
   (gltf.scene.rotation.y = 3.1),
   (gltf.scene.position.y = -3),
   (gltf.scene.position.x = -3.5);
+    // gltf.scene.position.set(pos_x, pos_y, pos_z),
+    // gltf.scene.scale.set(scale_x, scale_y, scale_z),
+    (gltf.scene.castShadow = !0),
+    (gltf.scene.receiveShadow = !0),
+    scene.add(gltf.scene),
+    (gltf.scene.userData.ground = !0);
+});
+
+
+dracoLoader.setDecoderPath('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/js/libs/draco/');
+dracoLoader.preload();
+gltfloader.setDRACOLoader(dracoLoader);
+gltfloader.load("./BazarHouseGLB.glb", function (gltf) {
+    console.log(gltf);
+    gltf.scene.children[0].children[0].userData.draggable=true    
+    gltf.scene.children[0].children[0].children[0].userData.draggable=true    
+
+    gltf.scene.children[0].children[0].children[0].children[0].userData.draggable=true    
+    gltf.scene.children[0].children[0].children[0].children[1].userData.draggable=true    
+    gltf.scene.children[0].children[0].children[0].children[2].userData.draggable=true    
+    gltf.scene.children[0].userData.draggable=true
+    gltf.scene.children[0].name='true'
+    gltf.scene.userData.draggable=true
+    gltf.scene.name='true'
+    gltf.userData.draggable=true
+    gltf.name='true'
+    gltf.scene.traverse(n=>{if (n.isMesh){n.castShadow=true;n.receiveShadow=true;
+    if(n.material.map){n.material.map.anisotropy=16;}
+    }})
+    const cubeFolder2 = gui.addFolder('position');
+    cubeFolder2.add( gltf.scene.position, 'x');
+    cubeFolder2.add( gltf.scene.position, 'y');
+    cubeFolder2.add( gltf.scene.position, 'z');
+    cubeFolder2.add( gltf.scene.rotation, 'x');
+    cubeFolder2.add( gltf.scene.rotation, 'y');
+    cubeFolder2.add( gltf.scene.rotation, 'z');
+
+    cubeFolder2.open();
+  console.log(gltf);
+  (gltf.scene.scale.set(4,4,4)),
+  (gltf.scene.position.y = -10),
+  (gltf.scene.position.z = 4.2),
+  (gltf.scene.position.x = 10.3);
     // gltf.scene.position.set(pos_x, pos_y, pos_z),
     // gltf.scene.scale.set(scale_x, scale_y, scale_z),
     (gltf.scene.castShadow = !0),
@@ -121,7 +165,7 @@ scene.add(camera)
 // 				composer = new EffectComposer( renderer );
 // 				composer.addPass( renderScene );
 // 				composer.addPass( bloomPass );
-// scene.add( new THREE.AmbientLight( 0xffffff,1 ) );
+scene.add( new THREE.AmbientLight( 0xffffff,1 ) );
 
 // const hemiLight = new THREE.HemisphereLight( 0xa9a9a9a9,0xff8c31, 2 );
 // // pointLight.layers.set(1)
@@ -147,7 +191,7 @@ const pointLight = new THREE.PointLight(0xffffff,3.66,2)
 pointLight.scale.set(1,1,1)
 pointLight.position.x=-3.5
 pointLight.position.z=3
-pointLight.intensity=1.5
+pointLight.intensity=2
 pointLight.frustumCulled=true
 pointLight.decay=1
 pointLight.distance=3.68
@@ -172,7 +216,7 @@ const shadowCameraHelper2 = new THREE.CameraHelper( pointLight.shadow.camera );
 const PointLight2 = new THREE.PointLight(0xffffff,3.66,2)
 // PointLight2.position.set(-3.320,2.900,0.272)
 PointLight2.scale.set(1,1,1)
-PointLight2.intensity=1.5
+PointLight2.intensity=2
 PointLight2.frustumCulled=true
 PointLight2.decay=1
 PointLight2.distance=3.68
@@ -182,15 +226,6 @@ scene.add(PointLight2Helper)
 const shadowCameraHelper3 = new THREE.CameraHelper( PointLight2.shadow.camera );
 				scene.add( shadowCameraHelper3 );
 
-                const cubeFolder2 = gui.addFolder('position');
-                cubeFolder2.add(PointLight2.position, 'x');
-                cubeFolder2.add(PointLight2.position, 'y');
-                cubeFolder2.add(PointLight2.position, 'z');
-                cubeFolder2.add(PointLight2.rotation, 'x');
-                cubeFolder2.add(PointLight2.rotation, 'y');
-                cubeFolder2.add(PointLight2.rotation, 'z');
-
-                cubeFolder2.open();
                 
 // Controls
 //controls
@@ -264,6 +299,7 @@ const moonMaterial = new THREE.MeshPhongMaterial({
 
 //moonMesh
 const moonMesh = new THREE.Mesh(moongeometry, moonMaterial);
+moonMesh.name='eebb';
 moonMesh.receiveShadow = true;
 moonMesh.castShadow = true;
 moonMesh.position.x = 2;
@@ -341,6 +377,7 @@ tweenCamera2.onUpdate(updateCamera)
 
 
 document.getElementById('start-button').onclick=function(){
+    document.getElementById('start-button').style.display='none'
     tweenCamera1.start()
     
     const listener = new THREE.AudioListener();
@@ -368,8 +405,41 @@ document.getElementById('start-button').onclick=function(){
     }
 
 }
+const raycaster = new THREE.Raycaster(); // create once
+const clickMouse = new THREE.Vector2();  // create once
+const moveMouse = new THREE.Vector2();   // create once
+var draggable;
 
+function intersect(pos) {
+  raycaster.setFromCamera(pos, camera);
+  return raycaster.intersectObjects(scene.children);
+}
 
+window.addEventListener('click', event => {
+if (draggable != null) {
+console.log(`dropping draggable ${draggable.userData.name}`)
+draggable = null
+return;
+}
+
+// THREE RAYCASTER
+clickMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+const found = intersect(clickMouse);
+console.log(found);
+if (found.length > 0) {
+if (found[0].object.userData.draggable) {
+    console.log(draggable);
+draggable = found[0].object
+console.log(`found draggable ${draggable.userData.name}`)
+}
+}
+})
+window.addEventListener('mousemove', event => {
+    moveMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    moveMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+  });
 const clock = new THREE.Clock()
 //cam animation
 const tick = () =>
