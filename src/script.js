@@ -105,16 +105,10 @@ window.addEventListener('resize', () =>
  */
 // Base camera
 const camera = new THREE.PerspectiveCamera(60, sizes.width / sizes.height, 0.05, 5000)
-camera.position.x = 5.3
-camera.position.y = -0.2
-camera.position.z = 9
+camera.position.x = -5
+camera.position.y = 0
+camera.position.z = 10
 scene.add(camera)
-// gsap.to(camera.position,{duration:4, z: 5,  ease: "power1.inOut"},3)
-// gsap.to(camera.position,{duration:4,y:1 ,ease: "power1.inOut"},"-=1")
-// gsap.to(camera.position,{duration:4,x:2 ,ease: "power1.inOut"},"-=1")
-// gsap.to(camera.position,{duration:4,z:0.5 ,ease: "power1.inOut"},"-=1")
-// gsap.to(camera.position,{duration:4,y:-0.05 ,ease: "power1.inOut"},"-=1")
-// gsap.to(camera.rotation,{duration:1,y:1 ,ease: "power1.inOut"},"-=1")
 // Lights
 
 // const renderScene = new RenderPass( scene, camera );
@@ -345,7 +339,35 @@ const updateCamera = function (object ) {
 tweenCamera1.onUpdate(updateCamera)
 tweenCamera2.onUpdate(updateCamera)
 
-tweenCamera1.start()
+
+document.getElementById('start-button').onclick=function(){
+    tweenCamera1.start()
+    
+    const listener = new THREE.AudioListener();
+
+    const audio = new THREE.Audio( listener );
+    const file = './376737_Skullbeatz___Bad_Cat_Maste.mp3';
+
+    if ( /(iPad|iPhone|iPod)/g.test( navigator.userAgent ) ) {
+
+        const loader = new THREE.AudioLoader();
+        loader.load( file, function ( buffer ) {
+
+            audio.setBuffer( buffer );
+            audio.play();
+
+        } );
+
+    } else {
+
+        const mediaElement = new Audio( file );
+        mediaElement.play();
+
+        audio.setMediaElementSource( mediaElement );
+
+    }
+
+}
 
 
 const clock = new THREE.Clock()
