@@ -79,48 +79,49 @@ gltfloader.load("./CityTest_Final.glb", function (gltf) {
     (gltf.scene.userData.ground = !0);
 });
 
-
-dracoLoader.setDecoderPath('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/js/libs/draco/');
-dracoLoader.preload();
-gltfloader.setDRACOLoader(dracoLoader);
-gltfloader.load("./BazarHouseGLB.glb", function (gltf) {
-    console.log(gltf);
-    gltf.scene.children[0].children[0].userData.draggable=true    
-    gltf.scene.children[0].children[0].children[0].userData.draggable=true    
-
-    gltf.scene.children[0].children[0].children[0].children[0].userData.draggable=true    
-    gltf.scene.children[0].children[0].children[0].children[1].userData.draggable=true    
-    gltf.scene.children[0].children[0].children[0].children[2].userData.draggable=true    
-    gltf.scene.children[0].userData.draggable=true
-    gltf.scene.children[0].name='true'
-    gltf.scene.userData.draggable=true
-    gltf.scene.name='true'
-    gltf.userData.draggable=true
-    gltf.name='true'
-    gltf.scene.traverse(n=>{if (n.isMesh){n.castShadow=true;n.receiveShadow=true;
-    if(n.material.map){n.material.map.anisotropy=16;}
-    }})
+const geomet = new THREE.BoxGeometry( 0.1, 0.1, 0.1 );
+const material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+const cube = new THREE.Mesh( geomet, material );
+cube.name='cube'
+cube.position.set(-0.8,-0.5,0.8)
+scene.add( cube );
     const cubeFolder2 = gui.addFolder('position');
-    cubeFolder2.add( gltf.scene.position, 'x');
-    cubeFolder2.add( gltf.scene.position, 'y');
-    cubeFolder2.add( gltf.scene.position, 'z');
-    cubeFolder2.add( gltf.scene.rotation, 'x');
-    cubeFolder2.add( gltf.scene.rotation, 'y');
-    cubeFolder2.add( gltf.scene.rotation, 'z');
+    cubeFolder2.add( cube.position, 'x')
+    cubeFolder2.add( cube.position, 'y')
+    cubeFolder2.add( cube.position, 'z')
+    cubeFolder2.add( cube.rotation, 'x');
+    cubeFolder2.add( cube.rotation, 'y');
+    cubeFolder2.add( cube.rotation, 'z');
 
     cubeFolder2.open();
-  console.log(gltf);
-  (gltf.scene.scale.set(4,4,4)),
-  (gltf.scene.position.y = -10),
-  (gltf.scene.position.z = 4.2),
-  (gltf.scene.position.x = 10.3);
-    // gltf.scene.position.set(pos_x, pos_y, pos_z),
-    // gltf.scene.scale.set(scale_x, scale_y, scale_z),
-    (gltf.scene.castShadow = !0),
-    (gltf.scene.receiveShadow = !0),
-    scene.add(gltf.scene),
-    (gltf.scene.userData.ground = !0);
-});
+
+// gltfloader.load("./BazarHouseGLB.glb", function (gltf) {
+//     console.log(gltf);
+    
+//     gltf.scene.traverse(n=>{if (n.isMesh){n.castShadow=true;n.receiveShadow=true;
+//     if(n.material.map){n.material.map.anisotropy=16;}
+//     }})
+//     const cubeFolder2 = gui.addFolder('position');
+//     cubeFolder2.add( gltf.scene.position, 'x');
+//     cubeFolder2.add( gltf.scene.position, 'y');
+//     cubeFolder2.add( gltf.scene.position, 'z');
+//     cubeFolder2.add( gltf.scene.rotation, 'x');
+//     cubeFolder2.add( gltf.scene.rotation, 'y');
+//     cubeFolder2.add( gltf.scene.rotation, 'z');
+
+//     cubeFolder2.open();
+//   console.log(gltf);
+//   (gltf.scene.scale.set(4,4,4)),
+//   (gltf.scene.position.y = -10),
+//   (gltf.scene.position.z = 4.2),
+//   (gltf.scene.position.x = 10.3);
+//     // gltf.scene.position.set(pos_x, pos_y, pos_z),
+//     // gltf.scene.scale.set(scale_x, scale_y, scale_z),
+//     (gltf.scene.castShadow = !0),
+//     (gltf.scene.receiveShadow = !0),
+//     scene.add(gltf.scene),
+//     (gltf.scene.userData.ground = !0);
+// });
 
 
 //  * Sizes
@@ -197,9 +198,9 @@ pointLight.decay=1
 pointLight.distance=3.68
 scene.add(pointLight)
 const pointLightHelper= new THREE.PointLightHelper(pointLight)
-scene.add(pointLightHelper)
+// scene.add(pointLightHelper)
 const shadowCameraHelper2 = new THREE.CameraHelper( pointLight.shadow.camera );
-				scene.add( shadowCameraHelper2 );
+				// scene.add( shadowCameraHelper2 );
 
                 // const cubeFolder1 = gui.addFolder('position');
                 // cubeFolder1.add(pointLight.position, 'x');
@@ -222,9 +223,9 @@ PointLight2.decay=1
 PointLight2.distance=3.68
 scene.add(PointLight2)
 const PointLight2Helper= new THREE.PointLightHelper(PointLight2)
-scene.add(PointLight2Helper)
+// scene.add(PointLight2Helper)
 const shadowCameraHelper3 = new THREE.CameraHelper( PointLight2.shadow.camera );
-				scene.add( shadowCameraHelper3 );
+				// scene.add( shadowCameraHelper3 );
 
                 
 // Controls
@@ -299,7 +300,7 @@ const moonMaterial = new THREE.MeshPhongMaterial({
 
 //moonMesh
 const moonMesh = new THREE.Mesh(moongeometry, moonMaterial);
-moonMesh.name='eebb';
+
 moonMesh.receiveShadow = true;
 moonMesh.castShadow = true;
 moonMesh.position.x = 2;
@@ -408,19 +409,16 @@ document.getElementById('start-button').onclick=function(){
 const raycaster = new THREE.Raycaster(); // create once
 const clickMouse = new THREE.Vector2();  // create once
 const moveMouse = new THREE.Vector2();   // create once
-var draggable;
+
 
 function intersect(pos) {
   raycaster.setFromCamera(pos, camera);
-  return raycaster.intersectObjects(scene.children);
+  return raycaster.intersectObject(cube);
 }
 
 window.addEventListener('click', event => {
-if (draggable != null) {
-console.log(`dropping draggable ${draggable.userData.name}`)
-draggable = null
-return;
-}
+
+
 
 // THREE RAYCASTER
 clickMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
@@ -428,14 +426,26 @@ clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
 const found = intersect(clickMouse);
 console.log(found);
-if (found.length > 0) {
-if (found[0].object.userData.draggable) {
-    console.log(draggable);
-draggable = found[0].object
-console.log(`found draggable ${draggable.userData.name}`)
-}
+if(found.length>0){
+    const tweenCamera3 = new TWEEN.Tween( {x: controls.object.position.x, y: controls.object.position.y, z: controls.object.position.z, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
+  .to( {x: -0.8+1, y: -0.5+0.5, z: 0.8, lookAtX: cube.position.x, lookAtY: cube.position.y, lookAtZ: cube.position.z}, 1000 )
+tweenCamera3.onUpdate(updateCamera)
+tweenCamera3.start()
+controls.enabled=false
+document.getElementById('bazar').style.display='block'
 }
 })
+document.addEventListener('keydown', function(event){
+	if(event.key === "Escape"){
+		controls.enabled=true
+        document.getElementById('bazar').style.display='none'
+        const tweenCamera4 = new TWEEN.Tween( {x: -0.8+1, y: -0.5+0.5, z: 0.8, lookAtX: cube.position.x, lookAtY: cube.position.y, lookAtZ: cube.position.z} )
+  .to( {x: 1, y: 0.1, z: -1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 1000 )
+tweenCamera4.onUpdate(updateCamera)
+tweenCamera4.start()
+	}
+});
+
 window.addEventListener('mousemove', event => {
     moveMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     moveMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;

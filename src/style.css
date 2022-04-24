@@ -26,3 +26,10 @@ body
     margin-left: 50%;
     margin-top: 30%;
 }
+#bazar{
+    display: none;
+    position: absolute;
+    width: 200px;
+    height: 100px;
+    color: aqua;
+}
