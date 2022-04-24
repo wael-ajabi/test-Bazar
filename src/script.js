@@ -300,7 +300,8 @@ const moonMaterial = new THREE.MeshPhongMaterial({
 
 //moonMesh
 const moonMesh = new THREE.Mesh(moongeometry, moonMaterial);
-moonMesh.name='eebb';
+moonMesh.userData.draggable=true
+moonMesh.name='true'
 moonMesh.receiveShadow = true;
 moonMesh.castShadow = true;
 moonMesh.position.x = 2;
