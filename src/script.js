@@ -175,7 +175,7 @@ scene.add(camera)
 // 				composer = new EffectComposer( renderer );
 // 				composer.addPass( renderScene );
 // 				composer.addPass( bloomPass );
-scene.add( new THREE.AmbientLight( 0xffffff,0.2 ) );
+// scene.add( new THREE.AmbientLight( 0xffffff,0.2 ) );
 
 // const hemiLight = new THREE.HemisphereLight( 0xa9a9a9a9,0xff8c31, 2 );
 // // pointLight.layers.set(1)
