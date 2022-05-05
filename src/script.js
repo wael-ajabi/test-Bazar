@@ -7,11 +7,14 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { Sky } from "three/examples/jsm/objects/Sky.js";
 import * as dat from "dat.gui";
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+import { SAOPass  } from 'three/examples/jsm/postprocessing/SAOPass.js';
 			import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 			import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
+      import { BokehPass } from 'three/examples/jsm/postprocessing/BokehPass.js';
+
             import gsap from "gsap";
 
-
+            let composer;
 // Debug
 const gui = new dat.GUI();
 // let composer
@@ -59,15 +62,18 @@ var dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/js/libs/draco/');
 dracoLoader.preload();
 gltfloader.setDRACOLoader(dracoLoader);
-gltfloader.load("./CityTest_Final.glb", function (gltf) {
+gltfloader.load("./City_5.glb", function (gltf) {
     gltf.scene.traverse(n=>{if (n.isMesh){n.castShadow=true;n.receiveShadow=true;
     if(n.material.map){n.material.map.anisotropy=16;}
     }})
 
-  console.log(gltf);
+  console.log(gltf.scene.children[9]);
+  gltf.scene.children[9].scale.set(10,10,10);
   mixer1 = new THREE.AnimationMixer(gltf.scene);
-            const action = mixer1.clipAction(gltf.animations[1]);
+  for (var i=0;i<14;i++){
+            const action = mixer1.clipAction(gltf.animations[i]);
             action.play();
+  }
   (gltf.scene.rotation.y = 3.1),
   (gltf.scene.position.y = -3),
   (gltf.scene.position.x = -3.5);
@@ -79,48 +85,51 @@ gltfloader.load("./CityTest_Final.glb", function (gltf) {
     (gltf.scene.userData.ground = !0);
 });
 
+const geomet = new THREE.BoxGeometry( 0.1, 0.1, 0.1 );
+const material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+const cube = new THREE.Mesh( geomet, material );
+cube.name='cube'
+cube.position.set(-0.8,-0.5,0.8)
+cube.scale.set(0.4,0.5,0.8)
+scene.add( cube );
+cube.visible=false;
+    // const cubeFolder2 = gui.addFolder('position');
+    // cubeFolder2.add( cube.position, 'x')
+    // cubeFolder2.add( cube.position, 'y')
+    // cubeFolder2.add( cube.position, 'z')
+    // cubeFolder2.add( cube.scale, 'x');
+    // cubeFolder2.add( cube.scale, 'y');
+    // cubeFolder2.add( cube.scale, 'z');
 
-dracoLoader.setDecoderPath('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/js/libs/draco/');
-dracoLoader.preload();
-gltfloader.setDRACOLoader(dracoLoader);
-gltfloader.load("./BazarHouseGLB.glb", function (gltf) {
-    console.log(gltf);
-    gltf.scene.children[0].children[0].userData.draggable=true    
-    gltf.scene.children[0].children[0].children[0].userData.draggable=true    
+    // cubeFolder2.open();
 
-    gltf.scene.children[0].children[0].children[0].children[0].userData.draggable=true    
-    gltf.scene.children[0].children[0].children[0].children[1].userData.draggable=true    
-    gltf.scene.children[0].children[0].children[0].children[2].userData.draggable=true    
-    gltf.scene.children[0].userData.draggable=true
-    gltf.scene.children[0].name='true'
-    gltf.scene.userData.draggable=true
-    gltf.scene.name='true'
-    gltf.userData.draggable=true
-    gltf.name='true'
-    gltf.scene.traverse(n=>{if (n.isMesh){n.castShadow=true;n.receiveShadow=true;
-    if(n.material.map){n.material.map.anisotropy=16;}
-    }})
-    const cubeFolder2 = gui.addFolder('position');
-    cubeFolder2.add( gltf.scene.position, 'x');
-    cubeFolder2.add( gltf.scene.position, 'y');
-    cubeFolder2.add( gltf.scene.position, 'z');
-    cubeFolder2.add( gltf.scene.rotation, 'x');
-    cubeFolder2.add( gltf.scene.rotation, 'y');
-    cubeFolder2.add( gltf.scene.rotation, 'z');
+// gltfloader.load("./BazarHouseGLB.glb", function (gltf) {
+//     console.log(gltf);
+    
+//     gltf.scene.traverse(n=>{if (n.isMesh){n.castShadow=true;n.receiveShadow=true;
+//     if(n.material.map){n.material.map.anisotropy=16;}
+//     }})
+//     const cubeFolder2 = gui.addFolder('position');
+//     cubeFolder2.add( gltf.scene.position, 'x');
+//     cubeFolder2.add( gltf.scene.position, 'y');
+//     cubeFolder2.add( gltf.scene.position, 'z');
+//     cubeFolder2.add( gltf.scene.rotation, 'x');
+//     cubeFolder2.add( gltf.scene.rotation, 'y');
+//     cubeFolder2.add( gltf.scene.rotation, 'z');
 
-    cubeFolder2.open();
-  console.log(gltf);
-  (gltf.scene.scale.set(4,4,4)),
-  (gltf.scene.position.y = -10),
-  (gltf.scene.position.z = 4.2),
-  (gltf.scene.position.x = 10.3);
-    // gltf.scene.position.set(pos_x, pos_y, pos_z),
-    // gltf.scene.scale.set(scale_x, scale_y, scale_z),
-    (gltf.scene.castShadow = !0),
-    (gltf.scene.receiveShadow = !0),
-    scene.add(gltf.scene),
-    (gltf.scene.userData.ground = !0);
-});
+//     cubeFolder2.open();
+//   console.log(gltf);
+//   (gltf.scene.scale.set(4,4,4)),
+//   (gltf.scene.position.y = -10),
+//   (gltf.scene.position.z = 4.2),
+//   (gltf.scene.position.x = 10.3);
+//     // gltf.scene.position.set(pos_x, pos_y, pos_z),
+//     // gltf.scene.scale.set(scale_x, scale_y, scale_z),
+//     (gltf.scene.castShadow = !0),
+//     (gltf.scene.receiveShadow = !0),
+//     scene.add(gltf.scene),
+//     (gltf.scene.userData.ground = !0);
+// });
 
 
 //  * Sizes
@@ -142,7 +151,8 @@ window.addEventListener('resize', () =>
     renderer.gammaOutput = !0
     renderer.gammaFactor = 2
 })
-
+renderer.gammaOutput = !0
+renderer.gammaFactor = 2
 
 /**
  * Camera
@@ -153,7 +163,6 @@ camera.position.x = -5
 camera.position.y = 0
 camera.position.z = 10
 scene.add(camera)
-
 // Lights
 
 // const renderScene = new RenderPass( scene, camera );
@@ -166,7 +175,7 @@ scene.add(camera)
 // 				composer = new EffectComposer( renderer );
 // 				composer.addPass( renderScene );
 // 				composer.addPass( bloomPass );
-scene.add( new THREE.AmbientLight( 0xffffff,1 ) );
+scene.add( new THREE.AmbientLight( 0xffffff,0.2 ) );
 
 // const hemiLight = new THREE.HemisphereLight( 0xa9a9a9a9,0xff8c31, 2 );
 // // pointLight.layers.set(1)
@@ -187,36 +196,64 @@ scene.add( new THREE.AmbientLight( 0xffffff,1 ) );
 // 				scene.add( shadowCameraHelper );
 
 				//
-const pointLight = new THREE.PointLight(0xffffff,3.66,2)
-// pointLight.position.set(-3.320,2.900,0.272)
-pointLight.scale.set(1,1,1)
-pointLight.position.x=-3.5
-pointLight.position.z=3
-pointLight.intensity=2
-pointLight.frustumCulled=true
-pointLight.decay=1
-pointLight.distance=3.68
-scene.add(pointLight)
-const pointLightHelper= new THREE.PointLightHelper(pointLight)
-scene.add(pointLightHelper)
-const shadowCameraHelper2 = new THREE.CameraHelper( pointLight.shadow.camera );
-				scene.add( shadowCameraHelper2 );
+const pointLight3 = new THREE.PointLight(0xffffff,3.66,2)
+pointLight3.position.set(-24,8,45)
+pointLight3.scale.set(10,10,10)
+pointLight3.intensity=20
+pointLight3.frustumCulled=true
+pointLight3.decay=1
+pointLight3.distance=10
+scene.add(pointLight3)
+// const pointLight3Helper= new THREE.PointLightHelper(pointLight3)
+// scene.add(pointLight3Helper)
+// const shadowCameraHelper4 = new THREE.CameraHelper( pointLight3.shadow.camera );
+// 				scene.add( shadowCameraHelper4 );
 
                 // const cubeFolder1 = gui.addFolder('position');
-                // cubeFolder1.add(pointLight.position, 'x');
-                // cubeFolder1.add(pointLight.position, 'y');
-                // cubeFolder1.add(pointLight.position, 'z');
-                // cubeFolder1.add(pointLight.rotation, 'x');
-                // cubeFolder1.add(pointLight.rotation, 'y');
-                // cubeFolder1.add(pointLight.rotation, 'z');
+                // cubeFolder1.add(pointLight3.position, 'x');
+                // cubeFolder1.add(pointLight3.position, 'y');
+                // cubeFolder1.add(pointLight3.position, 'z');
+                // cubeFolder1.add(pointLight3.rotation, 'x');
+                // cubeFolder1.add(pointLight3.rotation, 'y');
+                // cubeFolder1.add(pointLight3.rotation, 'z');
 
                 // cubeFolder1.open();
                 
 
                 
+const pointLight4 = new THREE.PointLight(0xffffff,3.66,2)
+    // pointLight4.position.set(-24,8,45)
+pointLight4.scale.set(1,1,1)
+pointLight4.position.x=-3.5
+pointLight4.position.y=1
+pointLight4.position.z=3
+pointLight4.intensity=20
+pointLight4.frustumCulled=true
+pointLight4.decay=1
+pointLight4.distance=10
+scene.add(pointLight4)
+const pointLight4Helper= new THREE.PointLightHelper(pointLight4)
+scene.add(pointLight4Helper)
+// const shadowCameraHelper4 = new THREE.CameraHelper( pointLight4.shadow.camera );
+// 				scene.add( shadowCameraHelper4 );
+
+                const cubeFolder1 = gui.addFolder('position');
+                cubeFolder1.add(pointLight4.position, 'x');
+                cubeFolder1.add(pointLight4.position, 'y');
+                cubeFolder1.add(pointLight4.position, 'z');
+                cubeFolder1.add(pointLight4.rotation, 'x');
+                cubeFolder1.add(pointLight4.rotation, 'y');
+                cubeFolder1.add(pointLight4.rotation, 'z');
+
+                cubeFolder1.open();
+                
+
+
+
 const PointLight2 = new THREE.PointLight(0xffffff,3.66,2)
 // PointLight2.position.set(-3.320,2.900,0.272)
 PointLight2.scale.set(1,1,1)
+PointLight2.position.y=1
 PointLight2.intensity=2
 PointLight2.frustumCulled=true
 PointLight2.decay=1
@@ -225,13 +262,35 @@ scene.add(PointLight2)
 const PointLight2Helper= new THREE.PointLightHelper(PointLight2)
 scene.add(PointLight2Helper)
 const shadowCameraHelper3 = new THREE.CameraHelper( PointLight2.shadow.camera );
-				scene.add( shadowCameraHelper3 );
+				// scene.add( shadowCameraHelper3 );
+
+                
+                
+const pointLight = new THREE.PointLight(0xffffff,3.66,2)
+// pointLight.position.set(-3.320,2.900,0.272)
+pointLight.scale.set(1,1,1)
+pointLight.position.x=-3.5
+// pointLight.position.y=2
+pointLight.position.z=3
+pointLight.intensity=2
+pointLight.frustumCulled=true
+pointLight.decay=1
+pointLight.distance=3.68
+scene.add(pointLight)
+const pointLightHelper= new THREE.PointLightHelper(pointLight)
+// scene.add(pointLightHelper)
+const shadowCameraHelper2 = new THREE.CameraHelper( pointLight.shadow.camera );
+				// scene.add( shadowCameraHelper2 );
+
 
                 
 // Controls
 //controls
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
+// controls.maxDistance=2
+// controls.maxPolarAngle=Math.PI/1.8 
+// controls.enabled=false
 
 // gui.add( params, 'exposure', 0.1, 2 ).onChange( function ( value ) {
 
@@ -292,16 +351,15 @@ const moongeometry = new THREE.SphereGeometry(0.1, 32, 32);
 const moonMaterial = new THREE.MeshPhongMaterial({
   roughness: 5,
   metalness: 0,
-  map: THREE.ImageUtils.loadTexture("./moonmap4k.jpg"),
+  map: THREE.ImageUtils.loadTexture("./moonmap4k1.jpg"),
   bumpMap: THREE.ImageUtils.loadTexture("./moonbump4k.jpg"),
   bumpScale: 0.02,
-  fog:false
+  fog:false,
+  intensity:50
 });
 
 //moonMesh
 const moonMesh = new THREE.Mesh(moongeometry, moonMaterial);
-moonMesh.userData.draggable=true
-moonMesh.name='true'
 moonMesh.receiveShadow = true;
 moonMesh.castShadow = true;
 moonMesh.position.x = 2;
@@ -309,6 +367,101 @@ moonMesh.position.set(-27, 9, 52);
 moonMesh.scale.set(30,30,30)
 scene.add(moonMesh);
 
+//adding names
+const color2 = new THREE.Color("#C0C0C0");
+const geometry2 = new THREE.IcosahedronGeometry(1, 15);
+const material1 = new THREE.MeshBasicMaterial({ color: color2 });
+const sphere = new THREE.Mesh(geometry2, material1);
+sphere.fog=false
+geometry2.fog=false
+material1.fog=false
+sphere.position.set(-0.85, -0.5, 0.89);
+sphere.scale.set(0.01, 0.01, 0.01);
+scene.add(sphere);
+
+const material3 = new THREE.LineBasicMaterial({
+	color: 0xC0C0C0
+});
+
+const points = [];
+points.push( new THREE.Vector3( 0, 0.5, 0 ) );
+points.push( new THREE.Vector3( 0.2, 0, 0 ) );
+
+const geometry3 = new THREE.BufferGeometry().setFromPoints( points );
+
+const line = new THREE.Line( geometry3, material3 );
+line.position.set(-1.05, -0.5, 0.89);
+
+scene.add( line )
+
+
+const material4 = new THREE.LineBasicMaterial({
+	color: 0xC0C0C0
+});
+
+const points4 = [];
+points4.push( new THREE.Vector3( - 8, 10, 0 ) );
+points4.push( new THREE.Vector3( 0, 10, 0 ) );
+points4.push( new THREE.Vector3( 3, 5, 0 ) );
+points4.push( new THREE.Vector3( -8, 5, 0 ) );
+
+const geometry4 = new THREE.BufferGeometry().setFromPoints( points4 );
+
+const square = new THREE.Line( geometry4, material4 );
+// scene.add( square )
+square.scale.set(0.05,0.05,0.05)
+square.position.set(-1.2,-0.25,0.89)
+const cubeFolder2 = gui.addFolder('positions');
+
+function makeTextSprite( message, parameters )
+{
+    if ( parameters === undefined ) parameters = {};
+    var fontface = parameters.hasOwnProperty("fontface") ? parameters["fontface"] : "Arial";
+    var fontsize = parameters.hasOwnProperty("fontsize") ? parameters["fontsize"] : 18;
+    var borderThickness = parameters.hasOwnProperty("borderThickness") ? parameters["borderThickness"] : 2;
+    var borderColor = parameters.hasOwnProperty("borderColor") ?parameters["borderColor"] : { r:192, g:192, b:192, a:1.0 };
+    var backgroundColor = parameters.hasOwnProperty("backgroundColor") ?parameters["backgroundColor"] : { r:3, g:0, b:2, a:0.93 };
+    var textColor = parameters.hasOwnProperty("textColor") ?parameters["textColor"] : { r:174, g:166, b:170, a:0.93 };
+
+    var canvas = document.createElement('canvas');
+    var context = canvas.getContext('2d');
+    context.font = "Bold " + fontsize + "px " + fontface;
+    var metrics = context.measureText( message );
+    var textWidth = metrics.width;
+
+    context.fillStyle   = "rgba(" + backgroundColor.r + "," + backgroundColor.g + "," + backgroundColor.b + "," + backgroundColor.a + ")";
+    context.strokeStyle = "rgba(" + borderColor.r + "," + borderColor.g + "," + borderColor.b + "," + borderColor.a + ")";
+
+    context.lineWidth = borderThickness;
+    function roundRect(ctx, x, y, w, h, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.lineTo(x + w - r, y); ctx.quadraticCurveTo(x + w, y, x + w, y + r); ctx.lineTo(x + w, y + h - r); ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h); ctx.lineTo(x + r, y + h); ctx.quadraticCurveTo(x, y + h, x, y + h - r); ctx.lineTo(x, y + r); ctx.quadraticCurveTo(x, y, x + r, y); ctx.closePath(); ctx.fill(); ctx.stroke(); } 
+    roundRect(context, borderThickness/2, borderThickness/2, (textWidth + borderThickness) * 1.1, fontsize * 1.4 + borderThickness, 8);
+
+    context.fillStyle = "rgba("+textColor.r+", "+textColor.g+", "+textColor.b+", 1.0)";
+    context.fillText( message, borderThickness, fontsize + borderThickness);
+
+    var texture = new THREE.Texture(canvas) 
+    texture.needsUpdate = true;
+
+    var spriteMaterial = new THREE.SpriteMaterial( { map: texture, useScreenCoordinates: false } );
+    var sprite = new THREE.Sprite( spriteMaterial );
+    sprite.scale.set(0.004 * canvas.width, 0.0050 * canvas.height);
+    sprite.position.set(0,0,0)
+    scene.add(sprite)
+    cubeFolder2.add(sprite.position, 'x');
+    cubeFolder2.add(sprite.position, 'y');
+    cubeFolder2.add(sprite.position, 'z');
+    cubeFolder2.add(sprite.rotation, 'x');
+    cubeFolder2.add(sprite.rotation, 'y');
+    cubeFolder2.add(sprite.rotation, 'z');
+    cubeFolder2.open();
+    sprite.fog=false
+    sprite.position.set(-1.3  ,-0.25,0.95)
+    // sprite.add(line)
+    return sprite;  
+
+
+}
+makeTextSprite(" Casa di Bazzar")
 //particles
 const geometry = new THREE.BufferGeometry();
 				const vertices = [];
@@ -322,7 +475,7 @@ const geometry = new THREE.BufferGeometry();
 				const sprite4 = textureLoader.load( './particle.png' );
 				const sprite5 = textureLoader.load( './particle.png' );
 
-				for ( let i = 0; i < 10000; i ++ ) {
+				for ( let i = 0; i < 2000; i ++ ) {
 
 					const x = Math.random() * 2000 - 1000;
 					const y = Math.random() * 2000 - 1000;
@@ -381,7 +534,8 @@ tweenCamera2.onUpdate(updateCamera)
 document.getElementById('start-button').onclick=function(){
     document.getElementById('start-button').style.display='none'
     tweenCamera1.start()
-    
+    controls.enabled=true
+
     const listener = new THREE.AudioListener();
 
     const audio = new THREE.Audio( listener );
@@ -410,19 +564,16 @@ document.getElementById('start-button').onclick=function(){
 const raycaster = new THREE.Raycaster(); // create once
 const clickMouse = new THREE.Vector2();  // create once
 const moveMouse = new THREE.Vector2();   // create once
-var draggable;
+
 
 function intersect(pos) {
   raycaster.setFromCamera(pos, camera);
-  return raycaster.intersectObjects(scene.children);
+  return raycaster.intersectObject(cube);
 }
 
 window.addEventListener('click', event => {
-if (draggable != null) {
-console.log(`dropping draggable ${draggable.userData.name}`)
-draggable = null
-return;
-}
+
+
 
 // THREE RAYCASTER
 clickMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
@@ -430,19 +581,102 @@ clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
 const found = intersect(clickMouse);
 console.log(found);
-if (found.length > 0) {
-if (found[0].object.userData.draggable) {
-    console.log(draggable);
-draggable = found[0].object
-console.log(`found draggable ${draggable.userData.name}`)
-}
+if(found.length>0){
+    const tweenCamera3 = new TWEEN.Tween( {x: controls.object.position.x, y: controls.object.position.y, z: controls.object.position.z, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
+  .to( {x: -0.8+0.2, y: -0.5+0.1, z: 0.8, lookAtX: cube.position.x, lookAtY: cube.position.y, lookAtZ: cube.position.z}, 1000 )
+tweenCamera3.onUpdate(updateCamera)
+tweenCamera3.start()
+controls.enabled=false
+document.getElementsByClassName('card')[0].style.display='block'
 }
 })
+document.addEventListener('keydown', function(event){
+	if(event.key === "Escape"){
+		controls.enabled=true
+        document.getElementsByClassName('card')[0].style.display='none'
+        const tweenCamera4 = new TWEEN.Tween( {x: -0.8+1, y: -0.5+0.5, z: 0.8, lookAtX: cube.position.x, lookAtY: cube.position.y, lookAtZ: cube.position.z} )
+  .to( {x: 1, y: 0.1, z: -1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 1000 )
+tweenCamera4.onUpdate(updateCamera)
+tweenCamera4.start()
+	}
+});
+
 window.addEventListener('mousemove', event => {
     moveMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     moveMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
   });
 const clock = new THREE.Clock()
+
+const params = {
+  exposure: 2,
+  bloomStrength: 1.5,
+  bloomThreshold: 0,
+  bloomRadius: 0
+};
+
+composer = new EffectComposer( renderer );
+
+var renderPass = new RenderPass( scene, camera );
+				composer.addPass( renderPass );
+
+const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 1.5, 0.4, 0.85 );
+bloomPass.threshold = params.bloomThreshold;
+bloomPass.strength = params.bloomStrength;
+bloomPass.radius = params.bloomRadius;
+const saoPass = new SAOPass( scene, camera, sizes.width, sizes.height );
+// composer.addPass( saoPass );
+saoPass.kernelRadius = 16;
+saoPass.intensity=0.0002;
+// composer.addPass(bloomPass );
+
+gui.add( params, 'exposure', 0.1, 2 ).onChange( function ( value ) {
+
+  renderer.toneMappingExposure = Math.pow( value, 4.0 );
+
+} );
+
+gui.add( params, 'bloomThreshold', 0.0, 1.0 ).onChange( function ( value ) {
+
+  bloomPass.threshold = Number( value );
+
+} );
+
+gui.add( params, 'bloomStrength', 0.0, 3.0 ).onChange( function ( value ) {
+
+  bloomPass.strength = Number( value );
+
+} );
+
+gui.add( params, 'bloomRadius', 0.0, 1.0 ).step( 0.01 ).onChange( function ( value ) {
+
+  bloomPass.radius = Number( value );
+
+} );
+
+
+// Init gui
+				gui.add( saoPass.params, 'output', {
+					'Beauty': SAOPass.OUTPUT.Beauty,
+					'Beauty+SAO': SAOPass.OUTPUT.Default,
+					'SAO': SAOPass.OUTPUT.SAO,
+					'Depth': SAOPass.OUTPUT.Depth,
+					'Normal': SAOPass.OUTPUT.Normal
+				} ).onChange( function ( value ) {
+
+					saoPass.params.output = parseInt( value );
+
+				} );
+				gui.add( saoPass.params, 'saoBias', - 1, 1 );
+				gui.add( saoPass.params, 'saoIntensity', 0, 1 );
+				gui.add( saoPass.params, 'saoScale', 0, 10 );
+				gui.add( saoPass.params, 'saoKernelRadius', 1, 100 );
+				gui.add( saoPass.params, 'saoMinResolution', 0, 1 );
+				gui.add( saoPass.params, 'saoBlur' );
+				gui.add( saoPass.params, 'saoBlurRadius', 0, 200 );
+				gui.add( saoPass.params, 'saoBlurStdDev', 0.5, 150 );
+				gui.add( saoPass.params, 'saoBlurDepthCutoff', 0.0, 0.1 );
+
+        
 //cam animation
 const tick = () =>
 {
@@ -458,8 +692,7 @@ const tick = () =>
 
     // Render
     
-    renderer.render(scene, camera)
-
+    composer.render(scene, camera)
     // composer.render();
 
 // spotLight.position.set(camera.position.x+10,camera.position.y+10,camera.position.z+10)
