@@ -660,11 +660,11 @@ saoPass.intensity=0.0002;
 //cam animation
 const tick = () =>
 {
-  console.log(scene.children);
-  if(scene.children[13]){
- scene.children[13].children[9].scale.set(0.07,0.07,0.07);
- scene.children[13].children[9].position.x=-0.02;
- scene.children[13].children[9].position.z=-8.5;
+  // console.log(scene.children);
+  if(scene.children[12]){
+ scene.children[12].children[9].scale.set(0.07,0.07,0.07);
+ scene.children[12].children[9].position.x=-0.02;
+ scene.children[12].children[9].position.z=-8.5;
 }
     TWEEN.update()
     const elapsedTime = 0.015
