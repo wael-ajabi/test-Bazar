@@ -240,7 +240,7 @@ pointLight4.decay=1
 pointLight4.distance=5
 scene.add(pointLight4)
 const pointLight4Helper= new THREE.PointLightHelper(pointLight4)
-  scene.add(pointLight4Helper)
+  // scene.add(pointLight4Helper)
 // const shadowCameraHelper4 = new THREE.CameraHelper( pointLight4.shadow.camera );
 // 				scene.add( shadowCameraHelper4 );
 
