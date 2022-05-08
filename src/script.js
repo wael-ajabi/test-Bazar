@@ -295,9 +295,9 @@ const shadowCameraHelper2 = new THREE.CameraHelper( pointLight.shadow.camera );
 //controls
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
-// controls.maxDistance=2
-// controls.maxPolarAngle=Math.PI/1.8 
-// controls.enabled=false
+controls.maxDistance=2
+controls.maxPolarAngle=Math.PI/1.8 
+controls.enabled=false
 
 // gui.add( params, 'exposure', 0.1, 2 ).onChange( function ( value ) {
 
