@@ -427,13 +427,8 @@ const geometry = new THREE.BufferGeometry();
 					scene.add( particles );
                 }
 ////////////
-
-const tweenCamera1 = new TWEEN.Tween( {x: -5, y: 0, z: 10, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
-  .to( {x: -1, y: 0.5, z: 0.1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 18000 )
-const tweenCamera2 = new TWEEN.Tween( {x: -1, y: 0.5, z: 0.1, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
-  .to( {x: 1, y: 0.1, z: -1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 12000 )
-  tweenCamera2.onComplete(function() {
-//adding names
+function  label(text,xstart,ystart,zstart,xfinish,yfinsh,zfinish){
+  //adding names
 const color2 = new THREE.Color("#C0C0C0");
 const geometry2 = new THREE.IcosahedronGeometry(1, 15);
 const material1 = new THREE.MeshBasicMaterial({ color: color2 });
@@ -441,7 +436,8 @@ const sphere = new THREE.Mesh(geometry2, material1);
 sphere.fog=false
 geometry2.fog=false
 material1.fog=false
-sphere.position.set(-0.85, -0.5, 0.89);
+// sphere.position.set(-0.85, -0.5, 0.89);
+sphere.position.set(xstart, ystart, zstart);
 sphere.scale.set(0.01, 0.01, 0.01);
 scene.add(sphere);
 
@@ -466,9 +462,10 @@ const geometry4 = new THREE.BufferGeometry().setFromPoints( points4 );
 const square = new THREE.Line( geometry4, material4 );
 square.scale.set(0.05,0.05,0.05)
 square.position.set(-1.2,-0.25,0.89)
-// const cubeFolder2 = gui.addFolder('positions');
+// // square.position.set(-1.2,-0.25,0.89)
+//  const cubeFolder2 = gui.addFolder('positions');
 var  sprite = new TextSprite({
-      text: 'Casa di Bazar',
+      text: text,
       fontFamily: 'Arial, Helvetica, sans-serif',
       fontSize: 0.09,
       color: '#FF0000',
@@ -476,21 +473,22 @@ var  sprite = new TextSprite({
 
     });
     // sprite.fontSize=0.3
-    // scene.add(sprite);
-    // cubeFolder2.add(sprite.position, 'x');
-    // cubeFolder2.add(sprite.position, 'y');
-    // cubeFolder2.add(sprite.position, 'z');
-    // cubeFolder2.add(sprite.rotation, 'x');
-    // cubeFolder2.add(sprite.rotation, 'y');
-    // cubeFolder2.add(sprite.rotation, 'z');
-    // cubeFolder2.open();
+    // // // scene.add(sprite);
+    //  cubeFolder2.add(sphere.position, 'x');
+    //  cubeFolder2.add(sphere.position, 'y');
+    //  cubeFolder2.add(sphere.position, 'z');
+    //  cubeFolder2.add(sphere.rotation, 'x');
+    //  cubeFolder2.add(sphere.rotation, 'y');
+    //  cubeFolder2.add(sphere.rotation, 'z');
+    //  cubeFolder2.open();
     sprite.fog=false
-    sprite.position.set(-1.3  ,0.30,0.95)
+    // sprite.position.set(-1.3  ,0.30,0.95)
+    sprite.position.set(xfinish  ,yfinsh,zfinish)
     // sprite.add(line)
     const points = [];
     scene.add( sprite )
-points.push( new THREE.Vector3(-0.85, -0.5, 0.89 ) );
-points.push( new THREE.Vector3( -1.3, 0.23, 0.95 ) );
+points.push( new THREE.Vector3(sphere.position.x, sphere.position.y,sphere.position.z ) );
+points.push( new THREE.Vector3( sprite.position.x, sprite.position.y-0.07, sprite.position.z ) );
 console.log(sprite.position);
 const geometry3 = new THREE.BufferGeometry().setFromPoints( points );
 
@@ -499,7 +497,19 @@ const line = new THREE.Line( geometry3, material3 );
 
 scene.add( line )
 
-  });
+  
+}
+const tweenCamera1 = new TWEEN.Tween( {x: -5, y: 0, z: 10, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
+  .to( {x: -1, y: 0.5, z: 0.1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 18000 )
+const tweenCamera2 = new TWEEN.Tween( {x: -1, y: 0.5, z: 0.1, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
+  .to( {x: 1, y: 0.1, z: -1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 12000 )
+  tweenCamera2.onComplete(function() {
+label("Casa Di Bazzar",-0.85,-0.5,0.89,-1.3,0.30,0.95)
+label("Mercato",-0.12,-0.5,-0.06,-0.30,0.25,-0.21)
+label("Razzo",-0.87,-0.42,-0.19,-1.2,0.25,-0.57)
+// sprite.position.set(-1.3  ,0.30,0.95)
+// sphere.position.set(-0.85, -0.5, 0.89);
+  })
 tweenCamera1.chain(tweenCamera2)
 
 
