@@ -96,7 +96,7 @@ gltfloader.load("./City_5.glb", function (gltf) {
     
   console.log( ( xhr.loaded / totalSize * 100 ) + '% loaded' );
 
-  if (xhr.loaded / xhr.total * 100 > 99.9) {
+  if (xhr.loaded / xhr.total * 100 > 99) {
     document.getElementById( 'loading-screen' ).style.display='none'
  }
 },
