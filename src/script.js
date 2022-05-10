@@ -8,6 +8,7 @@ import { Sky } from "three/examples/jsm/objects/Sky.js";
 import * as dat from "dat.gui";
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { SAOPass  } from 'three/examples/jsm/postprocessing/SAOPass.js';
+import { ColladaLoader } from 'three/examples/jsm/loaders/ColladaLoader.js';
 			import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 			import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
       import { BokehPass } from 'three/examples/jsm/postprocessing/BokehPass.js';
@@ -90,8 +91,30 @@ gltfloader.load("./City_5.glb", function (gltf) {
     (gltf.scene.receiveShadow = !0),
     scene.add(gltf.scene),
     (gltf.scene.userData.ground = !0);
-});
+},function ( xhr ) {
+    
+  console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
 
+  if (xhr.loaded / xhr.total * 100 == 100) {
+    document.getElementById( 'loading-screen' ).style.display='none'
+  }
+},
+// called when loading has errors
+function ( error ) {
+
+  console.log( 'An error happened' );
+
+});
+//loading
+const loadingManager = new THREE.LoadingManager( () => {
+	
+  const loadingScreen = document.getElementById( 'loading-screen' );
+  loadingScreen.classList.add( 'fade-out' );
+  
+  // optional: remove loader from DOM via event listener
+  loadingScreen.addEventListener( 'transitionend', onTransitionEnd );
+  
+} );
 const geomet = new THREE.BoxGeometry( 0.1, 0.1, 0.1 );
 const material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
 const cube = new THREE.Mesh( geomet, material );
@@ -388,7 +411,7 @@ const geometry = new THREE.BufferGeometry();
 				const sprite4 = textureLoader.load( './particle.png' );
 				const sprite5 = textureLoader.load( './particle.png' );
 
-				for ( let i = 0; i < 500; i ++ ) {
+				for ( let i = 0; i < 100; i ++ ) {
 
 					const x = Math.random() * 2000 - 1000;
 					const y = Math.random() * 2000 - 1000;
@@ -401,11 +424,11 @@ const geometry = new THREE.BufferGeometry();
 				geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
 
 				var parameters = [
-					[[ 1.0, 0.2, 0.5 ], sprite2, 1],
-					[[ 0.95, 0.1, 0.5 ], sprite3, 1 ],
-					[[ 0.90, 0.05, 0.5 ], sprite1, 1 ],
-					[[ 0.85, 0, 0.5 ], sprite5, 1 ],
-					[[ 0.80, 0, 0.5 ], sprite4, 1 ]
+					[[ 1.0, 0.2, 0.5 ], sprite2, 5],
+					[[ 0.95, 0.2, 0.5 ], sprite3, 5 ],
+					[[ 0.90, 0.05, 0.5 ], sprite1, 5 ],
+					[[ 0.85, 0, 0.5 ], sprite5, 5 ],
+					[[ 0.80, 0, 0.5 ], sprite4, 5 ]
 				];
 
 				for ( let i = 0; i < parameters.length; i ++ ) {
@@ -525,7 +548,7 @@ document.getElementById('start-button').onclick=function(){
     document.getElementById('start-button').style.display='none'
     tweenCamera1.start()
     controls.enabled=true
-
+    controls.enablePan = false;
     const listener = new THREE.AudioListener();
 
     const audio = new THREE.Audio( listener );
@@ -560,7 +583,7 @@ function intersect(pos) {
   raycaster.setFromCamera(pos, camera);
   return raycaster.intersectObject(cube);
 }
-
+var clickActive=false
 window.addEventListener('click', event => {
 
 
@@ -571,7 +594,9 @@ clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
 const found = intersect(clickMouse);
 console.log(found);
-if(found.length>0){
+if(found.length>0 && !clickActive){
+  clickActive=true
+  document.getElementById('close').style.display='block'
     const tweenCamera3 = new TWEEN.Tween( {x: controls.object.position.x, y: controls.object.position.y, z: controls.object.position.z, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
   .to( {x: -0.8+0.2, y: -0.5+0.1, z: 0.8, lookAtX: cube.position.x, lookAtY: cube.position.y, lookAtZ: cube.position.z}, 1000 )
 tweenCamera3.onUpdate(updateCamera)
@@ -580,16 +605,17 @@ controls.enabled=false
 document.getElementsByClassName('card')[0].style.display='block'
 }
 })
-document.addEventListener('keydown', function(event){
-	if(event.key === "Escape"){
+document.getElementById('close').onclick=function(){
+  document.getElementById('close').style.display='none'
+    clickActive=false
 		controls.enabled=true
         document.getElementsByClassName('card')[0].style.display='none'
         const tweenCamera4 = new TWEEN.Tween( {x: -0.8+1, y: -0.5+0.5, z: 0.8, lookAtX: cube.position.x, lookAtY: cube.position.y, lookAtZ: cube.position.z} )
   .to( {x: 1, y: 0.1, z: -1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 1000 )
 tweenCamera4.onUpdate(updateCamera)
 tweenCamera4.start()
-	}
-});
+	
+};
 
 window.addEventListener('mousemove', event => {
     moveMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
