@@ -64,7 +64,7 @@ var dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/js/libs/draco/');
 dracoLoader.preload();
 gltfloader.setDRACOLoader(dracoLoader);
-var totalSize = 4070;
+var totalSize = 4167680;
 gltfloader.load("./City_5.glb", function (gltf) {
     gltf.scene.traverse(n=>{if (n.isMesh){n.castShadow=true;n.receiveShadow=true;
     if(n.material.map){n.material.map.anisotropy=16;}
