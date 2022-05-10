@@ -64,6 +64,7 @@ var dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/js/libs/draco/');
 dracoLoader.preload();
 gltfloader.setDRACOLoader(dracoLoader);
+var totalSize = 4070;
 gltfloader.load("./City_5.glb", function (gltf) {
     gltf.scene.traverse(n=>{if (n.isMesh){n.castShadow=true;n.receiveShadow=true;
     if(n.material.map){n.material.map.anisotropy=16;}
@@ -93,11 +94,11 @@ gltfloader.load("./City_5.glb", function (gltf) {
     (gltf.scene.userData.ground = !0);
 },function ( xhr ) {
     
-  console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+  console.log( ( xhr.loaded / totalSize * 100 ) + '% loaded' );
 
   if (xhr.loaded / xhr.total * 100 == 100) {
     document.getElementById( 'loading-screen' ).style.display='none'
-  }
+ }
 },
 // called when loading has errors
 function ( error ) {
