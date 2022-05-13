@@ -644,7 +644,7 @@ bloomPass.threshold = params.bloomThreshold;
 bloomPass.strength = params.bloomStrength;
 bloomPass.radius = params.bloomRadius;
  const saoPass = new SAOPass( scene, camera, sizes.width, sizes.height );
-composer.addPass( saoPass );
+// composer.addPass( saoPass );
 saoPass.kernelRadius = 16;
 saoPass.intensity=0.0002;
 // composer.addPass(bloomPass );
@@ -694,7 +694,7 @@ gui.add( params, 'exposure', 0.1, 2 ).onChange( function ( value ) {
 				gui.add( saoPass.params, 'saoBlur' );
 				gui.add( saoPass.params, 'saoBlurRadius', 0, 200 );
 				gui.add( saoPass.params, 'saoBlurStdDev', 0.5, 150 );
-				gui.add( saoPass.params, 'saoBlurDepthCutoff', 0.0, 0.1 );
+				gui.add( saoPass.params, 'saoBlurDepthCutoff', 0.0, 0.5 );
 
 
 //cam animation
