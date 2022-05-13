@@ -644,16 +644,16 @@ bloomPass.threshold = params.bloomThreshold;
 bloomPass.strength = params.bloomStrength;
 bloomPass.radius = params.bloomRadius;
  const saoPass = new SAOPass( scene, camera, sizes.width, sizes.height );
-// composer.addPass( saoPass );
+composer.addPass( saoPass );
 saoPass.kernelRadius = 16;
 saoPass.intensity=0.0002;
 // composer.addPass(bloomPass );
 
-// gui.add( params, 'exposure', 0.1, 2 ).onChange( function ( value ) {
+gui.add( params, 'exposure', 0.1, 2 ).onChange( function ( value ) {
 
-//   renderer.toneMappingExposure = Math.pow( value, 4.0 );
+  renderer.toneMappingExposure = Math.pow( value, 4.0 );
 
-// } );
+} );
 
 // gui.add( params, 'bloomThreshold', 0.0, 1.0 ).onChange( function ( value ) {
 
