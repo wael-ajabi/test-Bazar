@@ -63,9 +63,12 @@ var   mixer1=null
 var dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/js/libs/draco/');
 dracoLoader.preload();
+
 gltfloader.setDRACOLoader(dracoLoader);
 var totalSize = 4167680;
 gltfloader.load("./City_5.glb", function (gltf) {
+
+    console.log(gltf);
     gltf.scene.traverse(n=>{if (n.isMesh){n.castShadow=true;n.receiveShadow=true;
     if(n.material.map){n.material.map.anisotropy=16;}
     }})
@@ -79,10 +82,10 @@ gltfloader.load("./City_5.glb", function (gltf) {
     
     //     cubeFolder2.open();
   mixer1 = new THREE.AnimationMixer(gltf.scene);
-  for (var i=0;i<14;i++){
-            const action = mixer1.clipAction(gltf.animations[i]);
+  // for (var i=0;i<14;i++){
+            const action = mixer1.clipAction(gltf.animations[0]);
             action.play();
-  }
+  // }
   (gltf.scene.rotation.y = 3.1),
   (gltf.scene.position.y = -3),
   (gltf.scene.position.x = -3.5);
@@ -412,7 +415,7 @@ const geometry = new THREE.BufferGeometry();
 				const sprite4 = textureLoader.load( './particle.png' );
 				const sprite5 = textureLoader.load( './particle.png' );
 
-				for ( let i = 0; i < 100; i ++ ) {
+				for ( let i = 0; i < 25; i ++ ) {
 
 					const x = Math.random() * 2000 - 1000;
 					const y = Math.random() * 2000 - 1000;
@@ -640,7 +643,7 @@ const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, win
 bloomPass.threshold = params.bloomThreshold;
 bloomPass.strength = params.bloomStrength;
 bloomPass.radius = params.bloomRadius;
-const saoPass = new SAOPass( scene, camera, sizes.width, sizes.height );
+ const saoPass = new SAOPass( scene, camera, sizes.width, sizes.height );
 // composer.addPass( saoPass );
 saoPass.kernelRadius = 16;
 saoPass.intensity=0.0002;
@@ -671,27 +674,27 @@ saoPass.intensity=0.0002;
 // } );
 
 
-// // Init gui
-// 				gui.add( saoPass.params, 'output', {
-// 					'Beauty': SAOPass.OUTPUT.Beauty,
-// 					'Beauty+SAO': SAOPass.OUTPUT.Default,
-// 					'SAO': SAOPass.OUTPUT.SAO,
-// 					'Depth': SAOPass.OUTPUT.Depth,
-// 					'Normal': SAOPass.OUTPUT.Normal
-// 				} ).onChange( function ( value ) {
+// Init gui
+				gui.add( saoPass.params, 'output', {
+					'Beauty': SAOPass.OUTPUT.Beauty,
+					'Beauty+SAO': SAOPass.OUTPUT.Default,
+					'SAO': SAOPass.OUTPUT.SAO,
+					'Depth': SAOPass.OUTPUT.Depth,
+					'Normal': SAOPass.OUTPUT.Normal
+				} ).onChange( function ( value ) {
 
-// 					saoPass.params.output = parseInt( value );
+					saoPass.params.output = parseInt( value );
 
-// 				} );
-// 				gui.add( saoPass.params, 'saoBias', - 1, 1 );
-// 				gui.add( saoPass.params, 'saoIntensity', 0, 1 );
-// 				gui.add( saoPass.params, 'saoScale', 0, 10 );
-// 				gui.add( saoPass.params, 'saoKernelRadius', 1, 100 );
-// 				gui.add( saoPass.params, 'saoMinResolution', 0, 1 );
-// 				gui.add( saoPass.params, 'saoBlur' );
-// 				gui.add( saoPass.params, 'saoBlurRadius', 0, 200 );
-// 				gui.add( saoPass.params, 'saoBlurStdDev', 0.5, 150 );
-// 				gui.add( saoPass.params, 'saoBlurDepthCutoff', 0.0, 0.1 );
+				} );
+				gui.add( saoPass.params, 'saoBias', - 1, 1 );
+				gui.add( saoPass.params, 'saoIntensity', 0, 1 );
+				gui.add( saoPass.params, 'saoScale', 0, 10 );
+				gui.add( saoPass.params, 'saoKernelRadius', 1, 100 );
+				gui.add( saoPass.params, 'saoMinResolution', 0, 1 );
+				gui.add( saoPass.params, 'saoBlur' );
+				gui.add( saoPass.params, 'saoBlurRadius', 0, 200 );
+				gui.add( saoPass.params, 'saoBlurStdDev', 0.5, 150 );
+				gui.add( saoPass.params, 'saoBlurDepthCutoff', 0.0, 0.1 );
 
 
 //cam animation
