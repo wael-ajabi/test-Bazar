@@ -552,7 +552,7 @@ document.getElementById('start-button').onclick=function(){
     document.getElementById('start-button').style.display='none'
     tweenCamera1.start()
     controls.enabled=true
-    controls.enablePan = false;
+    // controls.enablePan = false;
     const listener = new THREE.AudioListener();
 
     const audio = new THREE.Audio( listener );
@@ -705,11 +705,11 @@ gui.add( params, 'exposure', 0.1, 2 ).onChange( function ( value ) {
 const tick = () =>
 {
   // console.log(scene.children);
-  if(scene.children[24]){
- scene.children[24].children[9].scale.set(0.07,0.07,0.07);
- scene.children[24].children[9].position.x=-0.02;
- scene.children[24].children[9].position.z=-8.5;
-}
+//   if(scene.children[24]){
+//  scene.children[24].children[9].scale.set(0.07,0.07,0.07);
+//  scene.children[24].children[9].position.x=-0.02;
+//  scene.children[24].children[9].position.z=-8.5;
+// }
     TWEEN.update()
     const elapsedTime = 0.015
     const elapsedTime2 = clock.getElapsedTime()/500
