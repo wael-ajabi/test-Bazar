@@ -238,10 +238,10 @@ pointLight3.frustumCulled=true
 pointLight3.decay=1
 pointLight3.distance=10
 scene.add(pointLight3)
-// const pointLight3Helper= new THREE.PointLightHelper(pointLight3)
-// scene.add(pointLight3Helper)
-// const shadowCameraHelper4 = new THREE.CameraHelper( pointLight3.shadow.camera );
-// 				scene.add( shadowCameraHelper4 );
+const pointLight3Helper= new THREE.PointLightHelper(pointLight3)
+scene.add(pointLight3Helper)
+const shadowCameraHelper4 = new THREE.CameraHelper( pointLight3.shadow.camera );
+				scene.add( shadowCameraHelper4 );
 
                 // const cubeFolder1 = gui.addFolder('position');
                 // cubeFolder1.add(pointLight3.position, 'x');
@@ -310,7 +310,7 @@ pointLight.intensity=2
 pointLight.frustumCulled=true
 pointLight.decay=1
 pointLight.distance=3.68
-// scene.add(pointLight)
+scene.add(pointLight)
 const pointLightHelper= new THREE.PointLightHelper(pointLight)
 // scene.add(pointLightHelper)
 const shadowCameraHelper2 = new THREE.CameraHelper( pointLight.shadow.camera );
@@ -627,12 +627,12 @@ window.addEventListener('mousemove', event => {
   });
 const clock = new THREE.Clock()
 
-// const params = {
-//   exposure: 2,
-//   bloomStrength: 1.5,
-//   bloomThreshold: 0,
-//   bloomRadius: 0
-// };
+const params = {
+  exposure: 2,
+  bloomStrength: 1.5,
+  bloomThreshold: 0,
+  bloomRadius: 0
+};
 
 composer = new EffectComposer( renderer );
 
@@ -649,11 +649,11 @@ saoPass.kernelRadius = 16;
 saoPass.intensity=0.0002;
 // composer.addPass(bloomPass );
 
-// gui.add( params, 'exposure', 0.1, 2 ).onChange( function ( value ) {
+gui.add( params, 'exposure', 0.1, 2 ).onChange( function ( value ) {
 
-//   renderer.toneMappingExposure = Math.pow( value, 4.0 );
+  renderer.toneMappingExposure = Math.pow( value, 4.0 );
 
-// } );
+} );
 
 // gui.add( params, 'bloomThreshold', 0.0, 1.0 ).onChange( function ( value ) {
 
@@ -705,10 +705,10 @@ saoPass.intensity=0.0002;
 const tick = () =>
 {
   // console.log(scene.children);
-  if(scene.children[12]){
- scene.children[12].children[9].scale.set(0.07,0.07,0.07);
- scene.children[12].children[9].position.x=-0.02;
- scene.children[12].children[9].position.z=-8.5;
+  if(scene.children[24]){
+ scene.children[24].children[9].scale.set(0.07,0.07,0.07);
+ scene.children[24].children[9].position.x=-0.02;
+ scene.children[24].children[9].position.z=-8.5;
 }
     TWEEN.update()
     const elapsedTime = 0.015
