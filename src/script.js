@@ -694,7 +694,7 @@ gui.add( params, 'exposure', 0.1, 2 ).onChange( function ( value ) {
 				gui.add( saoPass.params, 'saoBlur' );
 				gui.add( saoPass.params, 'saoBlurRadius', 0, 200 );
 				gui.add( saoPass.params, 'saoBlurStdDev', 0.5, 150 );
-				gui.add( saoPass.params, 'saoBlurDepthCutoff', 0.0, 0.5 );
+				gui.add( saoPass.params, 'saoBlurDepthCutoff', 0.0, 10 );
 
 
 //cam animation
