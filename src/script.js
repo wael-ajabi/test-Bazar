@@ -627,33 +627,33 @@ window.addEventListener('mousemove', event => {
   });
 const clock = new THREE.Clock()
 
-const params = {
-  exposure: 2,
-  bloomStrength: 1.5,
-  bloomThreshold: 0,
-  bloomRadius: 0
-};
+// const params = {
+//   exposure: 2,
+//   bloomStrength: 1.5,
+//   bloomThreshold: 0,
+//   bloomRadius: 0
+// };
 
 composer = new EffectComposer( renderer );
 
 var renderPass = new RenderPass( scene, camera );
 				composer.addPass( renderPass );
 
-const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 1.5, 0.4, 0.85 );
-bloomPass.threshold = params.bloomThreshold;
-bloomPass.strength = params.bloomStrength;
-bloomPass.radius = params.bloomRadius;
+// const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 1.5, 0.4, 0.85 );
+// bloomPass.threshold = params.bloomThreshold;
+// bloomPass.strength = params.bloomStrength;
+// bloomPass.radius = params.bloomRadius;
  const saoPass = new SAOPass( scene, camera, sizes.width, sizes.height );
 composer.addPass( saoPass );
 saoPass.kernelRadius = 16;
 saoPass.intensity=0.0002;
 // composer.addPass(bloomPass );
 
-gui.add( params, 'exposure', 0.1, 2 ).onChange( function ( value ) {
+// gui.add( params, 'exposure', 0.1, 2 ).onChange( function ( value ) {
 
-  renderer.toneMappingExposure = Math.pow( value, 4.0 );
+//   renderer.toneMappingExposure = Math.pow( value, 4.0 );
 
-} );
+// } );
 
 // gui.add( params, 'bloomThreshold', 0.0, 1.0 ).onChange( function ( value ) {
 
@@ -686,17 +686,21 @@ gui.add( params, 'exposure', 0.1, 2 ).onChange( function ( value ) {
 					saoPass.params.output = parseInt( value );
 
 				} );
-				gui.add( saoPass.params, 'saoBias', - 1, 1 );
-				gui.add( saoPass.params, 'saoIntensity', 0, 1 );
+			let saoBias =	gui.add( saoPass.params, 'saoBias', - 1, 1 );
+      saoBias.setValue(2);
+			let saoIntensity=	gui.add( saoPass.params, 'saoIntensity', 0, 1 ).step(0.00001);
+      saoIntensity.setValue(0.00006)
 				gui.add( saoPass.params, 'saoScale', 0, 10 );
-				gui.add( saoPass.params, 'saoKernelRadius', 1, 100 );
+			let saoKernelRadius=	gui.add( saoPass.params, 'saoKernelRadius', 1, 100 );
+      saoKernelRadius.setValue(15)
 				gui.add( saoPass.params, 'saoMinResolution', 0, 1 );
 				gui.add( saoPass.params, 'saoBlur' );
-				gui.add( saoPass.params, 'saoBlurRadius', 0, 200 );
-				gui.add( saoPass.params, 'saoBlurStdDev', 0.5, 150 );
-				gui.add( saoPass.params, 'saoBlurDepthCutoff', 0.0, 10 );
-
-
+			let saoBlurRadius=	gui.add( saoPass.params, 'saoBlurRadius', 0, 200 );
+      saoBlurRadius.setValue(102.1)
+			let saoBlurStdDev=	gui.add( saoPass.params, 'saoBlurStdDev', 0.5, 150 );
+      saoBlurStdDev.setValue(4)
+			let saoBlurDepthCutoff=	gui.add( saoPass.params, 'saoBlurDepthCutoff', 0.0, 10 );
+      saoBlurDepthCutoff.setValue(4.072)
 //cam animation
 const tick = () =>
 {
