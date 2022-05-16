@@ -379,20 +379,7 @@ sphere.position.set(-0.85, -0.5, 0.89);
 sphere.scale.set(0.01, 0.01, 0.01);
 scene.add(sphere);
 
-const material3 = new THREE.LineBasicMaterial({
-	color: 0xC0C0C0
-});
 
-const points = [];
-points.push( new THREE.Vector3( 0, 0.5, 0 ) );
-points.push( new THREE.Vector3( 0.2, 0, 0 ) );
-
-const geometry3 = new THREE.BufferGeometry().setFromPoints( points );
-
-const line = new THREE.Line( geometry3, material3 );
-line.position.set(-1.05, -0.5, 0.89);
-
-scene.add( line )
 
 
 const material4 = new THREE.LineBasicMaterial({
@@ -412,6 +399,8 @@ const square = new THREE.Line( geometry4, material4 );
 square.scale.set(0.05,0.05,0.05)
 square.position.set(-1.2,-0.25,0.89)
 const cubeFolder2 = gui.addFolder('positions');
+
+var spriteclone=null
 
 function makeTextSprite( message, parameters )
 {
@@ -445,7 +434,7 @@ function makeTextSprite( message, parameters )
     var spriteMaterial = new THREE.SpriteMaterial( { map: texture, useScreenCoordinates: false } );
     var sprite = new THREE.Sprite( spriteMaterial );
     sprite.scale.set(0.004 * canvas.width, 0.0050 * canvas.height);
-    sprite.position.set(0,0,0)
+    sprite.position.set(-1.3  ,-0.25,0.95)
     scene.add(sprite)
     cubeFolder2.add(sprite.position, 'x');
     cubeFolder2.add(sprite.position, 'y');
@@ -455,8 +444,34 @@ function makeTextSprite( message, parameters )
     cubeFolder2.add(sprite.rotation, 'z');
     cubeFolder2.open();
     sprite.fog=false
-    sprite.position.set(-1.3  ,-0.25,0.95)
+    // sprite.position.set(-1.3  ,-0.25,0.95)
     // sprite.add(line)
+    // const material3 = new THREE.LineBasicMaterial({
+    //   color: 0xC0C0C0
+    // });
+    
+    // const points = [];
+    // points.push( new THREE.Vector3( -1.3,  -0.25,  0.95) );
+    // points.push( new THREE.Vector3(-0.85, -0.5, 0.89) );
+    
+    // const geometry3 = new THREE.BufferGeometry().setFromPoints( points );
+    
+    // const line = new THREE.Line( geometry3, material3 );
+    // // line.position.set(-1.45, -0.5, 0.89);
+    
+    // scene.add( line )
+    // spriteclone=sprite
+
+    //test
+    context.strokeStyle = 'red';
+    context.lineWidth = 1;
+
+    // draw a red line
+    context.beginPath();
+    context.moveTo(100, 3);
+    context.lineTo(300, 100);
+    context.stroke();
+    
     return sprite;  
 
 
@@ -689,6 +704,7 @@ const tick = () =>
 
     // Update Orbital Controls
     // controls.update()
+   
 
     // Render
     
