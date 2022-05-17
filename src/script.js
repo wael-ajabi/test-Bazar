@@ -102,7 +102,7 @@ gltfloader.load("./City_5.glb", function (gltf) {
     //     cubeFolder2.open();
     blender_camera = gltf.cameras[0];
   mixer1 = new THREE.AnimationMixer(gltf.scene);
-  for (var i=0;i<14;i++){
+  for (var i=0;i<9;i++){
              action = mixer1.clipAction(gltf.animations[i]);
   }
   // scene.add(camera)
@@ -315,17 +315,18 @@ const pointLight4Helper= new THREE.PointLightHelper(pointLight4)
 const PointLight2 = new THREE.PointLight(0xffffff,3.66,2)
 // PointLight2.position.set(-3.320,2.900,0.272)
 PointLight2.scale.set(1,1,1)
-PointLight2.position.y=2
+PointLight2.position.y=0.8
 PointLight2.intensity=20
 PointLight2.frustumCulled=true
 PointLight2.shadow.bias = -0.0001;
+// PointLight2.shadow.radius=8
 //  PointLight2.shadow.mapSize.width=1024*4
 //  PointLight2.shadow.mapSize.height=1024*4
 PointLight2.distance=3.68
 PointLight2.castShadow= true;
 scene.add(PointLight2)
 const PointLight2Helper= new THREE.PointLightHelper(PointLight2)
-// scene.add(PointLight2Helper)
+scene.add(PointLight2Helper)
 const shadowCameraHelper3 = new THREE.CameraHelper( PointLight2.shadow.camera );
 				// scene.add( shadowCameraHelper3 );
            const cubeFolder1 = gui.addFolder('positionss');
@@ -338,6 +339,7 @@ const shadowCameraHelper3 = new THREE.CameraHelper( PointLight2.shadow.camera );
 
                 cubeFolder1.open();
 
+/////////////////////
                 
                 
 const pointLight = new THREE.PointLight(0xffffff,3.66,2)
