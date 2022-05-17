@@ -210,10 +210,10 @@ window.addEventListener('resize', () =>
     renderer.setSize(sizes.width, sizes.height)
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
     renderer.gammaOutput = !0
-    renderer.gammaFactor = 2
+    renderer.gammaFactor = 5
 })
-renderer.gammaOutput = !0
-renderer.gammaFactor = 2
+// renderer.gammaOutput = !0
+// renderer.gammaFactor = 2
 
 /**
  * Camera
@@ -322,7 +322,7 @@ PointLight2.shadow.bias = -0.0001;
 // PointLight2.shadow.radius=8
 //  PointLight2.shadow.mapSize.width=1024*4
 //  PointLight2.shadow.mapSize.height=1024*4
-PointLight2.distance=3.68
+PointLight2.distance=2.5
 PointLight2.castShadow= true;
 scene.add(PointLight2)
 const PointLight2Helper= new THREE.PointLightHelper(PointLight2)
