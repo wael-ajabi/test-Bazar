@@ -135,7 +135,7 @@ function ( error ) {
 
 });
 setTimeout(()=>{    document.getElementById( 'loading-screen' ).style.display='none'
-})
+},4000)
 //loading
 const loadingManager = new THREE.LoadingManager( () => {
 	
