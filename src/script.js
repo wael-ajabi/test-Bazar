@@ -55,19 +55,38 @@ renderer.setSize(window.innerWidth, window.innerHeight)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 renderer.physicallyCorrectLights = !0
 renderer.shadowMap.enabled=true
+// renderer.shadowMap.type=THREE.BasicShadowMap
 // Objects
 // const geometry = new THREE.TorusGeometry( .7, .2, 16, 100 );
 // Materials
-const gltfloader = new GLTFLoader();
+
+const manager = new THREE.LoadingManager()
+
+    manager.onLoad = function ( ) {
+        console.log( "Loading complete!")
+    }
+
+
+    manager.onProgress = function ( url, itemsLoaded, itemsTotal ) {
+        console.log(`Items loaded: ${itemsLoaded}/${itemsTotal}`)
+    }
+
+    manager.onError = function ( url ) {
+        console.log( 'There was an error loading ' + url )
+    }
+
+const gltfloader = new GLTFLoader(manager);
 var   mixer1=null
+var   action=null
 var dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/js/libs/draco/');
 dracoLoader.preload();
-
+var blender_camera=null
 gltfloader.setDRACOLoader(dracoLoader);
 var totalSize = 4167680;
 gltfloader.load("./City_5.glb", function (gltf) {
-
+  var obj = gltf.scene;
+  gltf.castShadow=true;gltf.receiveShadow=true;
     console.log(gltf);
     gltf.scene.traverse(n=>{if (n.isMesh){n.castShadow=true;n.receiveShadow=true;
     if(n.material.map){n.material.map.anisotropy=16;}
@@ -81,26 +100,32 @@ gltfloader.load("./City_5.glb", function (gltf) {
     //     cubeFolder2.add( gltf.scene.children[9].rotation, 'z');
     
     //     cubeFolder2.open();
+    blender_camera = gltf.cameras[0];
   mixer1 = new THREE.AnimationMixer(gltf.scene);
-  // for (var i=0;i<14;i++){
-            const action = mixer1.clipAction(gltf.animations[0]);
-            action.play();
-  // }
+  for (var i=0;i<14;i++){
+             action = mixer1.clipAction(gltf.animations[i]);
+  }
+  // scene.add(camera)
   (gltf.scene.rotation.y = 3.1),
   (gltf.scene.position.y = -3),
   (gltf.scene.position.x = -3.5);
     // gltf.scene.position.set(pos_x, pos_y, pos_z),
     // gltf.scene.scale.set(scale_x, scale_y, scale_z),
     (gltf.scene.castShadow = !0),
-    (gltf.scene.receiveShadow = !0),
-    scene.add(gltf.scene),
+    (gltf.scene.receiveShadow = !0);
     (gltf.scene.userData.ground = !0);
+    scene.add( obj );
+
+    gltf.animations; // Array<THREE.AnimationClip>
+    gltf.scene; // THREE.Group
+    gltf.scenes; // Array<THREE.Group>
+    gltf.cameras; // Array<THREE.Camera>
+    gltf.asset; // Object
 },function ( xhr ) {
     
   console.log( ( xhr.loaded / totalSize * 100 ) + '% loaded' );
 
   if (xhr.loaded / totalSize * 100 > 99.99) {
-    document.getElementById( 'loading-screen' ).style.display='none'
  }
 },
 // called when loading has errors
@@ -109,6 +134,8 @@ function ( error ) {
   console.log( 'An error happened' );
 
 });
+setTimeout(()=>{    document.getElementById( 'loading-screen' ).style.display='none'
+})
 //loading
 const loadingManager = new THREE.LoadingManager( () => {
 	
@@ -192,11 +219,11 @@ renderer.gammaFactor = 2
  * Camera
  */
 // Base camera
-const camera = new THREE.PerspectiveCamera(60, sizes.width / sizes.height, 0.005, 5000)
+var camera = new THREE.PerspectiveCamera(60, sizes.width / sizes.height, 0.005, 5000)
 camera.position.x = -5
 camera.position.y = 0
 camera.position.z = 10
-scene.add(camera)
+// scene.add(camera)
 // Lights
 
 // const renderScene = new RenderPass( scene, camera );
@@ -239,9 +266,9 @@ pointLight3.decay=1
 pointLight3.distance=10
 scene.add(pointLight3)
 const pointLight3Helper= new THREE.PointLightHelper(pointLight3)
-scene.add(pointLight3Helper)
+// scene.add(pointLight3Helper)
 const shadowCameraHelper4 = new THREE.CameraHelper( pointLight3.shadow.camera );
-				scene.add( shadowCameraHelper4 );
+				// scene.add( shadowCameraHelper4 );
 
                 // const cubeFolder1 = gui.addFolder('position');
                 // cubeFolder1.add(pointLight3.position, 'x');
@@ -265,11 +292,12 @@ pointLight4.intensity=30
 pointLight4.frustumCulled=true
 pointLight4.decay=1
 pointLight4.distance=5
+
 scene.add(pointLight4)
 const pointLight4Helper= new THREE.PointLightHelper(pointLight4)
   // scene.add(pointLight4Helper)
 // const shadowCameraHelper4 = new THREE.CameraHelper( pointLight4.shadow.camera );
-// 				scene.add( shadowCameraHelper4 );
+				// scene.add( shadowCameraHelper4 );
 
                 // const cubeFolder1 = gui.addFolder('positionss');
                 // cubeFolder1.add(pointLight4.position, 'x');
@@ -290,13 +318,25 @@ PointLight2.scale.set(1,1,1)
 PointLight2.position.y=2
 PointLight2.intensity=20
 PointLight2.frustumCulled=true
-PointLight2.decay=1
+PointLight2.shadow.bias = -0.0001;
+//  PointLight2.shadow.mapSize.width=1024*4
+//  PointLight2.shadow.mapSize.height=1024*4
 PointLight2.distance=3.68
+PointLight2.castShadow= true;
 scene.add(PointLight2)
 const PointLight2Helper= new THREE.PointLightHelper(PointLight2)
 // scene.add(PointLight2Helper)
 const shadowCameraHelper3 = new THREE.CameraHelper( PointLight2.shadow.camera );
 				// scene.add( shadowCameraHelper3 );
+           const cubeFolder1 = gui.addFolder('positionss');
+                cubeFolder1.add(PointLight2.position, 'x');
+                cubeFolder1.add(PointLight2.position, 'y');
+                cubeFolder1.add(PointLight2.position, 'z');
+                cubeFolder1.add(PointLight2.rotation, 'x');
+                cubeFolder1.add(PointLight2.rotation, 'y');
+                cubeFolder1.add(PointLight2.rotation, 'z');
+
+                cubeFolder1.open();
 
                 
                 
@@ -324,7 +364,7 @@ const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
 controls.maxDistance=2
 controls.maxPolarAngle=Math.PI/1.8 
-controls.enabled=false
+controls.enabled=true
 
 // gui.add( params, 'exposure', 0.1, 2 ).onChange( function ( value ) {
 
@@ -493,7 +533,7 @@ square.position.set(-1.2,-0.25,0.89)
 //  const cubeFolder2 = gui.addFolder('positions');
 var  sprite = new TextSprite({
       text: text,
-      fontFamily: 'Arial, Helvetica, sans-serif',
+      fontFamily: 'Saira',
       fontSize: 0.09,
       color: '#FF0000',
       fontWeight: "bold",
@@ -704,7 +744,7 @@ gui.add( params, 'exposure', 0.1, 2 ).onChange( function ( value ) {
 //cam animation
 const tick = () =>
 {
-  // console.log(scene.children);
+  // console.log(camera.position);
 //   if(scene.children[24]){
 //  scene.children[24].children[9].scale.set(0.07,0.07,0.07);
 //  scene.children[24].children[9].position.x=-0.02;
@@ -721,7 +761,7 @@ const tick = () =>
 
     // Render
     
-    composer.render(scene, camera)
+    composer.render(scene, blender_camera)
     // composer.render();
 
 // spotLight.position.set(camera.position.x+10,camera.position.y+10,camera.position.z+10)
@@ -730,7 +770,13 @@ const tick = () =>
     if(mixer1){
 
         mixer1.update(elapsedTime)
+
     }
+    if(action){
+// console.log(action);
+      action.play()
+
+  }
     for ( let i = 0; i < scene.children.length; i ++ ) {
 
         const object = scene.children[ i ];
