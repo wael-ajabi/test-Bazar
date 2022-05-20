@@ -102,8 +102,10 @@ gltfloader.load("./City_5.glb", function (gltf) {
     //     cubeFolder2.open();
     blender_camera = gltf.cameras[0];
   mixer1 = new THREE.AnimationMixer(gltf.scene);
-  for (var i=0;i<9;i++){
+  for (var i=0;i<14;i++){
              action = mixer1.clipAction(gltf.animations[i]);
+             action.play()
+
   }
   // scene.add(camera)
   (gltf.scene.rotation.y = 3.1),
@@ -220,9 +222,19 @@ window.addEventListener('resize', () =>
  */
 // Base camera
 var camera = new THREE.PerspectiveCamera(60, sizes.width / sizes.height, 0.005, 5000)
-camera.position.x = -5
-camera.position.y = 0
+camera.position.x = -4.7
+camera.position.y = -0.5
 camera.position.z = 10
+camera.rotation.y = 50
+const cubeFolder1 = gui.addFolder('positionss');
+cubeFolder1.add(camera.position, 'x');
+cubeFolder1.add(camera.position, 'y');
+cubeFolder1.add(camera.position, 'z');
+cubeFolder1.add(camera.rotation, 'x');
+cubeFolder1.add(camera.rotation, 'y');
+cubeFolder1.add(camera.rotation, 'z');
+
+cubeFolder1.open();
 // scene.add(camera)
 // Lights
 
@@ -329,15 +341,7 @@ const PointLight2Helper= new THREE.PointLightHelper(PointLight2)
 scene.add(PointLight2Helper)
 const shadowCameraHelper3 = new THREE.CameraHelper( PointLight2.shadow.camera );
 				// scene.add( shadowCameraHelper3 );
-           const cubeFolder1 = gui.addFolder('positionss');
-                cubeFolder1.add(PointLight2.position, 'x');
-                cubeFolder1.add(PointLight2.position, 'y');
-                cubeFolder1.add(PointLight2.position, 'z');
-                cubeFolder1.add(PointLight2.rotation, 'x');
-                cubeFolder1.add(PointLight2.rotation, 'y');
-                cubeFolder1.add(PointLight2.rotation, 'z');
-
-                cubeFolder1.open();
+         
 
 /////////////////////
                 
@@ -364,7 +368,7 @@ const shadowCameraHelper2 = new THREE.CameraHelper( pointLight.shadow.camera );
 //controls
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
-controls.maxDistance=2
+controls.maxDistance=4
 controls.maxPolarAngle=Math.PI/1.8 
 controls.enabled=true
 
@@ -648,11 +652,14 @@ if(found.length>0 && !clickActive){
 tweenCamera3.onUpdate(updateCamera)
 tweenCamera3.start()
 controls.enabled=false
-document.getElementsByClassName('card')[0].style.display='block'
+document.getElementsByClassName('card')[0].style.display='block';
+document.getElementById('gui').style.display='block';
 }
 })
 document.getElementById('close').onclick=function(){
-  document.getElementById('close').style.display='none'
+  document.getElementById('close').style.display='none';
+  document.getElementById('gui').style.display='none';
+
     clickActive=false
 		controls.enabled=true
         document.getElementsByClassName('card')[0].style.display='none'
@@ -746,12 +753,11 @@ gui.add( params, 'exposure', 0.1, 2 ).onChange( function ( value ) {
 //cam animation
 const tick = () =>
 {
-  // console.log(camera.position);
-//   if(scene.children[24]){
-//  scene.children[24].children[9].scale.set(0.07,0.07,0.07);
-//  scene.children[24].children[9].position.x=-0.02;
-//  scene.children[24].children[9].position.z=-8.5;
-// }
+  if(scene.children[13]){
+ scene.children[13].children[9].scale.set(0.07,0.07,0.07);
+ scene.children[13].children[9].position.x=-0.02;
+ scene.children[13].children[9].position.z=-8.5;
+}
     TWEEN.update()
     const elapsedTime = 0.015
     const elapsedTime2 = clock.getElapsedTime()/500
@@ -774,11 +780,6 @@ const tick = () =>
         mixer1.update(elapsedTime)
 
     }
-    if(action){
-// console.log(action);
-      action.play()
-
-  }
     for ( let i = 0; i < scene.children.length; i ++ ) {
 
         const object = scene.children[ i ];
