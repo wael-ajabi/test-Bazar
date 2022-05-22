@@ -225,16 +225,16 @@ var camera = new THREE.PerspectiveCamera(60, sizes.width / sizes.height, 0.005, 
 camera.position.x = -4.7
 camera.position.y = -0.5
 camera.position.z = 10
-camera.rotation.set(77,77,77)
-const cubeFolder1 = gui.addFolder('positionss');
-cubeFolder1.add(camera.position, 'x');
-cubeFolder1.add(camera.position, 'y');
-cubeFolder1.add(camera.position, 'z');
-cubeFolder1.add(camera.rotation, 'x');
-cubeFolder1.add(camera.rotation, 'y');
-cubeFolder1.add(camera.rotation, 'z');
+// camera.rotation.set(77,77,77)
+// const cubeFolder1 = gui.addFolder('positionss');
+// cubeFolder1.add(camera.position, 'x');
+// cubeFolder1.add(camera.position, 'y');
+// cubeFolder1.add(camera.position, 'z');
+// cubeFolder1.add(camera.rotation, 'x');
+// cubeFolder1.add(camera.rotation, 'y');
+// cubeFolder1.add(camera.rotation, 'z');
 
-cubeFolder1.open();
+// cubeFolder1.open();
 // scene.add(camera)
 // Lights
 
