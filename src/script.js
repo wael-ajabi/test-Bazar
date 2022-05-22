@@ -693,7 +693,7 @@ var renderPass = new RenderPass( scene, camera );
 // bloomPass.strength = params.bloomStrength;
 // bloomPass.radius = params.bloomRadius;
  const saoPass = new SAOPass( scene, camera, sizes.width, sizes.height );
-composer.addPass( saoPass );
+// composer.addPass( saoPass );
 saoPass.kernelRadius = 16;
 saoPass.intensity=0.0002;
 // composer.addPass(bloomPass );
