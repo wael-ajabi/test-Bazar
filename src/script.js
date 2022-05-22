@@ -81,7 +81,7 @@ var   action=null
 var dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/js/libs/draco/');
 dracoLoader.preload();
-var blender_camera=null
+// var blender_camera=null
 gltfloader.setDRACOLoader(dracoLoader);
 var totalSize = 4167680;
 gltfloader.load("./City_5.glb", function (gltf) {
@@ -100,7 +100,7 @@ gltfloader.load("./City_5.glb", function (gltf) {
     //     cubeFolder2.add( gltf.scene.children[9].rotation, 'z');
     
     //     cubeFolder2.open();
-    blender_camera = gltf.cameras[0];
+    // blender_camera = gltf.cameras[0];
   mixer1 = new THREE.AnimationMixer(gltf.scene);
   for (var i=0;i<14;i++){
              action = mixer1.clipAction(gltf.animations[i]);
@@ -225,7 +225,7 @@ var camera = new THREE.PerspectiveCamera(60, sizes.width / sizes.height, 0.005, 
 camera.position.x = -4.7
 camera.position.y = -0.5
 camera.position.z = 10
-camera.rotation.y = 50
+camera.rotation.set(77,77,77)
 const cubeFolder1 = gui.addFolder('positionss');
 cubeFolder1.add(camera.position, 'x');
 cubeFolder1.add(camera.position, 'y');
@@ -338,7 +338,7 @@ PointLight2.distance=2.5
 PointLight2.castShadow= true;
 scene.add(PointLight2)
 const PointLight2Helper= new THREE.PointLightHelper(PointLight2)
-scene.add(PointLight2Helper)
+// scene.add(PointLight2Helper)
 const shadowCameraHelper3 = new THREE.CameraHelper( PointLight2.shadow.camera );
 				// scene.add( shadowCameraHelper3 );
          
@@ -698,11 +698,11 @@ saoPass.kernelRadius = 16;
 saoPass.intensity=0.0002;
 // composer.addPass(bloomPass );
 
-gui.add( params, 'exposure', 0.1, 2 ).onChange( function ( value ) {
+// gui.add( params, 'exposure', 0.1, 2 ).onChange( function ( value ) {
 
-  renderer.toneMappingExposure = Math.pow( value, 4.0 );
+//   renderer.toneMappingExposure = Math.pow( value, 4.0 );
 
-} );
+// } );
 
 // gui.add( params, 'bloomThreshold', 0.0, 1.0 ).onChange( function ( value ) {
 
@@ -723,34 +723,34 @@ gui.add( params, 'exposure', 0.1, 2 ).onChange( function ( value ) {
 // } );
 
 
-// Init gui
-				gui.add( saoPass.params, 'output', {
-					'Beauty': SAOPass.OUTPUT.Beauty,
-					'Beauty+SAO': SAOPass.OUTPUT.Default,
-					'SAO': SAOPass.OUTPUT.SAO,
-					'Depth': SAOPass.OUTPUT.Depth,
-					'Normal': SAOPass.OUTPUT.Normal
-				} ).onChange( function ( value ) {
+// // Init gui
+// 				gui.add( saoPass.params, 'output', {
+// 					'Beauty': SAOPass.OUTPUT.Beauty,
+// 					'Beauty+SAO': SAOPass.OUTPUT.Default,
+// 					'SAO': SAOPass.OUTPUT.SAO,
+// 					'Depth': SAOPass.OUTPUT.Depth,
+// 					'Normal': SAOPass.OUTPUT.Normal
+// 				} ).onChange( function ( value ) {
 
-					saoPass.params.output = parseInt( value );
+// 					saoPass.params.output = parseInt( value );
 
-				} );
-			let saoBias =	gui.add( saoPass.params, 'saoBias', - 1, 1 );
-      saoBias.setValue(2);
-			let saoIntensity=	gui.add( saoPass.params, 'saoIntensity', 0, 1 ).step(0.00001);
-      saoIntensity.setValue(0.00006)
-				gui.add( saoPass.params, 'saoScale', 0, 10 );
-			let saoKernelRadius=	gui.add( saoPass.params, 'saoKernelRadius', 1, 100 );
-      saoKernelRadius.setValue(15)
-				gui.add( saoPass.params, 'saoMinResolution', 0, 1 );
-				gui.add( saoPass.params, 'saoBlur' );
-			let saoBlurRadius=	gui.add( saoPass.params, 'saoBlurRadius', 0, 200 );
-      saoBlurRadius.setValue(102.1)
-			let saoBlurStdDev=	gui.add( saoPass.params, 'saoBlurStdDev', 0.5, 150 );
-      saoBlurStdDev.setValue(4)
-			let saoBlurDepthCutoff=	gui.add( saoPass.params, 'saoBlurDepthCutoff', 0.0, 10 );
-      saoBlurDepthCutoff.setValue(4.072)
-//cam animation
+// 				} );
+// 			let saoBias =	gui.add( saoPass.params, 'saoBias', - 1, 1 );
+//       saoBias.setValue(2);
+// 			let saoIntensity=	gui.add( saoPass.params, 'saoIntensity', 0, 1 ).step(0.00001);
+//       saoIntensity.setValue(0.00006)
+// 				gui.add( saoPass.params, 'saoScale', 0, 10 );
+// 			let saoKernelRadius=	gui.add( saoPass.params, 'saoKernelRadius', 1, 100 );
+//       saoKernelRadius.setValue(15)
+// 				gui.add( saoPass.params, 'saoMinResolution', 0, 1 );
+// 				gui.add( saoPass.params, 'saoBlur' );
+// 			let saoBlurRadius=	gui.add( saoPass.params, 'saoBlurRadius', 0, 200 );
+//       saoBlurRadius.setValue(102.1)
+// 			let saoBlurStdDev=	gui.add( saoPass.params, 'saoBlurStdDev', 0.5, 150 );
+//       saoBlurStdDev.setValue(4)
+// 			let saoBlurDepthCutoff=	gui.add( saoPass.params, 'saoBlurDepthCutoff', 0.0, 10 );
+//       saoBlurDepthCutoff.setValue(4.072)
+// //cam animation
 const tick = () =>
 {
   if(scene.children[13]){
@@ -769,7 +769,7 @@ const tick = () =>
 
     // Render
     
-    composer.render(scene, blender_camera)
+    composer.render(scene,camera)
     // composer.render();
 
 // spotLight.position.set(camera.position.x+10,camera.position.y+10,camera.position.z+10)
