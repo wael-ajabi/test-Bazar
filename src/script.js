@@ -81,7 +81,6 @@ var   action=null
 var dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/js/libs/draco/');
 dracoLoader.preload();
-var blender_camera=null
 gltfloader.setDRACOLoader(dracoLoader);
 var totalSize = 4167680;
 gltfloader.load("./City_5.glb", function (gltf) {
@@ -100,7 +99,6 @@ gltfloader.load("./City_5.glb", function (gltf) {
     //     cubeFolder2.add( gltf.scene.children[9].rotation, 'z');
     
     //     cubeFolder2.open();
-    blender_camera = gltf.cameras[0];
   mixer1 = new THREE.AnimationMixer(gltf.scene);
   for (var i=0;i<14;i++){
              action = mixer1.clipAction(gltf.animations[i]);
@@ -222,10 +220,10 @@ window.addEventListener('resize', () =>
  */
 // Base camera
 var camera = new THREE.PerspectiveCamera(60, sizes.width / sizes.height, 0.005, 5000)
-camera.position.x = -4.7
-camera.position.y = -0.5
-camera.position.z = 10
-camera.rotation.y = 50
+camera.position.x = -3.7
+camera.position.y = -0.67
+camera.position.z = 9.5
+
 const cubeFolder1 = gui.addFolder('positionss');
 cubeFolder1.add(camera.position, 'x');
 cubeFolder1.add(camera.position, 'y');
@@ -363,6 +361,8 @@ const shadowCameraHelper2 = new THREE.CameraHelper( pointLight.shadow.camera );
 				// scene.add( shadowCameraHelper2 );
 
 
+        const axesHelper = new THREE.AxesHelper( 5 );
+scene.add( axesHelper );
                 
 // Controls
 //controls
@@ -572,8 +572,8 @@ scene.add( line )
 
   
 }
-const tweenCamera1 = new TWEEN.Tween( {x: -5, y: 0, z: 10, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
-  .to( {x: -1, y: 0.5, z: 0.1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 18000 )
+const tweenCamera1 = new TWEEN.Tween( {x: -3.7, y: -0.68, z: 9.5, lookAtX: 1, lookAtY: 0, lookAtZ: 1} )
+  .to( {x: -3.7, y: 0.5, z: 9.5, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 18000 )
 const tweenCamera2 = new TWEEN.Tween( {x: -1, y: 0.5, z: 0.1, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
   .to( {x: 1, y: 0.1, z: -1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 12000 )
   tweenCamera2.onComplete(function() {
@@ -753,10 +753,11 @@ gui.add( params, 'exposure', 0.1, 2 ).onChange( function ( value ) {
 //cam animation
 const tick = () =>
 {
-  if(scene.children[13]){
- scene.children[13].children[9].scale.set(0.07,0.07,0.07);
- scene.children[13].children[9].position.x=-0.02;
- scene.children[13].children[9].position.z=-8.5;
+  if(scene.children[14]){
+ scene.children[14].children[9].scale.set(0.07,0.07,0.07);
+ scene.children[14].children[9].position.x=-0.02;
+ scene.children[14].children[9].position.z=-8.5;
+ scene.children[14].children[9].rotation.z=3.5;
 }
     TWEEN.update()
     const elapsedTime = 0.015
@@ -770,7 +771,7 @@ const tick = () =>
 
     // Render
     
-    composer.render(scene, blender_camera)
+    composer.render(scene)
     // composer.render();
 
 // spotLight.position.set(camera.position.x+10,camera.position.y+10,camera.position.z+10)
