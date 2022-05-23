@@ -166,6 +166,37 @@ cube.visible=false;
 
     // cubeFolder2.open();
 
+    
+    const cube2 = new THREE.Mesh( geomet, material );
+    cube2.name='mercato'
+    cube2.position.set(-0.09,-0.5,-0.13)
+    cube2.scale.set(5,0.5,8)
+    scene.add( cube2 );
+    cube2.visible=false;
+        // const cube2Folder2 = gui.addFolder('position');
+        // cube2Folder2.add( cube2.position, 'x')
+        // cube2Folder2.add( cube2.position, 'y')
+        // cube2Folder2.add( cube2.position, 'z')
+        // cube2Folder2.add( cube2.scale, 'x');
+        // cube2Folder2.add( cube2.scale, 'y');
+        // cube2Folder2.add( cube2.scale, 'z');
+    
+        // cube2Folder2.open();
+        const cube3 = new THREE.Mesh( geomet, material );
+        cube3.name='Razzi'
+        cube3.position.set(-0.98,-0.5,-0.41)
+        cube3.scale.set(10,0.5,14)
+        scene.add( cube3 );
+        cube3.visible=false;
+            // const cube3Folder2 = gui.addFolder('position');
+            // cube3Folder2.add( cube3.position, 'x')
+            // cube3Folder2.add( cube3.position, 'y')
+            // cube3Folder2.add( cube3.position, 'z')
+            // cube3Folder2.add( cube3.scale, 'x');
+            // cube3Folder2.add( cube3.scale, 'y');
+            // cube3Folder2.add( cube3.scale, 'z');
+        
+            // cube3Folder2.open();
 // gltfloader.load("./BazarHouseGLB.glb", function (gltf) {
 //     console.log(gltf);
     
@@ -214,27 +245,30 @@ window.addEventListener('resize', () =>
     renderer.gammaOutput = !0
     renderer.gammaFactor = 5
 })
-// renderer.gammaOutput = !0
-// renderer.gammaFactor = 2
+renderer.gammaOutput = !0
+renderer.gammaFactor = 2
 
 /**
  * Camera
  */
 // Base camera
 var camera = new THREE.PerspectiveCamera(60, sizes.width / sizes.height, 0.005, 5000)
-camera.position.x = -4.7
+camera.position.x = -3.7
 camera.position.y = -0.5
-camera.position.z = 10
+camera.position.z = 9.4
+var vector = new THREE.Vector3( 10, 10, 10 );
+vector.add( camera.position );
+camera.lookAt(cube3)
 // camera.rotation.set(77,77,77)
-// const cubeFolder1 = gui.addFolder('positionss');
-// cubeFolder1.add(camera.position, 'x');
-// cubeFolder1.add(camera.position, 'y');
-// cubeFolder1.add(camera.position, 'z');
+const cubeFolder1 = gui.addFolder('positionss');
+cubeFolder1.add(camera.position, 'x');
+cubeFolder1.add(camera.position, 'y');
+cubeFolder1.add(camera.position, 'z');
 // cubeFolder1.add(camera.rotation, 'x');
 // cubeFolder1.add(camera.rotation, 'y');
 // cubeFolder1.add(camera.rotation, 'z');
 
-// cubeFolder1.open();
+cubeFolder1.open();
 // scene.add(camera)
 // Lights
 
@@ -368,7 +402,7 @@ const shadowCameraHelper2 = new THREE.CameraHelper( pointLight.shadow.camera );
 //controls
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
-controls.maxDistance=4
+// controls.maxDistance=4
 controls.maxPolarAngle=Math.PI/1.8 
 controls.enabled=true
 
@@ -572,11 +606,20 @@ scene.add( line )
 
   
 }
-const tweenCamera1 = new TWEEN.Tween( {x: -5, y: 0, z: 10, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
-  .to( {x: -1, y: 0.5, z: 0.1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 18000 )
-const tweenCamera2 = new TWEEN.Tween( {x: -1, y: 0.5, z: 0.1, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
-  .to( {x: 1, y: 0.1, z: -1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 12000 )
-  tweenCamera2.onComplete(function() {
+// const tweenCamera1 = new TWEEN.Tween( {x: -5, y: 0, z: 10, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
+//   .to( {x: -1, y: 0.5, z: 0.1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 18000 )
+// const tweenCamera2 = new TWEEN.Tween( {x: -1, y: 0.5, z: 0.1, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
+//   .to( {x: 1, y: 0.1, z: -1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 12000 )
+const tweenCamera1 = new TWEEN.Tween( {x: -3.7, y: -0.5, z: 9.4 , lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
+  .to( {x: -3.7, y: 0.2, z: 9.4, lookAtX: 3, lookAtY: 0, lookAtZ: 0}, 4000 )
+  // .to({x:-1,y:0.5,z:0.1,lookAtX: 0, lookAtY: -1, lookAtZ: 0}, 8000)
+  const tweenCamera2 = new TWEEN.Tween( {x: -3.7, y: 0.2, z: 9.4, lookAtX: 3, lookAtY: 0, lookAtZ: 0} )
+  .to({x:-1.89,y:0.97,z:3.9,lookAtX: 0, lookAtY: -5, lookAtZ: 0}, 11000)
+const tweenCamera3 = new TWEEN.Tween( {x:-1.89,y:0.97,z:3.9, lookAtX: 0, lookAtY:-5, lookAtZ: 0} )
+  .to( {x: -4, y: 0.8, z: -1.46, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 10000 )
+  const tweenCamera4 = new TWEEN.Tween( {x: -4, y: 0.8, z: -1.46, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
+  .to( {x: 0.01, y: 0.8, z:-2.8, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 10000 )
+  tweenCamera4.onComplete(function() {
 label("Casa Di Bazzar",-0.85,-0.5,0.89,-1.3,0.30,0.95)
 label("Mercato",-0.12,-0.5,-0.06,-0.30,0.25,-0.21)
 label("Razzo",-0.87,-0.42,-0.19,-1.2,0.25,-0.57)
@@ -584,6 +627,8 @@ label("Razzo",-0.87,-0.42,-0.19,-1.2,0.25,-0.57)
 // sphere.position.set(-0.85, -0.5, 0.89);
   })
 tweenCamera1.chain(tweenCamera2)
+tweenCamera2.chain(tweenCamera3)
+tweenCamera3.chain(tweenCamera4)
 
 
 const updateCamera = function (object ) {
@@ -592,6 +637,8 @@ const updateCamera = function (object ) {
 }
 tweenCamera1.onUpdate(updateCamera)
 tweenCamera2.onUpdate(updateCamera)
+tweenCamera3.onUpdate(updateCamera)
+tweenCamera4.onUpdate(updateCamera)
 
 
 document.getElementById('start-button').onclick=function(){
@@ -628,7 +675,7 @@ const raycaster = new THREE.Raycaster(); // create once
 const clickMouse = new THREE.Vector2();  // create once
 const moveMouse = new THREE.Vector2();   // create once
 
-
+/// bazar
 function intersect(pos) {
   raycaster.setFromCamera(pos, camera);
   return raycaster.intersectObject(cube);
@@ -669,6 +716,89 @@ tweenCamera4.onUpdate(updateCamera)
 tweenCamera4.start()
 	
 };
+//mercato
+function intersectmercato(pos) {
+  raycaster.setFromCamera(pos, camera);
+  return raycaster.intersectObject(cube2);
+}
+var clickActive=false
+window.addEventListener('click', event => {
+
+
+
+// THREE RAYCASTER
+clickMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+const found = intersectmercato(clickMouse);
+console.log(found);
+if(found.length>0 && !clickActive){
+  clickActive=true
+  document.getElementById('close').style.display='block'
+    const tweenCamera3 = new TWEEN.Tween( {x: controls.object.position.x, y: controls.object.position.y, z: controls.object.position.z, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
+  .to( {x: -0.20, y: -0.24, z: -0.58, lookAtX: cube2.position.x, lookAtY: cube2.position.y, lookAtZ: cube2.position.z}, 1000 )
+tweenCamera3.onUpdate(updateCamera)
+tweenCamera3.start()
+controls.enabled=false
+document.getElementsByClassName('card')[0].style.display='block';
+document.getElementById('gui').style.display='block';
+}
+})
+document.getElementById('close').onclick=function(){
+  document.getElementById('close').style.display='none';
+  document.getElementById('gui').style.display='none';
+
+    clickActive=false
+		controls.enabled=true
+        document.getElementsByClassName('card')[0].style.display='none'
+        const tweenCamera4 = new TWEEN.Tween( {x: -0.20, y: -0.24, z: -0.58, lookAtX: cube.position.x, lookAtY: cube.position.y, lookAtZ: cube.position.z} )
+  .to( {x: 1, y: 0.1, z: -1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 1000 )
+tweenCamera4.onUpdate(updateCamera)
+tweenCamera4.start()
+	
+};
+
+//razzi
+function intersectrazzi(pos) {
+  raycaster.setFromCamera(pos, camera);
+  return raycaster.intersectObject(cube3);
+}
+var clickActive=false
+window.addEventListener('click', event => {
+
+
+
+// THREE RAYCASTER
+clickMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+const found = intersectrazzi(clickMouse);
+console.log(found);
+if(found.length>0 && !clickActive){
+  clickActive=true
+  document.getElementById('close2').style.display='block'
+    const tweenCamera3 = new TWEEN.Tween( {x: controls.object.position.x, y: controls.object.position.y, z: controls.object.position.z, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
+  .to( {x: -0.08, y: 0.54, z: -1.25, lookAtX: cube3.position.x, lookAtY: cube3.position.y, lookAtZ: cube3.position.z}, 1000 )
+tweenCamera3.onUpdate(updateCamera)
+tweenCamera3.start()
+controls.enabled=false
+document.getElementsByClassName('card')[0].style.display='block';
+document.getElementById('guirazi').style.display='block';
+}
+})
+document.getElementById('close2').onclick=function(){
+  document.getElementById('close2').style.display='none';
+  document.getElementById('guirazi').style.display='none';
+
+    clickActive=false
+		controls.enabled=true
+        const tweenCamera4 = new TWEEN.Tween( {x: -0.20, y: -0.24, z: -0.58, lookAtX: cube.position.x, lookAtY: cube.position.y, lookAtZ: cube.position.z} )
+  .to( {x: 1, y: 0.1, z: -1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 1000 )
+tweenCamera4.onUpdate(updateCamera)
+tweenCamera4.start()
+	
+	
+};
 
 window.addEventListener('mousemove', event => {
     moveMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
@@ -693,7 +823,7 @@ var renderPass = new RenderPass( scene, camera );
 // bloomPass.strength = params.bloomStrength;
 // bloomPass.radius = params.bloomRadius;
  const saoPass = new SAOPass( scene, camera, sizes.width, sizes.height );
-// composer.addPass( saoPass );
+composer.addPass( saoPass );
 saoPass.kernelRadius = 16;
 saoPass.intensity=0.0002;
 // composer.addPass(bloomPass );
@@ -723,40 +853,41 @@ saoPass.intensity=0.0002;
 // } );
 
 
-// // Init gui
-// 				gui.add( saoPass.params, 'output', {
-// 					'Beauty': SAOPass.OUTPUT.Beauty,
-// 					'Beauty+SAO': SAOPass.OUTPUT.Default,
-// 					'SAO': SAOPass.OUTPUT.SAO,
-// 					'Depth': SAOPass.OUTPUT.Depth,
-// 					'Normal': SAOPass.OUTPUT.Normal
-// 				} ).onChange( function ( value ) {
+// Init gui
+				gui.add( saoPass.params, 'output', {
+					'Beauty': SAOPass.OUTPUT.Beauty,
+					'Beauty+SAO': SAOPass.OUTPUT.Default,
+					'SAO': SAOPass.OUTPUT.SAO,
+					'Depth': SAOPass.OUTPUT.Depth,
+					'Normal': SAOPass.OUTPUT.Normal
+				} ).onChange( function ( value ) {
 
-// 					saoPass.params.output = parseInt( value );
+					saoPass.params.output = parseInt( value );
 
-// 				} );
-// 			let saoBias =	gui.add( saoPass.params, 'saoBias', - 1, 1 );
-//       saoBias.setValue(2);
-// 			let saoIntensity=	gui.add( saoPass.params, 'saoIntensity', 0, 1 ).step(0.00001);
-//       saoIntensity.setValue(0.00006)
-// 				gui.add( saoPass.params, 'saoScale', 0, 10 );
-// 			let saoKernelRadius=	gui.add( saoPass.params, 'saoKernelRadius', 1, 100 );
-//       saoKernelRadius.setValue(15)
-// 				gui.add( saoPass.params, 'saoMinResolution', 0, 1 );
-// 				gui.add( saoPass.params, 'saoBlur' );
-// 			let saoBlurRadius=	gui.add( saoPass.params, 'saoBlurRadius', 0, 200 );
-//       saoBlurRadius.setValue(102.1)
-// 			let saoBlurStdDev=	gui.add( saoPass.params, 'saoBlurStdDev', 0.5, 150 );
-//       saoBlurStdDev.setValue(4)
-// 			let saoBlurDepthCutoff=	gui.add( saoPass.params, 'saoBlurDepthCutoff', 0.0, 10 );
-//       saoBlurDepthCutoff.setValue(4.072)
+				} );
+			let saoBias =	gui.add( saoPass.params, 'saoBias', - 1, 1 );
+      saoBias.setValue(2);
+			let saoIntensity=	gui.add( saoPass.params, 'saoIntensity', 0, 1 ).step(0.00001);
+      saoIntensity.setValue(0.00006)
+				gui.add( saoPass.params, 'saoScale', 0, 10 );
+			let saoKernelRadius=	gui.add( saoPass.params, 'saoKernelRadius', 1, 100 );
+      saoKernelRadius.setValue(15)
+				gui.add( saoPass.params, 'saoMinResolution', 0, 1 );
+				gui.add( saoPass.params, 'saoBlur' );
+			let saoBlurRadius=	gui.add( saoPass.params, 'saoBlurRadius', 0, 200 );
+      saoBlurRadius.setValue(102.1)
+			let saoBlurStdDev=	gui.add( saoPass.params, 'saoBlurStdDev', 0.5, 150 );
+      saoBlurStdDev.setValue(4)
+			let saoBlurDepthCutoff=	gui.add( saoPass.params, 'saoBlurDepthCutoff', 0.0, 10 );
+      saoBlurDepthCutoff.setValue(4.072)
 // //cam animation
 const tick = () =>
 {
-  if(scene.children[12]){
- scene.children[12].children[9].scale.set(0.07,0.07,0.07);
- scene.children[12].children[9].position.x=-0.02;
- scene.children[12].children[9].position.z=-8.5;
+  if(scene.children[14]){
+ scene.children[14].children[9].scale.set(0.07,0.07,0.07);
+ scene.children[14].children[9].position.x=-0.02;
+ scene.children[14].children[9].position.z=-8.5;
+ scene.children[14].children[9].rotation.z=28;
 }
     TWEEN.update()
     const elapsedTime = 0.015
@@ -775,6 +906,7 @@ const tick = () =>
 // spotLight.position.set(camera.position.x+10,camera.position.y+10,camera.position.z+10)
     // Call tick again on the next frame
     window.requestAnimationFrame(tick)
+    console.log(camera.position);
     if(mixer1){
 
         mixer1.update(elapsedTime)
