@@ -17,6 +17,10 @@ import { ColladaLoader } from 'three/examples/jsm/loaders/ColladaLoader.js';
             import gsap from "gsap";
 
             let composer;
+            let	singleMaterial, zmaterial,nobjects, cubeMaterial;
+            const materials1 = [], objects = [];
+
+
 // Debug
 const gui = new dat.GUI();
 // let composer
@@ -31,8 +35,11 @@ const canvas = document.querySelector('canvas.webgl')
 // Scene
 const scene = new THREE.Scene()
 scene.background = new THREE.Color(0x000000);
-var fog = new THREE.FogExp2( new THREE.Color("rgb(188, 118, 067)"), 0.4 );
+var fonintensity=0.4
+
+var fog = new THREE.FogExp2( new THREE.Color("rgb(188, 118, 067)"), fonintensity );
 scene.fog = fog
+
 
     // const color = "rgb(133, 117, 223)";  // white
     // const near = 0.5;
@@ -184,8 +191,8 @@ cube.visible=false;
         // cube2Folder2.open();
         const cube3 = new THREE.Mesh( geomet, material );
         cube3.name='Razzi'
-        cube3.position.set(-0.98,-0.5,-0.41)
-        cube3.scale.set(10,0.5,14)
+        cube3.position.set(-1.2,-0.5,-0.41)
+        cube3.scale.set(8,0.5,14)
         scene.add( cube3 );
         cube3.visible=false;
             // const cube3Folder2 = gui.addFolder('position');
@@ -256,19 +263,16 @@ var camera = new THREE.PerspectiveCamera(60, sizes.width / sizes.height, 0.005, 
 camera.position.x = -3.7
 camera.position.y = -0.5
 camera.position.z = 9.4
-var vector = new THREE.Vector3( 10, 10, 10 );
-vector.add( camera.position );
-camera.lookAt(cube3)
+// camera.lookAt(20,20,20)
+
+
 // camera.rotation.set(77,77,77)
-const cubeFolder1 = gui.addFolder('positionss');
-cubeFolder1.add(camera.position, 'x');
-cubeFolder1.add(camera.position, 'y');
-cubeFolder1.add(camera.position, 'z');
+// s
 // cubeFolder1.add(camera.rotation, 'x');
 // cubeFolder1.add(camera.rotation, 'y');
 // cubeFolder1.add(camera.rotation, 'z');
 
-cubeFolder1.open();
+// cubeFolder1.open();
 // scene.add(camera)
 // Lights
 
@@ -313,7 +317,7 @@ pointLight3.distance=10
 scene.add(pointLight3)
 const pointLight3Helper= new THREE.PointLightHelper(pointLight3)
 // scene.add(pointLight3Helper)
-const shadowCameraHelper4 = new THREE.CameraHelper( pointLight3.shadow.camera );
+// const shadowCameraHelper4 = new THREE.CameraHelper( pointLight3.shadow.camera );
 				// scene.add( shadowCameraHelper4 );
 
                 // const cubeFolder1 = gui.addFolder('position');
@@ -373,7 +377,7 @@ PointLight2.castShadow= true;
 scene.add(PointLight2)
 const PointLight2Helper= new THREE.PointLightHelper(PointLight2)
 // scene.add(PointLight2Helper)
-const shadowCameraHelper3 = new THREE.CameraHelper( PointLight2.shadow.camera );
+// const shadowCameraHelper3 = new THREE.CameraHelper( PointLight2.shadow.camera );
 				// scene.add( shadowCameraHelper3 );
          
 
@@ -393,18 +397,22 @@ pointLight.distance=3.68
 scene.add(pointLight)
 const pointLightHelper= new THREE.PointLightHelper(pointLight)
 // scene.add(pointLightHelper)
-const shadowCameraHelper2 = new THREE.CameraHelper( pointLight.shadow.camera );
+// const shadowCameraHelper2 = new THREE.CameraHelper( pointLight.shadow.camera );
 				// scene.add( shadowCameraHelper2 );
 
 
+//         const axesHelper = new THREE.AxesHelper( 5 );
+// scene.add( axesHelper );
                 
 // Controls
 //controls
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
-// controls.maxDistance=4
+controls.maxDistance=4
 controls.maxPolarAngle=Math.PI/1.8 
 controls.enabled=true
+// controls.target = new THREE.Vector3(4, 0, 0);
+// controls.update();
 
 // gui.add( params, 'exposure', 0.1, 2 ).onChange( function ( value ) {
 
@@ -640,9 +648,11 @@ tweenCamera2.onUpdate(updateCamera)
 tweenCamera3.onUpdate(updateCamera)
 tweenCamera4.onUpdate(updateCamera)
 
-
+var myInterval=null
 document.getElementById('start-button').onclick=function(){
     document.getElementById('start-button').style.display='none'
+    //  myInterval = setInterval(()=>{fonintensity+=0.001;fog.density=fonintensity , console.log(fonintensity);}, 200);
+    
     tweenCamera1.start()
     controls.enabled=true
     // controls.enablePan = false;
@@ -693,14 +703,17 @@ const found = intersect(clickMouse);
 console.log(found);
 if(found.length>0 && !clickActive){
   clickActive=true
-  document.getElementById('close').style.display='block'
     const tweenCamera3 = new TWEEN.Tween( {x: controls.object.position.x, y: controls.object.position.y, z: controls.object.position.z, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
   .to( {x: -0.8+0.2, y: -0.5+0.1, z: 0.8, lookAtX: cube.position.x, lookAtY: cube.position.y, lookAtZ: cube.position.z}, 1000 )
 tweenCamera3.onUpdate(updateCamera)
 tweenCamera3.start()
 controls.enabled=false
-document.getElementsByClassName('card')[0].style.display='block';
-document.getElementById('gui').style.display='block';
+tweenCamera3.onComplete(function() {
+  document.getElementsByClassName('card')[0].style.display='block';
+  document.getElementById('gui').style.display='block';
+  document.getElementById('close').style.display='block'
+})
+
 }
 })
 document.getElementById('close').onclick=function(){
@@ -710,7 +723,7 @@ document.getElementById('close').onclick=function(){
     clickActive=false
 		controls.enabled=true
         document.getElementsByClassName('card')[0].style.display='none'
-        const tweenCamera4 = new TWEEN.Tween( {x: -0.8+1, y: -0.5+0.5, z: 0.8, lookAtX: cube.position.x, lookAtY: cube.position.y, lookAtZ: cube.position.z} )
+        const tweenCamera4 = new TWEEN.Tween( {x: -0.8+0.2, y: -0.5+0.1, z: 0.8, lookAtX: cube.position.x, lookAtY: cube.position.y, lookAtZ: cube.position.z} )
   .to( {x: 1, y: 0.1, z: -1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 1000 )
 tweenCamera4.onUpdate(updateCamera)
 tweenCamera4.start()
@@ -734,24 +747,26 @@ const found = intersectmercato(clickMouse);
 console.log(found);
 if(found.length>0 && !clickActive){
   clickActive=true
-  document.getElementById('close').style.display='block'
     const tweenCamera3 = new TWEEN.Tween( {x: controls.object.position.x, y: controls.object.position.y, z: controls.object.position.z, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
   .to( {x: -0.20, y: -0.24, z: -0.58, lookAtX: cube2.position.x, lookAtY: cube2.position.y, lookAtZ: cube2.position.z}, 1000 )
 tweenCamera3.onUpdate(updateCamera)
 tweenCamera3.start()
 controls.enabled=false
-document.getElementsByClassName('card')[0].style.display='block';
-document.getElementById('gui').style.display='block';
+tweenCamera3.onComplete(function() {
+  document.getElementsByClassName('card')[0].style.display='block';
+  document.getElementById('gui').style.display='block';
+  document.getElementById('close3').style.display='block'
+})
 }
 })
-document.getElementById('close').onclick=function(){
-  document.getElementById('close').style.display='none';
+document.getElementById('close3').onclick=function(){
+  document.getElementById('close3').style.display='none';
   document.getElementById('gui').style.display='none';
 
     clickActive=false
 		controls.enabled=true
         document.getElementsByClassName('card')[0].style.display='none'
-        const tweenCamera4 = new TWEEN.Tween( {x: -0.20, y: -0.24, z: -0.58, lookAtX: cube.position.x, lookAtY: cube.position.y, lookAtZ: cube.position.z} )
+        const tweenCamera4 = new TWEEN.Tween( {x: -0.20, y: -0.24, z: -0.58, lookAtX: cube2.position.x, lookAtY: cube2.position.y, lookAtZ: cube2.position.z} )
   .to( {x: 1, y: 0.1, z: -1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 1000 )
 tweenCamera4.onUpdate(updateCamera)
 tweenCamera4.start()
@@ -776,14 +791,16 @@ const found = intersectrazzi(clickMouse);
 console.log(found);
 if(found.length>0 && !clickActive){
   clickActive=true
-  document.getElementById('close2').style.display='block'
     const tweenCamera3 = new TWEEN.Tween( {x: controls.object.position.x, y: controls.object.position.y, z: controls.object.position.z, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
   .to( {x: -0.08, y: 0.54, z: -1.25, lookAtX: cube3.position.x, lookAtY: cube3.position.y, lookAtZ: cube3.position.z}, 1000 )
 tweenCamera3.onUpdate(updateCamera)
 tweenCamera3.start()
 controls.enabled=false
-document.getElementsByClassName('card')[0].style.display='block';
-document.getElementById('guirazi').style.display='block';
+tweenCamera3.onComplete(function() {
+  document.getElementsByClassName('card')[0].style.display='block';
+  document.getElementById('guirazi').style.display='block';
+  document.getElementById('close2').style.display='block'
+})
 }
 })
 document.getElementById('close2').onclick=function(){
@@ -792,7 +809,7 @@ document.getElementById('close2').onclick=function(){
 
     clickActive=false
 		controls.enabled=true
-        const tweenCamera4 = new TWEEN.Tween( {x: -0.20, y: -0.24, z: -0.58, lookAtX: cube.position.x, lookAtY: cube.position.y, lookAtZ: cube.position.z} )
+        const tweenCamera4 = new TWEEN.Tween( {x: -0.08, y: 0.54, z: -1.25, lookAtX: cube3.position.x, lookAtY: cube3.position.y, lookAtZ: cube3.position.z} )
   .to( {x: 1, y: 0.1, z: -1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 1000 )
 tweenCamera4.onUpdate(updateCamera)
 tweenCamera4.start()
@@ -851,9 +868,40 @@ saoPass.intensity=0.0002;
 //   bloomPass.radius = Number( value );
 
 // } );
+const postprocessing = {};
 
+const effectController = {
 
-// Init gui
+  focus: 500.0,
+  aperture: 5,
+  maxblur: 0.01
+
+};
+// const matChanger = function ( ) {
+
+//   postprocessing.bokeh.uniforms[ 'focus' ].value = effectController.focus;
+//   postprocessing.bokeh.uniforms[ 'aperture' ].value = effectController.aperture * 0.00001;
+//   postprocessing.bokeh.uniforms[ 'maxblur' ].value = effectController.maxblur;
+
+// };
+
+// gui.add( effectController, 'focus', 10.0, 3000.0, 10 ).onChange( matChanger );
+// gui.add( effectController, 'aperture', 0, 10, 0.1 ).onChange( matChanger );
+// gui.add( effectController, 'maxblur', 0.0, 0.01, 0.001 ).onChange( matChanger );
+// gui.close();
+
+// matChanger();
+var bokehPass = new BokehPass(scene, camera, {
+  focus: 1,
+  aperture: 0.005,
+  maxblur: 0.05,
+  width: window.innerWidth,
+  height: window.innerHeight
+});
+bokehPass.renderToScreen = true;
+composer.addPass(bokehPass);
+
+// // Init gui
 				gui.add( saoPass.params, 'output', {
 					'Beauty': SAOPass.OUTPUT.Beauty,
 					'Beauty+SAO': SAOPass.OUTPUT.Default,
@@ -883,6 +931,10 @@ saoPass.intensity=0.0002;
 // //cam animation
 const tick = () =>
 {
+// if(myInterval){
+  
+//   if(fonintensity===0.4){clearInterval(myInterval)}
+// }
   if(scene.children[14]){
  scene.children[14].children[9].scale.set(0.07,0.07,0.07);
  scene.children[14].children[9].position.x=-0.02;
@@ -897,16 +949,18 @@ const tick = () =>
 
     // Update Orbital Controls
     // controls.update()
+   
 
     // Render
     
     composer.render(scene,camera)
+    // postprocessing.composer.render( 0.1 );
     // composer.render();
 
 // spotLight.position.set(camera.position.x+10,camera.position.y+10,camera.position.z+10)
     // Call tick again on the next frame
     window.requestAnimationFrame(tick)
-    console.log(camera.position);
+    
     if(mixer1){
 
         mixer1.update(elapsedTime)

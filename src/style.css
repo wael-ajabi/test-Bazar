@@ -109,6 +109,16 @@ img{
     cursor: pointer;
     z-index: 50;
 }
+#close3{
+    display: none;
+    position: absolute;
+    left:78%;
+    top:74%;
+    height: 5vh;
+    width: 5vh;
+    cursor: pointer;
+    z-index: 50;
+}
 #close2{
     display: none;
     position: absolute;
@@ -117,7 +127,7 @@ img{
     height: 5vh;
     width: 5vh;
     cursor: pointer;
-    z-index: 50;
+    z-index: 999;
 }
 html, body {
 	overflow: hidden;
