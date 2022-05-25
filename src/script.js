@@ -17,6 +17,10 @@ import { ColladaLoader } from 'three/examples/jsm/loaders/ColladaLoader.js';
             import gsap from "gsap";
 
             let composer;
+            let	singleMaterial, zmaterial,nobjects, cubeMaterial;
+            const materials1 = [], objects = [];
+
+
 // Debug
 const gui = new dat.GUI();
 // let composer
@@ -31,7 +35,7 @@ const canvas = document.querySelector('canvas.webgl')
 // Scene
 const scene = new THREE.Scene()
 scene.background = new THREE.Color(0x000000);
-var fonintensity=0
+var fonintensity=0.1
 
 var fog = new THREE.FogExp2( new THREE.Color("rgb(188, 118, 067)"), fonintensity );
 scene.fog = fog
@@ -187,8 +191,8 @@ cube.visible=false;
         // cube2Folder2.open();
         const cube3 = new THREE.Mesh( geomet, material );
         cube3.name='Razzi'
-        cube3.position.set(-0.98,-0.5,-0.41)
-        cube3.scale.set(10,0.5,14)
+        cube3.position.set(-1.2,-0.5,-0.41)
+        cube3.scale.set(8,0.5,14)
         scene.add( cube3 );
         cube3.visible=false;
             // const cube3Folder2 = gui.addFolder('position');
@@ -263,15 +267,12 @@ camera.position.z = 9.4
 
 
 // camera.rotation.set(77,77,77)
-const cubeFolder1 = gui.addFolder('positionss');
-cubeFolder1.add(camera.position, 'x');
-cubeFolder1.add(camera.position, 'y');
-cubeFolder1.add(camera.position, 'z');
+// s
 // cubeFolder1.add(camera.rotation, 'x');
 // cubeFolder1.add(camera.rotation, 'y');
 // cubeFolder1.add(camera.rotation, 'z');
 
-cubeFolder1.open();
+// cubeFolder1.open();
 // scene.add(camera)
 // Lights
 
@@ -400,18 +401,18 @@ const pointLightHelper= new THREE.PointLightHelper(pointLight)
 				// scene.add( shadowCameraHelper2 );
 
 
-        const axesHelper = new THREE.AxesHelper( 5 );
-scene.add( axesHelper );
+//         const axesHelper = new THREE.AxesHelper( 5 );
+// scene.add( axesHelper );
                 
 // Controls
 //controls
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
-// controls.maxDistance=4
+controls.maxDistance=4
 controls.maxPolarAngle=Math.PI/1.8 
 controls.enabled=true
-controls.target = new THREE.Vector3(4, 0, 0);
-controls.update();
+// controls.target = new THREE.Vector3(4, 0, 0);
+// controls.update();
 
 // gui.add( params, 'exposure', 0.1, 2 ).onChange( function ( value ) {
 
@@ -630,6 +631,8 @@ const tweenCamera3 = new TWEEN.Tween( {x:-1.89,y:0.97,z:3.9, lookAtX: 0, lookAtY
 label("Casa Di Bazzar",-0.85,-0.5,0.89,-1.3,0.30,0.95)
 label("Mercato",-0.12,-0.5,-0.06,-0.30,0.25,-0.21)
 label("Razzo",-0.87,-0.42,-0.19,-1.2,0.25,-0.57)
+clearInterval(myInterval)
+
 // sprite.position.set(-1.3  ,0.30,0.95)
 // sphere.position.set(-0.85, -0.5, 0.89);
   })
@@ -650,7 +653,7 @@ tweenCamera4.onUpdate(updateCamera)
 var myInterval=null
 document.getElementById('start-button').onclick=function(){
     document.getElementById('start-button').style.display='none'
-     myInterval = setInterval(()=>{fonintensity+=0.01;fog.density=fonintensity}, 500);
+     myInterval = setInterval(()=>{fonintensity+=0.001;fog.density=fonintensity , console.log(fonintensity);}, 200);
     
     tweenCamera1.start()
     controls.enabled=true
@@ -702,14 +705,29 @@ const found = intersect(clickMouse);
 console.log(found);
 if(found.length>0 && !clickActive){
   clickActive=true
-  document.getElementById('close').style.display='block'
     const tweenCamera3 = new TWEEN.Tween( {x: controls.object.position.x, y: controls.object.position.y, z: controls.object.position.z, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
   .to( {x: -0.8+0.2, y: -0.5+0.1, z: 0.8, lookAtX: cube.position.x, lookAtY: cube.position.y, lookAtZ: cube.position.z}, 1000 )
 tweenCamera3.onUpdate(updateCamera)
 tweenCamera3.start()
 controls.enabled=false
-document.getElementsByClassName('card')[0].style.display='block';
-document.getElementById('gui').style.display='block';
+tweenCamera3.onComplete(function() {
+  document.getElementsByClassName('card')[0].style.display='block';
+  document.getElementById('gui').style.display='block';
+  document.getElementById('close').style.display='block'
+  var bokehPass = new BokehPass(scene, camera, {
+    focus: 0.5,
+    aperture: 0.005,
+    maxblur: 0.05,
+    width: window.innerWidth,
+    height: window.innerHeight
+  });
+ 
+  
+  composer.addPass(bokehPass);
+  
+  
+})
+
 }
 })
 document.getElementById('close').onclick=function(){
@@ -719,10 +737,20 @@ document.getElementById('close').onclick=function(){
     clickActive=false
 		controls.enabled=true
         document.getElementsByClassName('card')[0].style.display='none'
-        const tweenCamera4 = new TWEEN.Tween( {x: -0.8+1, y: -0.5+0.5, z: 0.8, lookAtX: cube.position.x, lookAtY: cube.position.y, lookAtZ: cube.position.z} )
+        const tweenCamera4 = new TWEEN.Tween( {x: -0.8+0.2, y: -0.5+0.1, z: 0.8, lookAtX: cube.position.x, lookAtY: cube.position.y, lookAtZ: cube.position.z} )
   .to( {x: 1, y: 0.1, z: -1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 1000 )
 tweenCamera4.onUpdate(updateCamera)
 tweenCamera4.start()
+
+var bokehPass = new BokehPass(scene, camera, {
+  focus: 0,
+  aperture: 0,
+  maxblur: 0,
+  width: window.innerWidth,
+  height: window.innerHeight
+});
+
+composer.addPass(bokehPass);
 	
 };
 //mercato
@@ -743,27 +771,49 @@ const found = intersectmercato(clickMouse);
 console.log(found);
 if(found.length>0 && !clickActive){
   clickActive=true
-  document.getElementById('close').style.display='block'
     const tweenCamera3 = new TWEEN.Tween( {x: controls.object.position.x, y: controls.object.position.y, z: controls.object.position.z, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
   .to( {x: -0.20, y: -0.24, z: -0.58, lookAtX: cube2.position.x, lookAtY: cube2.position.y, lookAtZ: cube2.position.z}, 1000 )
 tweenCamera3.onUpdate(updateCamera)
 tweenCamera3.start()
 controls.enabled=false
-document.getElementsByClassName('card')[0].style.display='block';
-document.getElementById('gui').style.display='block';
+tweenCamera3.onComplete(function() {
+  document.getElementsByClassName('card')[0].style.display='block';
+  document.getElementById('gui').style.display='block';
+  document.getElementById('close3').style.display='block'
+  var bokehPass = new BokehPass(scene, camera, {
+    focus: 0.3,
+    aperture: 0.005,
+    maxblur: 0.1,
+    width: window.innerWidth,
+    height: window.innerHeight
+  });
+ 
+  
+  composer.addPass(bokehPass);
+  
+})
 }
 })
-document.getElementById('close').onclick=function(){
-  document.getElementById('close').style.display='none';
+document.getElementById('close3').onclick=function(){
+  document.getElementById('close3').style.display='none';
   document.getElementById('gui').style.display='none';
 
     clickActive=false
 		controls.enabled=true
         document.getElementsByClassName('card')[0].style.display='none'
-        const tweenCamera4 = new TWEEN.Tween( {x: -0.20, y: -0.24, z: -0.58, lookAtX: cube.position.x, lookAtY: cube.position.y, lookAtZ: cube.position.z} )
+        const tweenCamera4 = new TWEEN.Tween( {x: -0.20, y: -0.24, z: -0.58, lookAtX: cube2.position.x, lookAtY: cube2.position.y, lookAtZ: cube2.position.z} )
   .to( {x: 1, y: 0.1, z: -1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 1000 )
 tweenCamera4.onUpdate(updateCamera)
 tweenCamera4.start()
+var bokehPass = new BokehPass(scene, camera, {
+  focus: 0,
+  aperture: 0,
+  maxblur: 0,
+  width: window.innerWidth,
+  height: window.innerHeight
+});
+
+composer.addPass(bokehPass);
 	
 };
 
@@ -785,14 +835,27 @@ const found = intersectrazzi(clickMouse);
 console.log(found);
 if(found.length>0 && !clickActive){
   clickActive=true
-  document.getElementById('close2').style.display='block'
     const tweenCamera3 = new TWEEN.Tween( {x: controls.object.position.x, y: controls.object.position.y, z: controls.object.position.z, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
   .to( {x: -0.08, y: 0.54, z: -1.25, lookAtX: cube3.position.x, lookAtY: cube3.position.y, lookAtZ: cube3.position.z}, 1000 )
 tweenCamera3.onUpdate(updateCamera)
 tweenCamera3.start()
 controls.enabled=false
-document.getElementsByClassName('card')[0].style.display='block';
-document.getElementById('guirazi').style.display='block';
+tweenCamera3.onComplete(function() {
+  document.getElementsByClassName('card')[0].style.display='block';
+  document.getElementById('guirazi').style.display='block';
+  document.getElementById('close2').style.display='block'
+  var bokehPass = new BokehPass(scene, camera, {
+    focus: 2,
+    aperture: 0.005,
+    maxblur: 0.1,
+    width: window.innerWidth,
+    height: window.innerHeight
+  });
+ 
+  
+  composer.addPass(bokehPass);
+  
+})
 }
 })
 document.getElementById('close2').onclick=function(){
@@ -805,6 +868,15 @@ document.getElementById('close2').onclick=function(){
   .to( {x: 1, y: 0.1, z: -1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 1000 )
 tweenCamera4.onUpdate(updateCamera)
 tweenCamera4.start()
+var bokehPass = new BokehPass(scene, camera, {
+  focus: 0,
+  aperture: 0,
+  maxblur: 0,
+  width: window.innerWidth,
+  height: window.innerHeight
+});
+
+composer.addPass(bokehPass);
 	
 	
 };
@@ -860,9 +932,32 @@ saoPass.intensity=0.0002;
 //   bloomPass.radius = Number( value );
 
 // } );
+const postprocessing = {};
+
+const effectController = {
+
+  focus: 0,
+  aperture: 0,
+  maxblur: 0
+
+};
+// const matChanger = function ( ) {
+
+//   postprocessing.bokeh.uniforms[ 'focus' ].value = effectController.focus;
+//   postprocessing.bokeh.uniforms[ 'aperture' ].value = effectController.aperture * 0.00001;
+//   postprocessing.bokeh.uniforms[ 'maxblur' ].value = effectController.maxblur;
+
+// };
+
+// gui.add( effectController, 'focus', 10.0, 3000.0, 10 ).onChange( matChanger );
+// gui.add( effectController, 'aperture', 0, 10, 0.1 ).onChange( matChanger );
+// gui.add( effectController, 'maxblur', 0.0, 0.01, 0.001 ).onChange( matChanger );
+// gui.close();
+
+// matChanger();
 
 
-// Init gui
+// // Init gui
 				gui.add( saoPass.params, 'output', {
 					'Beauty': SAOPass.OUTPUT.Beauty,
 					'Beauty+SAO': SAOPass.OUTPUT.Default,
@@ -892,15 +987,12 @@ saoPass.intensity=0.0002;
 // //cam animation
 const tick = () =>
 {
-if(myInterval){
-  
-  if(fonintensity===0.4){clearInterval(myInterval)}
-}
-  if(scene.children[15]){
- scene.children[15].children[9].scale.set(0.07,0.07,0.07);
- scene.children[15].children[9].position.x=-0.02;
- scene.children[15].children[9].position.z=-8.5;
- scene.children[15].children[9].rotation.z=28;
+
+  if(scene.children[14]){
+ scene.children[14].children[9].scale.set(0.07,0.07,0.07);
+ scene.children[14].children[9].position.x=-0.02;
+ scene.children[14].children[9].position.z=-8.5;
+ scene.children[14].children[9].rotation.z=28;
 }
     TWEEN.update()
     const elapsedTime = 0.015
@@ -915,6 +1007,7 @@ if(myInterval){
     // Render
     
     composer.render(scene,camera)
+    // postprocessing.composer.render( 0.1 );
     // composer.render();
 
 // spotLight.position.set(camera.position.x+10,camera.position.y+10,camera.position.z+10)
