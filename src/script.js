@@ -35,7 +35,7 @@ const canvas = document.querySelector('canvas.webgl')
 // Scene
 const scene = new THREE.Scene()
 scene.background = new THREE.Color(0x000000);
-var fonintensity=0.4
+var fonintensity=0.1
 
 var fog = new THREE.FogExp2( new THREE.Color("rgb(188, 118, 067)"), fonintensity );
 scene.fog = fog
@@ -260,19 +260,20 @@ renderer.gammaFactor = 2
  */
 // Base camera
 var camera = new THREE.PerspectiveCamera(60, sizes.width / sizes.height, 0.005, 5000)
-camera.position.x = -3.7
+camera.position.x = -4.2
 camera.position.y = -0.5
 camera.position.z = 9.4
 // camera.lookAt(20,20,20)
 
 
-// camera.rotation.set(77,77,77)
-// s
-// cubeFolder1.add(camera.rotation, 'x');
-// cubeFolder1.add(camera.rotation, 'y');
-// cubeFolder1.add(camera.rotation, 'z');
+camera.rotation.set(77,77,77)
+const cubeFolder1 = gui.addFolder('position');
 
-// cubeFolder1.open();
+cubeFolder1.add(camera.position, 'x');
+cubeFolder1.add(camera.position, 'y');
+cubeFolder1.add(camera.position, 'z');
+
+cubeFolder1.open();
 // scene.add(camera)
 // Lights
 
@@ -335,13 +336,13 @@ const pointLight3Helper= new THREE.PointLightHelper(pointLight3)
 const pointLight4 = new THREE.PointLight(0xffffff,3.66,2)
     // pointLight4.position.set(-24,8,45)
 pointLight4.scale.set(1,1,1)
-pointLight4.position.x=-3.5
-pointLight4.position.y=3
-pointLight4.position.z=9.9
-pointLight4.intensity=30
+pointLight4.position.x=-3.9
+pointLight4.position.y=1.3
+pointLight4.position.z=9.4
+pointLight4.intensity=50
 pointLight4.frustumCulled=true
 pointLight4.decay=1
-pointLight4.distance=5
+pointLight4.distance=2.5
 
 scene.add(pointLight4)
 const pointLight4Helper= new THREE.PointLightHelper(pointLight4)
@@ -349,15 +350,15 @@ const pointLight4Helper= new THREE.PointLightHelper(pointLight4)
 // const shadowCameraHelper4 = new THREE.CameraHelper( pointLight4.shadow.camera );
 				// scene.add( shadowCameraHelper4 );
 
-                // const cubeFolder1 = gui.addFolder('positionss');
-                // cubeFolder1.add(pointLight4.position, 'x');
-                // cubeFolder1.add(pointLight4.position, 'y');
-                // cubeFolder1.add(pointLight4.position, 'z');
-                // cubeFolder1.add(pointLight4.rotation, 'x');
-                // cubeFolder1.add(pointLight4.rotation, 'y');
-                // cubeFolder1.add(pointLight4.rotation, 'z');
+                const cubeFolder2 = gui.addFolder('positionss');
+                cubeFolder2.add(pointLight4.position, 'x');
+                cubeFolder2.add(pointLight4.position, 'y');
+                cubeFolder2.add(pointLight4.position, 'z');
+                cubeFolder2.add(pointLight4.rotation, 'x');
+                cubeFolder2.add(pointLight4.rotation, 'y');
+                cubeFolder2.add(pointLight4.rotation, 'z');
 
-                // cubeFolder1.open();
+                cubeFolder2.open();
                 
 
 
@@ -408,11 +409,11 @@ const pointLightHelper= new THREE.PointLightHelper(pointLight)
 //controls
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
-controls.maxDistance=4
+// controls.maxDistance=4
 controls.maxPolarAngle=Math.PI/1.8 
 controls.enabled=true
-// controls.target = new THREE.Vector3(4, 0, 0);
-// controls.update();
+controls.target = new THREE.Vector3(9, 0, 0);
+controls.update();
 
 // gui.add( params, 'exposure', 0.1, 2 ).onChange( function ( value ) {
 
@@ -618,19 +619,24 @@ scene.add( line )
 //   .to( {x: -1, y: 0.5, z: 0.1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 18000 )
 // const tweenCamera2 = new TWEEN.Tween( {x: -1, y: 0.5, z: 0.1, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
 //   .to( {x: 1, y: 0.1, z: -1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 12000 )
-const tweenCamera1 = new TWEEN.Tween( {x: -3.7, y: -0.5, z: 9.4 , lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
-  .to( {x: -3.7, y: 0.2, z: 9.4, lookAtX: 3, lookAtY: 0, lookAtZ: 0}, 4000 )
+const tweenCamera1 = new TWEEN.Tween( {x: -4.2, y: -0.5, z: 9.4 , lookAtX: 9, lookAtY: 0, lookAtZ: 0} )
+  .to( {x: -1.62, y: 0.28, z: 6.28, lookAtX: 3, lookAtY: -5, lookAtZ: 0}, 6000 )
   // .to({x:-1,y:0.5,z:0.1,lookAtX: 0, lookAtY: -1, lookAtZ: 0}, 8000)
-  const tweenCamera2 = new TWEEN.Tween( {x: -3.7, y: 0.2, z: 9.4, lookAtX: 3, lookAtY: 0, lookAtZ: 0} )
-  .to({x:-1.89,y:0.97,z:3.9,lookAtX: 0, lookAtY: -5, lookAtZ: 0}, 11000)
-const tweenCamera3 = new TWEEN.Tween( {x:-1.89,y:0.97,z:3.9, lookAtX: 0, lookAtY:-5, lookAtZ: 0} )
+  const tweenCamera2 = new TWEEN.Tween( {x: -1.62, y: 0.28, z: 6.28, lookAtX: 3, lookAtY: -5, lookAtZ: 0} )
+  .to({x:-1.89,y:0.97,z:3.9,lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 11000)
+const tweenCamera3 = new TWEEN.Tween( {x:-1.89,y:0.97,z:3.9, lookAtX: 0, lookAtY:0, lookAtZ: 0} )
   .to( {x: -4, y: 0.8, z: -1.46, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 10000 )
   const tweenCamera4 = new TWEEN.Tween( {x: -4, y: 0.8, z: -1.46, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
   .to( {x: 0.01, y: 0.8, z:-2.8, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 10000 )
   tweenCamera4.onComplete(function() {
+    controls.maxDistance=4
+controls.maxPolarAngle=Math.PI/1.8 
+controls.target = new THREE.Vector3(0, 0, 0);
 label("Casa Di Bazzar",-0.85,-0.5,0.89,-1.3,0.30,0.95)
 label("Mercato",-0.12,-0.5,-0.06,-0.30,0.25,-0.21)
 label("Razzo",-0.87,-0.42,-0.19,-1.2,0.25,-0.57)
+clearInterval(myInterval)
+
 // sprite.position.set(-1.3  ,0.30,0.95)
 // sphere.position.set(-0.85, -0.5, 0.89);
   })
@@ -651,7 +657,7 @@ tweenCamera4.onUpdate(updateCamera)
 var myInterval=null
 document.getElementById('start-button').onclick=function(){
     document.getElementById('start-button').style.display='none'
-    //  myInterval = setInterval(()=>{fonintensity+=0.001;fog.density=fonintensity , console.log(fonintensity);}, 200);
+     myInterval = setInterval(()=>{fonintensity+=0.001;fog.density=fonintensity , console.log(fonintensity);}, 200);
     
     tweenCamera1.start()
     controls.enabled=true
@@ -659,7 +665,7 @@ document.getElementById('start-button').onclick=function(){
     const listener = new THREE.AudioListener();
 
     const audio = new THREE.Audio( listener );
-    const file = './376737_Skullbeatz___Bad_Cat_Maste.mp3';
+    const file = './35059019_ambient-space-soundscape_by_andrewsound83_preview.mp3';
 
     if ( /(iPad|iPhone|iPod)/g.test( navigator.userAgent ) ) {
 
@@ -712,6 +718,18 @@ tweenCamera3.onComplete(function() {
   document.getElementsByClassName('card')[0].style.display='block';
   document.getElementById('gui').style.display='block';
   document.getElementById('close').style.display='block'
+  var bokehPass = new BokehPass(scene, camera, {
+    focus: 0.5,
+    aperture: 0.005,
+    maxblur: 0.05,
+    width: window.innerWidth,
+    height: window.innerHeight
+  });
+ 
+  
+  composer.addPass(bokehPass);
+  
+  
 })
 
 }
@@ -727,6 +745,16 @@ document.getElementById('close').onclick=function(){
   .to( {x: 1, y: 0.1, z: -1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 1000 )
 tweenCamera4.onUpdate(updateCamera)
 tweenCamera4.start()
+
+var bokehPass = new BokehPass(scene, camera, {
+  focus: 0,
+  aperture: 0,
+  maxblur: 0,
+  width: window.innerWidth,
+  height: window.innerHeight
+});
+
+composer.addPass(bokehPass);
 	
 };
 //mercato
@@ -756,6 +784,17 @@ tweenCamera3.onComplete(function() {
   document.getElementsByClassName('card')[0].style.display='block';
   document.getElementById('gui').style.display='block';
   document.getElementById('close3').style.display='block'
+  var bokehPass = new BokehPass(scene, camera, {
+    focus: 0.3,
+    aperture: 0.005,
+    maxblur: 0.1,
+    width: window.innerWidth,
+    height: window.innerHeight
+  });
+ 
+  
+  composer.addPass(bokehPass);
+  
 })
 }
 })
@@ -770,6 +809,15 @@ document.getElementById('close3').onclick=function(){
   .to( {x: 1, y: 0.1, z: -1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 1000 )
 tweenCamera4.onUpdate(updateCamera)
 tweenCamera4.start()
+var bokehPass = new BokehPass(scene, camera, {
+  focus: 0,
+  aperture: 0,
+  maxblur: 0,
+  width: window.innerWidth,
+  height: window.innerHeight
+});
+
+composer.addPass(bokehPass);
 	
 };
 
@@ -800,6 +848,17 @@ tweenCamera3.onComplete(function() {
   document.getElementsByClassName('card')[0].style.display='block';
   document.getElementById('guirazi').style.display='block';
   document.getElementById('close2').style.display='block'
+  var bokehPass = new BokehPass(scene, camera, {
+    focus: 2,
+    aperture: 0.005,
+    maxblur: 0.1,
+    width: window.innerWidth,
+    height: window.innerHeight
+  });
+ 
+  
+  composer.addPass(bokehPass);
+  
 })
 }
 })
@@ -813,6 +872,15 @@ document.getElementById('close2').onclick=function(){
   .to( {x: 1, y: 0.1, z: -1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 1000 )
 tweenCamera4.onUpdate(updateCamera)
 tweenCamera4.start()
+var bokehPass = new BokehPass(scene, camera, {
+  focus: 0,
+  aperture: 0,
+  maxblur: 0,
+  width: window.innerWidth,
+  height: window.innerHeight
+});
+
+composer.addPass(bokehPass);
 	
 	
 };
@@ -872,9 +940,9 @@ const postprocessing = {};
 
 const effectController = {
 
-  focus: 500.0,
-  aperture: 5,
-  maxblur: 0.01
+  focus: 0,
+  aperture: 0,
+  maxblur: 0
 
 };
 // const matChanger = function ( ) {
@@ -891,15 +959,7 @@ const effectController = {
 // gui.close();
 
 // matChanger();
-var bokehPass = new BokehPass(scene, camera, {
-  focus: 1,
-  aperture: 0.005,
-  maxblur: 0.05,
-  width: window.innerWidth,
-  height: window.innerHeight
-});
-bokehPass.renderToScreen = true;
-composer.addPass(bokehPass);
+
 
 // // Init gui
 				gui.add( saoPass.params, 'output', {
@@ -931,15 +991,12 @@ composer.addPass(bokehPass);
 // //cam animation
 const tick = () =>
 {
-// if(myInterval){
-  
-//   if(fonintensity===0.4){clearInterval(myInterval)}
-// }
+
   if(scene.children[14]){
  scene.children[14].children[9].scale.set(0.07,0.07,0.07);
  scene.children[14].children[9].position.x=-0.02;
  scene.children[14].children[9].position.z=-8.5;
- scene.children[14].children[9].rotation.z=28;
+//  scene.children[14].children[9].rotation.z=28;
 }
     TWEEN.update()
     const elapsedTime = 0.015
