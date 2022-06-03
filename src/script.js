@@ -35,7 +35,7 @@ const canvas = document.querySelector('canvas.webgl')
 // Scene
 const scene = new THREE.Scene()
 scene.background = new THREE.Color(0x000000);
-var fonintensity=0.1
+var fonintensity=0.2
 
 var fog = new THREE.FogExp2( new THREE.Color("rgb(188, 118, 067)"), fonintensity );
 scene.fog = fog
@@ -176,19 +176,19 @@ cube.visible=false;
     
     const cube2 = new THREE.Mesh( geomet, material );
     cube2.name='mercato'
-    cube2.position.set(-0.09,-0.5,-0.13)
-    cube2.scale.set(5,0.5,8)
+    cube2.position.set(-0.101,-0.5,-0.24)
+    cube2.scale.set(3.7,0.5,2.4)
     scene.add( cube2 );
     cube2.visible=false;
-        // const cube2Folder2 = gui.addFolder('position');
-        // cube2Folder2.add( cube2.position, 'x')
-        // cube2Folder2.add( cube2.position, 'y')
-        // cube2Folder2.add( cube2.position, 'z')
-        // cube2Folder2.add( cube2.scale, 'x');
-        // cube2Folder2.add( cube2.scale, 'y');
-        // cube2Folder2.add( cube2.scale, 'z');
+        const cube2Folder3 = gui.addFolder('positionsss');
+        cube2Folder3.add( cube2.position, 'x')
+        cube2Folder3.add( cube2.position, 'y')
+        cube2Folder3.add( cube2.position, 'z')
+        cube2Folder3.add( cube2.scale, 'x');
+        cube2Folder3.add( cube2.scale, 'y');
+        cube2Folder3.add( cube2.scale, 'z');
     
-        // cube2Folder2.open();
+        cube2Folder3.open();
         const cube3 = new THREE.Mesh( geomet, material );
         cube3.name='Razzi'
         cube3.position.set(-1.2,-0.5,-0.41)
@@ -260,9 +260,9 @@ renderer.gammaFactor = 2
  */
 // Base camera
 var camera = new THREE.PerspectiveCamera(60, sizes.width / sizes.height, 0.005, 5000)
-camera.position.x = -4.2
-camera.position.y = -0.5
-camera.position.z = 9.4
+camera.position.x = -4.7
+camera.position.y = -0.68
+camera.position.z = 8.9
 // camera.lookAt(20,20,20)
 
 
@@ -336,9 +336,9 @@ const pointLight3Helper= new THREE.PointLightHelper(pointLight3)
 const pointLight4 = new THREE.PointLight(0xffffff,3.66,2)
     // pointLight4.position.set(-24,8,45)
 pointLight4.scale.set(1,1,1)
-pointLight4.position.x=-3.9
+pointLight4.position.x=-3.8
 pointLight4.position.y=1.3
-pointLight4.position.z=9.4
+pointLight4.position.z=8.8
 pointLight4.intensity=50
 pointLight4.frustumCulled=true
 pointLight4.decay=1
@@ -409,10 +409,9 @@ const pointLightHelper= new THREE.PointLightHelper(pointLight)
 //controls
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
-// controls.maxDistance=4
 controls.maxPolarAngle=Math.PI/1.8 
 controls.enabled=true
-controls.target = new THREE.Vector3(9, 0, 0);
+controls.target = new THREE.Vector3(15, 0, 8);
 controls.update();
 
 // gui.add( params, 'exposure', 0.1, 2 ).onChange( function ( value ) {
@@ -619,8 +618,8 @@ scene.add( line )
 //   .to( {x: -1, y: 0.5, z: 0.1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 18000 )
 // const tweenCamera2 = new TWEEN.Tween( {x: -1, y: 0.5, z: 0.1, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
 //   .to( {x: 1, y: 0.1, z: -1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 12000 )
-const tweenCamera1 = new TWEEN.Tween( {x: -4.2, y: -0.5, z: 9.4 , lookAtX: 9, lookAtY: 0, lookAtZ: 0} )
-  .to( {x: -1.62, y: 0.28, z: 6.28, lookAtX: 3, lookAtY: -5, lookAtZ: 0}, 6000 )
+const tweenCamera1 = new TWEEN.Tween( {x: -4.7, y: -0.68, z: 8.9 , lookAtX: 15, lookAtY: 0, lookAtZ: 0} )
+  .to( {x: -1.62, y: 0.28, z: 6.28, lookAtX: 3, lookAtY: -5, lookAtZ: 0}, 10000 )
   // .to({x:-1,y:0.5,z:0.1,lookAtX: 0, lookAtY: -1, lookAtZ: 0}, 8000)
   const tweenCamera2 = new TWEEN.Tween( {x: -1.62, y: 0.28, z: 6.28, lookAtX: 3, lookAtY: -5, lookAtZ: 0} )
   .to({x:-1.89,y:0.97,z:3.9,lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 11000)
@@ -657,8 +656,8 @@ tweenCamera4.onUpdate(updateCamera)
 var myInterval=null
 document.getElementById('start-button').onclick=function(){
     document.getElementById('start-button').style.display='none'
-     myInterval = setInterval(()=>{fonintensity+=0.001;fog.density=fonintensity , console.log(fonintensity);}, 200);
-    
+     myInterval = setInterval(()=>{if(fog.density>0.39){return} ; if (fog.density<0.4){fonintensity+=0.02;fog.density=fonintensity , console.log(fonintensity);}}, 100);
+     controls.maxDistance=4
     tweenCamera1.start()
     controls.enabled=true
     // controls.enablePan = false;
