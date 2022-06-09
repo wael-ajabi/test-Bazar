@@ -1022,7 +1022,7 @@ camera.lookAt(new Vector3(0,0,0))}
  scene.children[14].children[10].scale.set(0.07,0.07,0.07);
  scene.children[14].children[10].position.x=-0.02;
  scene.children[14].children[10].position.z=-8.5;
- scene.children[14].children[0].children[0].children[1].children[229].material.bumpScale=8
+//  scene.children[14].children[0].children[0].children[1].children[229].material.bumpScale=8
  scene.children[14].children[0].children[0].children[1].children[229].material.normalScale.x=8
  scene.children[14].children[0].children[0].children[1].children[229].material.normalScale.y=8
  console.log( scene.children[14].children[0].children[0].children[1].children[229])
