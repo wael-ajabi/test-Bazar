@@ -718,6 +718,7 @@ tweenCamera3.onUpdate(updateCamera)
 tweenCamera3.start()
 controls.enabled=false
 tweenCamera3.onComplete(function() {
+  camerarotation=false
   document.getElementsByClassName('card')[0].style.display='block';
   document.getElementById('gui').style.display='block';
   document.getElementById('close').style.display='block'
@@ -748,6 +749,7 @@ var minPan = new THREE.Vector3( - 0.8, - 0.8, - 0.8 );
         camera.position.sub(_v);
     })
 document.getElementById('close').onclick=function(){
+  camerarotation=true
   document.getElementById('close').style.display='none';
   document.getElementById('gui').style.display='none';
 
@@ -794,6 +796,8 @@ tweenCamera3.onUpdate(updateCamera)
 tweenCamera3.start()
 controls.enabled=false
 tweenCamera3.onComplete(function() {
+  camerarotation=false
+
   document.getElementsByClassName('card')[0].style.display='block';
   document.getElementById('gui').style.display='block';
   document.getElementById('close3').style.display='block'
@@ -814,6 +818,7 @@ tweenCamera3.onComplete(function() {
 document.getElementById('close3').onclick=function(){
   document.getElementById('close3').style.display='none';
   document.getElementById('gui').style.display='none';
+  camerarotation=true
 
     clickActive=false
 		controls.enabled=true
@@ -858,6 +863,7 @@ tweenCamera3.onUpdate(updateCamera)
 tweenCamera3.start()
 controls.enabled=false
 tweenCamera3.onComplete(function() {
+  camerarotation=false
   document.getElementsByClassName('card')[0].style.display='block';
   document.getElementById('guirazi').style.display='block';
   document.getElementById('close2').style.display='block'
@@ -878,6 +884,7 @@ tweenCamera3.onComplete(function() {
 document.getElementById('close2').onclick=function(){
   document.getElementById('close2').style.display='none';
   document.getElementById('guirazi').style.display='none';
+  camerarotation=true
 
     clickActive=false
 		controls.enabled=true
