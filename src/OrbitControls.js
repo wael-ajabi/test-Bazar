@@ -1,3 +1,5 @@
+import * as THREE from 'three'
+
 import {
 	EventDispatcher,
 	MOUSE,
@@ -14,10 +16,10 @@ import {
 //    Orbit - left mouse / touch: one-finger move
 //    Zoom - middle mouse, or mousewheel / touch: two-finger spread or squish
 //    Pan - right mouse, or left mouse + ctrl/meta/shiftKey, or arrow keys / touch: two-finger move
-
+ var minPan = new THREE.Vector3( - 0.0000001, - 0.0000001, - 0.0000001 );
+    var maxPan = new THREE.Vector3( 0.0000001, 0.0000001, 0.0000001 );
 var OrbitControls = function ( object, domElement ) {
-    var minPan = new THREE.Vector3( - 2, - 2, - 2 );
-    var maxPan = new THREE.Vector3( 2, 2, 2 );
+   
     
 	if ( domElement === undefined ) console.warn( 'THREE.OrbitControls: The second parameter "domElement" is now mandatory.' );
 	if ( domElement === document ) console.error( 'THREE.OrbitControls: "document" should not be used as the target "domElement". Please use "renderer.domElement" instead.' );

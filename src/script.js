@@ -15,6 +15,7 @@ import { ColladaLoader } from 'three/examples/jsm/loaders/ColladaLoader.js';
       import TextSprite from '@seregpie/three.text-sprite';
 
             import gsap from "gsap";
+import { Vector3 } from 'three';
 
             let composer;
             let	singleMaterial, zmaterial,nobjects, cubeMaterial;
@@ -91,7 +92,7 @@ dracoLoader.preload();
 // var blender_camera=null
 gltfloader.setDRACOLoader(dracoLoader);
 var totalSize = 4167680;
-gltfloader.load("./City_5.glb", function (gltf) {
+gltfloader.load("./City_7.glb", function (gltf) {
   var obj = gltf.scene;
   gltf.castShadow=true;gltf.receiveShadow=true;
     console.log(gltf);
@@ -409,7 +410,8 @@ const pointLightHelper= new THREE.PointLightHelper(pointLight)
 //controls
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
-controls.maxPolarAngle=Math.PI/1.8 
+controls.maxPolarAngle=Math.PI/1.8
+controls.maxDistance=4  
 controls.enabled=true
 controls.target = new THREE.Vector3(15, 0, 8);
 controls.update();
@@ -589,12 +591,12 @@ var  sprite = new TextSprite({
     });
     // sprite.fontSize=0.3
     // // // scene.add(sprite);
-    //  cubeFolder2.add(sphere.position, 'x');
-    //  cubeFolder2.add(sphere.position, 'y');
-    //  cubeFolder2.add(sphere.position, 'z');
-    //  cubeFolder2.add(sphere.rotation, 'x');
-    //  cubeFolder2.add(sphere.rotation, 'y');
-    //  cubeFolder2.add(sphere.rotation, 'z');
+    //  cubeFolder2.add(sprite.position, 'x');
+    //  cubeFolder2.add(sprite.position, 'y');
+    //  cubeFolder2.add(sprite.position, 'z');
+    //  cubeFolder2.add(sprite.rotation, 'x');
+    //  cubeFolder2.add(sprite.rotation, 'y');
+    //  cubeFolder2.add(sprite.rotation, 'z');
     //  cubeFolder2.open();
     sprite.fog=false
     // sprite.position.set(-1.3  ,0.30,0.95)
@@ -627,13 +629,15 @@ const tweenCamera3 = new TWEEN.Tween( {x:-1.89,y:0.97,z:3.9, lookAtX: 0, lookAtY
   .to( {x: -4, y: 0.8, z: -1.46, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 10000 )
   const tweenCamera4 = new TWEEN.Tween( {x: -4, y: 0.8, z: -1.46, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
   .to( {x: 0.01, y: 0.8, z:-2.8, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 10000 )
+  var camerarotation=false
   tweenCamera4.onComplete(function() {
+    camerarotation=true
     controls.maxDistance=4
 controls.maxPolarAngle=Math.PI/1.8 
 controls.target = new THREE.Vector3(0, 0, 0);
 label("Casa Di Bazzar",-0.85,-0.5,0.89,-1.3,0.30,0.95)
-label("Mercato",-0.12,-0.5,-0.06,-0.30,0.25,-0.21)
-label("Razzo",-0.87,-0.42,-0.19,-1.2,0.25,-0.57)
+label("Mercato",-0.12,-0.5,-0.06,-0.30,0.5,-0.21)
+label("Razzo",-0.87,-0.42,-0.19,-1.2,0.5,-0.57)
 clearInterval(myInterval)
 
 // sprite.position.set(-1.3  ,0.30,0.95)
@@ -656,7 +660,7 @@ tweenCamera4.onUpdate(updateCamera)
 var myInterval=null
 document.getElementById('start-button').onclick=function(){
     document.getElementById('start-button').style.display='none'
-     myInterval = setInterval(()=>{if(fog.density>0.39){return} ; if (fog.density<0.4){fonintensity+=0.02;fog.density=fonintensity , console.log(fonintensity);}}, 100);
+     myInterval = setInterval(()=>{if(fog.density>0.39){return} ; if (fog.density<0.4){fonintensity+=0.01;fog.density=fonintensity , console.log(fonintensity);}}, 100);
      controls.maxDistance=4
     tweenCamera1.start()
     controls.enabled=true
@@ -696,7 +700,7 @@ function intersect(pos) {
   return raycaster.intersectObject(cube);
 }
 var clickActive=false
-window.addEventListener('click', event => {
+window.addEventListener('dblclick', event => {
 
 
 
@@ -720,7 +724,7 @@ tweenCamera3.onComplete(function() {
   var bokehPass = new BokehPass(scene, camera, {
     focus: 0.5,
     aperture: 0.005,
-    maxblur: 0.05,
+    maxblur: 5,
     width: window.innerWidth,
     height: window.innerHeight
   });
@@ -733,6 +737,16 @@ tweenCamera3.onComplete(function() {
 
 }
 })
+var minPan = new THREE.Vector3( - 0.8, - 0.8, - 0.8 );
+    var maxPan = new THREE.Vector3( 0.8, 0.8, 0.8 );
+    var _v = new THREE.Vector3();
+    
+    controls.addEventListener("change", function() {
+        _v.copy(controls.target);
+        controls.target.clamp(minPan, maxPan);
+        _v.sub(controls.target);
+        camera.position.sub(_v);
+    })
 document.getElementById('close').onclick=function(){
   document.getElementById('close').style.display='none';
   document.getElementById('gui').style.display='none';
@@ -762,7 +776,7 @@ function intersectmercato(pos) {
   return raycaster.intersectObject(cube2);
 }
 var clickActive=false
-window.addEventListener('click', event => {
+window.addEventListener('dblclick', event => {
 
 
 
@@ -784,9 +798,9 @@ tweenCamera3.onComplete(function() {
   document.getElementById('gui').style.display='block';
   document.getElementById('close3').style.display='block'
   var bokehPass = new BokehPass(scene, camera, {
-    focus: 0.3,
+    focus: 0.1,
     aperture: 0.005,
-    maxblur: 0.1,
+    maxblur: 5,
     width: window.innerWidth,
     height: window.innerHeight
   });
@@ -826,7 +840,7 @@ function intersectrazzi(pos) {
   return raycaster.intersectObject(cube3);
 }
 var clickActive=false
-window.addEventListener('click', event => {
+window.addEventListener('dblclick', event => {
 
 
 
@@ -850,7 +864,7 @@ tweenCamera3.onComplete(function() {
   var bokehPass = new BokehPass(scene, camera, {
     focus: 2,
     aperture: 0.005,
-    maxblur: 0.1,
+    maxblur: 5,
     width: window.innerWidth,
     height: window.innerHeight
   });
@@ -990,13 +1004,20 @@ const effectController = {
 // //cam animation
 const tick = () =>
 {
-
+if(camerarotation){
+  var rotSpeed = .005;
+  var x = camera.position.x;
+  var z = camera.position.z;
+  camera.position.x = x * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
+  camera.position.z = z * Math.cos(rotSpeed) + x * Math.sin(rotSpeed);
+camera.lookAt(new Vector3(0,0,0))}
   if(scene.children[14]){
- scene.children[14].children[9].scale.set(0.07,0.07,0.07);
- scene.children[14].children[9].position.x=-0.02;
- scene.children[14].children[9].position.z=-8.5;
+ scene.children[14].children[10].scale.set(0.07,0.07,0.07);
+ scene.children[14].children[10].position.x=-0.02;
+ scene.children[14].children[10].position.z=-8.5;
 //  scene.children[14].children[9].rotation.z=28;
 }
+console.log(scene.children);
     TWEEN.update()
     const elapsedTime = 0.015
     const elapsedTime2 = clock.getElapsedTime()/500
