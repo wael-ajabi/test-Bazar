@@ -1012,7 +1012,7 @@ const effectController = {
 const tick = () =>
 {
 if(camerarotation){
-  var rotSpeed = .005;
+  var rotSpeed = .001;
   var x = camera.position.x;
   var z = camera.position.z;
   camera.position.x = x * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
@@ -1022,9 +1022,12 @@ camera.lookAt(new Vector3(0,0,0))}
  scene.children[14].children[10].scale.set(0.07,0.07,0.07);
  scene.children[14].children[10].position.x=-0.02;
  scene.children[14].children[10].position.z=-8.5;
+ scene.children[14].children[0].children[0].children[1].children[229].material.bumpScale=8
+ console.log( scene.children[14].children[0].children[0].children[1].children[229])
+
 //  scene.children[14].children[9].rotation.z=28;
 }
-console.log(scene.children);
+
     TWEEN.update()
     const elapsedTime = 0.015
     const elapsedTime2 = clock.getElapsedTime()/500
