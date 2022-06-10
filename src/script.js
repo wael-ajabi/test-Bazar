@@ -96,7 +96,7 @@ gltfloader.load("./city_7_without texture.glb", function (gltf) {
   console.log( gltf.scene.children[0].children[0].children[1].children[232])
   var normalMap = THREE.ImageUtils.loadTexture('./NormalMapDefinitiva in uso_1.jpg')
   gltf.scene.children[0].children[0].children[1].children[232].material.normalMap = normalMap;
-  gltf.scene.children[0].children[0].children[1].children[232].material.normalMap.repeat.set( 1, 1 );
+  gltf.scene.children[0].children[0].children[1].children[232].material.normalMap.repeat.set( 8, 8 );
   var basecolor = THREE.ImageUtils.loadTexture('./initialShadingGroup_Base_Color.png')
   gltf.scene.children[0].children[0].children[1].children[232].material.map = basecolor;
 
