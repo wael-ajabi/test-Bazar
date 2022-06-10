@@ -94,14 +94,26 @@ gltfloader.setDRACOLoader(dracoLoader);
 var totalSize = 4167680;
 gltfloader.load("./city_7_without texture.glb", function (gltf) {
   console.log( gltf.scene.children[0].children[0].children[1].children[232])
-  var normalMap = THREE.ImageUtils.loadTexture('./NormalMapDefinitiva in uso_1.jpg')
-  gltf.scene.children[0].children[0].children[1].children[232].material.normalMap = normalMap;
-  gltf.scene.children[0].children[0].children[1].children[232].material.normalMap.repeat.set( 8, 8 );
+  var mesh =gltf.scene.children[0].children[0].children[1].children[232]
+  var texture = THREE.ImageUtils.loadTexture('./NormalMapDefinitiva in uso_1.jpg')
+  texture.wrapS = THREE.RepeatWrapping;
+texture.wrapT = THREE.RepeatWrapping;
+texture.repeat.set( 20, 20 );
+  mesh.material.normalMap = texture;
   var basecolor = THREE.ImageUtils.loadTexture('./initialShadingGroup_Base_Color.png')
-  gltf.scene.children[0].children[0].children[1].children[232].material.map = basecolor;
-  gltf.scene.children[0].children[0].children[1].children[232].material.normalMap.needsUpdate = true;
-gltf.scene.children[0].children[0].children[1].children[232].material.needsUpdate = true;
-gltf.scene.children[0].children[0].children[1].children[232].needsUpdate = true;
+  mesh.material.map = basecolor;
+  mesh.material.normalMap.needsUpdate = true;
+  mesh.material.normalMap.updateMatrix();
+  mesh.material.onBeforeCompile=(shader)=>{
+    //console.log(shader.fragmentShader);
+    shader.fragmentShader=shader.fragmentShader.replace("#include <normal_fragment_maps>",
+    `vec3 mapN=texture2D( normalMap, vUv*vec2(6.0,2.0) ).xyz * 2.0 - 1.0;
+    mapN.xy *= normalScale;
+    normal = perturbNormal2Arb( - vViewPosition, normal, mapN, faceDirection );
+    `)
+    };
+mesh.material.needsUpdate = true;
+mesh.needsUpdate = true;
 
   var obj = gltf.scene;
   gltf.castShadow=true;gltf.receiveShadow=true;
