@@ -99,6 +99,9 @@ gltfloader.load("./city_7_without texture.glb", function (gltf) {
   gltf.scene.children[0].children[0].children[1].children[232].material.normalMap.repeat.set( 8, 8 );
   var basecolor = THREE.ImageUtils.loadTexture('./initialShadingGroup_Base_Color.png')
   gltf.scene.children[0].children[0].children[1].children[232].material.map = basecolor;
+  gltf.scene.children[0].children[0].children[1].children[232].material.normalMap.needsUpdate = true;
+gltf.scene.children[0].children[0].children[1].children[232].material.needsUpdate = true;
+gltf.scene.children[0].children[0].children[1].children[232].needsUpdate = true;
 
   var obj = gltf.scene;
   gltf.castShadow=true;gltf.receiveShadow=true;
