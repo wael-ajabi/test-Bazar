@@ -1019,7 +1019,7 @@ const effectController = {
 const tick = () =>
 {
 if(camerarotation){
-  var rotSpeed = .001;
+  var rotSpeed = .0007;
   var x = camera.position.x;
   var z = camera.position.z;
   camera.position.x = x * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
