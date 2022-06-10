@@ -92,7 +92,14 @@ dracoLoader.preload();
 // var blender_camera=null
 gltfloader.setDRACOLoader(dracoLoader);
 var totalSize = 4167680;
-gltfloader.load("./City_7.glb", function (gltf) {
+gltfloader.load("./city_7_without texture.glb", function (gltf) {
+  console.log( gltf.scene.children[0].children[0].children[1].children[232])
+  var normalMap = THREE.ImageUtils.loadTexture('./NormalMapDefinitiva in uso_1.jpg')
+  gltf.scene.children[0].children[0].children[1].children[232].material.normalMap = normalMap;
+  gltf.scene.children[0].children[0].children[1].children[232].material.normalMap.repeat.set( 2, 2 );
+  var basecolor = THREE.ImageUtils.loadTexture('./initialShadingGroup_Base_Color.png')
+  gltf.scene.children[0].children[0].children[1].children[232].material.map = basecolor;
+
   var obj = gltf.scene;
   gltf.castShadow=true;gltf.receiveShadow=true;
     console.log(gltf);
@@ -1023,9 +1030,7 @@ camera.lookAt(new Vector3(0,0,0))}
  scene.children[14].children[10].position.x=-0.02;
  scene.children[14].children[10].position.z=-8.5;
 //  scene.children[14].children[0].children[0].children[1].children[229].material.bumpScale=8
- scene.children[14].children[0].children[0].children[1].children[229].material.normalScale.x=8
- scene.children[14].children[0].children[0].children[1].children[229].material.normalScale.y=8
- console.log( scene.children[14].children[0].children[0].children[1].children[229])
+
 
 //  scene.children[14].children[9].rotation.z=28;
 }
