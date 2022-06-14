@@ -932,15 +932,7 @@ saoPass.intensity=0.0002;
 //   bloomPass.radius = Number( value );
 
 // } );
-const postprocessing = {};
 
-const effectController = {
-
-  focus: 0,
-  aperture: 0,
-  maxblur: 0
-
-};
 // const matChanger = function ( ) {
 
 //   postprocessing.bokeh.uniforms[ 'focus' ].value = effectController.focus;
