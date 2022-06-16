@@ -72,6 +72,8 @@ const manager = new THREE.LoadingManager()
 
     manager.onLoad = function ( ) {
         console.log( "Loading complete!")
+          mesh.material.map.repeat.set(5,5)
+
     }
 
 
@@ -82,7 +84,7 @@ const manager = new THREE.LoadingManager()
     manager.onError = function ( url ) {
         console.log( 'There was an error loading ' + url )
     }
-
+var mesh =null
 const gltfloader = new GLTFLoader(manager);
 var   mixer1=null
 var   action=null
@@ -94,24 +96,45 @@ gltfloader.setDRACOLoader(dracoLoader);
 var totalSize = 4167680;
 gltfloader.load("./city_7_without texture.glb", function (gltf) {
   console.log( gltf.scene.children[0].children[0].children[1].children[232])
-  var mesh =gltf.scene.children[0].children[0].children[1].children[232]
-  var texture = THREE.ImageUtils.loadTexture('./NormalMapDefinitiva in uso_1.jpg')
-  texture.wrapS = THREE.RepeatWrapping;
-texture.wrapT = THREE.RepeatWrapping;
-texture.repeat.set( 20, 20 );
-  mesh.material.normalMap = texture;
+   mesh =gltf.scene.children[0].children[0].children[1].children[232]
+  const textureLoader = new THREE.TextureLoader();
+
+  const grassNormalTexture = textureLoader.load(
+    "./NormalMapDefinitiva in uso_1.jpg"
+  );
+  grassNormalTexture.repeat.set(1000, 1000);
+  grassNormalTexture.wrapT = THREE.RepeatWrapping;
+  grassNormalTexture.wrapS = THREE.RepeatWrapping;
+  mesh.material.normalMap = grassNormalTexture;
+console.log(mesh);
+console.log(mesh.material.map);
+// mesh.material.map.repeat.x=8
+// mesh.material.map.repeat.y=8
+// floor
+  // const floor = new THREE.Mesh(
+  //   new THREE.PlaneBufferGeometry(380, 380),
+  //   new THREE.MeshStandardMaterial({
+  //     map: grassNormalTexture,
+  //   })
+  // );
+  // mesh.geometry.setAttribute(
+  //   "uv2",
+  //   new THREE.Float32BufferAttribute(
+  //     mesh.geometry.attributes.uv.array,
+  //     2
+  //   )
+  // ); //for aoMap to work
   var basecolor = THREE.ImageUtils.loadTexture('./initialShadingGroup_Base_Color.png')
   mesh.material.map = basecolor;
-  mesh.material.normalMap.needsUpdate = true;
-  mesh.material.normalMap.updateMatrix();
-  mesh.material.onBeforeCompile=(shader)=>{
-    //console.log(shader.fragmentShader);
-    shader.fragmentShader=shader.fragmentShader.replace("#include <normal_fragment_maps>",
-    `vec3 mapN=texture2D( normalMap, vUv*vec2(6.0,2.0) ).xyz * 2.0 - 1.0;
-    mapN.xy *= normalScale;
-    normal = perturbNormal2Arb( - vViewPosition, normal, mapN, faceDirection );
-    `)
-    };
+
+  // mesh.material.onBeforeCompile=(shader)=>{
+  //   //console.log(shader.fragmentShader);
+  //   shader.fragmentShader=shader.fragmentShader.replace("#include <normal_fragment_maps>",
+  //   `vec3 mapN=texture2D( normalMap, vUv*vec2(6.0,2.0) ).xyz * 2.0 - 1.0;
+  //   mapN.xy *= normalScale;
+  //   normal = perturbNormal2Arb( - vViewPosition, normal, mapN, faceDirection );
+  //   `)
+  //   };
 mesh.material.needsUpdate = true;
 mesh.needsUpdate = true;
 
@@ -132,7 +155,8 @@ mesh.needsUpdate = true;
     //     cubeFolder2.open();
     // blender_camera = gltf.cameras[0];
   mixer1 = new THREE.AnimationMixer(gltf.scene);
-  for (var i=0;i<14;i++){
+  console.log(gltf.scene);
+  for (var i=0;i<23;i++){
              action = mixer1.clipAction(gltf.animations[i]);
              action.play()
 
@@ -273,21 +297,21 @@ window.addEventListener('resize', () =>
     renderer.setSize(sizes.width, sizes.height)
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
     renderer.gammaOutput = !0
-    renderer.gammaFactor = 5
+    renderer.gammaFactor = 2
 })
 renderer.gammaOutput = !0
-renderer.gammaFactor = 2
+renderer.gammaFactor = 10
+renderer.physicallyCorrectLights = false
 
 /**
  * Camera
  */
 // Base camera
 var camera = new THREE.PerspectiveCamera(60, sizes.width / sizes.height, 0.005, 5000)
-camera.position.x = -4.7
-camera.position.y = -0.68
-camera.position.z = 8.9
+camera.position.x = -4.4
+camera.position.y = -0.79
+camera.position.z = 9.2
 // camera.lookAt(20,20,20)
-
 
 camera.rotation.set(77,77,77)
 const cubeFolder1 = gui.addFolder('position');
@@ -334,7 +358,7 @@ cubeFolder1.open();
 const pointLight3 = new THREE.PointLight(0xffffff,3.66,2)
 pointLight3.position.set(-24,8,45)
 pointLight3.scale.set(10,10,10)
-pointLight3.intensity=20
+pointLight3.intensity=10
 pointLight3.frustumCulled=true
 pointLight3.decay=1
 pointLight3.distance=10
@@ -362,7 +386,7 @@ pointLight4.scale.set(1,1,1)
 pointLight4.position.x=-3.8
 pointLight4.position.y=1.3
 pointLight4.position.z=8.8
-pointLight4.intensity=50
+pointLight4.intensity=20
 pointLight4.frustumCulled=true
 pointLight4.decay=1
 pointLight4.distance=2.5
@@ -390,7 +414,7 @@ const PointLight2 = new THREE.PointLight(0xffffff,3.66,2)
 // PointLight2.position.set(-3.320,2.900,0.272)
 PointLight2.scale.set(1,1,1)
 PointLight2.position.y=0.8
-PointLight2.intensity=20
+PointLight2.intensity=10
 PointLight2.frustumCulled=true
 PointLight2.shadow.bias = -0.0001;
 // PointLight2.shadow.radius=8
@@ -432,10 +456,10 @@ const pointLightHelper= new THREE.PointLightHelper(pointLight)
 //controls
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
-controls.maxPolarAngle=Math.PI/1.8
-controls.maxDistance=4  
+// controls.maxPolarAngle=Math.PI/3
+// controls.maxDistance=4  
 controls.enabled=true
-controls.target = new THREE.Vector3(15, 0, 8);
+controls.target = new THREE.Vector3(15, 8, 0);
 controls.update();
 
 // gui.add( params, 'exposure', 0.1, 2 ).onChange( function ( value ) {
@@ -642,7 +666,7 @@ scene.add( line )
 //   .to( {x: -1, y: 0.5, z: 0.1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 18000 )
 // const tweenCamera2 = new TWEEN.Tween( {x: -1, y: 0.5, z: 0.1, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
 //   .to( {x: 1, y: 0.1, z: -1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 12000 )
-const tweenCamera1 = new TWEEN.Tween( {x: -4.7, y: -0.68, z: 8.9 , lookAtX: 15, lookAtY: 0, lookAtZ: 0} )
+const tweenCamera1 = new TWEEN.Tween( {x: -4.4, y: -0.79, z: 9.2 , lookAtX: 15, lookAtY: 8, lookAtZ: 0} )
   .to( {x: -1.62, y: 0.28, z: 6.28, lookAtX: 3, lookAtY: -5, lookAtZ: 0}, 10000 )
   // .to({x:-1,y:0.5,z:0.1,lookAtX: 0, lookAtY: -1, lookAtZ: 0}, 8000)
   const tweenCamera2 = new TWEEN.Tween( {x: -1.62, y: 0.28, z: 6.28, lookAtX: 3, lookAtY: -5, lookAtZ: 0} )
@@ -651,11 +675,10 @@ const tweenCamera3 = new TWEEN.Tween( {x:-1.89,y:0.97,z:3.9, lookAtX: 0, lookAtY
   .to( {x: -4, y: 0.8, z: -1.46, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 10000 )
   const tweenCamera4 = new TWEEN.Tween( {x: -4, y: 0.8, z: -1.46, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
   .to( {x: 0.01, y: 0.8, z:-2.8, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 10000 )
-  var camerarotation=false
+  var camerarotation=false  
   tweenCamera4.onComplete(function() {
     camerarotation=true
-    controls.maxDistance=4
-controls.maxPolarAngle=Math.PI/1.8 
+    controls.maxPolarAngle=Math.PI/2
 controls.target = new THREE.Vector3(0, 0, 0);
 label("Casa Di Bazzar",-0.85,-0.5,0.89,-1.3,0.30,0.95)
 label("Mercato",-0.12,-0.5,-0.06,-0.30,0.5,-0.21)
@@ -779,9 +802,10 @@ document.getElementById('close').onclick=function(){
 		controls.enabled=true
         document.getElementsByClassName('card')[0].style.display='none'
         const tweenCamera4 = new TWEEN.Tween( {x: -0.8+0.2, y: -0.5+0.1, z: 0.8, lookAtX: cube.position.x, lookAtY: cube.position.y, lookAtZ: cube.position.z} )
-  .to( {x: 1, y: 0.1, z: -1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 1000 )
+        .to( {x: 0.01, y: 0.8, z:-2.8, lookAtX: controls.target.x, lookAtY: controls.target.y, lookAtZ: controls.target.z}, 1000 )
 tweenCamera4.onUpdate(updateCamera)
 tweenCamera4.start()
+// camera.lookAt(new Vector3(0,0,0))
 
 var bokehPass = new BokehPass(scene, camera, {
   focus: 0,
@@ -816,6 +840,10 @@ if(found.length>0 && !clickActive){
   .to( {x: -0.20, y: -0.24, z: -0.58, lookAtX: cube2.position.x, lookAtY: cube2.position.y, lookAtZ: cube2.position.z}, 1000 )
 tweenCamera3.onUpdate(updateCamera)
 tweenCamera3.start()
+tweenCamera3.onComplete(function() {
+  camera.lookAt(new Vector3(0,0,0))
+  this.tweenCamera3.remove(this)
+})
 controls.enabled=false
 tweenCamera3.onComplete(function() {
   camerarotation=false
@@ -841,12 +869,14 @@ document.getElementById('close3').onclick=function(){
   document.getElementById('close3').style.display='none';
   document.getElementById('gui').style.display='none';
   camerarotation=true
+  // camera.lookAt(new Vector3(0,0,0))
 
     clickActive=false
 		controls.enabled=true
+    controls.reset()
         document.getElementsByClassName('card')[0].style.display='none'
         const tweenCamera4 = new TWEEN.Tween( {x: -0.20, y: -0.24, z: -0.58, lookAtX: cube2.position.x, lookAtY: cube2.position.y, lookAtZ: cube2.position.z} )
-  .to( {x: 1, y: 0.1, z: -1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 1000 )
+  .to( {x: 0.01, y: 0.8, z:-2.8, lookAtX: controls.target.x, lookAtY: controls.target.y, lookAtZ: controls.target.z}, 1000 )
 tweenCamera4.onUpdate(updateCamera)
 tweenCamera4.start()
 var bokehPass = new BokehPass(scene, camera, {
@@ -907,11 +937,12 @@ document.getElementById('close2').onclick=function(){
   document.getElementById('close2').style.display='none';
   document.getElementById('guirazi').style.display='none';
   camerarotation=true
+  // camera.lookAt(new Vector3(0,0,0))
 
     clickActive=false
 		controls.enabled=true
         const tweenCamera4 = new TWEEN.Tween( {x: -0.08, y: 0.54, z: -1.25, lookAtX: cube3.position.x, lookAtY: cube3.position.y, lookAtZ: cube3.position.z} )
-  .to( {x: 1, y: 0.1, z: -1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 1000 )
+        .to( {x: 0.01, y: 0.8, z:-2.8, lookAtX: controls.target.x, lookAtY: controls.target.y, lookAtZ: controls.target.z}, 1000 )
 tweenCamera4.onUpdate(updateCamera)
 tweenCamera4.start()
 var bokehPass = new BokehPass(scene, camera, {
@@ -1033,6 +1064,7 @@ const effectController = {
 // //cam animation
 const tick = () =>
 {
+  // if (mesh){mesh.material.map.repeat.set(5,5)}
 if(camerarotation){
   var rotSpeed = .0007;
   var x = camera.position.x;
@@ -1041,9 +1073,11 @@ if(camerarotation){
   camera.position.z = z * Math.cos(rotSpeed) + x * Math.sin(rotSpeed);
 camera.lookAt(new Vector3(0,0,0))}
   if(scene.children[14]){
- scene.children[14].children[10].scale.set(0.07,0.07,0.07);
- scene.children[14].children[10].position.x=-0.02;
- scene.children[14].children[10].position.z=-8.5;
+ scene.children[14].children[9].scale.set(0.07,0.07,0.07);
+ scene.children[14].children[9].position.x=-0.02;
+ scene.children[14].children[9].position.z=-8.5;
+ scene.children[14].children[9].position.y=2.2;
+ scene.children[14].children[9].rotation.x=1.7;
 //  scene.children[14].children[0].children[0].children[1].children[229].material.bumpScale=8
 
 
@@ -1069,7 +1103,7 @@ camera.lookAt(new Vector3(0,0,0))}
 // spotLight.position.set(camera.position.x+10,camera.position.y+10,camera.position.z+10)
     // Call tick again on the next frame
     window.requestAnimationFrame(tick)
-    
+    // console.log(controls.target);
     if(mixer1){
 
         mixer1.update(elapsedTime)
