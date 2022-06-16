@@ -459,7 +459,7 @@ controls.enableDamping = true
 // controls.maxPolarAngle=Math.PI/3
 // controls.maxDistance=4  
 controls.enabled=true
-controls.target = new THREE.Vector3(15, 8, 0);
+controls.target = new THREE.Vector3(10, 8, 0);
 controls.update();
 
 // gui.add( params, 'exposure', 0.1, 2 ).onChange( function ( value ) {
@@ -680,7 +680,7 @@ const tweenCamera3 = new TWEEN.Tween( {x:-1.89,y:0.97,z:3.9, lookAtX: 0, lookAtY
     camerarotation=true
     controls.maxPolarAngle=Math.PI/2
 controls.target = new THREE.Vector3(0, 0, 0);
-label("Casa Di Bazzar",-0.85,-0.5,0.89,-1.3,0.30,0.95)
+label("Casa Di Bazar",-0.85,-0.5,0.89,-1.3,0.30,0.95)
 label("Mercato",-0.12,-0.5,-0.06,-0.30,0.5,-0.21)
 label("Razzo",-0.87,-0.42,-0.19,-1.2,0.5,-0.57)
 clearInterval(myInterval)
