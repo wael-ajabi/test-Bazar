@@ -14,13 +14,12 @@ import { ColladaLoader } from 'three/examples/jsm/loaders/ColladaLoader.js';
       import { BokehPass } from 'three/examples/jsm/postprocessing/BokehPass.js';
       import TextSprite from '@seregpie/three.text-sprite';
 
-            import gsap from "gsap";
+            import {gsap} from "gsap";
 import { Vector3 } from 'three';
 
             let composer;
             let	singleMaterial, zmaterial,nobjects, cubeMaterial;
             const materials1 = [], objects = [];
-
 
 // Debug
 const gui = new dat.GUI();
@@ -308,9 +307,10 @@ renderer.physicallyCorrectLights = false
  */
 // Base camera
 var camera = new THREE.PerspectiveCamera(60, sizes.width / sizes.height, 0.005, 5000)
-camera.position.x = -4.4
-camera.position.y = -0.79
-camera.position.z = 9.2
+// Vector3 {x: 7.873367997158608, y: 0.06980778659998726, z: -3.6457710193813297} position: Vector3 {x: -4.071602210689063, y: -0.6661736349724943, z: 9.377164616658627}
+camera.position.x = -4.071602210689063
+camera.position.y = -0.84
+camera.position.z = 9.377164616658627
 // camera.lookAt(20,20,20)
 
 camera.rotation.set(77,77,77)
@@ -455,11 +455,10 @@ const pointLightHelper= new THREE.PointLightHelper(pointLight)
 // Controls
 //controls
 const controls = new OrbitControls(camera, canvas)
-controls.enableDamping = true
 // controls.maxPolarAngle=Math.PI/3
-// controls.maxDistance=4  
-controls.enabled=true
-controls.target = new THREE.Vector3(10, 8, 0);
+// controls.maxDistance=10
+controls.enableDamping=false  
+controls.target = new THREE.Vector3(7.873367997158608,4.06980778659998726,-3.6457710193813297);
 controls.update();
 
 // gui.add( params, 'exposure', 0.1, 2 ).onChange( function ( value ) {
@@ -666,49 +665,83 @@ scene.add( line )
 //   .to( {x: -1, y: 0.5, z: 0.1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 18000 )
 // const tweenCamera2 = new TWEEN.Tween( {x: -1, y: 0.5, z: 0.1, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
 //   .to( {x: 1, y: 0.1, z: -1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 12000 )
-const tweenCamera1 = new TWEEN.Tween( {x: -4.4, y: -0.79, z: 9.2 , lookAtX: 15, lookAtY: 8, lookAtZ: 0} )
-  .to( {x: -1.62, y: 0.28, z: 6.28, lookAtX: 3, lookAtY: -5, lookAtZ: 0}, 10000 )
-  // .to({x:-1,y:0.5,z:0.1,lookAtX: 0, lookAtY: -1, lookAtZ: 0}, 8000)
-  const tweenCamera2 = new TWEEN.Tween( {x: -1.62, y: 0.28, z: 6.28, lookAtX: 3, lookAtY: -5, lookAtZ: 0} )
-  .to({x:-1.89,y:0.97,z:3.9,lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 11000)
-const tweenCamera3 = new TWEEN.Tween( {x:-1.89,y:0.97,z:3.9, lookAtX: 0, lookAtY:0, lookAtZ: 0} )
-  .to( {x: -4, y: 0.8, z: -1.46, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 10000 )
-  const tweenCamera4 = new TWEEN.Tween( {x: -4, y: 0.8, z: -1.46, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
-  .to( {x: 0.01, y: 0.8, z:-2.8, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 10000 )
+// const tweenCamera1 = new TWEEN.Tween( {x: -4.4, y: -0.79, z: 9.2 , lookAtX: 15, lookAtY: 8, lookAtZ: 0} )
+//   .to( {x: -1.62, y: 0.28, z: 6.28, lookAtX: 3, lookAtY: -5, lookAtZ: 0}, 10000 )
+//   // .to({x:-1,y:0.5,z:0.1,lookAtX: 0, lookAtY: -1, lookAtZ: 0}, 8000)
+//   const tweenCamera2 = new TWEEN.Tween( {x: -1.62, y: 0.28, z: 6.28, lookAtX: 3, lookAtY: -5, lookAtZ: 0} )
+//   .to({x:-1.89,y:0.97,z:3.9,lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 11000)
+// const tweenCamera3 = new TWEEN.Tween( {x:-1.89,y:0.97,z:3.9, lookAtX: 0, lookAtY:0, lookAtZ: 0} )
+//   .to( {x: -4, y: 0.8, z: -1.46, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 10000 )
+//   const tweenCamera4 = new TWEEN.Tween( {x: -4, y: 0.8, z: -1.46, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
+//   .to( {x: 0.01, y: 0.8, z:-2.8, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 10000 )
   var camerarotation=false  
-  tweenCamera4.onComplete(function() {
+//   tweenCamera4.onComplete(function() {
+//     camerarotation=true
+//     controls.maxPolarAngle=Math.PI/2
+//     controls.target = new THREE.Vector3(0, 8, 0);
+//     label("Casa Di Bazar",-0.85,-0.5,0.89,-1.3,0.30,0.95)
+// label("Mercato",-0.12,-0.5,-0.06,-0.30,0.5,-0.21)
+// label("Razzo",-0.87,-0.42,-0.19,-1.2,0.5,-0.57)
+// clearInterval(myInterval)
+
+// // sprite.position.set(-1.3  ,0.30,0.95)
+// // sphere.position.set(-0.85, -0.5, 0.89);
+//   })
+// tweenCamera1.chain(tweenCamera2)
+// tweenCamera2.chain(tweenCamera3)
+// tweenCamera3.chain(tweenCamera4)
+
+
+// const updateCamera = function (object ) {
+//   camera.position.set(object.x, object.y, object.z);
+//   camera.lookAt(new THREE.Vector3(object.lookAtX, object.lookAtY, object.lookAtZ))
+// }
+// tweenCamera1.onUpdate(updateCamera)
+// tweenCamera2.onUpdate(updateCamera)
+// tweenCamera3.onUpdate(updateCamera)
+// tweenCamera4.onUpdate(updateCamera)
+controls.enabled=false
+
+var myInterval=null
+document.getElementById('start-button').onclick=function(){
+  controls.enabled=false
+
+    document.getElementById('start-button').style.display='none'
+     myInterval = setInterval(()=>{if(fog.density>0.39){return} ; if (fog.density<0.4){fonintensity+=0.01;fog.density=fonintensity , console.log(fonintensity);}}, 100);
+    //  controls.maxDistance=4
+    //  Vector3 {x: 7.873367997158608, y: 4.069807786599987, z: -3.6457710193813297} position: Vector3 {x: -2.9973941691386354, y: 0.25695988398426417, z: 5.864941550052949}
+    gsap.to(controls.target,{x: -0.2529885009743434,
+      y: -4.408631972336949,
+      z: 4.4890068075771525,duration:2});
+
+    gsap.to(camera.position,{x: -2.9427743328138654,
+      y: -0.5668938088454993,
+      z: 7.994678133712579,ease:'power1.in',duration:6})
+
+      // Vector3 {x: -1.095866722574637, y: -2.3987525489846715, z: 1.9787469138082574, _gsap: GSCache} position: Vector3 {x: -4.85107488034725, y: 0.4876158173506311, z: 5.421262376769432, _gsap: GSCache}
+      // gsap.to(controls.target,{x: -1.095866722574637, y: -2.3987525489846715, z: 1.9787469138082574,duration:1,delay:4});
+  
+      gsap.to(camera.position,{x: -4.85107488034725, y: 0.4876158173506311, z: 5.421262376769432,duration:10,delay:4})
+// //       // Vector3 {x: -0.33017618225543927, y: -0.2917183079249861, z: -0.11354543863032199, _gsap: GSCache} position: Vector3 {x: -1.4102767124568913, y: 0.8875883299589369, z: -0.6731147564439991, _gsap: GSCache}
+      gsap.to(controls.target,{x: -0.32780258586027866, y: -0.2927804605540083, z: -0.12120864558705574,duration:7,delay:5 ,ease:'power1.in'});
+      gsap.to(camera.position,{x: -0.9368241147924617, y: 0.44978222785543465, z: -1.7328521118110993,duration:20,delay:12,onComplete:function(){
     camerarotation=true
+    controls.enabled=true
+    controls.addEventListener("change", function() {
+      _v.copy(controls.target);
+      controls.target.clamp(minPan, maxPan);
+      _v.sub(controls.target);
+      camera.position.sub(_v);
+  })
     controls.maxPolarAngle=Math.PI/2
-controls.target = new THREE.Vector3(0, 0, 0);
-label("Casa Di Bazar",-0.85,-0.5,0.89,-1.3,0.30,0.95)
+    controls.maxDistance=15
+    label("Casa Di Bazar",-0.85,-0.5,0.89,-1.3,0.30,0.95)
 label("Mercato",-0.12,-0.5,-0.06,-0.30,0.5,-0.21)
 label("Razzo",-0.87,-0.42,-0.19,-1.2,0.5,-0.57)
 clearInterval(myInterval)
 
-// sprite.position.set(-1.3  ,0.30,0.95)
-// sphere.position.set(-0.85, -0.5, 0.89);
-  })
-tweenCamera1.chain(tweenCamera2)
-tweenCamera2.chain(tweenCamera3)
-tweenCamera3.chain(tweenCamera4)
-
-
-const updateCamera = function (object ) {
-  camera.position.set(object.x, object.y, object.z);
-  camera.lookAt(new THREE.Vector3(object.lookAtX, object.lookAtY, object.lookAtZ))
-}
-tweenCamera1.onUpdate(updateCamera)
-tweenCamera2.onUpdate(updateCamera)
-tweenCamera3.onUpdate(updateCamera)
-tweenCamera4.onUpdate(updateCamera)
-
-var myInterval=null
-document.getElementById('start-button').onclick=function(){
-    document.getElementById('start-button').style.display='none'
-     myInterval = setInterval(()=>{if(fog.density>0.39){return} ; if (fog.density<0.4){fonintensity+=0.01;fog.density=fonintensity , console.log(fonintensity);}}, 100);
-     controls.maxDistance=4
-    tweenCamera1.start()
-    controls.enabled=true
+      }})
+      controls.enabled=true
     // controls.enablePan = false;
     const listener = new THREE.AudioListener();
 
@@ -756,13 +789,9 @@ clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 const found = intersect(clickMouse);
 console.log(found);
 if(found.length>0 && !clickActive){
-  clickActive=true
-    const tweenCamera3 = new TWEEN.Tween( {x: controls.object.position.x, y: controls.object.position.y, z: controls.object.position.z, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
-  .to( {x: -0.8+0.2, y: -0.5+0.1, z: 0.8, lookAtX: cube.position.x, lookAtY: cube.position.y, lookAtZ: cube.position.z}, 1000 )
-tweenCamera3.onUpdate(updateCamera)
-tweenCamera3.start()
-controls.enabled=false
-tweenCamera3.onComplete(function() {
+
+gsap.to(controls.target,{x: -0.7895943789584624, y: -0.49343959037131463, z: 0.7758244771913646,duration:1,ease:'power1.inOut'});
+gsap.to(camera.position,{x:-0.665,y:-0.475,z:0.690,duration:2,onComplete:  function (){
   camerarotation=false
   document.getElementsByClassName('card')[0].style.display='block';
   document.getElementById('gui').style.display='block';
@@ -778,34 +807,31 @@ tweenCamera3.onComplete(function() {
   
   composer.addPass(bokehPass);
   
-  
-})
+
+}})
+
+clickActive=true
 
 }
 })
-var minPan = new THREE.Vector3( - 0.8, - 0.8, - 0.8 );
-    var maxPan = new THREE.Vector3( 0.8, 0.8, 0.8 );
-    var _v = new THREE.Vector3();
-    
-    controls.addEventListener("change", function() {
-        _v.copy(controls.target);
-        controls.target.clamp(minPan, maxPan);
-        _v.sub(controls.target);
-        camera.position.sub(_v);
-    })
+var minPan = new THREE.Vector3( - 1, - 1, - 1 );
+var maxPan = new THREE.Vector3( 1, 1, 1 );
+var _v = new THREE.Vector3();
+
+
 document.getElementById('close').onclick=function(){
   camerarotation=true
   document.getElementById('close').style.display='none';
   document.getElementById('gui').style.display='none';
-
+  gsap.to(controls.target,{x: -0.330176, y: -0.291718, z: -0.113545,duration:4,ease:'power3.inOut'});
+  
+  gsap.to(camera.position,{x: -0.24905360247937205, y: 0.44321605716014717, z: -1.7252216405242373,duration:4})
     clickActive=false
 		controls.enabled=true
         document.getElementsByClassName('card')[0].style.display='none'
-        const tweenCamera4 = new TWEEN.Tween( {x: -0.8+0.2, y: -0.5+0.1, z: 0.8, lookAtX: cube.position.x, lookAtY: cube.position.y, lookAtZ: cube.position.z} )
-        .to( {x: 0.01, y: 0.8, z:-2.8, lookAtX: controls.target.x, lookAtY: controls.target.y, lookAtZ: controls.target.z}, 1000 )
-tweenCamera4.onUpdate(updateCamera)
-tweenCamera4.start()
-// camera.lookAt(new Vector3(0,0,0))
+        // tweenCamera4.onUpdate(updateCamera)
+// tweenCamera4.start()
+// // camera.lookAt(new Vector3(0,0,0))
 
 var bokehPass = new BokehPass(scene, camera, {
   focus: 0,
@@ -816,6 +842,22 @@ var bokehPass = new BokehPass(scene, camera, {
 });
 
 composer.addPass(bokehPass);
+	
+//         const tweenCamera4 = new TWEEN.Tween( {x: -0.8+0.2, y: -0.5+0.1, z: 0.8, lookAtX: cube.position.x, lookAtY: cube.position.y, lookAtZ: cube.position.z} )
+//         .to( {x: 0.01, y: 0.8, z:-2.8, lookAtX: controls.target.x, lookAtY: controls.target.y, lookAtZ: controls.target.z}, 1000 )
+// tweenCamera4.onUpdate(updateCamera)
+// tweenCamera4.start()
+// // camera.lookAt(new Vector3(0,0,0))
+
+// var bokehPass = new BokehPass(scene, camera, {
+//   focus: 0,
+//   aperture: 0,
+//   maxblur: 0,
+//   width: window.innerWidth,
+//   height: window.innerHeight
+// });
+
+// composer.addPass(bokehPass);
 	
 };
 //mercato
@@ -835,17 +877,12 @@ clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 const found = intersectmercato(clickMouse);
 console.log(found);
 if(found.length>0 && !clickActive){
+  controls.maxPolarAngle=Math.PI
+
+  gsap.to(controls.target,{x: -0.026866113208039017, y: -0.502226053582955, z: 0.058799043808937655,duration:2,ease:'power3.inOut'});
+gsap.to(camera.position,{x: -0.3180910476443807, y: -0.554595398258052, z: -0.18548174505396237,duration:2,onComplete:function(){
   clickActive=true
-    const tweenCamera3 = new TWEEN.Tween( {x: controls.object.position.x, y: controls.object.position.y, z: controls.object.position.z, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
-  .to( {x: -0.20, y: -0.24, z: -0.58, lookAtX: cube2.position.x, lookAtY: cube2.position.y, lookAtZ: cube2.position.z}, 1000 )
-tweenCamera3.onUpdate(updateCamera)
-tweenCamera3.start()
-tweenCamera3.onComplete(function() {
-  camera.lookAt(new Vector3(0,0,0))
-  this.tweenCamera3.remove(this)
-})
 controls.enabled=false
-tweenCamera3.onComplete(function() {
   camerarotation=false
 
   document.getElementsByClassName('card')[0].style.display='block';
@@ -860,25 +897,29 @@ tweenCamera3.onComplete(function() {
   });
  
   
-  composer.addPass(bokehPass);
+  composer.addPass(bokehPass);}})
   
-})
-}
-})
+}})
+
+
 document.getElementById('close3').onclick=function(){
   document.getElementById('close3').style.display='none';
   document.getElementById('gui').style.display='none';
+  controls.maxPolarAngle=Math.PI/2
+
   camerarotation=true
   // camera.lookAt(new Vector3(0,0,0))
+  gsap.to(controls.target,{x: -0.330176, y: -0.291718, z: -0.113545,duration:4,ease:'power3.inOut'});
+  
+  gsap.to(camera.position,{x: -0.24905360247937205, y: 0.44321605716014717, z: -1.7252216405242373,duration:4})
 
     clickActive=false
 		controls.enabled=true
-    controls.reset()
         document.getElementsByClassName('card')[0].style.display='none'
-        const tweenCamera4 = new TWEEN.Tween( {x: -0.20, y: -0.24, z: -0.58, lookAtX: cube2.position.x, lookAtY: cube2.position.y, lookAtZ: cube2.position.z} )
-  .to( {x: 0.01, y: 0.8, z:-2.8, lookAtX: controls.target.x, lookAtY: controls.target.y, lookAtZ: controls.target.z}, 1000 )
-tweenCamera4.onUpdate(updateCamera)
-tweenCamera4.start()
+//         const tweenCamera4 = new TWEEN.Tween( {x: -0.20, y: -0.24, z: -0.58, lookAtX: cube2.position.x, lookAtY: cube2.position.y, lookAtZ: cube2.position.z} )
+//   .to( {x: 0.01, y: 0.8, z:-2.8, lookAtX: controls.target.x, lookAtY: controls.target.y, lookAtZ: controls.target.z}, 1000 )
+// tweenCamera4.onUpdate(updateCamera)
+// tweenCamera4.start()
 var bokehPass = new BokehPass(scene, camera, {
   focus: 0,
   aperture: 0,
@@ -909,12 +950,10 @@ const found = intersectrazzi(clickMouse);
 console.log(found);
 if(found.length>0 && !clickActive){
   clickActive=true
-    const tweenCamera3 = new TWEEN.Tween( {x: controls.object.position.x, y: controls.object.position.y, z: controls.object.position.z, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
-  .to( {x: -0.08, y: 0.54, z: -1.25, lookAtX: cube3.position.x, lookAtY: cube3.position.y, lookAtZ: cube3.position.z}, 1000 )
-tweenCamera3.onUpdate(updateCamera)
-tweenCamera3.start()
-controls.enabled=false
-tweenCamera3.onComplete(function() {
+  // Vector3 {x: -9.770615721348168, y: -9.54466194373729, z: 4.832993575887554} position: Vector3 {x: -0.13875162016991638, y: 0.254770585414132, z: -0.849468306752633}
+  gsap.to(controls.target,{x: -0.9797703949860304, y: -0.4506553131290549, z: -0.49315683192363935,duration:2,ease:'power3.inOut'});
+gsap.to(camera.position,{x: -0.10712912414254994, y: -0.0843309975955695, z: -0.9926194416863182,duration:2,onComplete:function(){
+  controls.enabled=false
   camerarotation=false
   document.getElementsByClassName('card')[0].style.display='block';
   document.getElementById('guirazi').style.display='block';
@@ -930,21 +969,22 @@ tweenCamera3.onComplete(function() {
   
   composer.addPass(bokehPass);
   
-})
-}
-})
+}})}})
+
 document.getElementById('close2').onclick=function(){
   document.getElementById('close2').style.display='none';
   document.getElementById('guirazi').style.display='none';
   camerarotation=true
   // camera.lookAt(new Vector3(0,0,0))
-
+  gsap.to(controls.target,{x: -0.330176, y: -0.291718, z: -0.113545,duration:4,ease:'power3.inOut'});
+  
+  gsap.to(camera.position,{x: -0.24905360247937205, y: 0.44321605716014717, z: -1.7252216405242373,duration:4})
     clickActive=false
 		controls.enabled=true
-        const tweenCamera4 = new TWEEN.Tween( {x: -0.08, y: 0.54, z: -1.25, lookAtX: cube3.position.x, lookAtY: cube3.position.y, lookAtZ: cube3.position.z} )
-        .to( {x: 0.01, y: 0.8, z:-2.8, lookAtX: controls.target.x, lookAtY: controls.target.y, lookAtZ: controls.target.z}, 1000 )
-tweenCamera4.onUpdate(updateCamera)
-tweenCamera4.start()
+//         const tweenCamera4 = new TWEEN.Tween( {x: -0.08, y: 0.54, z: -1.25, lookAtX: cube3.position.x, lookAtY: cube3.position.y, lookAtZ: cube3.position.z} )
+//         .to( {x: 0.01, y: 0.8, z:-2.8, lookAtX: controls.target.x, lookAtY: controls.target.y, lookAtZ: controls.target.z}, 1000 )
+// tweenCamera4.onUpdate(updateCamera)
+// tweenCamera4.start()
 var bokehPass = new BokehPass(scene, camera, {
   focus: 0,
   aperture: 0,
@@ -1064,6 +1104,7 @@ const effectController = {
 // //cam animation
 const tick = () =>
 {
+
   // if (mesh){mesh.material.map.repeat.set(5,5)}
 if(camerarotation){
   var rotSpeed = .0007;
@@ -1084,14 +1125,14 @@ camera.lookAt(new Vector3(0,0,0))}
 //  scene.children[14].children[9].rotation.z=28;
 }
 
-    TWEEN.update()
+    // TWEEN.update()
     const elapsedTime = 0.015
     const elapsedTime2 = clock.getElapsedTime()/500
 
     // Update objects
 
     // Update Orbital Controls
-    // controls.update()
+    controls.update()
    
 
     // Render
@@ -1099,29 +1140,29 @@ camera.lookAt(new Vector3(0,0,0))}
     composer.render(scene,camera)
     // postprocessing.composer.render( 0.1 );
     // composer.render();
-
+  // console.log(controls.target);
 // spotLight.position.set(camera.position.x+10,camera.position.y+10,camera.position.z+10)
     // Call tick again on the next frame
     window.requestAnimationFrame(tick)
-    // console.log(controls.target);
     if(mixer1){
-
-        mixer1.update(elapsedTime)
-
+      
+      mixer1.update(elapsedTime)
+      
     }
     for ( let i = 0; i < scene.children.length; i ++ ) {
-
-        const object = scene.children[ i ];
-
-        if ( object instanceof THREE.Points ) {
-
-            object.rotation.y = elapsedTime2 * ( i < 4 ? i + 1 : - ( i + 1 ) );
-
-        }
-
+      
+      const object = scene.children[ i ];
+      
+      if ( object instanceof THREE.Points ) {
+        
+        object.rotation.y = elapsedTime2 * ( i < 4 ? i + 1 : - ( i + 1 ) );
+        
+      }
+      
     }
-
-// console.log(camera.position);
-}
+    
+    console.log('target:',controls.target,'position:',camera.position);
+    // console.log(camera.position);
+  }
 
 tick()
