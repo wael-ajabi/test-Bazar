@@ -1106,13 +1106,13 @@ const tick = () =>
 {
 
   // if (mesh){mesh.material.map.repeat.set(5,5)}
-if(camerarotation){
-  var rotSpeed = .0007;
-  var x = camera.position.x;
-  var z = camera.position.z;
-  camera.position.x = x * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
-  camera.position.z = z * Math.cos(rotSpeed) + x * Math.sin(rotSpeed);
-camera.lookAt(new Vector3(0,0,0))}
+// if(camerarotation){
+//   var rotSpeed = .0007;
+//   var x = camera.position.x;
+//   var z = camera.position.z;
+//   camera.position.x = x * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
+//   camera.position.z = z * Math.cos(rotSpeed) + x * Math.sin(rotSpeed);
+// camera.lookAt(new Vector3(0,0,0))}
   if(scene.children[14]){
  scene.children[14].children[9].scale.set(0.07,0.07,0.07);
  scene.children[14].children[9].position.x=-0.02;
