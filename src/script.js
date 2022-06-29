@@ -759,7 +759,6 @@ label("Palazzo degli Affari",0.71,0.01,0.596,0.5,0.5,0.5)
 clearInterval(myInterval)
 
       }})
-      controls.enabled=true
     // controls.enablePan = false;
     const listener = new THREE.AudioListener();
 
@@ -807,6 +806,8 @@ clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 const found = intersect(clickMouse);
 console.log(found);
 if(found.length>0 && !clickActive){
+  controls.enabled=false
+
   minPan = new THREE.Vector3( - 1, - 1, - 1 );
   maxPan = new THREE.Vector3( 1, 1, 1 );
 gsap.to(controls.target,{x: -0.7895943789584624, y: -0.49343959037131463, z: 0.7758244771913646,duration:2,ease:'power3.inOut'});
@@ -902,6 +903,8 @@ clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 const found = intersectmercato(clickMouse);
 console.log(found);
 if(found.length>0 && !clickActive){
+  controls.enabled=false
+
   minPan = new THREE.Vector3( - 1, - 1, - 1 );
   maxPan = new THREE.Vector3( 1, 1, 1 );
   controls.maxPolarAngle=Math.PI
@@ -909,7 +912,6 @@ if(found.length>0 && !clickActive){
   gsap.to(controls.target,{x: -0.026866113208039017, y: -0.502226053582955, z: 0.058799043808937655,duration:2,ease:'power3.inOut'});
 gsap.to(camera.position,{x: -0.3180910476443807, y: -0.554595398258052, z: -0.18548174505396237,duration:2,onComplete:function(){
   clickActive=true
-controls.enabled=false
   camerarotation=false
 
   document.getElementsByClassName('card')[0].style.display='block';
@@ -930,6 +932,7 @@ controls.enabled=false
 
 
 document.getElementById('close3').onclick=function(){
+
   minPan = new THREE.Vector3( - 0.5, - 0.5, - 0.5 );
   maxPan = new THREE.Vector3( 0.5, 0.5, 0.5 );
   document.getElementById('close3').style.display='none';
@@ -940,10 +943,10 @@ document.getElementById('close3').onclick=function(){
   // camera.lookAt(new Vector3(0,0,0))
   gsap.to(controls.target,{x: -0.330176, y: -0.291718, z: -0.113545,duration:4,ease:'power3.inOut'});
   
-  gsap.to(camera.position,{x: -0.24905360247937205, y: 0.44321605716014717, z: -1.7252216405242373,duration:4})
+  gsap.to(camera.position,{x: -0.24905360247937205, y: 0.44321605716014717, z: -1.7252216405242373,duration:4,onComplete:function(){  controls.enabled=true
+  }})
 
     clickActive=false
-		controls.enabled=true
         document.getElementsByClassName('card')[0].style.display='none'
 //         const tweenCamera4 = new TWEEN.Tween( {x: -0.20, y: -0.24, z: -0.58, lookAtX: cube2.position.x, lookAtY: cube2.position.y, lookAtZ: cube2.position.z} )
 //   .to( {x: 0.01, y: 0.8, z:-2.8, lookAtX: controls.target.x, lookAtY: controls.target.y, lookAtZ: controls.target.z}, 1000 )
@@ -978,11 +981,11 @@ clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 const found = intersectrazzi(clickMouse);
 console.log(found);
 if(found.length>0 && !clickActive){
+  controls.enabled=false
   clickActive=true
   // Vector3 {x: -0.8289567293538739, y: -0.3299689356758495, z: -0.45931347935989586, _gsap: GSCache} position: Vector3 {x: -0.2948241421524178, y: -0.07897252364587554, z: -0.6011721977773161, _gsap: GSCache}
   gsap.to(controls.target,{x: -0.8289567293538739, y: -0.3299689356758495, z: -0.45931347935989586,duration:2,ease:'power3.inOut'});
 gsap.to(camera.position,{x: -0.2948241421524178, y: -0.07897252364587554, z: -0.6011721977773161,duration:2,onComplete:function(){
-controls.enabled=false
   camerarotation=false
   document.getElementsByClassName('card')[0].style.display='block';
   document.getElementById('guirazi').style.display='block';
@@ -1007,9 +1010,9 @@ document.getElementById('close2').onclick=function(){
   // camera.lookAt(new Vector3(0,0,0))
   gsap.to(controls.target,{x: -0.330176, y: -0.291718, z: -0.113545,duration:4,ease:'power3.inOut'});
   
-  gsap.to(camera.position,{x: -0.24905360247937205, y: 0.44321605716014717, z: -1.7252216405242373,duration:4})
+  gsap.to(camera.position,{x: -0.24905360247937205, y: 0.44321605716014717, z: -1.7252216405242373,duration:4,onComplete:function(){  controls.enabled=true
+  }})
     clickActive=false
-		controls.enabled=true
 //         const tweenCamera4 = new TWEEN.Tween( {x: -0.08, y: 0.54, z: -1.25, lookAtX: cube3.position.x, lookAtY: cube3.position.y, lookAtZ: cube3.position.z} )
 //         .to( {x: 0.01, y: 0.8, z:-2.8, lookAtX: controls.target.x, lookAtY: controls.target.y, lookAtZ: controls.target.z}, 1000 )
 // tweenCamera4.onUpdate(updateCamera)
@@ -1043,6 +1046,8 @@ clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 const found = intersectcentro(clickMouse);
 console.log(found);
 if(found.length>0 && !clickActive){
+  controls.enabled=false
+
   minPan = new THREE.Vector3( - 1, - 1, - 1 );
   maxPan = new THREE.Vector3( 1, 1, 1 );
 // Vector3 {x: 0.9993218565801543, y: -0.17436976232855309, z: 0.4936554286869645, _gsap: GSCache}x: 0.9993218565801543y: -0.17436976232855309z: 0.4936554286869645_gsap: GSCache {id: 1, target: Vector3, harness: undefined, get: ƒ, set: ƒ}[[Prototype]]: Object position: Vector3 {x: 0.6952679758442837, y: -0.07447583058929784, z: 0.5573174043485942, _gsap: GSCache}
@@ -1138,6 +1143,8 @@ clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 const found = intersectpalazo(clickMouse);
 console.log(found);
 if(found.length>0 && !clickActive){
+  controls.enabled=false
+  console.log('zebi');
    minPan = new THREE.Vector3( - 1, - 1, - 1 );
  maxPan = new THREE.Vector3( 1, 1, 1 );
 // Vector3 {x: 0.9993218565801543, y: -0.17436976232855309, z: 0.4936554286869645, _gsap: GSCache}x: 0.9993218565801543y: -0.17436976232855309z: 0.4936554286869645_gsap: GSCache {id: 1, target: Vector3, harness: undefined, get: ƒ, set: ƒ}[[Prototype]]: Object position: 
@@ -1177,9 +1184,9 @@ document.getElementById('close').onclick=function(){
   document.getElementById('gui').style.display='none';
   gsap.to(controls.target,{x: -0.330176, y: -0.291718, z: -0.113545,duration:4,ease:'power3.inOut'});
   
-  gsap.to(camera.position,{x: -0.24905360247937205, y: 0.44321605716014717, z: -1.7252216405242373,duration:4})
+  gsap.to(camera.position,{x: -0.24905360247937205, y: 0.44321605716014717, z: -1.7252216405242373,duration:4,onComplete:function(){  controls.enabled=true
+  }})
     clickActive=false
-		controls.enabled=true
         document.getElementsByClassName('card')[0].style.display='none'
         // tweenCamera4.onUpdate(updateCamera)
 // tweenCamera4.start()
