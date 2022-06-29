@@ -1155,8 +1155,8 @@ clickActive=true
 
 }
 })
-var minPan = new THREE.Vector3( - 1, - 1, - 1 );
-var maxPan = new THREE.Vector3( 1, 1, 1 );
+var minPan = new THREE.Vector3( - 0.5, - 0.5, - 0.5 );
+var maxPan = new THREE.Vector3( 0.5, 0.5, 0.5 );
 var _v = new THREE.Vector3();
 
 
