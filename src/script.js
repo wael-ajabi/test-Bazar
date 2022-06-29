@@ -752,9 +752,9 @@ document.getElementById('start-button').onclick=function(){
     controls.maxPolarAngle=Math.PI/2
     controls.maxDistance=15
 label("Casa Di Bazar",-0.85,-0.5,0.89,-1.3,0.30,0.95)
-label("Mercato",-0.12,-0.5,-0.06,-0.30,0.5,-0.21)
+label("Mercato",-0.1,-0.5,-0.3,-0.30,0.5,-0.21)
 label("Razzo",-0.87,-0.42,-0.19,-1.2,0.5,-0.57)
-label("Centro di Smistamento",0.55,-0.44,-0.04,1,0.5,-0.57)
+label("Centro di Smistamento",0.55,-0.42,-0.04,1,0.5,-0.57)
 label("Palazzo degli Affari",0.71,0.01,0.596,0.5,0.5,0.5)
 clearInterval(myInterval)
 
@@ -807,7 +807,8 @@ clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 const found = intersect(clickMouse);
 console.log(found);
 if(found.length>0 && !clickActive){
-
+  minPan = new THREE.Vector3( - 1, - 1, - 1 );
+  maxPan = new THREE.Vector3( 1, 1, 1 );
 gsap.to(controls.target,{x: -0.7895943789584624, y: -0.49343959037131463, z: 0.7758244771913646,duration:2,ease:'power3.inOut'});
 gsap.to(camera.position,{x:-0.665,y:-0.475,z:0.690,duration:2,onComplete:  function (){
   camerarotation=false
@@ -832,12 +833,14 @@ clickActive=true
 
 }
 })
-var minPan = new THREE.Vector3( - 1, - 1, - 1 );
-var maxPan = new THREE.Vector3( 1, 1, 1 );
+var minPan = new THREE.Vector3( - 0.5, - 0.5, - 0.5 );
+var maxPan = new THREE.Vector3( 0.5, 0.5, 0.5 );
 var _v = new THREE.Vector3();
 
 
 document.getElementById('close').onclick=function(){
+  minPan = new THREE.Vector3( - 0.5, - 0.5, - 0.5 );
+  maxPan = new THREE.Vector3( 0.5, 0.5, 0.5 );
   console.log('zebiçiiiibazar');
   camerarotation=true
   document.getElementById('close').style.display='none';
@@ -899,6 +902,8 @@ clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 const found = intersectmercato(clickMouse);
 console.log(found);
 if(found.length>0 && !clickActive){
+  minPan = new THREE.Vector3( - 1, - 1, - 1 );
+  maxPan = new THREE.Vector3( 1, 1, 1 );
   controls.maxPolarAngle=Math.PI
 
   gsap.to(controls.target,{x: -0.026866113208039017, y: -0.502226053582955, z: 0.058799043808937655,duration:2,ease:'power3.inOut'});
@@ -925,6 +930,8 @@ controls.enabled=false
 
 
 document.getElementById('close3').onclick=function(){
+  minPan = new THREE.Vector3( - 0.5, - 0.5, - 0.5 );
+  maxPan = new THREE.Vector3( 0.5, 0.5, 0.5 );
   document.getElementById('close3').style.display='none';
   document.getElementById('gui').style.display='none';
   controls.maxPolarAngle=Math.PI/2
@@ -1036,6 +1043,8 @@ clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 const found = intersectcentro(clickMouse);
 console.log(found);
 if(found.length>0 && !clickActive){
+  minPan = new THREE.Vector3( - 1, - 1, - 1 );
+  maxPan = new THREE.Vector3( 1, 1, 1 );
 // Vector3 {x: 0.9993218565801543, y: -0.17436976232855309, z: 0.4936554286869645, _gsap: GSCache}x: 0.9993218565801543y: -0.17436976232855309z: 0.4936554286869645_gsap: GSCache {id: 1, target: Vector3, harness: undefined, get: ƒ, set: ƒ}[[Prototype]]: Object position: Vector3 {x: 0.6952679758442837, y: -0.07447583058929784, z: 0.5573174043485942, _gsap: GSCache}
 gsap.to(controls.target,{x: 0.7560826605461148, y: -0.5369771534030447, z: 0.5299269409833773,duration:1,ease:'power3.inOut'});
 gsap.to(camera.position,{x:0.5153795946335598,y:-0.5177304512872842,z:-0.17507433205802714,duration:2,delay:1 ,onComplete:  function (){
@@ -1061,12 +1070,12 @@ clickActive=true
 
 }
 })
-var minPan = new THREE.Vector3( - 1, - 1, - 1 );
-var maxPan = new THREE.Vector3( 1, 1, 1 );
-var _v = new THREE.Vector3();
+
 
 
 document.getElementById('close').onclick=function(){
+  minPan = new THREE.Vector3( - 0.5, - 0.5, - 0.5 );
+  maxPan = new THREE.Vector3( 0.5, 0.5, 0.5 );
   console.log('zebicentro');
   camerarotation=true
   document.getElementById('close').style.display='none';
@@ -1129,6 +1138,8 @@ clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 const found = intersectpalazo(clickMouse);
 console.log(found);
 if(found.length>0 && !clickActive){
+   minPan = new THREE.Vector3( - 1, - 1, - 1 );
+ maxPan = new THREE.Vector3( 1, 1, 1 );
 // Vector3 {x: 0.9993218565801543, y: -0.17436976232855309, z: 0.4936554286869645, _gsap: GSCache}x: 0.9993218565801543y: -0.17436976232855309z: 0.4936554286869645_gsap: GSCache {id: 1, target: Vector3, harness: undefined, get: ƒ, set: ƒ}[[Prototype]]: Object position: 
 // Vector3 {x: 0.6952679758442837, y: -0.07447583058929784, z: 0.5573174043485942, _gsap: GSCache}
 gsap.to(controls.target,{x: 0.9993218565801543, y: -0.17436976232855309, z: 0.4936554286869645,duration:1,ease:'power3.inOut'});
@@ -1155,12 +1166,11 @@ clickActive=true
 
 }
 })
-var minPan = new THREE.Vector3( - 0.5, - 0.5, - 0.5 );
-var maxPan = new THREE.Vector3( 0.5, 0.5, 0.5 );
-var _v = new THREE.Vector3();
 
 
 document.getElementById('close').onclick=function(){
+   minPan = new THREE.Vector3( - 0.5, - 0.5, - 0.5 );
+ maxPan = new THREE.Vector3( 0.5, 0.5, 0.5 );
   console.log('zebipallazi');
   camerarotation=true
   document.getElementById('close').style.display='none';
@@ -1185,7 +1195,7 @@ var bokehPass = new BokehPass(scene, camera, {
 
 composer.addPass(bokehPass);
 	
-//         const tweenCamera4 = new TWEEN.Tween( {x: -0.8+0.2, y: -0.5+0.1, z: 0.8, lookAtX: cube.position.x, lookAtY: cube.position.y, lookAtZ: cube.position.z} )
+//         const tweenCamera4 = new TWEEN.Tween( {x: -0.8+0.2, y: -1+0.1, z: 0.8, lookAtX: cube.position.x, lookAtY: cube.position.y, lookAtZ: cube.position.z} )
 //         .to( {x: 0.01, y: 0.8, z:-2.8, lookAtX: controls.target.x, lookAtY: controls.target.y, lookAtZ: controls.target.z}, 1000 )
 // tweenCamera4.onUpdate(updateCamera)
 // tweenCamera4.start()
