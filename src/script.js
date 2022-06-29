@@ -728,19 +728,19 @@ document.getElementById('start-button').onclick=function(){
     //  Vector3 {x: 7.873367997158608, y: 4.069807786599987, z: -3.6457710193813297} position: Vector3 {x: -2.9973941691386354, y: 0.25695988398426417, z: 5.864941550052949}
     gsap.to(controls.target,{x: -0.2529885009743434,
       y: -4.408631972336949,
-      z: 4.4890068075771525,duration:4,ease:'power3.inOut'});
+      z: 4.4890068075771525,duration:2});
 
     gsap.to(camera.position,{x: -2.9427743328138654,
       y: -0.5668938088454993,
-      z: 7.994678133712579,duration:4})
+      z: 7.994678133712579,duration:5})
 
       // Vector3 {x: -1.095866722574637, y: -2.3987525489846715, z: 1.9787469138082574, _gsap: GSCache} position: Vector3 {x: -4.85107488034725, y: 0.4876158173506311, z: 5.421262376769432, _gsap: GSCache}
       // gsap.to(controls.target,{x: -1.095866722574637, y: -2.3987525489846715, z: 1.9787469138082574,duration:1,delay:4});
   
-      gsap.to(camera.position,{x: -4.85107488034725, y: 0.4876158173506311, z: 5.421262376769432,duration:7,delay:2})
+      gsap.to(camera.position,{x: -4.85107488034725, y: 0.50, z: 5.421262376769432,duration:13,delay:3})
 //       // Vector3 {x: -0.33017618225543927, y: -0.2917183079249861, z: -0.11354543863032199, _gsap: GSCache} position: Vector3 {x: -1.4102767124568913, y: 0.8875883299589369, z: -0.6731147564439991, _gsap: GSCache}
-      gsap.to(controls.target,{x: -0.32780258586027866, y: -0.2927804605540083, z: -0.12120864558705574,duration:7,ease:'power3.inOut',delay:3});
-      gsap.to(camera.position,{x: -0.9368241147924617, y: 0.44978222785543465, z: -1.7328521118110993,duration:30,delay:5,onComplete:function(){
+      gsap.to(controls.target,{x: -0.32780258586027866, y: -0.2927804605540083, z: -0.12120864558705574,duration:7,delay:2});
+      gsap.to(camera.position,{x: -0.9368241147924617, y: 0.44978222785543465, z: -1.7328521118110993,duration:25,delay:8,onComplete:function(){
     camerarotation=true
     controls.enabled=true
     controls.addEventListener("change", function() {
