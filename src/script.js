@@ -1320,17 +1320,17 @@ if(camerarotation){
   camera.position.x = x * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
   camera.position.z = z * Math.cos(rotSpeed) + x * Math.sin(rotSpeed);
 camera.lookAt(new Vector3(0,0,0))}
-//   if(scene.children[14]){
-//  scene.children[14].children[9].scale.set(0.07,0.07,0.07);
-//  scene.children[14].children[9].position.x=-0.02;
-//  scene.children[14].children[9].position.z=-8.5;
-//  scene.children[14].children[9].position.y=2.2;
-//  scene.children[14].children[9].rotation.x=1.7;
-// //  scene.children[14].children[0].children[0].children[1].children[229].material.bumpScale=8
+  if(scene.children[16]){
+ scene.children[16].children[9].scale.set(0.07,0.07,0.07);
+ scene.children[16].children[9].position.x=-0.02;
+ scene.children[16].children[9].position.z=-8.5;
+ scene.children[16].children[9].position.y=2.2;
+ scene.children[16].children[9].rotation.x=1.7;
+//  scene.children[14].children[0].children[0].children[1].children[229].material.bumpScale=8
 
 
-// //  scene.children[14].children[9].rotation.z=28;
-// }
+//  scene.children[14].children[9].rotation.z=28;
+}
 
     // TWEEN.update()
     const elapsedTime = 0.015
