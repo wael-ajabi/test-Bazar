@@ -71,7 +71,7 @@ const manager = new THREE.LoadingManager()
 
     manager.onLoad = function ( ) {
         console.log( "Loading complete!")
-          mesh.material.map.repeat.set(5,5)
+          // mesh.material.map.repeat.set(5,5)
 
     }
 
@@ -93,7 +93,7 @@ dracoLoader.preload();
 // var blender_camera=null
 gltfloader.setDRACOLoader(dracoLoader);
 var totalSize = 4167680;
-gltfloader.load("./city_7_without texture.glb", function (gltf) {
+gltfloader.load("./testt.glb", function (gltf) {
   console.log( gltf.scene.children[0].children[0].children[1].children[232])
    mesh =gltf.scene.children[0].children[0].children[1].children[232]
   const textureLoader = new THREE.TextureLoader();
@@ -101,12 +101,12 @@ gltfloader.load("./city_7_without texture.glb", function (gltf) {
   const grassNormalTexture = textureLoader.load(
     "./NormalMapDefinitiva in uso_1.jpg"
   );
-  grassNormalTexture.repeat.set(1000, 1000);
-  grassNormalTexture.wrapT = THREE.RepeatWrapping;
-  grassNormalTexture.wrapS = THREE.RepeatWrapping;
-  mesh.material.normalMap = grassNormalTexture;
-console.log(mesh);
-console.log(mesh.material.map);
+  // grassNormalTexture.repeat.set(1000, 1000);
+  // grassNormalTexture.wrapT = THREE.RepeatWrapping;
+  // grassNormalTexture.wrapS = THREE.RepeatWrapping;
+  // mesh.material.normalMap = grassNormalTexture;
+// console.log(mesh);
+// console.log(mesh.material.map);
 // mesh.material.map.repeat.x=8
 // mesh.material.map.repeat.y=8
 // floor
@@ -123,8 +123,8 @@ console.log(mesh.material.map);
   //     2
   //   )
   // ); //for aoMap to work
-  var basecolor = THREE.ImageUtils.loadTexture('./initialShadingGroup_Base_Color.png')
-  mesh.material.map = basecolor;
+  // var basecolor = THREE.ImageUtils.loadTexture('./initialShadingGroup_Base_Color.png')
+  // mesh.material.map = basecolor;
 
   // mesh.material.onBeforeCompile=(shader)=>{
   //   //console.log(shader.fragmentShader);
@@ -134,8 +134,8 @@ console.log(mesh.material.map);
   //   normal = perturbNormal2Arb( - vViewPosition, normal, mapN, faceDirection );
   //   `)
   //   };
-mesh.material.needsUpdate = true;
-mesh.needsUpdate = true;
+// mesh.material.needsUpdate = true;
+// mesh.needsUpdate = true;
 
   var obj = gltf.scene;
   gltf.castShadow=true;gltf.receiveShadow=true;
@@ -155,11 +155,11 @@ mesh.needsUpdate = true;
     // blender_camera = gltf.cameras[0];
   mixer1 = new THREE.AnimationMixer(gltf.scene);
   console.log(gltf.scene);
-  for (var i=0;i<23;i++){
-             action = mixer1.clipAction(gltf.animations[i]);
-             action.play()
+  // for (var i=0;i<23;i++){
+  //            action = mixer1.clipAction(gltf.animations[i]);
+  //            action.play()
 
-  }
+  // }
   // scene.add(camera)
   (gltf.scene.rotation.y = 3.1),
   (gltf.scene.position.y = -3),
