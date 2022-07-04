@@ -2,6 +2,7 @@ import './style.css'
 import * as THREE from 'three'
 import * as TWEEN from '@tweenjs/tween.js'
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import Stats from 'three/examples/jsm/libs/stats.module'
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { Sky } from "three/examples/jsm/objects/Sky.js";
@@ -23,6 +24,8 @@ import { Vector3 } from 'three';
 
 // Debug
 const gui = new dat.GUI();
+const stats = Stats()
+document.body.appendChild(stats.dom)
 // let composer
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -1378,7 +1381,7 @@ const effectController = {
 // //cam animation
 const tick = () =>
 {
-
+  stats.update()
   // if (mesh){mesh.material.map.repeat.set(5,5)}
 if(camerarotation){
   var rotSpeed = .0007;
