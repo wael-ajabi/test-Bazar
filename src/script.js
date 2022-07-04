@@ -64,7 +64,7 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(window.innerWidth, window.innerHeight)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 renderer.physicallyCorrectLights = !0
-renderer.shadowMap.enabled=true
+renderer.shadowMap.enabled=false
 // renderer.shadowMap.type=THREE.BasicShadowMap
 // Objects
 // const geometry = new THREE.TorusGeometry( .7, .2, 16, 100 );
@@ -381,7 +381,43 @@ cubeFolder1.open();
 // 				composer = new EffectComposer( renderer );
 // 				composer.addPass( renderScene );
 // 				composer.addPass( bloomPass );
-// scene.add( new THREE.AmbientLight( 0xffffff,0.2 ) );
+scene.add( new THREE.DirectionalLight( 0xffffff,0.1 ) );
+
+var clientX = -300,
+    clientY = -300,
+// elements 
+    outerCursor = document.querySelector(".cursor--outer"),
+    innerCursor = document.querySelector(".cursor--inner"),
+    link = document.querySelector(".link")
+
+var initCursor = function() {
+  // add listener to track the current mouse position
+  document.addEventListener("mousemove", function(e) {
+    clientX = e.clientX
+    clientY = e.clientY
+  });
+  
+  var render = function() {
+    gsap.set(outerCursor, {
+      x: clientX-25,
+      y: clientY-25,
+      delay: .08,
+      // ease: Power1.easeOut
+    });
+    
+     gsap.set(innerCursor, {
+      x: clientX,
+      y: clientY
+    });
+    
+    requestAnimationFrame(render);
+  };
+  
+  requestAnimationFrame(render);
+};
+
+initCursor();
+
 
 // const hemiLight = new THREE.HemisphereLight( 0xa9a9a9a9,0xff8c31, 2 );
 // // pointLight.layers.set(1)
@@ -410,6 +446,11 @@ pointLight3.frustumCulled=true
 pointLight3.decay=1
 pointLight3.distance=10
 scene.add(pointLight3)
+
+// const ambientLight3 = new THREE.AmbientLight(0xffffff,3.66,2)
+// scene.add(ambientLight3)
+
+
 const pointLight3Helper= new THREE.PointLightHelper(pointLight3)
 // scene.add(pointLight3Helper)
 // const shadowCameraHelper4 = new THREE.CameraHelper( pointLight3.shadow.camera );
@@ -461,7 +502,7 @@ const PointLight2 = new THREE.PointLight(0xffffff,3.66,2)
 // PointLight2.position.set(-3.320,2.900,0.272)
 PointLight2.scale.set(1,1,1)
 PointLight2.position.y=0.8
-PointLight2.intensity=2
+PointLight2.intensity=1
 PointLight2.frustumCulled=true
 PointLight2.shadow.bias = -0.0001;
 // PointLight2.shadow.radius=8
@@ -485,7 +526,7 @@ pointLight.scale.set(1,1,1)
 pointLight.position.x=-3.5
 pointLight.position.y=3
 pointLight.position.z=3
-pointLight.intensity=2
+pointLight.intensity=5
 pointLight.frustumCulled=true
 pointLight.decay=1
 pointLight.distance=3.68
@@ -784,11 +825,11 @@ document.getElementById('start-button').onclick=function(){
   })
     controls.maxPolarAngle=Math.PI/2
     controls.maxDistance=15
-label("Casa Di Bazar",-0.85,-0.5,0.89,-1.3,0.30,0.95)
-label("Mercato",-0.1,-0.5,-0.3,-0.30,0.5,-0.21)
-label("Razzo",-0.87,-0.42,-0.19,-1.2,0.5,-0.57)
-label("Centro di Smistamento",0.55,-0.42,-0.04,1,0.5,-0.57)
-label("Palazzo degli Affari",0.71,0.01,0.596,0.5,0.5,0.5)
+// label("Casa Di Bazar",-0.85,-0.5,0.89,-1.3,0.30,0.95)
+// label("Mercato",-0.1,-0.5,-0.3,-0.30,0.5,-0.21)
+// label("Razzo",-0.87,-0.42,-0.19,-1.2,0.5,-0.57)
+// label("Centro di Smistamento",0.55,-0.42,-0.04,1,0.5,-0.57)
+// label("Palazzo degli Affari",0.71,0.01,0.596,0.5,0.5,0.5)
 clearInterval(myInterval)
 
       }})
@@ -827,20 +868,28 @@ function intersect(pos) {
   raycaster.setFromCamera(pos, camera);
   return raycaster.intersectObject(cube);
 }
+
+// function growOnHover() {
+// link.addEventListener("mouseenter", function() {
+//     TweenMax.to(outerCursor, 1, {scale: 2})
+// });
+// link.addEventListener("mouseleave", function() {
+//     TweenMax.to(outerCursor, 1, {scale: 1})
+// });
+// }
+// growOnHover();
+
+
 var clickActive=false
 window.addEventListener('dblclick', event => {
 
-
-
 // THREE RAYCASTER
-clickMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
 const found = intersect(clickMouse);
 // console.log(found);p
 if(found.length>0 && !clickActive){
   controls.enabled=false
-
+  clickMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
   minPan = new THREE.Vector3( - 1, - 1, - 1 );
   maxPan = new THREE.Vector3( 1, 1, 1 );
 gsap.to(controls.target,{x: -0.7895943789584624, y: -0.49343959037131463, z: 0.7758244771913646,duration:2,ease:'power3.inOut'});
@@ -920,18 +969,21 @@ composer.addPass(bokehPass);
 };
 //mercato
 
+
 function intersectmercato(pos) {
   raycaster.setFromCamera(pos, camera);
   return raycaster.intersectObject(cube2);
 }
+
+
 var clickActive=false
 window.addEventListener('dblclick', event => {
-
-
-
-// THREE RAYCASTER
-clickMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+  
+  
+  
+  // THREE RAYCASTER
+  clickMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
 const found = intersectmercato(clickMouse);
 console.log(found);
@@ -1003,6 +1055,8 @@ function intersectrazzi(pos) {
   return raycaster.intersectObject(cube3);
 }
 var clickActive=false
+
+
 window.addEventListener('dblclick', event => {
 
 
@@ -1068,6 +1122,7 @@ function intersectcentro(pos) {
   return raycaster.intersectObject(cube4);
 }
 var clickActive=false
+
 window.addEventListener('dblclick', event => {
 
 
@@ -1165,6 +1220,34 @@ function intersectpalazo(pos) {
   return raycaster.intersectObject(cube5);
 }
 var clickActive=false
+
+window.addEventListener('mousemove', event => {
+  clickMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+  const foundpalazo = intersectpalazo(clickMouse);
+  const foundcentro = intersectcentro(clickMouse);
+  const foundrazzi = intersectrazzi(clickMouse);
+  const foundmercato =intersectmercato(clickMouse);
+  const foundbazzar = intersect(clickMouse)
+  if(foundpalazo.length>0 && !clickActive){
+      gsap.to(outerCursor, 1, {scale: 2})
+  }
+  else if(foundcentro.length>0 && !clickActive){
+      gsap.to(outerCursor, 1, {scale: 2})
+  }
+  else if(foundrazzi.length>0 && !clickActive){
+      gsap.to(outerCursor, 1, {scale: 2})
+  }
+  else if(foundmercato.length>0 && !clickActive){
+      gsap.to(outerCursor, 1, {scale: 2})
+  }
+  else if(foundbazzar.length>0 && !clickActive){
+      gsap.to(outerCursor, 1, {scale: 2})
+  }
+  else{  gsap.to(outerCursor, 1, {scale: 1})
+  }
+})
+
 window.addEventListener('dblclick', event => {
 
 
@@ -1254,11 +1337,6 @@ composer.addPass(bokehPass);
 };
 
 
-
-window.addEventListener('mousemove', event => {
-    moveMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    moveMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-  });
 const clock = new THREE.Clock()
 
 const param = {
@@ -1269,7 +1347,6 @@ const param = {
 
 let rt = new THREE.WebGLRenderTarget(innerWidth, innerHeight, {
   type: THREE.FloatType,
-  encoding: THREE.sRGBEncoding,
   minFilter: THREE.NearestFilter,
   magFilter: THREE.NearestFilter,
   samples: 4
