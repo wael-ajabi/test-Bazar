@@ -38,7 +38,7 @@ scene.background = new THREE.Color(0x000000);
 var fonintensity=0.2
 
 var fog = new THREE.FogExp2( new THREE.Color("rgb(188, 118, 067)"), fonintensity );
-scene.fog = fog
+// scene.fog = fog
 
 
     // const color = "rgb(133, 117, 223)";  // white
@@ -56,8 +56,8 @@ const sizes = {
 const renderer = new THREE.WebGLRenderer({
    canvas: canvas
 })
-renderer.toneMapping = THREE.ReinhardToneMapping
-renderer.toneMappingExposure = 2.3
+// renderer.toneMapping = THREE.ReinhardToneMapping
+// renderer.toneMappingExposure = 2.3
 renderer.setSize(window.innerWidth, window.innerHeight)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 renderer.physicallyCorrectLights = !0
@@ -71,7 +71,7 @@ const manager = new THREE.LoadingManager()
 
     manager.onLoad = function ( ) {
         console.log( "Loading complete!")
-          // mesh.material.map.repeat.set(5,5)
+          mesh.material.map.repeat.set(5,5)
 
     }
 
@@ -93,7 +93,27 @@ dracoLoader.preload();
 // var blender_camera=null
 gltfloader.setDRACOLoader(dracoLoader);
 var totalSize = 4167680;
-gltfloader.load("./testt.glb", function (gltf) {
+var glowYellow = new THREE.MeshBasicMaterial({
+  color: new THREE.Color(0.910, 0.770, 0,1).multiplyScalar(100),
+  toneMapped: false,
+  
+});
+var glowBlue= new THREE.MeshBasicMaterial({
+  color: new THREE.Color(0, 0.290, 0.260,1).multiplyScalar(100),
+  toneMapped: false,
+  
+});
+var glowBlueLight= new THREE.MeshBasicMaterial({
+  color: new THREE.Color(0, 0.290, 0.260,1).multiplyScalar(8),
+  toneMapped: false,
+  
+});
+var glowRed= new THREE.MeshBasicMaterial({
+  color: new THREE.Color(1, 0, 0,242,1).multiplyScalar(100),
+  toneMapped: false,
+  
+});
+gltfloader.load("./city_7_without texture.glb", function (gltf) {
   console.log( gltf.scene.children[0].children[0].children[1].children[232])
    mesh =gltf.scene.children[0].children[0].children[1].children[232]
   const textureLoader = new THREE.TextureLoader();
@@ -101,12 +121,11 @@ gltfloader.load("./testt.glb", function (gltf) {
   const grassNormalTexture = textureLoader.load(
     "./NormalMapDefinitiva in uso_1.jpg"
   );
-  // grassNormalTexture.repeat.set(1000, 1000);
-  // grassNormalTexture.wrapT = THREE.RepeatWrapping;
-  // grassNormalTexture.wrapS = THREE.RepeatWrapping;
-  // mesh.material.normalMap = grassNormalTexture;
-// console.log(mesh);
-// console.log(mesh.material.map);
+  grassNormalTexture.repeat.set(1000, 1000);
+  grassNormalTexture.wrapT = THREE.RepeatWrapping;
+  grassNormalTexture.wrapS = THREE.RepeatWrapping;
+  mesh.material.normalMap = grassNormalTexture;
+
 // mesh.material.map.repeat.x=8
 // mesh.material.map.repeat.y=8
 // floor
@@ -123,8 +142,8 @@ gltfloader.load("./testt.glb", function (gltf) {
   //     2
   //   )
   // ); //for aoMap to work
-  // var basecolor = THREE.ImageUtils.loadTexture('./initialShadingGroup_Base_Color.png')
-  // mesh.material.map = basecolor;
+  var basecolor = THREE.ImageUtils.loadTexture('./initialShadingGroup_Base_Color.png')
+  mesh.material.map = basecolor;
 
   // mesh.material.onBeforeCompile=(shader)=>{
   //   //console.log(shader.fragmentShader);
@@ -134,14 +153,21 @@ gltfloader.load("./testt.glb", function (gltf) {
   //   normal = perturbNormal2Arb( - vViewPosition, normal, mapN, faceDirection );
   //   `)
   //   };
-// mesh.material.needsUpdate = true;
-// mesh.needsUpdate = true;
+mesh.material.needsUpdate = true;
+mesh.needsUpdate = true;
 
   var obj = gltf.scene;
   gltf.castShadow=true;gltf.receiveShadow=true;
-    console.log(gltf);
-    gltf.scene.traverse(n=>{if (n.isMesh){n.castShadow=true;n.receiveShadow=true;
+    console.log(gltf,'aaaaaaaaaaa');
+    gltf.scene.traverse(n=>{if (n.isMesh){n.castShadow=true;n.receiveShadow=true;n.material.toneMapped=false
     if(n.material.map){n.material.map.anisotropy=16;}
+      // console.log(gltf.scene.children[4].children[0].children[0])
+      // gltf.scene.children[4].children[0].children[1].material=glowMagenta
+      if(n.material.name==='Palazzi:lambert2SG1'){n.material=glowYellow}
+      if(n.material.name==='Palazzi:phong2SG1'||n.material.name==='AZZURROC'){n.material=glowBlue}
+      if(n.material.name==='FUCSIA_C'){n.material=glowRed;}
+      if(n.material.name==='phong20'){n.material=glowBlueLight}
+    
     }})
     // const cubeFolder2 = gui.addFolder('position');
     //     cubeFolder2.add( gltf.scene.children[9].position, 'x');
@@ -155,11 +181,11 @@ gltfloader.load("./testt.glb", function (gltf) {
     // blender_camera = gltf.cameras[0];
   mixer1 = new THREE.AnimationMixer(gltf.scene);
   console.log(gltf.scene);
-  // for (var i=0;i<23;i++){
-  //            action = mixer1.clipAction(gltf.animations[i]);
-  //            action.play()
+  for (var i=0;i<23;i++){
+             action = mixer1.clipAction(gltf.animations[i]);
+             action.play()
 
-  // }
+  }
   // scene.add(camera)
   (gltf.scene.rotation.y = 3.1),
   (gltf.scene.position.y = -3),
@@ -201,7 +227,7 @@ const loadingManager = new THREE.LoadingManager( () => {
   loadingScreen.addEventListener( 'transitionend', onTransitionEnd );
   
 } );
-const geomet = new THREE.BoxGeometry( 0.1, 0.1, 0.1 );
+const geomet = new THREE.BoxBufferGeometry ( 0.1, 0.1, 0.1 );
 const material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
 const cube = new THREE.Mesh( geomet, material );
 cube.name='cube'
@@ -218,6 +244,8 @@ cube.visible=false;
     // cubeFolder2.add( cube.scale, 'z');
 
     // cubeFolder2.open();
+
+    
 
     
     const cube2 = new THREE.Mesh( geomet, material );
@@ -323,7 +351,7 @@ renderer.physicallyCorrectLights = false
  */
 // Base camera
 var camera = new THREE.PerspectiveCamera(60, sizes.width / sizes.height, 0.005, 5000)
-// Vector3 {x: 7.873367997158608, y: 0.06980778659998726, z: -3.6457710193813297} position: Vector3 {x: -4.071602210689063, y: -0.6661736349724943, z: 9.377164616658627}
+// Vector3 {x: 7.873367997158608, y: 0.06980778659998726, z: -3.6457710193813297} position: Vector3 {x: -4.071602210689063, y: -0.6661736349724943, z: 9.377164616658627}
 camera.position.x = -4.071602210689063
 camera.position.y = -0.84
 camera.position.z = 9.377164616658627
@@ -374,7 +402,7 @@ cubeFolder1.open();
 const pointLight3 = new THREE.PointLight(0xffffff,3.66,2)
 pointLight3.position.set(-24,8,45)
 pointLight3.scale.set(10,10,10)
-pointLight3.intensity=10
+pointLight3.intensity=5
 pointLight3.frustumCulled=true
 pointLight3.decay=1
 pointLight3.distance=10
@@ -402,7 +430,7 @@ pointLight4.scale.set(1,1,1)
 pointLight4.position.x=-3.8
 pointLight4.position.y=1.3
 pointLight4.position.z=8.8
-pointLight4.intensity=20
+pointLight4.intensity=5
 pointLight4.frustumCulled=true
 pointLight4.decay=1
 pointLight4.distance=2.5
@@ -430,7 +458,7 @@ const PointLight2 = new THREE.PointLight(0xffffff,3.66,2)
 // PointLight2.position.set(-3.320,2.900,0.272)
 PointLight2.scale.set(1,1,1)
 PointLight2.position.y=0.8
-PointLight2.intensity=10
+PointLight2.intensity=2
 PointLight2.frustumCulled=true
 PointLight2.shadow.bias = -0.0001;
 // PointLight2.shadow.radius=8
@@ -501,8 +529,10 @@ controls.update();
 
 // } );
 
+
+
 // galaxy geometry
-const starGeometry = new THREE.SphereGeometry(80, 64, 64);
+const starGeometry = new THREE.SphereBufferGeometry(80, 64, 64);
 
 // galaxy material
 const starMaterial = new THREE.MeshBasicMaterial({
@@ -530,7 +560,7 @@ scene.add(starMesh);
 
 
 //moon geometry
-const moongeometry = new THREE.SphereGeometry(0.1, 32, 32);
+const moongeometry = new THREE.SphereBufferGeometry(0.1, 32, 32);
 
 //moon material
 const moonMaterial = new THREE.MeshPhongMaterial({
@@ -667,7 +697,7 @@ var  sprite = new TextSprite({
     scene.add( sprite )
 points.push( new THREE.Vector3(sphere.position.x, sphere.position.y,sphere.position.z ) );
 points.push( new THREE.Vector3( sprite.position.x, sprite.position.y-0.07, sprite.position.z ) );
-console.log(sprite.position);
+// console.log(sprite.position);
 const geometry3 = new THREE.BufferGeometry().setFromPoints( points );
 
 const line = new THREE.Line( geometry3, material3 );
@@ -723,9 +753,9 @@ document.getElementById('start-button').onclick=function(){
   controls.enabled=false
 
     document.getElementById('start-button').style.display='none'
-     myInterval = setInterval(()=>{if(fog.density>0.39){return} ; if (fog.density<0.4){fonintensity+=0.01;fog.density=fonintensity , console.log(fonintensity);}}, 100);
+     myInterval = setInterval(()=>{if(fog.density>0.39){return} ; if (fog.density<0.4){fonintensity+=0.01;fog.density=fonintensity }}, 100);
     //  controls.maxDistance=4
-    //  Vector3 {x: 7.873367997158608, y: 4.069807786599987, z: -3.6457710193813297} position: Vector3 {x: -2.9973941691386354, y: 0.25695988398426417, z: 5.864941550052949}
+    //  Vector3 {x: 7.873367997158608, y: 4.069807786599987, z: -3.6457710193813297} position: Vector3 {x: -2.9973941691386354, y: 0.25695988398426417, z: 5.864941550052949}
     gsap.to(controls.target,{x: -0.2529885009743434,
       y: -4.408631972336949,
       z: 4.4890068075771525,duration:2});
@@ -734,11 +764,11 @@ document.getElementById('start-button').onclick=function(){
       y: -0.5668938088454993,
       z: 7.994678133712579,duration:5})
 
-      // Vector3 {x: -1.095866722574637, y: -2.3987525489846715, z: 1.9787469138082574, _gsap: GSCache} position: Vector3 {x: -4.85107488034725, y: 0.4876158173506311, z: 5.421262376769432, _gsap: GSCache}
+      // Vector3 {x: -1.095866722574637, y: -2.3987525489846715, z: 1.9787469138082574, _gsap: GSCache} position: Vector3 {x: -4.85107488034725, y: 0.4876158173506311, z: 5.421262376769432, _gsap: GSCache}
       // gsap.to(controls.target,{x: -1.095866722574637, y: -2.3987525489846715, z: 1.9787469138082574,duration:1,delay:4});
   
       gsap.to(camera.position,{x: -4.85107488034725, y: 0.50, z: 5.421262376769432,duration:13,delay:3})
-//       // Vector3 {x: -0.33017618225543927, y: -0.2917183079249861, z: -0.11354543863032199, _gsap: GSCache} position: Vector3 {x: -1.4102767124568913, y: 0.8875883299589369, z: -0.6731147564439991, _gsap: GSCache}
+//       // Vector3 {x: -0.33017618225543927, y: -0.2917183079249861, z: -0.11354543863032199, _gsap: GSCache} position: Vector3 {x: -1.4102767124568913, y: 0.8875883299589369, z: -0.6731147564439991, _gsap: GSCache}
       gsap.to(controls.target,{x: -0.32780258586027866, y: -0.2927804605540083, z: -0.12120864558705574,duration:7,delay:2});
       gsap.to(camera.position,{x: -0.9368241147924617, y: 0.44978222785543465, z: -1.7328521118110993,duration:25,delay:8,onComplete:function(){
     camerarotation=true
@@ -804,7 +834,7 @@ clickMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
 clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
 const found = intersect(clickMouse);
-console.log(found);
+// console.log(found);p
 if(found.length>0 && !clickActive){
   controls.enabled=false
 
@@ -983,7 +1013,7 @@ console.log(found);
 if(found.length>0 && !clickActive){
   controls.enabled=false
   clickActive=true
-  // Vector3 {x: -0.8289567293538739, y: -0.3299689356758495, z: -0.45931347935989586, _gsap: GSCache} position: Vector3 {x: -0.2948241421524178, y: -0.07897252364587554, z: -0.6011721977773161, _gsap: GSCache}
+  // Vector3 {x: -0.8289567293538739, y: -0.3299689356758495, z: -0.45931347935989586, _gsap: GSCache} position: Vector3 {x: -0.2948241421524178, y: -0.07897252364587554, z: -0.6011721977773161, _gsap: GSCache}
   gsap.to(controls.target,{x: -0.8289567293538739, y: -0.3299689356758495, z: -0.45931347935989586,duration:2,ease:'power3.inOut'});
 gsap.to(camera.position,{x: -0.2948241421524178, y: -0.07897252364587554, z: -0.6011721977773161,duration:2,onComplete:function(){
   camerarotation=false
@@ -1050,7 +1080,7 @@ if(found.length>0 && !clickActive){
 
   minPan = new THREE.Vector3( - 1, - 1, - 1 );
   maxPan = new THREE.Vector3( 1, 1, 1 );
-// Vector3 {x: 0.9993218565801543, y: -0.17436976232855309, z: 0.4936554286869645, _gsap: GSCache}x: 0.9993218565801543y: -0.17436976232855309z: 0.4936554286869645_gsap: GSCache {id: 1, target: Vector3, harness: undefined, get: ƒ, set: ƒ}[[Prototype]]: Object position: Vector3 {x: 0.6952679758442837, y: -0.07447583058929784, z: 0.5573174043485942, _gsap: GSCache}
+// Vector3 {x: 0.9993218565801543, y: -0.17436976232855309, z: 0.4936554286869645, _gsap: GSCache}x: 0.9993218565801543y: -0.17436976232855309z: 0.4936554286869645_gsap: GSCache {id: 1, target: Vector3, harness: undefined, get: ƒ, set: ƒ}[[Prototype]]: Object position: Vector3 {x: 0.6952679758442837, y: -0.07447583058929784, z: 0.5573174043485942, _gsap: GSCache}
 gsap.to(controls.target,{x: 0.7560826605461148, y: -0.5369771534030447, z: 0.5299269409833773,duration:1,ease:'power3.inOut'});
 gsap.to(camera.position,{x:0.5153795946335598,y:-0.5177304512872842,z:-0.17507433205802714,duration:2,delay:1 ,onComplete:  function (){
   camerarotation=false
@@ -1058,7 +1088,7 @@ gsap.to(camera.position,{x:0.5153795946335598,y:-0.5177304512872842,z:-0.1750743
   document.getElementById('gui').style.display='block';
   document.getElementById('close').style.display='block'
   var bokehPass = new BokehPass(scene, camera, {
-    focus: 0.5,
+    focus: 0.2,
     aperture: 0.005,
     maxblur: 5,
     width: window.innerWidth,
@@ -1147,8 +1177,8 @@ if(found.length>0 && !clickActive){
   console.log('zebi');
    minPan = new THREE.Vector3( - 1, - 1, - 1 );
  maxPan = new THREE.Vector3( 1, 1, 1 );
-// Vector3 {x: 0.9993218565801543, y: -0.17436976232855309, z: 0.4936554286869645, _gsap: GSCache}x: 0.9993218565801543y: -0.17436976232855309z: 0.4936554286869645_gsap: GSCache {id: 1, target: Vector3, harness: undefined, get: ƒ, set: ƒ}[[Prototype]]: Object position: 
-// Vector3 {x: 0.6952679758442837, y: -0.07447583058929784, z: 0.5573174043485942, _gsap: GSCache}
+// Vector3 {x: 0.9993218565801543, y: -0.17436976232855309, z: 0.4936554286869645, _gsap: GSCache}x: 0.9993218565801543y: -0.17436976232855309z: 0.4936554286869645_gsap: GSCache {id: 1, target: Vector3, harness: undefined, get: ƒ, set: ƒ}[[Prototype]]: Object position: 
+// Vector3 {x: 0.6952679758442837, y: -0.07447583058929784, z: 0.5573174043485942, _gsap: GSCache}
 gsap.to(controls.target,{x: 0.9993218565801543, y: -0.17436976232855309, z: 0.4936554286869645,duration:1,ease:'power3.inOut'});
 gsap.to(camera.position,{x:0.6952679758442837,y:-0.07447583058929784,z:0.5573174043485942,duration:2,delay:1 ,onComplete:  function (){
   camerarotation=false
@@ -1228,17 +1258,37 @@ window.addEventListener('mousemove', event => {
   });
 const clock = new THREE.Clock()
 
-const params = {
-  exposure: 2,
-  bloomStrength: 1.5,
-  bloomThreshold: 0,
-  bloomRadius: 0
+const param = {
+  bloomStrength: 1,
+  bloomRadius: 0.5,
+  bloomThreshold: 1
 };
 
-composer = new EffectComposer( renderer );
+let rt = new THREE.WebGLRenderTarget(innerWidth, innerHeight, {
+  type: THREE.FloatType,
+  encoding: THREE.sRGBEncoding,
+  minFilter: THREE.NearestFilter,
+  magFilter: THREE.NearestFilter,
+  samples: 4
+  
+});
+composer = new EffectComposer( renderer,rt   );
 
 var renderPass = new RenderPass( scene, camera );
 				composer.addPass( renderPass );
+
+        const bloomPass = new UnrealBloomPass(
+          new THREE.Vector2(window.innerWidth, window.innerHeight),
+          param.bloomStrength,
+          param.bloomRadius,
+          param.bloomThreshold
+        );
+    
+
+        composer.addPass(bloomPass);
+        
+
+        
 
 // const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 1.5, 0.4, 0.85 );
 // bloomPass.threshold = params.bloomThreshold;
@@ -1337,17 +1387,17 @@ if(camerarotation){
   camera.position.x = x * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
   camera.position.z = z * Math.cos(rotSpeed) + x * Math.sin(rotSpeed);
 camera.lookAt(new Vector3(0,0,0))}
-  if(scene.children[16]){
- scene.children[16].children[9].scale.set(0.07,0.07,0.07);
- scene.children[16].children[9].position.x=-0.02;
- scene.children[16].children[9].position.z=-8.5;
- scene.children[16].children[9].position.y=2.2;
- scene.children[16].children[9].rotation.x=1.7;
+//   if(scene.children[16]){
+//  scene.children[16].children[9].scale.set(0.07,0.07,0.07);
+//  scene.children[16].children[9].position.x=-0.02;
+//  scene.children[16].children[9].position.z=-8.5;
+//  scene.children[16].children[9].position.y=2.2;
+//  scene.children[16].children[9].rotation.x=1.7;
 //  scene.children[14].children[0].children[0].children[1].children[229].material.bumpScale=8
 
 
 //  scene.children[14].children[9].rotation.z=28;
-}
+// }
 
     // TWEEN.update()
     const elapsedTime = 0.015
