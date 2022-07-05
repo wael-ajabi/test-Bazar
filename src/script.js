@@ -2,7 +2,7 @@ import './style.css'
 import * as THREE from 'three'
 import * as TWEEN from '@tweenjs/tween.js'
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import Stats from 'three/examples/jsm/libs/stats.module'
+// import Stats from 'three/examples/jsm/libs/stats.module'
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { Sky } from "three/examples/jsm/objects/Sky.js";
@@ -14,18 +14,19 @@ import { ColladaLoader } from 'three/examples/jsm/loaders/ColladaLoader.js';
 			import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
       import { BokehPass } from 'three/examples/jsm/postprocessing/BokehPass.js';
       import TextSprite from '@seregpie/three.text-sprite';
-
+     
             import {gsap} from "gsap";
 import { Vector3 } from 'three';
 
             let composer;
             let	singleMaterial, zmaterial,nobjects, cubeMaterial;
             const materials1 = [], objects = [];
+            
 
 // Debug
 const gui = new dat.GUI();
-const stats = Stats()
-document.body.appendChild(stats.dom)
+// const stats = Stats()
+// document.body.appendChild(stats.dom)
 // let composer
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -37,17 +38,17 @@ const canvas = document.querySelector('canvas.webgl')
 // };
 // Scene
 const scene = new THREE.Scene()
-scene.background = new THREE.Color(0x000000);
+scene.background = new THREE.Color( 0x000000);
 var fonintensity=0.2
 
 var fog = new THREE.FogExp2( new THREE.Color("rgb(188, 118, 067)"), fonintensity );
 // scene.fog = fog
 
 
-    // const color = "rgb(133, 117, 223)";  // white
-    // const near = 0.5;
-    // const far = 5;
-    // scene.fog = new THREE.Fog(color, near, far);
+    const color = 0xffffff;  // white
+    const near = 0.1;
+    const far = 30;
+    scene.fog = new THREE.Fog(color, near, far);
   
   
 const sizes = {
@@ -162,7 +163,7 @@ mesh.needsUpdate = true;
   var obj = gltf.scene;
   gltf.castShadow=true;gltf.receiveShadow=true;
     console.log(gltf,'aaaaaaaaaaa');
-    gltf.scene.traverse(n=>{if (n.isMesh){n.castShadow=true;n.receiveShadow=true;n.material.toneMapped=false
+    gltf.scene.traverse(n=>{if (n.isMesh){n.castShadow=true;n.receiveShadow=true;
     if(n.material.map){n.material.map.anisotropy=16;}
       // console.log(gltf.scene.children[4].children[0].children[0])
       // gltf.scene.children[4].children[0].children[1].material=glowMagenta
@@ -381,7 +382,7 @@ cubeFolder1.open();
 // 				composer = new EffectComposer( renderer );
 // 				composer.addPass( renderScene );
 // 				composer.addPass( bloomPass );
-scene.add( new THREE.DirectionalLight( 0xffffff,0.1 ) );
+scene.add( new THREE.DirectionalLight( 0xffffff,0.3) );
 
 var clientX = -300,
     clientY = -300,
@@ -420,8 +421,8 @@ initCursor();
 
 
 // const hemiLight = new THREE.HemisphereLight( 0xa9a9a9a9,0xff8c31, 2 );
-// // pointLight.layers.set(1)
-// // scene.add( hemiLight );
+// pointLight.layers.set(1)
+// scene.add( hemiLight );
 
 // const spotLight = new THREE.SpotLight(0xffffff,50)
 // spotLight.position.set( 0, 2.6, -12.6 );
@@ -498,11 +499,11 @@ const pointLight4Helper= new THREE.PointLightHelper(pointLight4)
 
 
 
-const PointLight2 = new THREE.PointLight(0xffffff,3.66,2)
+const PointLight2 = new THREE.PointLight(0xffffff,3.66,3)
 // PointLight2.position.set(-3.320,2.900,0.272)
 PointLight2.scale.set(1,1,1)
 PointLight2.position.y=0.8
-PointLight2.intensity=1
+
 PointLight2.frustumCulled=true
 PointLight2.shadow.bias = -0.0001;
 // PointLight2.shadow.radius=8
@@ -1458,7 +1459,7 @@ const effectController = {
 // //cam animation
 const tick = () =>
 {
-  stats.update()
+  // stats.update()
   // if (mesh){mesh.material.map.repeat.set(5,5)}
 if(camerarotation){
   var rotSpeed = .0007;
