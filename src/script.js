@@ -79,7 +79,7 @@ const manager = new THREE.LoadingManager()
           var bokehPass = new BokehPass(scene, camera, {
             focus: 10,
             aperture: 0.001,
-            maxblur: 1,
+            maxblur: 5,
             width: window.innerWidth,
             height: window.innerHeight
           });
@@ -846,7 +846,7 @@ document.getElementById('start-button').onclick=function(){
         var bokehPass = new BokehPass(scene, camera, {
           focus: 7,
           aperture: 0.001,
-          maxblur: 1,
+          maxblur: 5,
           width: window.innerWidth,
           height: window.innerHeight
         });
