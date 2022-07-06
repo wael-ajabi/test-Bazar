@@ -12,7 +12,7 @@ import { SAOPass  } from 'three/examples/jsm/postprocessing/SAOPass.js';
 import { ColladaLoader } from 'three/examples/jsm/loaders/ColladaLoader.js';
 			import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 			import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
-      import { BokehPass } from 'three/examples/jsm/postprocessing/BokehPass.js';
+      import { BokehPass } from './BokehPass.js';
       import TextSprite from '@seregpie/three.text-sprite';
      
             import {gsap} from "gsap";
@@ -76,7 +76,18 @@ const manager = new THREE.LoadingManager()
     manager.onLoad = function ( ) {
         console.log( "Loading complete!")
           mesh.material.map.repeat.set(5,5)
-
+          var bokehPass = new BokehPass(scene, camera, {
+            focus: 10,
+            aperture: 0.001,
+            maxblur: 1,
+            width: window.innerWidth,
+            height: window.innerHeight
+          });
+          
+          
+          composer.addPass(bokehPass);
+          
+          
     }
 
 
@@ -791,7 +802,6 @@ scene.add( line )
 // tweenCamera2.onUpdate(updateCamera)
 // tweenCamera3.onUpdate(updateCamera)
 // tweenCamera4.onUpdate(updateCamera)
-controls.enabled=false
 
 var myInterval=null
 document.getElementById('start-button').onclick=function(){
@@ -799,8 +809,26 @@ document.getElementById('start-button').onclick=function(){
 
     document.getElementById('start-button').style.display='none'
      myInterval = setInterval(()=>{if(fog.density>0.39){return} ; if (fog.density<0.4){fonintensity+=0.01;fog.density=fonintensity }}, 100);
-    //  controls.maxDistance=4
-    //  Vector3 {x: 7.873367997158608, y: 4.069807786599987, z: -3.6457710193813297} position: Vector3 {x: -2.9973941691386354, y: 0.25695988398426417, z: 5.864941550052949}
+
+     
+    // gsap.to(controls.target,{x: -0.2529885009743434,
+    //   y: -4.408631972336949,
+    //   z: 4.4890068075771525,duration:2});
+
+    // gsap.to(camera.position,{x: -2.9427743328138654,
+    //   y: -0.5668938088454993,
+    //   z: 7.994678133712579,duration:5})
+
+     
+    //   gsap.to(camera.position,{x: -4.85107488034725, y: 0.50, z: 5.421262376769432,duration:13,delay:3})
+    //   gsap.to(controls.target,{x: -0.32780258586027866, y: -0.2927804605540083, z: -0.12120864558705574,duration:7,delay:2});
+    //   gsap.to(camera.position,{x: -0.9368241147924617, y: 0.44978222785543465, z: -1.7328521118110993,duration:25,delay:8,onComplete:function(){
+
+
+
+
+
+ 
     gsap.to(controls.target,{x: -0.2529885009743434,
       y: -4.408631972336949,
       z: 4.4890068075771525,duration:2});
@@ -809,14 +837,23 @@ document.getElementById('start-button').onclick=function(){
       y: -0.5668938088454993,
       z: 7.994678133712579,duration:5})
 
-      // Vector3 {x: -1.095866722574637, y: -2.3987525489846715, z: 1.9787469138082574, _gsap: GSCache} position: Vector3 {x: -4.85107488034725, y: 0.4876158173506311, z: 5.421262376769432, _gsap: GSCache}
-      // gsap.to(controls.target,{x: -1.095866722574637, y: -2.3987525489846715, z: 1.9787469138082574,duration:1,delay:4});
-  
+     
       gsap.to(camera.position,{x: -4.85107488034725, y: 0.50, z: 5.421262376769432,duration:13,delay:3})
-//       // Vector3 {x: -0.33017618225543927, y: -0.2917183079249861, z: -0.11354543863032199, _gsap: GSCache} position: Vector3 {x: -1.4102767124568913, y: 0.8875883299589369, z: -0.6731147564439991, _gsap: GSCache}
       gsap.to(controls.target,{x: -0.32780258586027866, y: -0.2927804605540083, z: -0.12120864558705574,duration:7,delay:2});
       gsap.to(camera.position,{x: -0.9368241147924617, y: 0.44978222785543465, z: -1.7328521118110993,duration:25,delay:8,onComplete:function(){
-    camerarotation=true
+
+
+        var bokehPass = new BokehPass(scene, camera, {
+          focus: 7,
+          aperture: 0.001,
+          maxblur: 1,
+          width: window.innerWidth,
+          height: window.innerHeight
+        });
+        
+        
+        composer.addPass(bokehPass);
+        
     controls.enabled=true
     controls.addEventListener("change", function() {
       _v.copy(controls.target);
@@ -1367,7 +1404,7 @@ var renderPass = new RenderPass( scene, camera );
     
 
         composer.addPass(bloomPass);
-        
+        controls.enabled=false
 
         
 
