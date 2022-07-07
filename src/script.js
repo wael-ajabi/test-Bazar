@@ -76,16 +76,16 @@ const manager = new THREE.LoadingManager()
     manager.onLoad = function ( ) {
         console.log( "Loading complete!")
           mesh.material.map.repeat.set(5,5)
-          var bokehPass = new BokehPass(scene, camera, {
-            focus: 10,
-            aperture: 0.001,
-            maxblur: 5,
-            width: window.innerWidth,
-            height: window.innerHeight
-          });
+          // var bokehPass = new BokehPass(scene, camera, {
+          //   focus: 10,
+          //   aperture: 0.001,
+          //   maxblur: 5,
+          //   width: window.innerWidth,
+          //   height: window.innerHeight
+          // });
           
           
-          composer.addPass(bokehPass);
+          // composer.addPass(bokehPass);
           
           
     }
@@ -636,7 +636,7 @@ moonMesh.castShadow = true;
 moonMesh.position.x = 2;
 moonMesh.position.set(-27, 9, 52);
 moonMesh.scale.set(30,30,30)
-scene.add(moonMesh);
+// scene.add(moonMesh);
 
 
 //particles
@@ -842,6 +842,7 @@ document.getElementById('start-button').onclick=function(){
       gsap.to(controls.target,{x: -0.32780258586027866, y: -0.2927804605540083, z: -0.12120864558705574,duration:7,delay:2});
       gsap.to(camera.position,{x: -0.9368241147924617, y: 0.44978222785543465, z: -1.7328521118110993,duration:25,delay:8,onComplete:function(){
 
+        camerarotation=true
 
         var bokehPass = new BokehPass(scene, camera, {
           focus: 7,
