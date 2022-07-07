@@ -592,7 +592,7 @@ const starGeometry = new THREE.SphereBufferGeometry(80, 64, 64);
 
 // galaxy material
 const starMaterial = new THREE.MeshBasicMaterial({
-  map: THREE.ImageUtils.loadTexture("./galaxy1.png"),
+  map: THREE.ImageUtils.loadTexture("./galaxy2.png"),
   side: THREE.BackSide,
   transparent: true,
   fog:false
@@ -842,12 +842,11 @@ document.getElementById('start-button').onclick=function(){
       gsap.to(controls.target,{x: -0.32780258586027866, y: -0.2927804605540083, z: -0.12120864558705574,duration:7,delay:2});
       gsap.to(camera.position,{x: -0.9368241147924617, y: 0.44978222785543465, z: -1.7328521118110993,duration:25,delay:8,onComplete:function(){
 
-        camerarotation=true
 
         var bokehPass = new BokehPass(scene, camera, {
-          focus: 7,
+          focus: 8,
           aperture: 0.001,
-          maxblur: 5,
+          maxblur: 500,
           width: window.innerWidth,
           height: window.innerHeight
         });
