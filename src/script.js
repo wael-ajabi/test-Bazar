@@ -38,16 +38,16 @@ const canvas = document.querySelector('canvas.webgl')
 // };
 // Scene
 const scene = new THREE.Scene()
-scene.background = new THREE.Color( 0x000000);
+scene.background = new THREE.Color( new THREE.Color("rgb(143, 76, 0)"));
 var fonintensity=0.2
 
 var fog = new THREE.FogExp2( new THREE.Color("rgb(188, 118, 067)"), fonintensity );
 // scene.fog = fog
 
 
-    const color = 0xffffff;  // white
+    const color =  new THREE.Color("rgb(143, 76, 0)");  // white
     const near = 0.1;
-    const far = 30;
+    const far = 14.60;
     scene.fog = new THREE.Fog(color, near, far);
   
   
@@ -611,19 +611,19 @@ controls.update();
 
 
 // galaxy geometry
-const starGeometry = new THREE.SphereBufferGeometry(80, 64, 64);
+// const starGeometry = new THREE.SphereBufferGeometry(80, 64, 64);
 
-// galaxy material
-const starMaterial = new THREE.MeshBasicMaterial({
-  map: THREE.ImageUtils.loadTexture("./galaxy2.png"),
-  side: THREE.BackSide,
-  transparent: true,
-  fog:false
-});
+// // galaxy material
+// const starMaterial = new THREE.MeshBasicMaterial({
+//   map: THREE.ImageUtils.loadTexture("./galaxy2.png"),
+//   side: THREE.BackSide,
+//   transparent: true,
+//   fog:false
+// });
 
-// galaxy mesh
-const starMesh = new THREE.Mesh(starGeometry, starMaterial);
-scene.add(starMesh);
+// // galaxy mesh
+// const starMesh = new THREE.Mesh(starGeometry, starMaterial);
+// scene.add(starMesh);
 
 //sun object
 // const color2 = new THREE.Color("#FDB813");
