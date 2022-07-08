@@ -16,7 +16,7 @@ import { ColladaLoader } from 'three/examples/jsm/loaders/ColladaLoader.js';
       import TextSprite from '@seregpie/three.text-sprite';
      
             import {gsap} from "gsap";
-import { Vector3 } from 'three';
+import { ReinhardToneMapping, Vector3 } from 'three';
 
             let composer;
             let	singleMaterial, zmaterial,nobjects, cubeMaterial;
@@ -56,16 +56,39 @@ const sizes = {
     height: window.innerHeight
 }
 
+const updateAllMaterials=()=>{
+  scene.traverse((child)=>{
+    if(child instanceof THREE.Mesh &&  child.material instanceof THREE.MeshStandardMaterial)
+    {
+      child.material.needsUpdate=true
+    }
+  })
+}
+
+
 // Renderer
 const renderer = new THREE.WebGLRenderer({
-   canvas: canvas
+   canvas: canvas,
+   antialias:true
 })
-// renderer.toneMapping = THREE.ReinhardToneMapping
+renderer.toneMapping = THREE.LinearToneMapping
+gui.add(renderer,'toneMapping',{
+  NO: THREE.NoToneMapping,
+  Linear: THREE.LinearToneMapping,
+  Reinhard:ReinhardToneMapping,
+  Cineon:THREE.CineonToneMapping,
+  ACESFilmic:THREE.ACESFilmicToneMapping
+}).onFinishChange(()=>{
+  renderer.toneMapping=Number(renderer.toneMapping)
+  updateAllMaterials()
+})
+gui.add(renderer,'toneMappingExposure').min(0).max(10).step(0.001)
 // renderer.toneMappingExposure = 2.3
 renderer.setSize(window.innerWidth, window.innerHeight)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 renderer.physicallyCorrectLights = !0
 renderer.shadowMap.enabled=false
+// renderer.shadowMap.type=THREE.PCFShadowMap
 // renderer.shadowMap.type=THREE.BasicShadowMap
 // Objects
 // const geometry = new THREE.TorusGeometry( .7, .2, 16, 100 );
@@ -393,7 +416,7 @@ cubeFolder1.open();
 // 				composer = new EffectComposer( renderer );
 // 				composer.addPass( renderScene );
 // 				composer.addPass( bloomPass );
-scene.add( new THREE.DirectionalLight( 0xffffff,0.3) );
+// scene.add( new THREE.DirectionalLight( 0xffffff,0.3) );
 
 var clientX = -300,
     clientY = -300,
@@ -841,6 +864,7 @@ document.getElementById('start-button').onclick=function(){
       gsap.to(camera.position,{x: -4.85107488034725, y: 0.50, z: 5.421262376769432,duration:13,delay:3})
       gsap.to(controls.target,{x: -0.32780258586027866, y: -0.2927804605540083, z: -0.12120864558705574,duration:7,delay:2});
       gsap.to(camera.position,{x: -0.9368241147924617, y: 0.44978222785543465, z: -1.7328521118110993,duration:25,delay:8,onComplete:function(){
+        camerarotation= true;
 
 
         var bokehPass = new BokehPass(scene, camera, {
