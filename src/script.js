@@ -98,7 +98,7 @@ const manager = new THREE.LoadingManager()
 
     manager.onLoad = function ( ) {
         console.log( "Loading complete!")
-          mesh.material.map.repeat.set(5,5)
+          // mesh.material.map.repeat.set(5,5)
           // var bokehPass = new BokehPass(scene, camera, {
           //   focus: 10,
           //   aperture: 0.001,
@@ -151,18 +151,18 @@ var glowRed= new THREE.MeshBasicMaterial({
   toneMapped: false,
   
 });
-gltfloader.load("./city_7_without texture.glb", function (gltf) {
+gltfloader.load("./city8.glb", function (gltf) {
   console.log( gltf.scene.children[0].children[0].children[1].children[232])
    mesh =gltf.scene.children[0].children[0].children[1].children[232]
   const textureLoader = new THREE.TextureLoader();
 
-  const grassNormalTexture = textureLoader.load(
-    "./NormalMapDefinitiva in uso_1.jpg"
-  );
-  grassNormalTexture.repeat.set(1000, 1000);
-  grassNormalTexture.wrapT = THREE.RepeatWrapping;
-  grassNormalTexture.wrapS = THREE.RepeatWrapping;
-  mesh.material.normalMap = grassNormalTexture;
+  // const grassNormalTexture = textureLoader.load(
+  //   "./NormalMapDefinitiva in uso_1.jpg"
+  // );
+  // grassNormalTexture.repeat.set(1000, 1000);
+  // grassNormalTexture.wrapT = THREE.RepeatWrapping;
+  // grassNormalTexture.wrapS = THREE.RepeatWrapping;
+  // mesh.material.normalMap = grassNormalTexture;
 
 // mesh.material.map.repeat.x=8
 // mesh.material.map.repeat.y=8
@@ -180,8 +180,8 @@ gltfloader.load("./city_7_without texture.glb", function (gltf) {
   //     2
   //   )
   // ); //for aoMap to work
-  var basecolor = THREE.ImageUtils.loadTexture('./initialShadingGroup_Base_Color.png')
-  mesh.material.map = basecolor;
+  // var basecolor = THREE.ImageUtils.loadTexture('./initialShadingGroup_Base_Color.png')
+  // mesh.material.map = basecolor;
 
   // mesh.material.onBeforeCompile=(shader)=>{
   //   //console.log(shader.fragmentShader);
@@ -191,8 +191,8 @@ gltfloader.load("./city_7_without texture.glb", function (gltf) {
   //   normal = perturbNormal2Arb( - vViewPosition, normal, mapN, faceDirection );
   //   `)
   //   };
-mesh.material.needsUpdate = true;
-mesh.needsUpdate = true;
+// mesh.material.needsUpdate = true;
+// mesh.needsUpdate = true;
 
   var obj = gltf.scene;
   gltf.castShadow=true;gltf.receiveShadow=true;
@@ -707,10 +707,10 @@ const geometry = new THREE.BufferGeometry();
 
 					const particles = new THREE.Points( geometry, materials );
 
+          
 					particles.rotation.x = Math.random() * 6;
 					particles.rotation.y = Math.random() * 6;
 					particles.rotation.z = Math.random() * 6;
-
 					scene.add( particles );
                 }
 ////////////
@@ -1571,7 +1571,7 @@ camera.lookAt(new Vector3(0,0,0))}
       
       if ( object instanceof THREE.Points ) {
         
-        object.rotation.y = elapsedTime2 * ( i < 4 ? i + 1 : - ( i + 1 ) );
+        object.rotation.y = -elapsedTime2 * ( i < 4 ? i + 1 : - ( i + 1 ) );
         
       }
       
