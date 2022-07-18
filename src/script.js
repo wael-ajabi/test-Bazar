@@ -858,12 +858,12 @@ document.getElementById('start-button').onclick=function(){
 
     gsap.to(camera.position,{x: -2.9427743328138654,
       y: -0.5668938088454993,
-      z: 7.994678133712579,duration:5})
+      z: 7.994678133712579,duration:3})
 
      
-      gsap.to(camera.position,{x: -4.85107488034725, y: 0.50, z: 5.421262376769432,duration:13,delay:3})
+      gsap.to(camera.position,{x: -4.85107488034725, y: 0.50, z: 5.421262376769432,duration:10,delay:3})
       gsap.to(controls.target,{x: -0.32780258586027866, y: -0.2927804605540083, z: -0.12120864558705574,duration:7,delay:2});
-      gsap.to(camera.position,{x: -0.9368241147924617, y: 0.44978222785543465, z: -1.7328521118110993,duration:25,delay:8,onComplete:function(){
+      gsap.to(camera.position,{x: -0.9368241147924617, y: 0.44978222785543465, z: -1.7328521118110993,duration:15,delay:8,onComplete:function(){
         camerarotation= true;
 
 
