@@ -151,7 +151,7 @@ var glowRed= new THREE.MeshBasicMaterial({
   toneMapped: false,
   
 });
-gltfloader.load("./city8.glb", function (gltf) {
+gltfloader.load("./city 10.glb", function (gltf) {
   console.log( gltf.scene.children[0].children[0].children[1].children[232])
    mesh =gltf.scene.children[0].children[0].children[1].children[232]
   const textureLoader = new THREE.TextureLoader();
