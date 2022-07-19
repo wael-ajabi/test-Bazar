@@ -579,7 +579,6 @@ const pointLightHelper= new THREE.PointLightHelper(pointLight)
 //controls
 const controls = new OrbitControls(camera, canvas)
 // controls.maxPolarAngle=Math.PI/3
-// controls.maxDistance=10
 controls.enableDamping=false  
 controls.target = new THREE.Vector3(7.873367997158608,4.06980778659998726,-3.6457710193813297);
 controls.update();
@@ -865,6 +864,7 @@ document.getElementById('start-button').onclick=function(){
       gsap.to(controls.target,{x: -0.32780258586027866, y: -0.2927804605540083, z: -0.12120864558705574,duration:7,delay:2});
       gsap.to(camera.position,{x: -0.9368241147924617, y: 0.44978222785543465, z: -1.7328521118110993,duration:15,delay:8,onComplete:function(){
         camerarotation= true;
+        controls.maxDistance=7
 
 
         var bokehPass = new BokehPass(scene, camera, {
@@ -886,7 +886,6 @@ document.getElementById('start-button').onclick=function(){
       camera.position.sub(_v);
   })
     controls.maxPolarAngle=Math.PI/2
-    controls.maxDistance=15
 // label("Casa Di Bazar",-0.85,-0.5,0.89,-1.3,0.30,0.95)
 // label("Mercato",-0.1,-0.5,-0.3,-0.30,0.5,-0.21)
 // label("Razzo",-0.87,-0.42,-0.19,-1.2,0.5,-0.57)
