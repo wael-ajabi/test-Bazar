@@ -864,7 +864,7 @@ document.getElementById('start-button').onclick=function(){
       gsap.to(controls.target,{x: -0.32780258586027866, y: -0.2927804605540083, z: -0.12120864558705574,duration:7,delay:2});
       gsap.to(camera.position,{x: -0.9368241147924617, y: 0.44978222785543465, z: -1.7328521118110993,duration:15,delay:8,onComplete:function(){
         camerarotation= true;
-        controls.maxDistance=5
+        controls.maxDistance=4
 
 
         var bokehPass = new BokehPass(scene, camera, {
