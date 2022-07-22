@@ -1,4 +1,4 @@
-import './style.css'
+import './style.scss'
 import * as THREE from 'three'
 import * as TWEEN from '@tweenjs/tween.js'
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
@@ -22,6 +22,54 @@ import { ReinhardToneMapping, Vector3 } from 'three';
             let	singleMaterial, zmaterial,nobjects, cubeMaterial;
             const materials1 = [], objects = [];
             
+
+
+            const $ = (s, o = document) => o.querySelector(s);
+const $$ = (s, o = document) => o.querySelectorAll(s);
+
+$$('.button').forEach(el => el.addEventListener('mousemove', function(e) {
+  const pos = this.getBoundingClientRect();
+  const mx = e.clientX - pos.left - pos.width/2; 
+  const my = e.clientY - pos.top - pos.height/2;
+   
+  this.style.transform = 'translate('+ mx * 0.15 +'px, '+ my * 0.3 +'px)';
+  this.style.transform += 'rotate3d('+ mx * -0.1 +', '+ my * -0.3 +', 0, 12deg)';
+  this.children[0].style.transform = 'translate('+ mx * 0.025 +'px, '+ my * 0.075 +'px)';
+}));
+
+$$('.button').forEach(el => el.addEventListener('mouseleave', function() {
+  this.style.transform = 'translate3d(0px, 0px, 0px)';
+  this.style.transform += 'rotate3d(0, 0, 0, 0deg)';
+  this.children[0].style.transform = 'translate3d(0px, 0px, 0px)';
+}));
+
+// --- CURSOR
+document.addEventListener('mousemove', function(e) {
+  $('.cursor').style.left = (e.pageX - 25) + 'px';
+  $('.cursor').style.top = (e.pageY - 25) + 'px';
+});
+var soundcheck=true
+document.getElementById('sound').onclick=function(){ if(soundcheck) {mediaElement.pause(); soundcheck=false} 
+
+else{mediaElement.play(); soundcheck=true}
+
+}
+
+
+             
+             function init(){
+               let toolTimeline = new gsap.timeline();
+               let duration = .9;
+
+               toolTimeline.staggerTo('li', duration, {
+                 
+                 top:30,
+                 ease:"Back.easeOut"
+               }, .1, .9);
+               
+             };
+
+
 
 // Debug
 const gui = new dat.GUI();
@@ -253,7 +301,11 @@ function ( error ) {
   console.log( 'An error happened' );
 
 });
-setTimeout(()=>{    document.getElementById( 'loading-screen' ).style.display='none'
+document.getElementById('start-button').style.display='none'
+
+setTimeout(()=>{    document.getElementById( 'loading-screen' ).style.display='none' ;     document.getElementById('start-button').style.display='block'
+init();
+
 },4000)
 //loading
 const loadingManager = new THREE.LoadingManager( () => {
@@ -824,7 +876,7 @@ scene.add( line )
 // tweenCamera2.onUpdate(updateCamera)
 // tweenCamera3.onUpdate(updateCamera)
 // tweenCamera4.onUpdate(updateCamera)
-
+var mediaElement=null;
 var myInterval=null
 document.getElementById('start-button').onclick=function(){
   controls.enabled=false
@@ -912,7 +964,7 @@ clearInterval(myInterval)
 
     } else {
 
-        const mediaElement = new Audio( file );
+         mediaElement = new Audio( file );
         mediaElement.play();
 
         audio.setMediaElementSource( mediaElement );
@@ -1516,6 +1568,8 @@ const effectController = {
       saoBlurStdDev.setValue(4)
 			let saoBlurDepthCutoff=	gui.add( saoPass.params, 'saoBlurDepthCutoff', 0.0, 10 );
       saoBlurDepthCutoff.setValue(4.072)
+      gui.hide()
+
 // //cam animation
 const tick = () =>
 {

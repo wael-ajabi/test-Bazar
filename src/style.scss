@@ -29,9 +29,6 @@ body
     margin-left: 45%;
     margin-top: 15%;
     display:inline-block;
-    padding:0.20em 1.2em;
-    border:0.1em solid #FFFFFF;
-    border-radius:0.12em;
     box-sizing: border-box;
     text-decoration:none;
     font-family:'Saira';
@@ -44,19 +41,19 @@ body
     color:#000000;
     background-color:#FFFFFF;
     }
-    .bouncy{
-        animation:bouncy 3s infinite linear;
-        position:relative;
-        }
-        @keyframes bouncy {
-        0%{top:0em}
-        40%{top:0em}
-        43%{top:-0.9em}
-        46%{top:0em}
-        48%{top:-0.4em}
-        50%{top:0em}
-        100%{top:0em;}
-        }
+    // .bouncy{
+    //     animation:bouncy 3s infinite linear;
+    //     position:relative;
+    //     }
+    //     @keyframes bouncy {
+    //     0%{top:0em}
+    //     40%{top:0em}
+    //     43%{top:-0.9em}
+    //     46%{top:0em}
+    //     48%{top:-0.4em}
+    //     50%{top:0em}
+    //     100%{top:0em;}
+    //     }
 /* #bazar{
     display: none;
     position: absolute;
@@ -244,3 +241,139 @@ html, body {
     z-index: 11000;
     background:pink;
   }
+
+//   *, :after, :before {
+//     -webkit-box-sizing: border-box;
+//     box-sizing: border-box;
+// }
+// body {
+//      margin: 0;
+// }
+// h1, h2, h3, p, a, ul {
+//      font-family: 'Raleway', sans-serif;
+// 	color: #000;
+// }
+// .site-container {
+// 	max-width: 1700px;
+// 	margin: 0 auto;
+// 	padding: 20px;
+// }
+
+// $box: #0D284F;
+
+
+
+	ul {
+        display: inline-flex;
+        width: 40%;
+        position: absolute;
+        z-index: 9999999;
+		list-style: none;                                                                   
+		text-align: center;
+        left: 68%;
+		li {
+            cursor: pointer;
+            font-family: Saira;
+          color: rgb(255, 255, 255,1);
+			display: inline-block;
+			margin-right: 10px;
+			position:relative;
+			top: -100px;
+			&:last-child {
+				margin-right: 0;
+			}
+            a {
+				text-decoration: none;
+			}
+            svg{
+        position: inherit;
+        z-index: 999999999;
+    }
+		}
+	}
+
+    li{
+        :active{background-color: red;}
+        border-radius: 10px;
+        padding: 5px 14px;
+        background-color: rgba(0,0,0,0.6);
+    }
+    
+    li:hover{background-color: rgba(255, 81, 0, 0.6);}
+
+#sound{
+    // display:inline-block;
+    // left: 53%;
+    // bottom: 50px;
+    width: 3%;
+}
+
+// #book{
+//     width: %;
+// }
+
+.button {
+  --light: #fff;
+  --dark: #414856;
+  --border: #C3C8DE;
+  --background: #4F29F0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  font-size: 10vh;
+  border: 0;
+  padding: 0 15px;
+  width: auto;
+  height: 60px;
+  border-radius: 2px;
+  border: 1px solid var(--border);
+  background: none;
+  color: var(--dark);
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 10px 30px rgba(#414856, 0.1);
+  transition: transform .1s linear,
+    color .1s linear,
+    background .15s linear;
+  cursor: none;
+  > span {
+    display: inline-block;
+    position: relative;
+    z-index: 2;
+    font: 400 16px 'Varela Round', sans-serif;
+    transition: transform .15s linear;
+  }
+  &.fill {
+    border: 0;
+    color: var(--light);
+    background: var(--background);
+  }
+}
+
+.cursor {
+  --cursor: #C3C8DE;
+  position: fixed;
+  top: -50px;
+  z-index: 99;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: none;
+  border: solid 2px var(--cursor);
+  pointer-events: none;
+  transition: transform .3s ease,
+    background .3s ease,
+    border-color .3s ease;
+}
+[cursor="link"] {
+  &:hover {
+    ~ .cursor {
+      mix-blend-mode: difference;
+      transform: scale(1.5);
+      cursor: none;
+      background: #fff;
+      border-color: #fff;
+    }
+  }
+}

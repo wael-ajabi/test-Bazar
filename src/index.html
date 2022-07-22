@@ -15,7 +15,9 @@
     
     </section>
         <canvas class="webgl"></canvas>
-    <a id="start-button" class="bouncy">start</a>
+    <button class="button fill bouncy" id="start-button" cursor="link">
+        <span style="font-family: saira; font-size:5vh">start</span>
+      </button>
     <!-- <button id="start-button" >start</button> -->
     <div class="card">
         <h1>Welcome to Bazar</h1>
@@ -29,5 +31,12 @@
     <img id="close3" src="https://cdn.discordapp.com/attachments/925110298849996851/973385808516112434/close.png"/>
     <img id="gui" src="https://cdn.discordapp.com/attachments/902266709568782436/976755254391623710/GUI_A_casa_di_bazar.png"/>
     <img id="guirazi" src="https://media.discordapp.net/attachments/902266709568782436/978211803618246726/GUI_C_Razzi_di_Electrono.png"/>
-</body>
+    <ul class="nav">
+		<li class="nav__item" id="book" style="display: flex;">Leggi la storia di Bazar</li>
+		<li class="nav__item">Cos’è Electrono?</li>
+		<li class="nav__item">Guarda il film</li>
+		<li id="sound" class="nav__item"> <svg xmlns="http://www.w3.org/2000/svg" class="h-1 w-1" fill="#AB7C94" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+          </svg></li>
+	</ul>
 </html> 
