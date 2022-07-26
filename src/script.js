@@ -454,10 +454,46 @@ var glowRed= new THREE.MeshBasicMaterial({
   toneMapped: false,
   
 });
+
+var model=null
+
+function createMarker(model, x,y,z,) {
+
+  // const textureLoader = new TextureLoader();
+  textureLoader.crossOrigin = "";
+  const map = textureLoader.load("./eye1.png");
+  map.encoding = THREE.sRGBEncoding
+  
+  const spriteMaterialFront = new THREE.SpriteMaterial( { map } );
+  
+  const spriteFront = new THREE.Sprite( spriteMaterialFront );
+  spriteFront.position.set(x,y,z)
+  spriteFront.scale.set(0.09,0.09,0.09)
+  
+  const spriteMaterialRear = new THREE.SpriteMaterial({ 
+    map,
+    opacity: 0.3, 
+    transparent: true, 
+    depthTest: false
+  });
+  
+  const spriteRear = new THREE.Sprite( spriteMaterialRear );
+  spriteRear.position.set(x,y,z)
+  spriteRear.scale.set(0.09,0.09,0.09)
+  
+  scene.add(spriteFront, spriteRear)
+}
+
+
 gltfloader.load("./city 10.glb", function (gltf) {
   console.log( gltf.scene.children[0].children[0].children[1].children[232])
-   mesh =gltf.scene.children[0].children[0].children[1].children[232]
   const textureLoader = new THREE.TextureLoader();
+   mesh =gltf.scene.children[0].children[0].children[1].children[232]
+    model=gltf.scene
+  
+
+
+
 
   // const grassNormalTexture = textureLoader.load(
   //   "./NormalMapDefinitiva in uso_1.jpg"
@@ -1175,7 +1211,14 @@ element.className = "myelement";
         camerarotation= true;
         controls.maxDistance=4
         // canvas2 = null
-
+        createMarker(model,-0.8,-0.4,0.8)
+        createMarker(model,-0.101,-0.4,-0.24)
+        createMarker(model,-0.8,-0.4,-0.41)
+        createMarker(model,0.7,0.1,0.589)
+        createMarker(model,0.58,-0.4,0.04)
+      
+        const element = document.getElementById("load");
+element.remove();
         var bokehPass = new BokehPass(scene, camera, {
           focus: 8,
           aperture: 0.001,
