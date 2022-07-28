@@ -44,10 +44,10 @@ $$('.button').forEach(el => el.addEventListener('mouseleave', function() {
 }));
 
 // --- CURSOR
-document.addEventListener('mousemove', function(e) {
-  $('.cursor').style.left = (e.pageX - 25) + 'px';
-  $('.cursor').style.top = (e.pageY - 25) + 'px';
-});
+// document.addEventListener('mousemove', function(e) {
+//   $('.cursor').style.left = (e.pageX - 25) + 'px';
+//   $('.cursor').style.top = (e.pageY - 25) + 'px';
+// });
 var soundcheck=true
 document.getElementById('sound').onclick=function(){ if(soundcheck) {mediaElement.pause(); soundcheck=false ;
 document.getElementById('sound').innerHTML=`<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -729,12 +729,14 @@ renderer.physicallyCorrectLights = false
 /**
  * Camera
  */
+
+
 // Base camera
 var camera = new THREE.PerspectiveCamera(60, sizes.width / sizes.height, 0.005, 5000)
 // Vector3 {x: 7.873367997158608, y: 0.06980778659998726, z: -3.6457710193813297} position: Vector3 {x: -4.071602210689063, y: -0.6661736349724943, z: 9.377164616658627}
-camera.position.x = -4.071602210689063
-camera.position.y = -0.84
-camera.position.z = 9.377164616658627
+camera.position.x = -5.647376005341269,
+camera.position.y = 0.9998205247861698,
+camera.position.z = 2.297861001350101
 // camera.lookAt(20,20,20)
 
 camera.rotation.set(77,77,77)
@@ -922,8 +924,9 @@ const pointLightHelper= new THREE.PointLightHelper(pointLight)
 const controls = new OrbitControls(camera, canvas)
 // controls.maxPolarAngle=Math.PI/3
 controls.enableDamping=false  
-controls.target = new THREE.Vector3(7.873367997158608,4.06980778659998726,-3.6457710193813297);
+controls.target = new THREE.Vector3(2.712046209109965,-14.138109038671452, 4.431157214151357);
 controls.update();
+
 
 // gui.add( params, 'exposure', 0.1, 2 ).onChange( function ( value ) {
 
@@ -1168,7 +1171,10 @@ scene.add( line )
 // tweenCamera4.onUpdate(updateCamera)
 var mediaElement=null;
 var myInterval=null
+controls.enabled=true
+
 document.getElementById('start-button').onclick=function(){
+  
   controls.enabled=false
   init();
   var element = document.getElementById('load')
@@ -1193,16 +1199,10 @@ element.className = "myelement";
 
 
 
+   
+    gsap.to(controls.target,{x: 2.712046209109965, y: -14.138109038671452, z: 4.431157214151357,duration:2});
 
-
- 
-    gsap.to(controls.target,{x: -0.2529885009743434,
-      y: -4.408631972336949,
-      z: 4.4890068075771525,duration:2});
-
-    gsap.to(camera.position,{x: -2.9427743328138654,
-      y: -0.5668938088454993,
-      z: 7.994678133712579,duration:3})
+    gsap.to(camera.position,{x: -5.647376005341269, y: 0.9998205247861698, z: 2.297861001350101,duration:3})
 
      
       gsap.to(camera.position,{x: -4.85107488034725, y: 0.50, z: 5.421262376769432,duration:10,delay:3})
@@ -1250,7 +1250,7 @@ clearInterval(myInterval)
     const listener = new THREE.AudioListener();
 
     const audio = new THREE.Audio( listener );
-    const file = './35059019_ambient-space-soundscape_by_andrewsound83_preview.mp3';
+    const file = './16195580_space_by_whitewind-studio_preview.mp3';
 
     if ( /(iPad|iPhone|iPod)/g.test( navigator.userAgent ) ) {
 
@@ -1275,7 +1275,7 @@ clearInterval(myInterval)
 const raycaster = new THREE.Raycaster(); // create once
 const clickMouse = new THREE.Vector2();  // create once
 const moveMouse = new THREE.Vector2();   // create once
-
+var arrayOfEyes=[]
 /// bazar
 function intersect(pos) {
   raycaster.setFromCamera(pos, camera);
@@ -1300,13 +1300,17 @@ window.addEventListener('dblclick', event => {
 const found = intersect(clickMouse);
 // console.log(found);p
 if(found.length>0 && !clickActive){
+    for(let i=15;i<scene.children.length;i++){
+      scene.children[i].visible=false
+    }
   controls.enabled=false
   clickMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
   clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
   minPan = new THREE.Vector3( - 1, - 1, - 1 );
   maxPan = new THREE.Vector3( 1, 1, 1 );
-gsap.to(controls.target,{x: -0.7895943789584624, y: -0.49343959037131463, z: 0.7758244771913646,duration:2,ease:'power3.inOut'});
-gsap.to(camera.position,{x:-0.665,y:-0.475,z:0.690,duration:2,onComplete:  function (){
+gsap.to(controls.target,{x: -0.7895943789584624, y: -0.49343959037131463, z: 0.7758244771913646,duration:1,ease:'power3.inOut'});
+gsap.to(camera.position,{x:-0.665,y:-0.475,z:0.690,duration:3,delay:1,onComplete:  function (){
+  document.getElementsByClassName('nav')[0].style.bottom='95%'
   camerarotation=false
   document.getElementsByClassName('card')[0].style.display='block';
   document.getElementById('gui').style.display='block';
@@ -1401,16 +1405,20 @@ window.addEventListener('dblclick', event => {
 const found = intersectmercato(clickMouse);
 console.log(found);
 if(found.length>0 && !clickActive){
+  for(let i=15;i<scene.children.length;i++){
+    scene.children[i].visible=false
+  }
   controls.enabled=false
 
   minPan = new THREE.Vector3( - 1, - 1, - 1 );
   maxPan = new THREE.Vector3( 1, 1, 1 );
   controls.maxPolarAngle=Math.PI
-
-  gsap.to(controls.target,{x: -0.026866113208039017, y: -0.502226053582955, z: 0.058799043808937655,duration:2,ease:'power3.inOut'});
-gsap.to(camera.position,{x: -0.3180910476443807, y: -0.554595398258052, z: -0.18548174505396237,duration:2,onComplete:function(){
+  
+  gsap.to(controls.target,{x: -0.06652219660019898, y: -0.49817622607328704, z: 0.09562768959498957,duration:2,ease:'power3.inOut'});
+gsap.to(camera.position,{x: -0.3197533397689743, y: -0.555449899400478, z: -0.1868991838525571,duration:2,onComplete:function(){
   clickActive=true
   camerarotation=false
+  document.getElementsByClassName('nav')[0].style.bottom='95%'
 
   document.getElementsByClassName('card')[0].style.display='block';
   document.getElementById('gui').style.display='block';
@@ -1418,13 +1426,14 @@ gsap.to(camera.position,{x: -0.3180910476443807, y: -0.554595398258052, z: -0.18
   var bokehPass = new BokehPass(scene, camera, {
     focus: 0.1,
     aperture: 0.005,
-    maxblur: 5,
+    maxblur: 4,
     width: window.innerWidth,
     height: window.innerHeight
   });
  
   
-  composer.addPass(bokehPass);}})
+  composer.addPass(bokehPass);
+}})
   
 }})
 
@@ -1441,7 +1450,11 @@ document.getElementById('close3').onclick=function(){
   // camera.lookAt(new Vector3(0,0,0))
   gsap.to(controls.target,{x: -0.330176, y: -0.291718, z: -0.113545,duration:4,ease:'power3.inOut'});
   
-  gsap.to(camera.position,{x: -0.24905360247937205, y: 0.44321605716014717, z: -1.7252216405242373,duration:4,onComplete:function(){  controls.enabled=true
+  gsap.to(camera.position,{x: -0.24905360247937205, y: 0.44321605716014717, z: -1.7252216405242373,duration:4,onComplete:function(){  controls.enabled=true;
+    for(let i=15;i<scene.children.length;i++){
+      scene.children[i].visible=true;
+    
+    }
   }})
 
     clickActive=false
@@ -1481,12 +1494,17 @@ clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 const found = intersectrazzi(clickMouse);
 console.log(found);
 if(found.length>0 && !clickActive){
+  for(let i=15;i<scene.children.length;i++){
+    scene.children[i].visible=false
+  }
   controls.enabled=false
   clickActive=true
   // Vector3 {x: -0.8289567293538739, y: -0.3299689356758495, z: -0.45931347935989586, _gsap: GSCache} position: Vector3 {x: -0.2948241421524178, y: -0.07897252364587554, z: -0.6011721977773161, _gsap: GSCache}
   gsap.to(controls.target,{x: -0.8289567293538739, y: -0.3299689356758495, z: -0.45931347935989586,duration:2,ease:'power3.inOut'});
 gsap.to(camera.position,{x: -0.2948241421524178, y: -0.07897252364587554, z: -0.6011721977773161,duration:2,onComplete:function(){
-  camerarotation=false
+  camerarotation=false;
+  document.getElementsByClassName('nav')[0].style.bottom='95%';
+
   document.getElementsByClassName('card')[0].style.display='block';
   document.getElementById('guirazi').style.display='block';
   document.getElementById('close2').style.display='block'
@@ -1510,7 +1528,11 @@ document.getElementById('close2').onclick=function(){
   // camera.lookAt(new Vector3(0,0,0))
   gsap.to(controls.target,{x: -0.330176, y: -0.291718, z: -0.113545,duration:4,ease:'power3.inOut'});
   
-  gsap.to(camera.position,{x: -0.24905360247937205, y: 0.44321605716014717, z: -1.7252216405242373,duration:4,onComplete:function(){  controls.enabled=true
+  gsap.to(camera.position,{x: -0.24905360247937205, y: 0.44321605716014717, z: -1.7252216405242373,duration:2,onComplete:function(){  controls.enabled=true;
+    for(let i=15;i<scene.children.length;i++){
+      scene.children[i].visible=true;
+    
+    }
   }})
     clickActive=false
 //         const tweenCamera4 = new TWEEN.Tween( {x: -0.08, y: 0.54, z: -1.25, lookAtX: cube3.position.x, lookAtY: cube3.position.y, lookAtZ: cube3.position.z} )
@@ -1547,19 +1569,23 @@ clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 const found = intersectcentro(clickMouse);
 console.log(found);
 if(found.length>0 && !clickActive){
+  for(let i=15;i<scene.children.length;i++){
+    scene.children[i].visible=false
+  }
   controls.enabled=false
+  document.getElementsByClassName('nav')[0].style.bottom='95%'
 
   minPan = new THREE.Vector3( - 1, - 1, - 1 );
   maxPan = new THREE.Vector3( 1, 1, 1 );
-// Vector3 {x: 0.9993218565801543, y: -0.17436976232855309, z: 0.4936554286869645, _gsap: GSCache}x: 0.9993218565801543y: -0.17436976232855309z: 0.4936554286869645_gsap: GSCache {id: 1, target: Vector3, harness: undefined, get: ƒ, set: ƒ}[[Prototype]]: Object position: Vector3 {x: 0.6952679758442837, y: -0.07447583058929784, z: 0.5573174043485942, _gsap: GSCache}
-gsap.to(controls.target,{x: 0.7560826605461148, y: -0.5369771534030447, z: 0.5299269409833773,duration:1,ease:'power3.inOut'});
-gsap.to(camera.position,{x:0.5153795946335598,y:-0.5177304512872842,z:-0.17507433205802714,duration:2,delay:1 ,onComplete:  function (){
+
+gsap.to(controls.target,{x: 0.5834833921060228, y: -0.5405112352545162, z: 0.5562827011102935,duration:1,ease:'power3.inOut'});
+gsap.to(camera.position,{x: 0.5741020778574896, y: -0.5212642352545162, z: -0.18861751714244523,duration:2,delay:1 ,onComplete:  function (){
   camerarotation=false
   document.getElementsByClassName('card')[0].style.display='block';
   document.getElementById('gui').style.display='block';
   document.getElementById('close').style.display='block'
   var bokehPass = new BokehPass(scene, camera, {
-    focus: 0.2,
+    focus: 0.1,
     aperture: 0.005,
     maxblur: 5,
     width: window.innerWidth,
@@ -1580,17 +1606,22 @@ clickActive=true
 
 
 document.getElementById('close').onclick=function(){
+  for(let i=15;i<scene.children.length;i++){
+    scene.children[i].visible=true;
+    console.log('hi');
+  
+  }
   minPan = new THREE.Vector3( - 0.5, - 0.5, - 0.5 );
   maxPan = new THREE.Vector3( 0.5, 0.5, 0.5 );
   console.log('zebicentro');
   camerarotation=true
   document.getElementById('close').style.display='none';
   document.getElementById('gui').style.display='none';
-  gsap.to(controls.target,{x: -0.330176, y: -0.291718, z: -0.113545,duration:4,ease:'power3.inOut'});
+  gsap.to(controls.target,{x: -0.330176, y: -0.291718, z: -0.113545,duration:1,ease:'power3.inOut'});
   
   gsap.to(camera.position,{x: -0.24905360247937205, y: 0.44321605716014717, z: -1.7252216405242373,duration:4, onComplete:function(){  camerarotation=true
-; console.log(  camerarotation
-  );
+; 
+
   clickActive=false
   controls.enabled=true
       // document.getElementsByClassName('card')[0].style.display='none'
@@ -1672,8 +1703,12 @@ clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 const found = intersectpalazo(clickMouse);
 console.log(found);
 if(found.length>0 && !clickActive){
+  for(let i=15;i<scene.children.length;i++){
+    scene.children[i].visible=false
+  }
+  document.getElementsByClassName('nav')[0].style.bottom='95%'
+
   controls.enabled=false
-  console.log('zebi');
    minPan = new THREE.Vector3( - 1, - 1, - 1 );
  maxPan = new THREE.Vector3( 1, 1, 1 );
 // Vector3 {x: 0.9993218565801543, y: -0.17436976232855309, z: 0.4936554286869645, _gsap: GSCache}x: 0.9993218565801543y: -0.17436976232855309z: 0.4936554286869645_gsap: GSCache {id: 1, target: Vector3, harness: undefined, get: ƒ, set: ƒ}[[Prototype]]: Object position: 
@@ -1685,9 +1720,9 @@ gsap.to(camera.position,{x:0.6952679758442837,y:-0.07447583058929784,z:0.5573174
   document.getElementById('gui').style.display='block';
   document.getElementById('close').style.display='block'
   var bokehPass = new BokehPass(scene, camera, {
-    focus: 0.5,
-    aperture: 0.005,
-    maxblur: 5,
+    focus:2,
+    aperture: 0.0005,
+    maxblur: 1,
     width: window.innerWidth,
     height: window.innerHeight
   });
@@ -1713,7 +1748,11 @@ document.getElementById('close').onclick=function(){
   document.getElementById('gui').style.display='none';
   gsap.to(controls.target,{x: -0.330176, y: -0.291718, z: -0.113545,duration:4,ease:'power3.inOut'});
   
-  gsap.to(camera.position,{x: -0.24905360247937205, y: 0.44321605716014717, z: -1.7252216405242373,duration:4,onComplete:function(){  controls.enabled=true
+  gsap.to(camera.position,{x: -0.24905360247937205, y: 0.44321605716014717, z: -1.7252216405242373,duration:4,onComplete:function(){  controls.enabled=true;
+    for(let i=15;i<scene.children.length;i++){
+      scene.children[i].visible=true;
+    
+    }
   }})
     clickActive=false
         document.getElementsByClassName('card')[0].style.display='none'
@@ -1779,7 +1818,7 @@ var renderPass = new RenderPass( scene, camera );
     
 
         composer.addPass(bloomPass);
-        controls.enabled=false
+        // controls.enabled=false
 
         
 
@@ -1930,8 +1969,7 @@ camera.lookAt(new Vector3(0,0,0))}
       
     }
     // console.log(camerarotation);
-
-    // console.log('target:',controls.target,'position:',camera.position);
+    console.log('target:',controls.target,'position:',camera.position);
     // console.log(camera.position);
   }
 
