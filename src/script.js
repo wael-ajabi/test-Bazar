@@ -1969,7 +1969,6 @@ camera.lookAt(new Vector3(0,0,0))}
       
     }
     // console.log(camerarotation);
-    console.log('target:',controls.target,'position:',camera.position);
     // console.log(camera.position);
   }
 
