@@ -106,7 +106,7 @@ else{mediaElement.play(); soundcheck=true;document.getElementById('sound').inner
 
 function increase() {
   // Change the variable to modify the speed of the number increasing from 0 to (ms)
-  let SPEED = 40;
+  let SPEED =120;
   // Retrieve the percentage value
   let limit = parseInt(document.getElementById("value1").innerHTML, 10);
 
@@ -623,7 +623,7 @@ setTimeout(()=>{    document.getElementById( 'chart' ).style.display='none' ;  d
     let element2 = document.getElementById('start-button')
 element2.className = "myelement1";
 
-},9000)
+},20000)
 //loading
 const loadingManager = new THREE.LoadingManager( () => {
 	
