@@ -34,14 +34,27 @@ $$('.button').forEach(el => el.addEventListener('mousemove', function(e) {
    
   this.style.transform = 'translate('+ mx * 0.15 +'px, '+ my * 0.3 +'px)';
   this.style.transform += 'rotate3d('+ mx * -0.1 +', '+ my * -0.3 +', 0, 12deg)';
-  this.children[0].style.transform = 'translate('+ mx * 0.025 +'px, '+ my * 0.075 +'px)';
 }));
 
 $$('.button').forEach(el => el.addEventListener('mouseleave', function() {
   this.style.transform = 'translate3d(0px, 0px, 0px)';
   this.style.transform += 'rotate3d(0, 0, 0, 0deg)';
-  this.children[0].style.transform = 'translate3d(0px, 0px, 0px)';
 }));
+
+$$('li').forEach(el => el.addEventListener('mousemove', function(e) {
+  const pos = this.getBoundingClientRect();
+  const mx = e.clientX - pos.left - pos.width/2; 
+  const my = e.clientY - pos.top - pos.height/2;
+   
+  this.style.transform = 'translate('+ mx * 0.15 +'px, '+ my * 0.3 +'px)';
+  this.style.transform += 'rotate3d('+ mx * -0.1 +', '+ my * -0.3 +', 0, 12deg)';
+}));
+
+$$('li').forEach(el => el.addEventListener('mouseleave', function() {
+  this.style.transform = 'translate3d(0px, 0px, 0px)';
+  this.style.transform += 'rotate3d(0, 0, 0, 0deg)';
+}));
+
 
 // --- CURSOR
 // document.addEventListener('mousemove', function(e) {
@@ -76,6 +89,18 @@ else{mediaElement.play(); soundcheck=true;document.getElementById('sound').inner
                }, .1, .9);
                
              };
+
+             function initsound(){
+              let toolTimeline = new gsap.timeline();
+              let duration = .9;
+
+              toolTimeline.staggerTo('#sound', duration, {
+                
+                top:30,
+                ease:"Back.easeOut"
+              }, .1, .9);
+              
+            };
 
 /// loading bar function   
 
@@ -594,7 +619,9 @@ function ( error ) {
 });
 document.getElementById('start-button').style.display='none'
 
-setTimeout(()=>{    document.getElementById( 'chart' ).style.display='none' ;     document.getElementById('start-button').style.display='block'
+setTimeout(()=>{    document.getElementById( 'chart' ).style.display='none' ;  document.getElementById('start-button').style.display='flex'
+    let element2 = document.getElementById('start-button')
+element2.className = "myelement1";
 
 },9000)
 //loading
@@ -1174,32 +1201,37 @@ var myInterval=null
 controls.enabled=true
 
 document.getElementById('start-button').onclick=function(){
-  
+  setTimeout(() => {
+    const element = document.getElementById("load");
+    element.remove();
+  }, 3000);
   controls.enabled=false
-  init();
-  var element = document.getElementById('load')
-element.className = "myelement";
-    document.getElementById('start-button').style.display='none'
-    // document.getElementById('load').style.display='none'
-     myInterval = setInterval(()=>{if(fog.density>0.39){return} ; if (fog.density<0.4){fonintensity+=0.01;fog.density=fonintensity }}, 100);
-
-     
-    // gsap.to(controls.target,{x: -0.2529885009743434,
+  initsound();
+  let element = document.getElementById('load')
+  element.className = "myelement";
+  
+  
+  document.getElementById('start-button').style.display='none'
+  // document.getElementById('load').style.display='none'
+  myInterval = setInterval(()=>{if(fog.density>0.39){return} ; if (fog.density<0.4){fonintensity+=0.01;fog.density=fonintensity }}, 100);
+  
+  
+  // gsap.to(controls.target,{x: -0.2529885009743434,
     //   y: -4.408631972336949,
     //   z: 4.4890068075771525,duration:2});
 
     // gsap.to(camera.position,{x: -2.9427743328138654,
     //   y: -0.5668938088454993,
     //   z: 7.994678133712579,duration:5})
-
-     
+    
+    
     //   gsap.to(camera.position,{x: -4.85107488034725, y: 0.50, z: 5.421262376769432,duration:13,delay:3})
     //   gsap.to(controls.target,{x: -0.32780258586027866, y: -0.2927804605540083, z: -0.12120864558705574,duration:7,delay:2});
     //   gsap.to(camera.position,{x: -0.9368241147924617, y: 0.44978222785543465, z: -1.7328521118110993,duration:25,delay:8,onComplete:function(){
 
+      
 
-
-   
+      
     gsap.to(controls.target,{x: 2.712046209109965, y: -14.138109038671452, z: 4.431157214151357,duration:2});
 
     gsap.to(camera.position,{x: -5.647376005341269, y: 0.9998205247861698, z: 2.297861001350101,duration:3})
@@ -1208,6 +1240,7 @@ element.className = "myelement";
       gsap.to(camera.position,{x: -4.85107488034725, y: 0.50, z: 5.421262376769432,duration:10,delay:3})
       gsap.to(controls.target,{x: -0.32780258586027866, y: -0.2927804605540083, z: -0.12120864558705574,duration:7,delay:2});
       gsap.to(camera.position,{x: -0.9368241147924617, y: 0.44978222785543465, z: -1.7328521118110993,duration:15,delay:8,onComplete:function(){
+        init()
         camerarotation= true;
         controls.maxDistance=4
         // canvas2 = null
@@ -1217,8 +1250,7 @@ element.className = "myelement";
         createMarker(model,0.7,0.1,0.589)
         createMarker(model,0.58,-0.4,0.04)
       
-        const element = document.getElementById("load");
-element.remove();
+
         var bokehPass = new BokehPass(scene, camera, {
           focus: 8,
           aperture: 0.001,
@@ -1505,8 +1537,10 @@ gsap.to(camera.position,{x: -0.2948241421524178, y: -0.07897252364587554, z: -0.
   camerarotation=false;
   document.getElementsByClassName('nav')[0].style.bottom='95%';
 
+
   document.getElementsByClassName('card')[0].style.display='block';
   document.getElementById('guirazi').style.display='block';
+  
   document.getElementById('close2').style.display='block'
   var bokehPass = new BokehPass(scene, camera, {
     focus: 1,
