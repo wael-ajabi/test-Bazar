@@ -619,7 +619,8 @@ function ( error ) {
 });
 document.getElementById('start-button').style.display='none'
 
-setTimeout(()=>{    document.getElementById( 'chart' ).style.display='none' ;  document.getElementById('start-button').style.display='flex'
+setTimeout(()=>{      let element3 = document.getElementById('chart')
+element3.className = "myelementfaster"; ;  document.getElementById('start-button').style.display='flex'
     let element2 = document.getElementById('start-button')
 element2.className = "myelement1";
 
@@ -1201,9 +1202,13 @@ var myInterval=null
 controls.enabled=true
 
 document.getElementById('start-button').onclick=function(){
+  let element2 = document.getElementById('start-button')
+  element2.className = "myelementfaster";
   setTimeout(() => {
     const element = document.getElementById("load");
     element.remove();
+    const elementt = document.getElementById("cover");
+    elementt.remove();
   }, 3000);
   controls.enabled=false
   initsound();
@@ -1211,7 +1216,6 @@ document.getElementById('start-button').onclick=function(){
   element.className = "myelement";
   
   
-  document.getElementById('start-button').style.display='none'
   // document.getElementById('load').style.display='none'
   myInterval = setInterval(()=>{if(fog.density>0.39){return} ; if (fog.density<0.4){fonintensity+=0.01;fog.density=fonintensity }}, 100);
   
@@ -1237,9 +1241,9 @@ document.getElementById('start-button').onclick=function(){
     gsap.to(camera.position,{x: -5.647376005341269, y: 0.9998205247861698, z: 2.297861001350101,duration:3})
 
      
-      gsap.to(camera.position,{x: -4.85107488034725, y: 0.50, z: 5.421262376769432,duration:10,delay:3})
+      gsap.to(camera.position,{x: -4.85107488034725, y: 0.50, z: 5.421262376769432,duration:10,delay:3,ease: "power1"})
       gsap.to(controls.target,{x: -0.32780258586027866, y: -0.2927804605540083, z: -0.12120864558705574,duration:7,delay:2});
-      gsap.to(camera.position,{x: -0.9368241147924617, y: 0.44978222785543465, z: -1.7328521118110993,duration:15,delay:8,onComplete:function(){
+      gsap.to(camera.position,{x: -0.9368241147924617, y: 0.44978222785543465,ease: "power1", z: -1.7328521118110993,duration:15,delay:8,onComplete:function(){
         init()
         camerarotation= true;
         controls.maxDistance=4

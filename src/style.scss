@@ -135,7 +135,7 @@ img{
     display: none;
     position: absolute;
     left:40%;
-    top:60%;
+    top:40%;
     height: 5vh;
     width: 5vh;
     cursor: pointer;
@@ -287,6 +287,9 @@ html, body {
 		text-align: center;
         left: 68%;
 		li {
+            padding-top: 5px;
+            padding-bottom: 2px !important;
+            text-align: center;
             transition: transform .1s linear,
             color .1s linear,
             background .15s linear;
@@ -486,6 +489,11 @@ html, body {
       animation-duration: 4000ms;
       animation-fill-mode: forwards;
   }
+  .myelementfaster{
+    animation-name: myAnimation;
+    animation-duration: 1000ms;
+    animation-fill-mode: forwards;
+}
   .myelement1{
     animation-name: myAnimation1;
     animation-duration: 4000ms;
@@ -511,3 +519,4 @@ html, body {
     //   transform: rotateX(90deg);
     }
   }
+
