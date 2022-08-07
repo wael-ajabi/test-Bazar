@@ -19,6 +19,7 @@ body
     top: 0;
     left: 0;
     outline: none;
+    
 }
 
 #start-button{
@@ -82,6 +83,7 @@ body
     border: 1px solid rgba(209, 213, 219, 0.3); */
 }
 #gui{
+    display: none;
     position: absolute;
     top: -1%;
     left: 58%;
@@ -94,6 +96,7 @@ body
 
 
 #guirazi{
+    display: none;
     position: absolute;
     top: -30%;
     left: 5%;
@@ -102,6 +105,73 @@ body
     z-index: 10;
 
     
+}
+#guigame{
+    display: none;
+    position: absolute;
+    top: 10%;
+    left: 12%;
+    width:1500px;
+    height: auto;
+    z-index: 10;
+
+    
+}
+
+#guisamy{
+    display: none;
+    position: absolute;
+    top: -14%;
+    left: 15%;
+    width:1920px;
+    height: auto;
+    z-index: 10;
+
+    
+}
+
+#guimarcato{
+    display: none;
+    position: absolute;
+    top: -20%;
+    left: 5%;
+    width:1920px;
+    height: auto;
+    z-index: 10;
+
+    
+}
+#guipalazzo{
+    display: none;
+    position: absolute;
+    top: -15%;
+    left: 5%;
+    width:1920px;
+    height: auto;
+    z-index: 10;
+
+    
+}
+#guicentro{
+    display: none;
+    position: absolute;
+    top: -30%;
+    left: 5%;
+    width:1920px;
+    height: auto;
+    z-index: 10;
+
+    
+}
+#guibazar{
+    display: none;
+    position: absolute;
+    top: -14%;
+    left: 5%;
+    width:400px;
+        height: auto;
+    z-index: 10;
+
 }
 
 
@@ -118,8 +188,8 @@ img{
 #close{
     position: absolute;
     z-index: 50;
-    left: 92%;
-    top: 80%;
+    left: 78%;
+    top: 20%;
 }
 #close3{
     display: none;
@@ -501,7 +571,44 @@ html, body {
 }
 
   
- @keyframes myAnimation1{
+.zebi{
+    animation-name: zebi1;
+    animation-duration: 500ms;
+    animation-fill-mode: forwards;
+}
+
+
+ @keyframes zebi1{
+    0%{
+        width:400px;
+        height: auto;    //   transform: rotateX(90deg);
+    }
+    15%{
+        width:700px;
+        height: auto;    //   transform: rotateX(90deg);
+    }
+    30%{
+        width:1000px;
+        height: auto;    //   transform: rotateX(0deg);
+    }
+    45%{
+        width:1300px;
+        height: auto;    }
+        60%{  width:1500px;
+            height: auto;}
+            75%{
+                width:1700px;
+                height: auto;    //   transform: rotateX(90deg);
+            }
+    100%{
+    //   display: none;
+    width:1920px;
+    height: auto;    //   transform: rotateX(90deg);
+    }
+  }
+
+
+  @keyframes myAnimation1{
     0%{
       opacity: 0;
     //   transform: rotateX(90deg);
@@ -519,4 +626,3 @@ html, body {
     //   transform: rotateX(90deg);
     }
   }
-
