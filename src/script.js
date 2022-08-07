@@ -1,5 +1,5 @@
 import './style.scss'
-import './sketch.js'
+import  './sketch.js'
 import * as THREE from 'three'
 import * as TWEEN from '@tweenjs/tween.js'
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
@@ -1588,7 +1588,8 @@ if(found.length>0 && !clickActive){
   gsap.to(camera.position,{x: 0.4915825573682948, y: -0.27968787102465575, z: -0.15636529563801568,duration:3,delay:1,onComplete:  function (){
     document.getElementsByClassName('nav')[0].style.bottom='95%'
     camerarotation=false
-    document.getElementById('p5Div').style.display='block';
+    var setup = new setup() 
+       document.getElementById('p5Div').style.display='block';
     document.getElementById('guigame').style.display='block';
     document.getElementById('close').style.display='block';
 
