@@ -4,7 +4,13 @@ const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 const path = require('path')
 
 module.exports = {
-    entry: {ass:['../src/script.js','../src/sketch.js','sketch.js','./sketch.js']},
+    entry: {main:path.resolve(__dirname, '../src/script.js'),    zebi:{
+        import:path.resolve(__dirname, '../src/sketch.js'),
+        library:{
+            name:'zebi',
+            type:'var'
+        }
+    }},
     output:
     {
         filename: 'bundle.[contenthash].js',
