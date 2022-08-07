@@ -5,6 +5,7 @@ const path = require('path')
 
 module.exports = {
     entry: path.resolve(__dirname, '../src/script.js'),
+    entry: path.resolve(__dirname, '../src/sketch.js'),
     output:
     {
         filename: 'bundle.[contenthash].js',
