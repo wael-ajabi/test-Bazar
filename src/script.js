@@ -744,7 +744,7 @@ function ( error ) {
   console.log( 'An error happened' );
 
 });
-document.getElementById('start-button').style.display=''
+document.getElementById('start-button').style.display='none'
 
 setTimeout(()=>{      let element3 = document.getElementById('chart')
 element3.className = "myelementfaster"; ;  document.getElementById('start-button').style.display='flex'
