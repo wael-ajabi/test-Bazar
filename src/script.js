@@ -1,4 +1,5 @@
 import './style.scss'
+import './sketch.js'
 import * as THREE from 'three'
 import * as TWEEN from '@tweenjs/tween.js'
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
