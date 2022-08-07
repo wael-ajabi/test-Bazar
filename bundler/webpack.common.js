@@ -4,7 +4,9 @@ const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 const path = require('path')
 
 module.exports = {
-    entry: path.resolve(__dirname, ['../src/script.js','../src/sketch.js']),
+    entry: {zebi:path.resolve(__dirname, '../src/script.js'),
+nami:path.resolve(__dirname,'../src/sketch.js')
+},
     
     output:
     {
