@@ -11,11 +11,13 @@ var lightningForge;
 var isPlayerForcePush = false;
 var isCompForcePush = false;
 var xoff = 0.0;
+let sketch = function(p) {
 
-function setup() {
-  var iHeight = window.innerHeight <= 542 ? window.innerHeight - 20 : 522;
-  var iWidth = window.innerWidth <= 957 ? window.innerWidth - 20 : 937;
-  var c = createCanvas(iWidth, iHeight);
+  var height = window.innerHeight <= 542 ? window.innerHeight - 20 : 522;
+  var width = window.innerWidth <= 957 ? window.innerWidth - 20 : 937;
+  p.setup = function() {
+    console.log('zebi');
+  var c = p.createCanvas(width, height);
   c.parent('p5Div');
 
   player = new Player();
@@ -26,25 +28,25 @@ function setup() {
   // indicator animation that a serve is coming
   lightningForge = new LightningForge();
 
-  textSize(32);
-  textFont("Futura");
+  p.textSize(32);
+  p.textFont("Futura");
 }
 
-function draw() {
+p.draw = function() {
   if (goalWaitPeriod) {
     // Screen Shakes (number 13 chosen for extra spookiness)
-    translate(random(-13, 13), random(-13, 13));
+    p.translate(p.random(-13, 13), p.random(-13, 13));
   }
 
-  background(25);
+  p.background(25);
 
-  stroke(255);
-  line(width / 2, 0, width / 2, height);
+  p.stroke(255);
+  p.line(width / 2, 0, width / 2, height);
 
   player.update();
-  if (keyIsDown(UP_ARROW)) {
+  if (p.keyIsDown(p.UP_ARROW)) {
     player.move(0, -7);
-  } else if (keyIsDown(DOWN_ARROW)) {
+  } else if (p.keyIsDown(p.DOWN_ARROW)) {
     player.move(0, 7);
   }
 
@@ -59,8 +61,8 @@ function draw() {
   }
   computer.show();
 
-  text(scoreboard.playerScore + " / 7", width / 2 - 140, 60);
-  text(scoreboard.computerScore + " / 7", width / 2 + 60, 60);
+  p.text(scoreboard.playerScore + " / 7", width / 2 - 140, 60);
+  p.text(scoreboard.computerScore + " / 7", width / 2 + 60, 60);
 
   for (var i = sparks.length - 1; i >= 0; i--) {
     sparks[i].update();
@@ -71,20 +73,20 @@ function draw() {
   }
 
   if (scoreboard.gameOver()) {
-    fill(25, 123);
-    noStroke();
-    rect(0, 0, width, height);
-    fill(255);
+    p.fill(25, 123);
+    p.noStroke();
+    p.rect(0, 0, width, height);
+    p.fill(255);
     var result =
       scoreboard.playerScore > scoreboard.computerScore
         ? "You win! "
         : "You lose! ";
-    text(
+        p.text(
       result + scoreboard.playerScore + " to " + scoreboard.computerScore + ".",
       width / 2 - 130,
       height / 2 - 40
     );
-    text("Press spacebar to play again.", width / 2 - 220, height / 2);
+    p.text("Press spacebar to play again.", width / 2 - 220, height / 2);
   } else {
     if (!goalWaitPeriod) {
       if (lightningForge.forgeIsFormed()) {
@@ -97,8 +99,7 @@ function draw() {
     }
   }
 }
-
-function keyPressed() {
+keyPressed = function() {
   // if game over and spacebar is pressed
   if (scoreboard.gameOver && keyCode === 32) {
     scoreboard.resetScore();
@@ -116,11 +117,11 @@ function Paddle(x, y, width, height) {
 
   this.show = function () {
     if (isPlayerForcePush) {
-      fill(255);
+      p.fill(255);
     } else {
-      fill(240);
+      p.fill(240);
     }
-    rect(this.x, this.y, this.width, this.height, 5);
+    p.rect(this.x, this.y, this.width, this.height, 5);
   };
 
   this.forceUpdate = function (pType) {
@@ -244,16 +245,16 @@ function Ball(x, y) {
   this.x = x;
   this.y = y;
   this.xspeed = -6;
-  this.yspeed = random(-1, 1);
-  this.vel = createVector(this.xspeed, this.yspeed);
+  this.yspeed = p.random(-1, 1);
+  this.vel = p.createVector(this.xspeed, this.yspeed);
   this.radius = 40;
-  this.yoff = random(1000);
+  this.yoff = p.random(1000);
 
   this.resetBall = function () {
     this.x = width / 2;
     this.y = height / 2;
     this.xspeed = playerServe ? -6 : 6;
-    this.yspeed = random(-1, 1);
+    this.yspeed = p.random(-1, 1);
     this.vel.x = this.xspeed;
     this.vel.y = this.yspeed;
   };
@@ -281,7 +282,7 @@ function Ball(x, y) {
     // a point was scored
     if (this.x - this.radius / 2 < 0 || this.x + this.radius / 2 > width) {
       var xSpot = this.x - this.radius / 2 < 0 ? 0 : width;
-      shootSparks(xSpot, this.y, -this.xspeed);
+      p.shootSparks(xSpot, this.y, -this.xspeed);
       goalWaitPeriod = true;
       setTimeout(function () {
         goalWaitPeriod = false;
@@ -323,43 +324,43 @@ function Ball(x, y) {
 
   this.show = function () {
     if (!goalWaitPeriod) {
-      noStroke();
-      fill(100);
+      p.noStroke();
+      p.fill(100);
 
       var danger = this.inDangerZone(this.x, this.y);
-      push();
-      translate(this.x, this.y);
-      rotate(this.vel.heading() - 80);
+      p.push();
+      p.translate(this.x, this.y);
+      p.rotate(this.vel.heading() - 80);
 
       // Outer Rectangle
       var rect_offset = 0.0 * this.radius;
-      fill(226, 228, 236);
-      rectMode(CENTER);
-      rect(rect_offset, rect_offset, 80, 60, 15, 15, 15);
+      p.fill(226, 228, 236);
+      p.rectMode(p.CENTER);
+      p.rect(rect_offset, rect_offset, 80, 60, 15, 15, 15);
 
       // Inner Rectangle
-      fill(2, 44, 80);
-      rectMode(CENTER);
-      rect(rect_offset, rect_offset, 60, 40, 15, 15, 15);
+      p.fill(2, 44, 80);
+      p.rectMode(p.CENTER);
+      p.rect(rect_offset, rect_offset, 60, 40, 15, 15, 15);
 
       // EYES
       this.yoff += 0.08;
 
       var eyeOffset = 0.23 * this.radius;
 
-      stroke(3, 253, 255);
-      fill(3, 253, 255);
+      p.stroke(3, 253, 255);
+      p.fill(3, 253, 255);
       if (danger) {
-        text("^", -eyeOffset * 2, 10);
-        text("^", eyeOffset / 2, 10);
+        p.text("^", -eyeOffset * 2, 10);
+        p.text("^", eyeOffset / 2, 10);
       } else {
-        ellipse(
+        p.ellipse(
           -eyeOffset,
           -eyeOffset + 7,
           0.26 * this.radius,
           0.5 * this.radius
         );
-        ellipse(
+        p.ellipse(
           eyeOffset,
           -eyeOffset + 7,
           0.26 * this.radius,
@@ -367,7 +368,7 @@ function Ball(x, y) {
         );
       }
 
-      pop();
+      p.pop();
     }
   };
 }
@@ -414,8 +415,7 @@ function Ball(x, y) {
 //   }
 // }
 // };
-
-function shootSparks(x, y, xVel) {
+p.shootSparks = function(x, y, xVel) {
   for (var i = 0; i < 50; i++) {
     var s = new Spark(x, y, xVel);
     sparks.push(s);
@@ -423,14 +423,14 @@ function shootSparks(x, y, xVel) {
 }
 
 function Spark(x, y, xVel) {
-  this.pos = createVector(x, y);
+  this.pos = p.createVector(x, y);
   this.lifespan = 255;
 
-  this.vel = createVector(random(0, xVel), random(-xVel, xVel));
+  this.vel = p.createVector(p.random(0, xVel), p.random(-xVel, xVel));
   // we just want the direction
   this.vel.normalize();
   // then add random speed
-  this.vel.mult(random(0, 10));
+  this.vel.mult(p.random(0, 10));
 
   this.update = function () {
     this.vel.mult(0.95);
@@ -444,9 +444,9 @@ function Spark(x, y, xVel) {
 
   this.show = function () {
     if (!this.done()) {
-      noStroke();
-      fill(255, this.lifespan);
-      rect(this.pos.x, this.pos.y, this.lifespan / 20, this.lifespan / 20, 3);
+      p.noStroke();
+      p.fill(255, this.lifespan);
+      p.rect(this.pos.x, this.pos.y, this.lifespan / 20, this.lifespan / 20, 3);
     }
   };
 }
@@ -472,11 +472,11 @@ function LightningForge() {
     this.lifespan -= 5;
 
     for (var i = 0; i < this.history.length; i++) {
-      this.history[i].x += random(-2, 2);
-      this.history[i].y += random(-5, 5);
+      this.history[i].x += p.random(-2, 2);
+      this.history[i].y += p.random(-5, 5);
     }
 
-    var v = createVector(this.x, this.y);
+    var v = p.createVector(this.x, this.y);
     this.history.push(v);
     if (this.history.length > 100) {
       this.history.splice(0, 1);
@@ -484,17 +484,20 @@ function LightningForge() {
   };
 
   this.show = function () {
-    push();
-    stroke(255);
-    strokeWeight(4);
-    line(width / 2, 0, width / 2, height);
-    noFill();
-    beginShape();
+    p.push();
+    p.stroke(255);
+    p.strokeWeight(4);
+    p.line(width / 2, 0, width / 2, height);
+    p.noFill();
+    p.beginShape();
     for (var i = 0; i < this.history.length; i++) {
       var pos = this.history[i];
-      vertex(pos.x, pos.y);
+      p.vertex(pos.x, pos.y);
     }
-    endShape(CLOSE);
-    pop();
+    p.endShape(p.CLOSE);
+    p.pop();
   };
 }
+
+}
+let myp5 = new p5(sketch);

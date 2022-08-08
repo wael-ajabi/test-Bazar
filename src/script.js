@@ -1,5 +1,4 @@
 import './style.scss'
-import  './sketch.js'
 import * as THREE from 'three'
 import * as TWEEN from '@tweenjs/tween.js'
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
@@ -1463,7 +1462,7 @@ if(found.length>0 && !clickActive){
     document.getElementsByClassName('nav')[0].style.bottom='95%'
     camerarotation=false
          document.getElementById('p5Div').style.display='block';
-    document.getElementById('guigame').style.display='block';
+             document.getElementById('guigame').style.display='block';
     document.getElementById('close').style.display='block';
 
     

@@ -4,12 +4,16 @@ const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 const path = require('path')
 
 module.exports = {
-    entry: path.resolve(__dirname, '../src/script.js'),
+    entry: {
+        sketch:path.resolve(__dirname, '../src/sketch.js'),
+        main:path.resolve(__dirname, '../src/script.js'),
+    },
 
     output:
     {
-        filename: 'bundle.[contenthash].js',
+        filename: '[name].bundle.[contenthash].js',
         path: path.resolve(__dirname, '../dist')
+        
     },
     devtool: 'source-map',
     plugins:
