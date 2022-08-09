@@ -113,6 +113,7 @@ function increase() {
 
   for(let i = 0; i <= limit; i++) {
       setTimeout(function () {
+
           document.getElementById("value1").innerHTML = i + "%";
       }, SPEED * i);
   }
@@ -511,7 +512,7 @@ function createMarker(model, x,y,z,) {
 }
 
 
-gltfloader.load("./City_12.glb", function (gltf) {
+gltfloader.load("./City_12_3_Final Version.glb", function (gltf) {
   const textureLoader = new THREE.TextureLoader();
   //  mesh =gltf.scene.children[0].children[0].children[1].children[232]
     model=gltf.scene
@@ -583,7 +584,7 @@ gltfloader.load("./City_12.glb", function (gltf) {
     // blender_camera = gltf.cameras[0];
   mixer1 = new THREE.AnimationMixer(gltf.scene);
   console.log(gltf.animations);
-  for (var i=0;i<14;i++){
+  for (var i=0;i<34;i++){
              action = mixer1.clipAction(gltf.animations[i]);
              action.play()
 
@@ -1461,6 +1462,9 @@ if(found.length>0 && !clickActive){
   gsap.to(camera.position,{x: 0.4915825573682948, y: -0.27968787102465575, z: -0.15636529563801568,duration:3,delay:1,onComplete:  function (){
     document.getElementsByClassName('nav')[0].style.bottom='95%'
     camerarotation=false
+    // var intro = document.getElementsByClassName('p5Div')[0]; 
+    // intro.setAttribute('id', 'p5Div');
+window.arcade=false
          document.getElementById('p5Div').style.display='block';
              document.getElementById('guigame').style.display='block';
     document.getElementById('close').style.display='block';
