@@ -627,3 +627,41 @@ html, body {
     //   transform: rotateX(90deg);
     }
   }
+
+
+  .zebi5{
+    animation-name: zebi2;
+    animation-duration: 500ms;
+    animation-fill-mode: forwards;
+}
+
+
+  @keyframes zebi2{
+    0%{
+        width:1700px;
+        height: auto;    //   transform: rotateX(90deg);
+    }
+    15%{
+        width:1500px;
+        height: auto;    //   transform: rotateX(90deg);
+    }
+    30%{
+        width:1300px;
+        height: auto;    //   transform: rotateX(0deg);
+    }
+    45%{
+        width:1100px;
+        height: auto;    }
+        60%{  width:800px;
+            height: auto;}
+            75%{
+                width:500px;
+                height: auto;    //   transform: rotateX(90deg);
+            }
+    99%{
+    //   display: none;
+    width:200px;
+    height: auto;    //   transform: rotateX(90deg);
+    }
+    100%{z-index: -10;}
+  }

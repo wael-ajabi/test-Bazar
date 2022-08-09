@@ -513,7 +513,7 @@ function createMarker(model, x,y,z,) {
 }
 
 
-gltfloader.load("./City_12_3_Final Version.glb", function (gltf) {
+gltfloader.load("./City_12_4_Final Version.glb", function (gltf) {
   const textureLoader = new THREE.TextureLoader();
   //  mesh =gltf.scene.children[0].children[0].children[1].children[232]
     model=gltf.scene
@@ -1376,6 +1376,7 @@ function intersect(pos) {
 var clickActive=false
 window.addEventListener('click', event => {
 
+
 // THREE RAYCASTER
 const found = intersect(clickMouse);
 // console.log(found);p
@@ -1413,32 +1414,34 @@ gsap.to(camera.position,{x: -0.6559559837447704, y: -0.4736632781692687, z: 0.70
 clickActive=true
 
 }
-})
+},true)
 var minPan = new THREE.Vector3( - 0.5, - 0.5, - 0.5 );
 var maxPan = new THREE.Vector3( 0.5, 0.5, 0.5 );
 var _v = new THREE.Vector3();
 
 
 document.getElementById('guibazar').onclick=function(){
-  minPan = new THREE.Vector3( - 0.5, - 0.5, - 0.5 );
-  maxPan = new THREE.Vector3( 0.5, 0.5, 0.5 );
-   camerarotation=true
-   document.getElementById('guibazar').style.display='none';
-   gsap.to(controls.target,{x: -0.330176, y: -0.291718, z: -0.113545,duration:4,ease:'power3.inOut'});
-   
-   gsap.to(camera.position,{x: -0.24905360247937205, y: 0.44321605716014717, z: -1.7252216405242373,duration:4,onComplete:function(){  controls.enabled=true;
-     for(let i=17;i<scene.children.length;i++){
-       scene.children[i].visible=true;
-     
-     }
-   }})
-     clickActive=false
-         // tweenCamera4.onUpdate(updateCamera)
- // tweenCamera4.start()
- // // camera.lookAt(new Vector3(0,0,0))
- 
- var bokehPass = new BokehPass(scene, camera, {
-   focus: 8,
+  let element2 = document.getElementById('guibazar')
+  element2.className = "zebi5";
+  gsap.to(controls.target,{x: -0.330176, y: -0.291718, z: -0.113545,duration:4,delay:0.2,ease:'power3.inOut'});
+  
+  gsap.to(camera.position,{x: -0.24905360247937205, y: 0.44321605716014717, z: -1.7252216405242373,delay:0.2,duration:4,onComplete:function(){  controls.enabled=true;
+    for(let i=17;i<scene.children.length;i++){
+      scene.children[i].visible=true;
+      
+    }
+    clickActive=false
+    minPan = new THREE.Vector3( - 0.5, - 0.5, - 0.5 );
+    maxPan = new THREE.Vector3( 0.5, 0.5, 0.5 );
+    camerarotation=true
+    document.getElementById('guibazar').style.display='none';
+    // tweenCamera4.onUpdate(updateCamera)
+    // tweenCamera4.start()
+    // // camera.lookAt(new Vector3(0,0,0))
+    
+  }})
+    var bokehPass = new BokehPass(scene, camera, {
+      focus: 8,
    aperture: 0.001,
    maxblur: 500,
    width: window.innerWidth,
@@ -1447,7 +1450,7 @@ document.getElementById('guibazar').onclick=function(){
  
  
  composer.addPass(bokehPass);
-	
+ 
 };
 
 //arcade
@@ -1589,25 +1592,27 @@ gsap.to(camera.position,{x: -0.3197533397689743, y: -0.555449899400478, z: -0.18
 
 
 document.getElementById('guimarcato').onclick=function(){
-  minPan = new THREE.Vector3( - 0.5, - 0.5, - 0.5 );
-  maxPan = new THREE.Vector3( 0.5, 0.5, 0.5 );
-   camerarotation=true
-   document.getElementById('guimarcato').style.display='none';
-   gsap.to(controls.target,{x: -0.330176, y: -0.291718, z: -0.113545,duration:4,ease:'power3.inOut'});
-   
-   gsap.to(camera.position,{x: -0.24905360247937205, y: 0.44321605716014717, z: -1.7252216405242373,duration:4,onComplete:function(){  controls.enabled=true;
-     for(let i=17;i<scene.children.length;i++){
-       scene.children[i].visible=true;
-     
-     }
-   }})
-     clickActive=false
-         // tweenCamera4.onUpdate(updateCamera)
- // tweenCamera4.start()
- // // camera.lookAt(new Vector3(0,0,0))
- 
- var bokehPass = new BokehPass(scene, camera, {
-   focus: 8,
+  let element2 = document.getElementById('guimarcato')
+  element2.className = "zebi5";
+  gsap.to(controls.target,{x: -0.330176, y: -0.291718, z: -0.113545,duration:4,delay:0.2,ease:'power3.inOut'});
+  
+  gsap.to(camera.position,{x: -0.24905360247937205, y: 0.44321605716014717, z: -1.7252216405242373,delay:0.2,duration:4,onComplete:function(){  controls.enabled=true;
+    for(let i=17;i<scene.children.length;i++){
+      scene.children[i].visible=true;
+      
+    }
+    clickActive=false
+    minPan = new THREE.Vector3( - 0.5, - 0.5, - 0.5 );
+    maxPan = new THREE.Vector3( 0.5, 0.5, 0.5 );
+    camerarotation=true
+    document.getElementById('guimarcato').style.display='none';
+    // tweenCamera4.onUpdate(updateCamera)
+    // tweenCamera4.start()
+    // // camera.lookAt(new Vector3(0,0,0))
+    
+  }})
+    var bokehPass = new BokehPass(scene, camera, {
+      focus: 8,
    aperture: 0.001,
    maxblur: 500,
    width: window.innerWidth,
@@ -1616,7 +1621,7 @@ document.getElementById('guimarcato').onclick=function(){
  
  
  composer.addPass(bokehPass);
-		
+ 		
 };
 
 //razzi
@@ -1667,34 +1672,36 @@ gsap.to(camera.position,{x: -0.2948241421524178, y: -0.07897252364587554, z: -0.
 }})}})
 
 document.getElementById('guirazi').onclick=function(){
-  minPan = new THREE.Vector3( - 0.5, - 0.5, - 0.5 );
- maxPan = new THREE.Vector3( 0.5, 0.5, 0.5 );
-  camerarotation=true
-  document.getElementById('guirazi').style.display='none';
-  gsap.to(controls.target,{x: -0.330176, y: -0.291718, z: -0.113545,duration:4,ease:'power3.inOut'});
+  let element2 = document.getElementById('guirazi')
+  element2.className = "zebi5";
+  gsap.to(controls.target,{x: -0.330176, y: -0.291718, z: -0.113545,duration:4,delay:0.2,ease:'power3.inOut'});
   
-  gsap.to(camera.position,{x: -0.24905360247937205, y: 0.44321605716014717, z: -1.7252216405242373,duration:4,onComplete:function(){  controls.enabled=true;
+  gsap.to(camera.position,{x: -0.24905360247937205, y: 0.44321605716014717, z: -1.7252216405242373,delay:0.2,duration:4,onComplete:function(){  controls.enabled=true;
     for(let i=17;i<scene.children.length;i++){
       scene.children[i].visible=true;
-    
+      
     }
-  }})
     clickActive=false
-        // tweenCamera4.onUpdate(updateCamera)
-// tweenCamera4.start()
-// // camera.lookAt(new Vector3(0,0,0))
-
-var bokehPass = new BokehPass(scene, camera, {
-  focus: 8,
-  aperture: 0.001,
-  maxblur: 500,
-  width: window.innerWidth,
-  height: window.innerHeight
-});
-
-
-composer.addPass(bokehPass);
-	};
+    minPan = new THREE.Vector3( - 0.5, - 0.5, - 0.5 );
+    maxPan = new THREE.Vector3( 0.5, 0.5, 0.5 );
+    camerarotation=true
+    document.getElementById('guimarcato').style.display='none';
+    // tweenCamera4.onUpdate(updateCamera)
+    // tweenCamera4.start()
+    // // camera.lookAt(new Vector3(0,0,0))
+    
+  }})
+    var bokehPass = new BokehPass(scene, camera, {
+      focus: 8,
+   aperture: 0.001,
+   maxblur: 500,
+   width: window.innerWidth,
+   height: window.innerHeight
+ });
+ 
+ 
+ composer.addPass(bokehPass);
+ 		};
 
 function intersectcentro(pos) {
   raycaster.setFromCamera(pos, camera);
@@ -1749,27 +1756,27 @@ clickActive=true
 
 
 document.getElementById('guicentro').onclick=function(){
-
-   camerarotation=true
-   document.getElementById('guicentro').style.display='none';
-   gsap.to(controls.target,{x: -0.330176, y: -0.291718, z: -0.113545,duration:4,ease:'power3.inOut'});
-   
-   gsap.to(camera.position,{x: -0.24905360247937205, y: 0.44321605716014717, z: -1.7252216405242373,duration:4,onComplete:function(){ 
+  let element2 = document.getElementById('guicentro')
+  element2.className = "zebi5";
+  gsap.to(controls.target,{x: -0.330176, y: -0.291718, z: -0.113545,duration:4,delay:0.2,ease:'power3.inOut'});
+  
+  gsap.to(camera.position,{x: -0.24905360247937205, y: 0.44321605716014717, z: -1.7252216405242373,delay:0.2,duration:4,onComplete:function(){  controls.enabled=true;
+    for(let i=17;i<scene.children.length;i++){
+      scene.children[i].visible=true;
+      
+    }
+    clickActive=false
     minPan = new THREE.Vector3( - 0.5, - 0.5, - 0.5 );
     maxPan = new THREE.Vector3( 0.5, 0.5, 0.5 );
-    controls.enabled=true;
-     for(let i=17;i<scene.children.length;i++){
-       scene.children[i].visible=true;
-     
-     }
-   }})
-     clickActive=false
-         // tweenCamera4.onUpdate(updateCamera)
- // tweenCamera4.start()
- // // camera.lookAt(new Vector3(0,0,0))
- 
- var bokehPass = new BokehPass(scene, camera, {
-   focus: 8,
+    camerarotation=true
+    document.getElementById('guimarcato').style.display='none';
+    // tweenCamera4.onUpdate(updateCamera)
+    // tweenCamera4.start()
+    // // camera.lookAt(new Vector3(0,0,0))
+    
+  }})
+    var bokehPass = new BokehPass(scene, camera, {
+      focus: 8,
    aperture: 0.001,
    maxblur: 500,
    width: window.innerWidth,
@@ -1778,7 +1785,7 @@ document.getElementById('guicentro').onclick=function(){
  
  
  composer.addPass(bokehPass);
-
+ 	
 };
 
 
@@ -1836,26 +1843,27 @@ clickActive=true
 
 
 document.getElementById('guisamy').onclick=function(){
- 
-   camerarotation=true
-   document.getElementById('guisamy').style.display='none';
-   gsap.to(controls.target,{x: -0.330176, y: -0.291718, z: -0.113545,duration:4,ease:'power3.inOut'});
-   
-   gsap.to(camera.position,{x: -0.24905360247937205, y: 0.44321605716014717, z: -1.7252216405242373,duration:4,onComplete:function(){  controls.enabled=true;
+  let element2 = document.getElementById('guisamy')
+  element2.className = "zebi5";
+  gsap.to(controls.target,{x: -0.330176, y: -0.291718, z: -0.113545,duration:4,delay:0.2,ease:'power3.inOut'});
+  
+  gsap.to(camera.position,{x: -0.24905360247937205, y: 0.44321605716014717, z: -1.7252216405242373,delay:0.2,duration:4,onComplete:function(){  controls.enabled=true;
+    for(let i=17;i<scene.children.length;i++){
+      scene.children[i].visible=true;
+      
+    }
+    clickActive=false
     minPan = new THREE.Vector3( - 0.5, - 0.5, - 0.5 );
     maxPan = new THREE.Vector3( 0.5, 0.5, 0.5 );
-     for(let i=17;i<scene.children.length;i++){
-       scene.children[i].visible=true;
-     
-     }
-   }})
-     clickActive=false
-         // tweenCamera4.onUpdate(updateCamera)
- // tweenCamera4.start()
- // // camera.lookAt(new Vector3(0,0,0))
- 
- var bokehPass = new BokehPass(scene, camera, {
-   focus: 8,
+    camerarotation=true
+    document.getElementById('guimarcato').style.display='none';
+    // tweenCamera4.onUpdate(updateCamera)
+    // tweenCamera4.start()
+    // // camera.lookAt(new Vector3(0,0,0))
+    
+  }})
+    var bokehPass = new BokehPass(scene, camera, {
+      focus: 8,
    aperture: 0.001,
    maxblur: 500,
    width: window.innerWidth,
@@ -1864,7 +1872,7 @@ document.getElementById('guisamy').onclick=function(){
  
  
  composer.addPass(bokehPass);
-
+ 	
 };
 
 
@@ -1959,24 +1967,27 @@ clickActive=true
 
 
 document.getElementById('guipalazzo').onclick=function(){
-  minPan = new THREE.Vector3( - 0.5, - 0.5, - 0.5 );
-  maxPan = new THREE.Vector3( 0.5, 0.5, 0.5 );
-   camerarotation=true
-   document.getElementById('guipalazzo').style.display='none';
-   gsap.to(controls.target,{x: -0.330176, y: -0.291718, z: -0.113545,duration:4,ease:'power3.inOut'});
-   gsap.to(camera.position,{x: -0.24905360247937205, y: 0.44321605716014717, z: -1.7252216405242373,duration:4,onComplete:function(){  controls.enabled=true;
-     for(let i=17;i<scene.children.length;i++){
-       scene.children[i].visible=true;
-     
-     }
-   }})
-     clickActive=false
-         // tweenCamera4.onUpdate(updateCamera)
- // tweenCamera4.start()
- // // camera.lookAt(new Vector3(0,0,0))
- 
- var bokehPass = new BokehPass(scene, camera, {
-   focus: 8,
+  let element2 = document.getElementById('guipalazzo')
+  element2.className = "zebi5";
+  gsap.to(controls.target,{x: -0.330176, y: -0.291718, z: -0.113545,duration:4,delay:1,ease:'power3.inOut'});
+  
+  gsap.to(camera.position,{x: -0.24905360247937205, y: 0.44321605716014717, z: -1.7252216405242373,delay:1,duration:4,onComplete:function(){  controls.enabled=true;
+    for(let i=17;i<scene.children.length;i++){
+      scene.children[i].visible=true;
+      
+    }
+    clickActive=false
+    minPan = new THREE.Vector3( - 0.5, - 0.5, - 0.5 );
+    maxPan = new THREE.Vector3( 0.5, 0.5, 0.5 );
+    camerarotation=true
+    document.getElementById('guimarcato').style.display='none';
+    // tweenCamera4.onUpdate(updateCamera)
+    // tweenCamera4.start()
+    // // camera.lookAt(new Vector3(0,0,0))
+    
+  }})
+    var bokehPass = new BokehPass(scene, camera, {
+      focus: 8,
    aperture: 0.001,
    maxblur: 500,
    width: window.innerWidth,
@@ -1985,23 +1996,7 @@ document.getElementById('guipalazzo').onclick=function(){
  
  
  composer.addPass(bokehPass);
-
-//         const tweenCamera4 = new TWEEN.Tween( {x: -0.8+0.2, y: -1+0.1, z: 0.8, lookAtX: cube.position.x, lookAtY: cube.position.y, lookAtZ: cube.position.z} )
-//         .to( {x: 0.01, y: 0.8, z:-2.8, lookAtX: controls.target.x, lookAtY: controls.target.y, lookAtZ: controls.target.z}, 1000 )
-// tweenCamera4.onUpdate(updateCamera)
-// tweenCamera4.start()
-// // camera.lookAt(new Vector3(0,0,0))
-
-// var bokehPass = new BokehPass(scene, camera, {
-//   focus: 0,
-//   aperture: 0,
-//   maxblur: 0,
-//   width: window.innerWidth,
-//   height: window.innerHeight
-// });
-
-// composer.addPass(bokehPass);
-	
+ 	
 };
 
 
