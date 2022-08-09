@@ -1297,6 +1297,8 @@ document.getElementById('start-button').onclick=function(){
       gsap.to(controls.target,{x: -0.32780258586027866, y: -0.2927804605540083, z: -0.12120864558705574,duration:7,delay:2});
       gsap.to(camera.position,{x: -0.9368241147924617, y: 0.44978222785543465,ease: "power1", z: -1.7328521118110993,duration:15,delay:8,onComplete:function(){
         init()
+        controls.maxPolarAngle = Math.PI*4/9
+
         camerarotation= true;
         controls.maxDistance=4
         // canvas2 = null
@@ -1326,7 +1328,6 @@ document.getElementById('start-button').onclick=function(){
         _v.sub(controls.target);
         camera.position.sub(_v);
     })
-    controls.maxPolarAngle=Math.PI/2
 // label("Casa Di Bazar",-0.85,-0.5,0.89,-1.3,0.30,0.95)
 // label("Mercato",-0.1,-0.5,-0.3,-0.30,0.5,-0.21)
 // label("Razzo",-0.87,-0.42,-0.19,-1.2,0.5,-0.57)
@@ -1339,7 +1340,7 @@ clearInterval(myInterval)
     const listener = new THREE.AudioListener();
 
     const audio = new THREE.Audio( listener );
-    const file = './16195580_space_by_whitewind-studio_preview.mp3';
+    const file = './Space_1.mp3';
 
     if ( /(iPad|iPhone|iPod)/g.test( navigator.userAgent ) ) {
 
@@ -1566,7 +1567,7 @@ if(found.length>0 && !clickActive){
   minPan = new THREE.Vector3( - 1, - 1, - 1 );
   maxPan = new THREE.Vector3( 1, 1, 1 );
   controls.maxPolarAngle=Math.PI
-  
+
   gsap.to(controls.target,{x: -0.06652219660019898, y: -0.49817622607328704, z: 0.09562768959498957,duration:2,ease:'power3.inOut'});
 gsap.to(camera.position,{x: -0.3197533397689743, y: -0.555449899400478, z: -0.1868991838525571,duration:2,onComplete:function(){
   clickActive=true
@@ -1592,6 +1593,7 @@ gsap.to(camera.position,{x: -0.3197533397689743, y: -0.555449899400478, z: -0.18
 
 
 document.getElementById('guimarcato').onclick=function(){
+
   let element2 = document.getElementById('guimarcato')
   element2.className = "zebi5";
   gsap.to(controls.target,{x: -0.330176, y: -0.291718, z: -0.113545,duration:4,delay:0.2,ease:'power3.inOut'});
@@ -1609,7 +1611,8 @@ document.getElementById('guimarcato').onclick=function(){
     // tweenCamera4.onUpdate(updateCamera)
     // tweenCamera4.start()
     // // camera.lookAt(new Vector3(0,0,0))
-    
+    controls.maxPolarAngle = Math.PI*4/9
+
   }})
     var bokehPass = new BokehPass(scene, camera, {
       focus: 8,
@@ -1810,6 +1813,7 @@ if(found.length>0 && !clickActive){
   for(let i=17;i<scene.children.length;i++){
     scene.children[i].visible=false
   }
+  controls.maxPolarAngle=Math.PI
   controls.enabled=false
   document.getElementsByClassName('nav')[0].style.bottom='95%'
 
@@ -1842,6 +1846,38 @@ clickActive=true
 
 
 
+document.getElementById('electorono').onclick=function(){
+  camerarotation=false
+  document.getElementById('guielectrono').style.display="block"
+  let element2 = document.getElementById('guielectrono')
+  element2.className = "zebi";
+}
+
+document.getElementById('guielectrono').onclick=function(){
+  document.getElementById('guielectrono').style.display="block"
+  let element2 = document.getElementById('guielectrono')
+  element2.className = "zebi5";
+  camerarotation=true
+}
+
+document.getElementById('storybazaro').onclick=function(){
+  camerarotation=false
+  document.getElementById('guibazarstory').style.display="block"
+  let element2 = document.getElementById('guibazarstory')
+  element2.className = "zebi";
+}
+
+document.getElementById('guibazarstory').onclick=function(){
+  document.getElementById('guibazarstory').style.display="block"
+  let element2 = document.getElementById('guibazarstory')
+  element2.className = "zebi5";
+  camerarotation=true
+}
+
+
+
+
+
 document.getElementById('guisamy').onclick=function(){
   let element2 = document.getElementById('guisamy')
   element2.className = "zebi5";
@@ -1852,6 +1888,7 @@ document.getElementById('guisamy').onclick=function(){
       scene.children[i].visible=true;
       
     }
+    controls.maxPolarAngle = Math.PI*4/9
     clickActive=false
     minPan = new THREE.Vector3( - 0.5, - 0.5, - 0.5 );
     maxPan = new THREE.Vector3( 0.5, 0.5, 0.5 );
