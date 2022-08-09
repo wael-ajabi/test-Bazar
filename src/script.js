@@ -650,7 +650,7 @@ const geomet = new THREE.BoxBufferGeometry ( 0.1, 0.1, 0.1 );
 const material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
 const cube = new THREE.Mesh( geomet, material );
 cube.name='cube'
-cube.position.set(-0.8,-0.5,0.8)
+cube.position.set(-0.8,-0.4,0.8)
 cube.scale.set(0.4,0.5,0.8)
 scene.add( cube );
 cube.visible=false;
@@ -659,12 +659,20 @@ cube.visible=false;
 
 const arcade = new THREE.Mesh( geomet, material );
 arcade.name='arcade'
-arcade.position.set(0.88,-0.42,-0.43)
-arcade.scale.set(0.93,2.28,0.97)
+arcade.position.set(0.88,-0.2,-0.43)
+arcade.scale.set(0.5,0.5,0.5)
 scene.add( arcade );
 arcade.visible=false;
 
+// const cubeFolder8 = gui.addFolder('zebi');
+// cubeFolder8.add( arcade.position, 'x')
+// cubeFolder8.add( arcade.position, 'y')
+// cubeFolder8.add( arcade.position, 'z')
+// cubeFolder8.add( arcade.scale, 'x');
+// cubeFolder8.add( arcade.scale, 'y');
+// cubeFolder8.add( arcade.scale, 'z');
 
+// cubeFolder8.open();
 
 
     // const cubeFolder2 = gui.addFolder('position');
@@ -682,26 +690,26 @@ arcade.visible=false;
     
     const cube2 = new THREE.Mesh( geomet, material );
     cube2.name='mercato'
-    cube2.position.set(-0.101,-0.5,-0.24)
-    cube2.scale.set(3.7,0.5,2.4)
+    cube2.position.set(-0.101,-0.4,-0.24)
+    cube2.scale.set(0.8,0.5,0.7)
     scene.add( cube2 );
     cube2.visible=false;
-        const cube2Folder3 = gui.addFolder('positionsss');
-        cube2Folder3.add( cube2.position, 'x')
-        cube2Folder3.add( cube2.position, 'y')
-        cube2Folder3.add( cube2.position, 'z')
-        cube2Folder3.add( cube2.scale, 'x');
-        cube2Folder3.add( cube2.scale, 'y');
-        cube2Folder3.add( cube2.scale, 'z');
+        // const cube2Folder3 = gui.addFolder('positionsss');
+        // cube2Folder3.add( cube2.position, 'x')
+        // cube2Folder3.add( cube2.position, 'y')
+        // cube2Folder3.add( cube2.position, 'z')
+        // cube2Folder3.add( cube2.scale, 'x');
+        // cube2Folder3.add( cube2.scale, 'y');
+        // cube2Folder3.add( cube2.scale, 'z');
     
-        cube2Folder3.open();
+        // cube2Folder3.open();
         const cube3 = new THREE.Mesh( geomet, material );
         cube3.name='Razzi'
-        cube3.position.set(-1.2,-0.5,-0.41)
-        cube3.scale.set(8,0.5,14)
+        cube3.position.set(-0.8,-0.4,-0.41)
+        cube3.scale.set(0.6,0.44,-1)
         scene.add( cube3 );
         cube3.visible=false;
-            // const cube3Folder2 = gui.addFolder('position');
+            // const cube3Folder2 = gui.addFolder('posiqsdqdtion');
             // cube3Folder2.add( cube3.position, 'x')
             // cube3Folder2.add( cube3.position, 'y')
             // cube3Folder2.add( cube3.position, 'z')
@@ -745,11 +753,19 @@ arcade.visible=false;
 
 const cube4 = new THREE.Mesh( geomet, material );
 cube4.name='Centro'
-cube4.position.set(-3.5,-1.13,-0.36)
-cube4.scale.set(-0.11,25,20)
+cube4.position.set(-3.5,-0.05,-0.2)
+cube4.scale.set(1,1,1)
 scene.add( cube4 );
 cube4.visible=false;
-
+ const cube3Folder2 = gui.addFolder('posiqsdqdtion');
+            cube3Folder2.add( cube4.position, 'x')
+            cube3Folder2.add( cube4.position, 'y')
+            cube3Folder2.add( cube4.position, 'z')
+            cube3Folder2.add( cube4.scale, 'x');
+            cube3Folder2.add( cube4.scale, 'y');
+            cube3Folder2.add( cube4.scale, 'z');
+        
+            cube3Folder2.open();
 
 
     const cube5 = new THREE.Mesh( geomet, material );
@@ -762,8 +778,8 @@ cube5.visible=false;
 
 const samy = new THREE.Mesh( geomet, material );
 samy.name='samy'
-samy.position.set(2.1,-1.1,0.06)
-samy.scale.set(-0.98,28,-1)
+samy.position.set(2.1,0.5,0.06)
+samy.scale.set(0.5,0.5,0.5)
 scene.add( samy );
 samy.visible=false;
   
@@ -1287,7 +1303,6 @@ document.getElementById('start-button').onclick=function(){
         createMarker(model,-0.8,-0.4,0.8)
         createMarker(model,-0.101,-0.4,-0.24)
         createMarker(model,-0.8,-0.4,-0.41)
-        createMarker(model,0.7,0.1,0.589)
         createMarker(model,0.88,-0.2,-0.43)
         createMarker(model,-3.5,-0.05,-0.2)
         createMarker(model,2.1,0.5,0.06)
@@ -2135,7 +2150,7 @@ camera.lookAt(new Vector3(0,0,0))}
 // }
 
     // TWEEN.update()
-    const elapsedTime = 0.1
+    const elapsedTime = 0.05
     const elapsedTime2 = clock.getElapsedTime()/500
 
     // Update objects

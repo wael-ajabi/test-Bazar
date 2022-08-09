@@ -89,7 +89,7 @@ p.draw = function() {
       width / 2 - 130,
       height / 2 - 40
     );
-    // p.text("Press spacebar to play again.", width / 2 - 220, height / 2);
+    p.text("Exit and re-enter the room to play again!", width / 2 - 220, height / 2);
   } else {
     if (!goalWaitPeriod) {
       if (lightningForge.forgeIsFormed()) {
@@ -105,7 +105,6 @@ p.draw = function() {
 keyPressed = function() {
   // if game over and spacebar is pressed
   if (scoreboard.gameOver && keyCode === 32) {
-   console.log('zebiiiiiiiiiiiiiiiiiiiiiii');
     scoreboard.resetScore();
   }
 }
@@ -506,10 +505,8 @@ function LightningForge() {
 }
 // myp5 = new p5(sketch);
 setInterval(function() {
-  console.log("arcade:",window.arcade);
-  console.log("arcade1:",window.arcade1);
+
   if(window.arcade===false && window.arcade1===false) {  myp5 = new p5(sketch);
-    console.log('wael');
     window.arcade1=true
   }
   if(window.arcade===true && window.arcade1===true){
