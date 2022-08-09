@@ -1374,7 +1374,7 @@ function intersect(pos) {
 
 
 var clickActive=false
-window.addEventListener('dblclick', event => {
+window.addEventListener('click', event => {
 
 // THREE RAYCASTER
 const found = intersect(clickMouse);
@@ -1459,7 +1459,7 @@ function intersectArcade(pos) {
 
 
 var clickActive=false
-window.addEventListener('dblclick', event => {
+window.addEventListener('click', event => {
 
 // THREE RAYCASTER
 const found = intersectArcade(clickMouse);
@@ -1544,7 +1544,7 @@ function intersectmercato(pos) {
 
 
 var clickActive=false
-window.addEventListener('dblclick', event => {
+window.addEventListener('click', event => {
   
   
   
@@ -1627,7 +1627,7 @@ function intersectrazzi(pos) {
 var clickActive=false
 
 
-window.addEventListener('dblclick', event => {
+window.addEventListener('click', event => {
 
 
 
@@ -1702,7 +1702,7 @@ function intersectcentro(pos) {
 }
 var clickActive=false
 
-window.addEventListener('dblclick', event => {
+window.addEventListener('click', event => {
 
 
 
@@ -1789,7 +1789,7 @@ function intersectsamy(pos) {
 }
 var clickActive=false
 
-window.addEventListener('dblclick', event => {
+window.addEventListener('click', event => {
 
 
 
@@ -1911,7 +1911,7 @@ window.addEventListener('mousemove', event => {
   }
 })
 
-window.addEventListener('dblclick', event => {
+window.addEventListener('click', event => {
 
 
 
