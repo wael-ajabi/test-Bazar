@@ -17,6 +17,7 @@ import { ColladaLoader } from 'three/examples/jsm/loaders/ColladaLoader.js';
      
             import {gsap} from "gsap";
 import { ReinhardToneMapping, Vector3 } from 'three';
+           window.arcade1=false
 
             let composer;
             let	singleMaterial, zmaterial,nobjects, cubeMaterial;
@@ -1472,7 +1473,7 @@ window.arcade=false
     
   
   }})
-  
+
   clickActive=true
   
   }
@@ -1482,6 +1483,8 @@ window.arcade=false
   var _v = new THREE.Vector3();
   
 document.getElementById('close').onclick=function(){
+  window.arcade=true
+
   minPan = new THREE.Vector3( - 0.5, - 0.5, - 0.5 );
   maxPan = new THREE.Vector3( 0.5, 0.5, 0.5 );
    camerarotation=true

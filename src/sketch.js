@@ -1,6 +1,7 @@
 
-window.arcade===true
-window.arcade1===true
+window.arcade=true
+window.arcade1=false
+
 var player;
 var computer;
 var ball;
@@ -19,7 +20,6 @@ let sketch = function(p) {
   var height = window.innerHeight <= 542 ? window.innerHeight - 20 : 522;
   var width = window.innerWidth <= 957 ? window.innerWidth - 20 : 937;
   p.setup = function() {
-    console.log('zebi');
   var c = p.createCanvas(width, height);
   c.parent('p5Div');
 
@@ -89,7 +89,7 @@ p.draw = function() {
       width / 2 - 130,
       height / 2 - 40
     );
-    p.text("Press spacebar to play again.", width / 2 - 220, height / 2);
+    // p.text("Press spacebar to play again.", width / 2 - 220, height / 2);
   } else {
     if (!goalWaitPeriod) {
       if (lightningForge.forgeIsFormed()) {
@@ -105,6 +105,7 @@ p.draw = function() {
 keyPressed = function() {
   // if game over and spacebar is pressed
   if (scoreboard.gameOver && keyCode === 32) {
+   console.log('zebiiiiiiiiiiiiiiiiiiiiiii');
     scoreboard.resetScore();
   }
 }
@@ -503,10 +504,17 @@ function LightningForge() {
 }
 
 }
-myp5 = new p5(sketch);
-// setInterval(function() {
-//   if(window.arcade===false && window.arcade1===true) {  myp5 = new p5(sketch);
-//     console.log('wael');
-//   window.arcade1=false
-//   }
-// }, 1000/60);
+// myp5 = new p5(sketch);
+setInterval(function() {
+  console.log("arcade:",window.arcade);
+  console.log("arcade1:",window.arcade1);
+  if(window.arcade===false && window.arcade1===false) {  myp5 = new p5(sketch);
+    console.log('wael');
+    window.arcade1=true
+  }
+  if(window.arcade===true && window.arcade1===true){
+    myp5.remove()
+    window.arcade1=false
+
+  }
+}, 1000/60);
