@@ -1,5 +1,6 @@
 
 window.arcade===true
+window.arcade1===true
 var player;
 var computer;
 var ball;
@@ -504,6 +505,8 @@ function LightningForge() {
 }
 myp5 = new p5(sketch);
 // setInterval(function() {
-//   console.log('wael');
-//   if(window.arcade===false) {  myp5 = new p5(sketch);}
+//   if(window.arcade===false && window.arcade1===true) {  myp5 = new p5(sketch);
+//     console.log('wael');
+//   window.arcade1=false
+//   }
 // }, 1000/60);

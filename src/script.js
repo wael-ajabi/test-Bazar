@@ -2132,7 +2132,7 @@ camera.lookAt(new Vector3(0,0,0))}
 // }
 
     // TWEEN.update()
-    const elapsedTime = 0.015
+    const elapsedTime = 0.1
     const elapsedTime2 = clock.getElapsedTime()/500
 
     // Update objects
