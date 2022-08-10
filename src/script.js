@@ -1349,12 +1349,13 @@ clearInterval(myInterval)
 
             audio.setBuffer( buffer );
             audio.play();
-
-        } );
+            
+          } );
 
     } else {
 
          mediaElement = new Audio( file );
+         mediaElement.loop=true;
         mediaElement.play();
 
         audio.setMediaElementSource( mediaElement );
