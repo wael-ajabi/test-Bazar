@@ -58,11 +58,7 @@ $$('li').forEach(el => el.addEventListener('mouseleave', function() {
 
 
 
-// --- CURSOR
-// document.addEventListener('mousemove', function(e) {
-//   $('.cursor').style.left = (e.pageX - 25) + 'px';
-//   $('.cursor').style.top = (e.pageY - 25) + 'px';
-// });
+
 var soundcheck=true
 document.getElementById('sound').onclick=function(){ if(soundcheck) {mediaElement.pause(); soundcheck=false ;
 document.getElementById('sound').innerHTML=`<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -356,17 +352,10 @@ increase();
 
 // Debug
 const gui = new dat.GUI();
-// const stats = Stats()
-// document.body.appendChild(stats.dom)
-// let composer
+
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
-// const params = {
-//     exposure: 1,
-//     bloomStrength: 1.5,
-//     bloomThreshold: 0,
-//     bloomRadius: 0
-// };
+
 // Scene
 const scene = new THREE.Scene()
 scene.background = new THREE.Color( new THREE.Color("rgb(143, 76, 0)"));
@@ -429,18 +418,7 @@ const manager = new THREE.LoadingManager()
 
     manager.onLoad = function ( ) {
         console.log( "Loading complete!")
-          // mesh.material.map.repeat.set(5,5)
-          // var bokehPass = new BokehPass(scene, camera, {
-          //   focus: 10,
-          //   aperture: 0.001,
-          //   maxblur: 5,
-          //   width: window.innerWidth,
-          //   height: window.innerHeight
-          // });
-          
-          
-          // composer.addPass(bokehPass);
-          
+   
           
     }
 
@@ -522,67 +500,18 @@ gltfloader.load("./City_12_4_Final Version.glb", function (gltf) {
 
 
 
-  // const grassNormalTexture = textureLoader.load(
-  //   "./NormalMapDefinitiva in uso_1.jpg"
-  // );
-  // grassNormalTexture.repeat.set(1000, 1000);
-  // grassNormalTexture.wrapT = THREE.RepeatWrapping;
-  // grassNormalTexture.wrapS = THREE.RepeatWrapping;
-  // mesh.material.normalMap = grassNormalTexture;
-
-// mesh.material.map.repeat.x=8
-// mesh.material.map.repeat.y=8
-// floor
-  // const floor = new THREE.Mesh(
-  //   new THREE.PlaneBufferGeometry(380, 380),
-  //   new THREE.MeshStandardMaterial({
-  //     map: grassNormalTexture,
-  //   })
-  // );
-  // mesh.geometry.setAttribute(
-  //   "uv2",
-  //   new THREE.Float32BufferAttribute(
-  //     mesh.geometry.attributes.uv.array,
-  //     2
-  //   )
-  // ); //for aoMap to work
-  // var basecolor = THREE.ImageUtils.loadTexture('./initialShadingGroup_Base_Color.png')
-  // mesh.material.map = basecolor;
-
-  // mesh.material.onBeforeCompile=(shader)=>{
-  //   //console.log(shader.fragmentShader);
-  //   shader.fragmentShader=shader.fragmentShader.replace("#include <normal_fragment_maps>",
-  //   `vec3 mapN=texture2D( normalMap, vUv*vec2(6.0,2.0) ).xyz * 2.0 - 1.0;
-  //   mapN.xy *= normalScale;
-  //   normal = perturbNormal2Arb( - vViewPosition, normal, mapN, faceDirection );
-  //   `)
-  //   };
-// mesh.material.needsUpdate = true;
-// mesh.needsUpdate = true;
-
   var obj = gltf.scene;
   gltf.castShadow=true;gltf.receiveShadow=true;
     console.log(gltf,'aaaaaaaaaaa');
     gltf.scene.traverse(n=>{if (n.isMesh){n.castShadow=true;n.receiveShadow=true;
     if(n.material.map){n.material.map.anisotropy=16;}
-      // console.log(gltf.scene.children[4].children[0].children[0])
-      // gltf.scene.children[4].children[0].children[1].material=glowMagenta
+      
       if(n.material.name==='Palazzi:lambert2SG1'){n.material=glowYellow}
       if(n.material.name==='Palazzi:phong2SG1'||n.material.name==='AZZURROC'){n.material=glowBlue}
       if(n.material.name==='FUCSIA_C'){n.material=glowRed;}
       if(n.material.name==='phong20'){n.material=glowBlueLight}
     
     }})
-    // const cubeFolder2 = gui.addFolder('position');
-    //     cubeFolder2.add( gltf.scene.children[9].position, 'x');
-    //     cubeFolder2.add( gltf.scene.children[9].position, 'y');
-    //     cubeFolder2.add( gltf.scene.children[9].position, 'z');
-    //     cubeFolder2.add( gltf.scene.children[9].rotation, 'x');
-    //     cubeFolder2.add( gltf.scene.children[9].rotation, 'y');
-    //     cubeFolder2.add( gltf.scene.children[9].rotation, 'z');
-    
-    //     cubeFolder2.open();
-    // blender_camera = gltf.cameras[0];
   mixer1 = new THREE.AnimationMixer(gltf.scene);
   console.log(gltf.animations);
   for (var i=0;i<34;i++){
@@ -595,8 +524,6 @@ gltfloader.load("./City_12_4_Final Version.glb", function (gltf) {
   (gltf.scene.rotation.y = 3.1),
   (gltf.scene.position.y = -3),
   (gltf.scene.position.x = -3.5);
-    // gltf.scene.position.set(pos_x, pos_y, pos_z),
-    // gltf.scene.scale.set(scale_x, scale_y, scale_z),
     (gltf.scene.castShadow = !0),
     (gltf.scene.receiveShadow = !0);
     (gltf.scene.userData.ground = !0);
@@ -639,13 +566,6 @@ const loadingManager = new THREE.LoadingManager( () => {
   
 } );
 
-
-
-
-
-
-
-
 const geomet = new THREE.BoxBufferGeometry ( 0.1, 0.1, 0.1 );
 const material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
 const cube = new THREE.Mesh( geomet, material );
@@ -664,87 +584,18 @@ arcade.scale.set(0.5,0.5,0.5)
 scene.add( arcade );
 arcade.visible=false;
 
-// const cubeFolder8 = gui.addFolder('zebi');
-// cubeFolder8.add( arcade.position, 'x')
-// cubeFolder8.add( arcade.position, 'y')
-// cubeFolder8.add( arcade.position, 'z')
-// cubeFolder8.add( arcade.scale, 'x');
-// cubeFolder8.add( arcade.scale, 'y');
-// cubeFolder8.add( arcade.scale, 'z');
-
-// cubeFolder8.open();
-
-
-    // const cubeFolder2 = gui.addFolder('position');
-    // cubeFolder2.add( cube.position, 'x')
-    // cubeFolder2.add( cube.position, 'y')
-    // cubeFolder2.add( cube.position, 'z')
-    // cubeFolder2.add( cube.scale, 'x');
-    // cubeFolder2.add( cube.scale, 'y');
-    // cubeFolder2.add( cube.scale, 'z');
-
-    // cubeFolder2.open();
-
-    
-
-    
     const cube2 = new THREE.Mesh( geomet, material );
     cube2.name='mercato'
     cube2.position.set(-0.101,-0.4,-0.24)
     cube2.scale.set(0.8,0.5,0.7)
     scene.add( cube2 );
     cube2.visible=false;
-        // const cube2Folder3 = gui.addFolder('positionsss');
-        // cube2Folder3.add( cube2.position, 'x')
-        // cube2Folder3.add( cube2.position, 'y')
-        // cube2Folder3.add( cube2.position, 'z')
-        // cube2Folder3.add( cube2.scale, 'x');
-        // cube2Folder3.add( cube2.scale, 'y');
-        // cube2Folder3.add( cube2.scale, 'z');
-    
-        // cube2Folder3.open();
         const cube3 = new THREE.Mesh( geomet, material );
         cube3.name='Razzi'
         cube3.position.set(-0.8,-0.4,-0.41)
         cube3.scale.set(0.6,0.44,-1)
         scene.add( cube3 );
         cube3.visible=false;
-            // const cube3Folder2 = gui.addFolder('posiqsdqdtion');
-            // cube3Folder2.add( cube3.position, 'x')
-            // cube3Folder2.add( cube3.position, 'y')
-            // cube3Folder2.add( cube3.position, 'z')
-            // cube3Folder2.add( cube3.scale, 'x');
-            // cube3Folder2.add( cube3.scale, 'y');
-            // cube3Folder2.add( cube3.scale, 'z');
-        
-            // cube3Folder2.open();
-// gltfloader.load("./BazarHouseGLB.glb", function (gltf) {
-//     console.log(gltf);
-    
-//     gltf.scene.traverse(n=>{if (n.isMesh){n.castShadow=true;n.receiveShadow=true;
-//     if(n.material.map){n.material.map.anisotropy=16;}
-//     }})
-//     const cubeFolder2 = gui.addFolder('position');
-//     cubeFolder2.add( gltf.scene.position, 'x');
-//     cubeFolder2.add( gltf.scene.position, 'y');
-//     cubeFolder2.add( gltf.scene.position, 'z');
-//     cubeFolder2.add( gltf.scene.rotation, 'x');
-//     cubeFolder2.add( gltf.scene.rotation, 'y');
-//     cubeFolder2.add( gltf.scene.rotation, 'z');
-
-//     cubeFolder2.open();
-//   console.log(gltf);
-//   (gltf.scene.scale.set(4,4,4)),
-//   (gltf.scene.position.y = -10),
-//   (gltf.scene.position.z = 4.2),
-//   (gltf.scene.position.x = 10.3);
-//     // gltf.scene.position.set(pos_x, pos_y, pos_z),
-//     // gltf.scene.scale.set(scale_x, scale_y, scale_z),
-//     (gltf.scene.castShadow = !0),
-//     (gltf.scene.receiveShadow = !0),
-//     scene.add(gltf.scene),
-//     (gltf.scene.userData.ground = !0);
-// });
 
 
 //  * Sizes
@@ -757,23 +608,24 @@ cube4.position.set(-3.5,-0.05,-0.2)
 cube4.scale.set(1,1,1)
 scene.add( cube4 );
 cube4.visible=false;
- const cube3Folder2 = gui.addFolder('posiqsdqdtion');
-            cube3Folder2.add( cube4.position, 'x')
-            cube3Folder2.add( cube4.position, 'y')
-            cube3Folder2.add( cube4.position, 'z')
-            cube3Folder2.add( cube4.scale, 'x');
-            cube3Folder2.add( cube4.scale, 'y');
-            cube3Folder2.add( cube4.scale, 'z');
-        
-            cube3Folder2.open();
-
 
     const cube5 = new THREE.Mesh( geomet, material );
 cube5.name='Palazzo'
-cube5.position.set(0.7,-0.25,0.589)
-cube5.scale.set(0.4,5.2,0.5)
+cube5.position.set(0.72,0.06,0.59)
+cube5.scale.set(0.4,0.6,0.5)
 scene.add( cube5 );
 cube5.visible=false;
+
+// const cube3Folder2 = gui.addFolder('posiqsdqdtion');
+// cube3Folder2.add( cube5.position, 'x')
+// cube3Folder2.add( cube5.position, 'y')
+// cube3Folder2.add( cube5.position, 'z')
+// cube3Folder2.add( cube5.scale, 'x');
+// cube3Folder2.add( cube5.scale, 'y');
+// cube3Folder2.add( cube5.scale, 'z');
+
+// cube3Folder2.open();
+
 
 
 const samy = new THREE.Mesh( geomet, material );
@@ -829,19 +681,6 @@ cubeFolder1.add(camera.position, 'z');
 cubeFolder1.open();
 // scene.add(camera)
 // Lights
-
-// const renderScene = new RenderPass( scene, camera );
-
-// const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 1.5, 0.4, 0.85 );
-// 				bloomPass.threshold = params.bloomThreshold;
-// 				bloomPass.strength = params.bloomStrength;
-// 				bloomPass.radius = params.bloomRadius;
-
-// 				composer = new EffectComposer( renderer );
-// 				composer.addPass( renderScene );
-// 				composer.addPass( bloomPass );
-// scene.add( new THREE.DirectionalLight( 0xffffff,0.3) );
-
 var clientX = -300,
     clientY = -300,
 // elements 
@@ -877,25 +716,6 @@ var initCursor = function() {
 
 initCursor();
 
-
-// const hemiLight = new THREE.HemisphereLight( 0xa9a9a9a9,0xff8c31, 2 );
-// pointLight.layers.set(1)
-// scene.add( hemiLight );
-
-// const spotLight = new THREE.SpotLight(0xffffff,50)
-// spotLight.position.set( 0, 2.6, -12.6 );
-// spotLight.scale.set( 0.005, 0.005, 0.005 );
-// spotLight.castShadow=true
-// spotLight.shadow.bias=-0.0001;
-// spotLight.shadow.mapSize.width=1024*4
-// spotLight.shadow.mapSize.height=1024*4
-// spotLight.shadow.bias=-0.0001;
-// scene.add(spotLight)
-// const spotLightHelper = new THREE.SpotLightHelper( spotLight );
-// scene.add( spotLightHelper );
-// const shadowCameraHelper = new THREE.CameraHelper( spotLight.shadow.camera );
-// 				scene.add( shadowCameraHelper );
-
 				//
 const pointLight3 = new THREE.PointLight(0xffffff,3.66,2)
 pointLight3.position.set(-24,8,45)
@@ -906,26 +726,8 @@ pointLight3.decay=1
 pointLight3.distance=10
 scene.add(pointLight3)
 
-// const ambientLight3 = new THREE.AmbientLight(0xffffff,3.66,2)
-// scene.add(ambientLight3)
-
 
 const pointLight3Helper= new THREE.PointLightHelper(pointLight3)
-// scene.add(pointLight3Helper)
-// const shadowCameraHelper4 = new THREE.CameraHelper( pointLight3.shadow.camera );
-				// scene.add( shadowCameraHelper4 );
-
-                // const cubeFolder1 = gui.addFolder('position');
-                // cubeFolder1.add(pointLight3.position, 'x');
-                // cubeFolder1.add(pointLight3.position, 'y');
-                // cubeFolder1.add(pointLight3.position, 'z');
-                // cubeFolder1.add(pointLight3.rotation, 'x');
-                // cubeFolder1.add(pointLight3.rotation, 'y');
-                // cubeFolder1.add(pointLight3.rotation, 'z');
-
-                // cubeFolder1.open();
-                
-
                 
 const pointLight4 = new THREE.PointLight(0xffffff,3.66,2)
     // pointLight4.position.set(-24,8,45)
@@ -940,9 +742,6 @@ pointLight4.distance=2.5
 
 scene.add(pointLight4)
 const pointLight4Helper= new THREE.PointLightHelper(pointLight4)
-  // scene.add(pointLight4Helper)
-// const shadowCameraHelper4 = new THREE.CameraHelper( pointLight4.shadow.camera );
-				// scene.add( shadowCameraHelper4 );
 
                 const cubeFolder2 = gui.addFolder('positionss');
                 cubeFolder2.add(pointLight4.position, 'x');
@@ -964,16 +763,10 @@ PointLight2.position.y=0.8
 
 PointLight2.frustumCulled=true
 PointLight2.shadow.bias = -0.0001;
-// PointLight2.shadow.radius=8
-//  PointLight2.shadow.mapSize.width=1024*4
-//  PointLight2.shadow.mapSize.height=1024*4
 PointLight2.distance=2.5
 PointLight2.castShadow= true;
 scene.add(PointLight2)
 const PointLight2Helper= new THREE.PointLightHelper(PointLight2)
-// scene.add(PointLight2Helper)
-// const shadowCameraHelper3 = new THREE.CameraHelper( PointLight2.shadow.camera );
-				// scene.add( shadowCameraHelper3 );
          
 
 /////////////////////
@@ -991,13 +784,6 @@ pointLight.decay=1
 pointLight.distance=3.68
 scene.add(pointLight)
 const pointLightHelper= new THREE.PointLightHelper(pointLight)
-// scene.add(pointLightHelper)
-// const shadowCameraHelper2 = new THREE.CameraHelper( pointLight.shadow.camera );
-				// scene.add( shadowCameraHelper2 );
-
-
-//         const axesHelper = new THREE.AxesHelper( 5 );
-// scene.add( axesHelper );
                 
 // Controls
 //controls
@@ -1006,60 +792,6 @@ const controls = new OrbitControls(camera, canvas)
 controls.enableDamping=false  
 controls.target = new THREE.Vector3(2.712046209109965,-14.138109038671452, 4.431157214151357);
 controls.update();
-
-
-// gui.add( params, 'exposure', 0.1, 2 ).onChange( function ( value ) {
-
-//     renderer.toneMappingExposure = Math.pow( value, 4.0 );
-
-// } );
-
-// gui.add( params, 'bloomThreshold', 0.0, 1.0 ).onChange( function ( value ) {
-
-//     bloomPass.threshold = Number( value );
-
-// } );
-
-// gui.add( params, 'bloomStrength', 0.0, 3.0 ).onChange( function ( value ) {
-
-//     bloomPass.strength = Number( value );
-
-// } );
-
-// gui.add( params, 'bloomRadius', 0.0, 1.0 ).step( 0.01 ).onChange( function ( value ) {
-
-//     bloomPass.radius = Number( value );
-
-// } );
-
-
-
-// galaxy geometry
-// const starGeometry = new THREE.SphereBufferGeometry(80, 64, 64);
-
-// // galaxy material
-// const starMaterial = new THREE.MeshBasicMaterial({
-//   map: THREE.ImageUtils.loadTexture("./galaxy2.png"),
-//   side: THREE.BackSide,
-//   transparent: true,
-//   fog:false
-// });
-
-// // galaxy mesh
-// const starMesh = new THREE.Mesh(starGeometry, starMaterial);
-// scene.add(starMesh);
-
-//sun object
-// const color2 = new THREE.Color("#FDB813");
-// const geometry2 = new THREE.IcosahedronGeometry(1, 15);
-// const material = new THREE.MeshBasicMaterial({ color: color2 });
-// const sphere = new THREE.Mesh(geometry2, material);
-// sphere.fog=false
-// geometry2.fog=false
-// material.fog=false
-// sphere.position.set(-50, 20, -60);
-// sphere.scale.set(5, 5, 5);
-// scene.add(sphere);
 
 
 //moon geometry
@@ -1183,15 +915,6 @@ var  sprite = new TextSprite({
       fontWeight: "bold",
 
     });
-    // sprite.fontSize=0.3
-    // // // scene.add(sprite);
-    //  cubeFolder2.add(sprite.position, 'x');
-    //  cubeFolder2.add(sprite.position, 'y');
-    //  cubeFolder2.add(sprite.position, 'z');
-    //  cubeFolder2.add(sprite.rotation, 'x');
-    //  cubeFolder2.add(sprite.rotation, 'y');
-    //  cubeFolder2.add(sprite.rotation, 'z');
-    //  cubeFolder2.open();
     sprite.fog=false
     // sprite.position.set(-1.3  ,0.30,0.95)
     sprite.position.set(xfinish  ,yfinsh,zfinish)
@@ -1210,45 +933,7 @@ scene.add( line )
 
   
 }
-// const tweenCamera1 = new TWEEN.Tween( {x: -5, y: 0, z: 10, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
-//   .to( {x: -1, y: 0.5, z: 0.1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 18000 )
-// const tweenCamera2 = new TWEEN.Tween( {x: -1, y: 0.5, z: 0.1, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
-//   .to( {x: 1, y: 0.1, z: -1, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 12000 )
-// const tweenCamera1 = new TWEEN.Tween( {x: -4.4, y: -0.79, z: 9.2 , lookAtX: 15, lookAtY: 8, lookAtZ: 0} )
-//   .to( {x: -1.62, y: 0.28, z: 6.28, lookAtX: 3, lookAtY: -5, lookAtZ: 0}, 10000 )
-//   // .to({x:-1,y:0.5,z:0.1,lookAtX: 0, lookAtY: -1, lookAtZ: 0}, 8000)
-//   const tweenCamera2 = new TWEEN.Tween( {x: -1.62, y: 0.28, z: 6.28, lookAtX: 3, lookAtY: -5, lookAtZ: 0} )
-//   .to({x:-1.89,y:0.97,z:3.9,lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 11000)
-// const tweenCamera3 = new TWEEN.Tween( {x:-1.89,y:0.97,z:3.9, lookAtX: 0, lookAtY:0, lookAtZ: 0} )
-//   .to( {x: -4, y: 0.8, z: -1.46, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 10000 )
-//   const tweenCamera4 = new TWEEN.Tween( {x: -4, y: 0.8, z: -1.46, lookAtX: 0, lookAtY: 0, lookAtZ: 0} )
-//   .to( {x: 0.01, y: 0.8, z:-2.8, lookAtX: 0, lookAtY: 0, lookAtZ: 0}, 10000 )
   var camerarotation=false  
-//   tweenCamera4.onComplete(function() {
-//     camerarotation=true
-//     controls.maxPolarAngle=Math.PI/2
-//     controls.target = new THREE.Vector3(0, 8, 0);
-//     label("Casa Di Bazar",-0.85,-0.5,0.89,-1.3,0.30,0.95)
-// label("Mercato",-0.12,-0.5,-0.06,-0.30,0.5,-0.21)
-// label("Razzo",-0.87,-0.42,-0.19,-1.2,0.5,-0.57)
-// clearInterval(myInterval)
-
-// // sprite.position.set(-1.3  ,0.30,0.95)
-// // sphere.position.set(-0.85, -0.5, 0.89);
-//   })
-// tweenCamera1.chain(tweenCamera2)
-// tweenCamera2.chain(tweenCamera3)
-// tweenCamera3.chain(tweenCamera4)
-
-
-// const updateCamera = function (object ) {
-//   camera.position.set(object.x, object.y, object.z);
-//   camera.lookAt(new THREE.Vector3(object.lookAtX, object.lookAtY, object.lookAtZ))
-// }
-// tweenCamera1.onUpdate(updateCamera)
-// tweenCamera2.onUpdate(updateCamera)
-// tweenCamera3.onUpdate(updateCamera)
-// tweenCamera4.onUpdate(updateCamera)
 var mediaElement=null;
 var myInterval=null
 controls.enabled=true
@@ -1272,21 +957,6 @@ document.getElementById('start-button').onclick=function(){
   myInterval = setInterval(()=>{if(fog.density>0.39){return} ; if (fog.density<0.4){fonintensity+=0.01;fog.density=fonintensity }}, 100);
   
   
-  // gsap.to(controls.target,{x: -0.2529885009743434,
-    //   y: -4.408631972336949,
-    //   z: 4.4890068075771525,duration:2});
-
-    // gsap.to(camera.position,{x: -2.9427743328138654,
-    //   y: -0.5668938088454993,
-    //   z: 7.994678133712579,duration:5})
-    
-    
-    //   gsap.to(camera.position,{x: -4.85107488034725, y: 0.50, z: 5.421262376769432,duration:13,delay:3})
-    //   gsap.to(controls.target,{x: -0.32780258586027866, y: -0.2927804605540083, z: -0.12120864558705574,duration:7,delay:2});
-    //   gsap.to(camera.position,{x: -0.9368241147924617, y: 0.44978222785543465, z: -1.7328521118110993,duration:25,delay:8,onComplete:function(){
-
-      
-
       
     gsap.to(controls.target,{x: 2.712046209109965, y: -14.138109038671452, z: 4.431157214151357,duration:2});
 
@@ -1304,6 +974,7 @@ document.getElementById('start-button').onclick=function(){
         // canvas2 = null
         createMarker(model,-0.8,-0.4,0.8)
         createMarker(model,-0.101,-0.4,-0.24)
+        createMarker(model,0.72,0.06,0.59)
         createMarker(model,-0.8,-0.4,-0.41)
         createMarker(model,0.88,-0.2,-0.43)
         createMarker(model,-3.5,-0.05,-0.2)
@@ -1328,11 +999,6 @@ document.getElementById('start-button').onclick=function(){
         _v.sub(controls.target);
         camera.position.sub(_v);
     })
-// label("Casa Di Bazar",-0.85,-0.5,0.89,-1.3,0.30,0.95)
-// label("Mercato",-0.1,-0.5,-0.3,-0.30,0.5,-0.21)
-// label("Razzo",-0.87,-0.42,-0.19,-1.2,0.5,-0.57)
-// label("Centro di Smistamento",0.55,-0.42,-0.04,1,0.5,-0.57)
-// label("Palazzo degli Affari",0.71,0.01,0.596,0.5,0.5,0.5)
 clearInterval(myInterval)
 
       }})
@@ -1487,7 +1153,7 @@ if(found.length>0 && !clickActive){
     // intro.setAttribute('id', 'p5Div');
 window.arcade=false
          document.getElementById('p5Div').style.display='block';
-             document.getElementById('guigame').style.display='block';
+             document.getElementById('game').style.display='block';
     document.getElementById('close').style.display='block';
 
     
@@ -1509,7 +1175,7 @@ document.getElementById('close').onclick=function(){
   maxPan = new THREE.Vector3( 0.5, 0.5, 0.5 );
    camerarotation=true
    document.getElementById('p5Div').style.display='none';
-   document.getElementById('guigame').style.display='none';
+   document.getElementById('game').style.display='none';
    document.getElementById('close').style.display='none';   gsap.to(controls.target,{x: -0.330176, y: -0.291718, z: -0.113545,duration:4,ease:'power3.inOut'});
    
    gsap.to(camera.position,{x: -0.24905360247937205, y: 0.44321605716014717, z: -1.7252216405242373,duration:4,onComplete:function(){  controls.enabled=true;
@@ -1546,13 +1212,9 @@ function intersectmercato(pos) {
   raycaster.setFromCamera(pos, camera);
   return raycaster.intersectObject(cube2);
 }
-
-
 var clickActive=false
 window.addEventListener('click', event => {
-  
-  
-  
+   
   // THREE RAYCASTER
   clickMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
   clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
@@ -2018,11 +1680,7 @@ document.getElementById('guipalazzo').onclick=function(){
     minPan = new THREE.Vector3( - 0.5, - 0.5, - 0.5 );
     maxPan = new THREE.Vector3( 0.5, 0.5, 0.5 );
     camerarotation=true
-    document.getElementById('guimarcato').style.display='none';
-    // tweenCamera4.onUpdate(updateCamera)
-    // tweenCamera4.start()
-    // // camera.lookAt(new Vector3(0,0,0))
-    
+    document.getElementById('guimarcato').style.display='none';  
   }})
     var bokehPass = new BokehPass(scene, camera, {
       focus: 8,
@@ -2067,43 +1725,11 @@ var renderPass = new RenderPass( scene, camera );
     
 
         composer.addPass(bloomPass);
-        // controls.enabled=false
-
-        
-
-// const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 1.5, 0.4, 0.85 );
-// bloomPass.threshold = params.bloomThreshold;
-// bloomPass.strength = params.bloomStrength;
-// bloomPass.radius = params.bloomRadius;
+      
  const saoPass = new SAOPass( scene, camera, sizes.width, sizes.height );
 composer.addPass( saoPass );
 saoPass.kernelRadius = 16;
 saoPass.intensity=0.0002;
-// composer.addPass(bloomPass );
-
-// gui.add( params, 'exposure', 0.1, 2 ).onChange( function ( value ) {
-
-//   renderer.toneMappingExposure = Math.pow( value, 4.0 );
-
-// } );
-
-// gui.add( params, 'bloomThreshold', 0.0, 1.0 ).onChange( function ( value ) {
-
-//   bloomPass.threshold = Number( value );
-
-// } );
-
-// gui.add( params, 'bloomStrength', 0.0, 3.0 ).onChange( function ( value ) {
-
-//   bloomPass.strength = Number( value );
-
-// } );
-
-// gui.add( params, 'bloomRadius', 0.0, 1.0 ).step( 0.01 ).onChange( function ( value ) {
-
-//   bloomPass.radius = Number( value );
-
-// } );
 const postprocessing = {};
 
 const effectController = {
@@ -2113,21 +1739,6 @@ const effectController = {
   maxblur: 0
 
 };
-// const matChanger = function ( ) {
-
-//   postprocessing.bokeh.uniforms[ 'focus' ].value = effectController.focus;
-//   postprocessing.bokeh.uniforms[ 'aperture' ].value = effectController.aperture * 0.00001;
-//   postprocessing.bokeh.uniforms[ 'maxblur' ].value = effectController.maxblur;
-
-// };
-
-// gui.add( effectController, 'focus', 10.0, 3000.0, 10 ).onChange( matChanger );
-// gui.add( effectController, 'aperture', 0, 10, 0.1 ).onChange( matChanger );
-// gui.add( effectController, 'maxblur', 0.0, 0.01, 0.001 ).onChange( matChanger );
-// gui.close();
-
-// matChanger();
-
 
 // // Init gui
 				gui.add( saoPass.params, 'output', {
@@ -2170,17 +1781,6 @@ if(camerarotation){
   camera.position.x = x * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
   camera.position.z = z * Math.cos(rotSpeed) + x * Math.sin(rotSpeed);
 camera.lookAt(new Vector3(0,0,0))}
-//   if(scene.children[16]){
-//  scene.children[16].children[9].scale.set(0.07,0.07,0.07);
-//  scene.children[16].children[9].position.x=-0.02;
-//  scene.children[16].children[9].position.z=-8.5;
-//  scene.children[16].children[9].position.y=2.2;
-//  scene.children[16].children[9].rotation.x=1.7;
-//  scene.children[14].children[0].children[0].children[1].children[229].material.bumpScale=8
-
-
-//  scene.children[14].children[9].rotation.z=28;
-// }
 
     // TWEEN.update()
     const elapsedTime = 0.05
@@ -2195,11 +1795,6 @@ camera.lookAt(new Vector3(0,0,0))}
     // Render
     
     composer.render(scene,camera)
-    // postprocessing.composer.render( 0.1 );
-    // composer.render();
-  // console.log(controls.target);
-// spotLight.position.set(camera.position.x+10,camera.position.y+10,camera.position.z+10)
-    // Call tick again on the next frame
     window.requestAnimationFrame(tick)
     if(mixer1){
       
@@ -2217,10 +1812,6 @@ camera.lookAt(new Vector3(0,0,0))}
       }
       
     }
-    // console.log(camerarotation);
-    // console.log(camera.position);
-        // console.log('target:',controls.target,'position:',camera.position);
-
   }
 
 tick()
