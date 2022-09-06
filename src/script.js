@@ -1060,7 +1060,6 @@ if(found.length>0 && !clickActive){
   // target: Vector3 {x: -0.777754827125635, y: -0.5104806884919434, z: 0.7891928036025915, _gsap: GSCache} position: Vector3 {x: -0.6559559837447704, y: -0.4736632781692687, z: 0.7052941894292016, _gsap: GSCache}
 gsap.to(controls.target,{x: -0.777754827125635, y: -0.5104806884919434, z: 0.7891928036025915,duration:1,ease:'power3.inOut'});
 gsap.to(camera.position,{x: -0.6559559837447704, y: -0.4736632781692687, z: 0.7052941894292016,duration:3,delay:1,onComplete:  function (){
-  document.getElementsByClassName('nav')[0].style.bottom='95%'
   camerarotation=false
   document.getElementById('guibazar').style.display='block';
   let element2 = document.getElementById('guibazar')
@@ -1083,6 +1082,49 @@ clickActive=true
 
 }
 },true)
+
+window.addEventListener('touchstart', event => {
+
+  clickMouse.x = +(event.targetTouches[0].pageX / window.innerWidth) * 2 +-1;
+
+  clickMouse.y = -(event.targetTouches[0].pageY / window.innerHeight) * 2 + 1;
+  // THREE RAYCASTER
+  const found = intersect(clickMouse);
+  // console.log(found);p
+  if(found.length>0 && !clickActive){
+      for(let i=17;i<scene.children.length;i++){
+        scene.children[i].visible=false
+      }
+    controls.enabled=false
+    minPan = new THREE.Vector3( - 1, - 1, - 1 );
+    maxPan = new THREE.Vector3( 1, 1, 1 );
+    // target: Vector3 {x: -0.777754827125635, y: -0.5104806884919434, z: 0.7891928036025915, _gsap: GSCache} position: Vector3 {x: -0.6559559837447704, y: -0.4736632781692687, z: 0.7052941894292016, _gsap: GSCache}
+  gsap.to(controls.target,{x: -0.777754827125635, y: -0.5104806884919434, z: 0.7891928036025915,duration:1,ease:'power3.inOut'});
+  gsap.to(camera.position,{x: -0.6559559837447704, y: -0.4736632781692687, z: 0.7052941894292016,duration:3,delay:1,onComplete:  function (){
+    camerarotation=false
+    document.getElementById('guibazar').style.display='block';
+    let element2 = document.getElementById('guibazar')
+    element2.className = "zebi";
+    var bokehPass = new BokehPass(scene, camera, {
+      focus: 0.5,
+      aperture: 0.005,
+      maxblur: 5,
+      width: window.innerWidth,
+      height: window.innerHeight
+    });
+   
+    
+    composer.addPass(bokehPass);
+    
+  
+  }})
+  
+  clickActive=true
+  
+  }
+  },true)
+
+
 var minPan = new THREE.Vector3( - 0.5, - 0.5, - 0.5 );
 var maxPan = new THREE.Vector3( 0.5, 0.5, 0.5 );
 var _v = new THREE.Vector3();
@@ -1147,7 +1189,6 @@ if(found.length>0 && !clickActive){
     maxPan = new THREE.Vector3( 1, 1, 1 );
   gsap.to(controls.target,{x: 0.5, y: -0.2827338946525805, z: -0.16294125192244216,duration:1,ease:'power3.inOut'});
   gsap.to(camera.position,{x: 0.4915825573682948, y: -0.27968787102465575, z: -0.15636529563801568,duration:3,delay:1,onComplete:  function (){
-    document.getElementsByClassName('nav')[0].style.bottom='95%'
     camerarotation=false
     // var intro = document.getElementsByClassName('p5Div')[0]; 
     // intro.setAttribute('id', 'p5Div');
@@ -1164,6 +1205,43 @@ window.arcade=false
   
   }
   })
+
+  window.addEventListener('touchstart', event => {
+    
+   clickMouse.x = +(event.targetTouches[0].pageX / window.innerWidth) * 2 +-1;
+
+   clickMouse.y = -(event.targetTouches[0].pageY / window.innerHeight) * 2 + 1;
+    // THREE RAYCASTER
+    const found = intersectArcade(clickMouse);
+    // console.log(found);p
+    // target: Vector3 {x: 0.5, y: -0.2827338946525805, z: -0.16294125192244216, _gsap: GSCache} position: Vector3 {x: 0.4915825573682948, y: -0.27968787102465575, z: -0.15636529563801568, _gsap: GSCache}
+    if(found.length>0 && !clickActive){
+        for(let i=17;i<scene.children.length;i++){
+          scene.children[i].visible=false
+        }
+        controls.enabled=false
+        minPan = new THREE.Vector3( - 1, - 1, - 1 );
+        maxPan = new THREE.Vector3( 1, 1, 1 );
+      gsap.to(controls.target,{x: 0.5, y: -0.2827338946525805, z: -0.16294125192244216,duration:1,ease:'power3.inOut'});
+      gsap.to(camera.position,{x: 0.4915825573682948, y: -0.27968787102465575, z: -0.15636529563801568,duration:3,delay:1,onComplete:  function (){
+            camerarotation=false
+        // var intro = document.getElementsByClassName('p5Div')[0]; 
+        // intro.setAttribute('id', 'p5Div');
+    window.arcade=false
+             document.getElementById('p5Div').style.display='block';
+                 document.getElementById('game').style.display='block';
+        document.getElementById('close').style.display='block';
+    
+        
+      
+      }})
+    
+      clickActive=true
+      
+      }
+      })
+    
+
   var minPan = new THREE.Vector3( - 0.5, - 0.5, - 0.5 );
   var maxPan = new THREE.Vector3( 0.5, 0.5, 0.5 );
   var _v = new THREE.Vector3();
@@ -1235,7 +1313,47 @@ if(found.length>0 && !clickActive){
 gsap.to(camera.position,{x: -0.3197533397689743, y: -0.555449899400478, z: -0.1868991838525571,duration:2,onComplete:function(){
   clickActive=true
   camerarotation=false
-  document.getElementsByClassName('nav')[0].style.bottom='95%'
+
+  document.getElementById('guimarcato').style.display='block';
+  let element2 = document.getElementById('guimarcato')
+  element2.className = "zebi";
+  var bokehPass = new BokehPass(scene, camera, {
+    focus: 0.1,
+    aperture: 0.005,
+    maxblur: 4,
+    width: window.innerWidth,
+    height: window.innerHeight
+  });
+ 
+  
+  composer.addPass(bokehPass);
+}})
+  
+}})
+
+window.addEventListener('touchstart', event => {
+   
+  // THREE RAYCASTER
+ clickMouse.x = +(event.targetTouches[0].pageX / window.innerWidth) * 2 +-1;
+
+ clickMouse.y = -(event.targetTouches[0].pageY / window.innerHeight) * 2 + 1;
+
+const found = intersectmercato(clickMouse);
+console.log(found);
+if(found.length>0 && !clickActive){
+  for(let i=17;i<scene.children.length;i++){
+    scene.children[i].visible=false
+  }
+  controls.enabled=false
+
+  minPan = new THREE.Vector3( - 1, - 1, - 1 );
+  maxPan = new THREE.Vector3( 1, 1, 1 );
+  controls.maxPolarAngle=Math.PI
+
+  gsap.to(controls.target,{x: -0.06652219660019898, y: -0.49817622607328704, z: 0.09562768959498957,duration:2,ease:'power3.inOut'});
+gsap.to(camera.position,{x: -0.3197533397689743, y: -0.555449899400478, z: -0.1868991838525571,duration:2,onComplete:function(){
+  clickActive=true
+  camerarotation=false
 
   document.getElementById('guimarcato').style.display='block';
   let element2 = document.getElementById('guimarcato')
@@ -1318,7 +1436,6 @@ if(found.length>0 && !clickActive){
   gsap.to(controls.target,{x: -0.8289567293538739, y: -0.3299689356758495, z: -0.45931347935989586,duration:2,ease:'power3.inOut'});
 gsap.to(camera.position,{x: -0.2948241421524178, y: -0.07897252364587554, z: -0.6011721977773161,duration:2,onComplete:function(){
   camerarotation=false;
-  document.getElementsByClassName('nav')[0].style.bottom='95%';
 
 
   document.getElementById('guirazi').style.display='block';
@@ -1336,6 +1453,47 @@ gsap.to(camera.position,{x: -0.2948241421524178, y: -0.07897252364587554, z: -0.
   composer.addPass(bokehPass);
   
 }})}})
+
+window.addEventListener('touchstart', event => {
+
+
+
+  // THREE RAYCASTER
+  clickMouse.x = +(event.targetTouches[0].pageX / window.innerWidth) * 2 +-1;
+
+ clickMouse.y = -(event.targetTouches[0].pageY / window.innerHeight) * 2 + 1;
+  
+  const found = intersectrazzi(clickMouse);
+  console.log(found);
+  if(found.length>0 && !clickActive){
+    for(let i=17;i<scene.children.length;i++){
+      scene.children[i].visible=false
+    }
+    controls.enabled=false
+    clickActive=true
+    // Vector3 {x: -0.8289567293538739, y: -0.3299689356758495, z: -0.45931347935989586, _gsap: GSCache} position: Vector3 {x: -0.2948241421524178, y: -0.07897252364587554, z: -0.6011721977773161, _gsap: GSCache}
+    gsap.to(controls.target,{x: -0.8289567293538739, y: -0.3299689356758495, z: -0.45931347935989586,duration:2,ease:'power3.inOut'});
+  gsap.to(camera.position,{x: -0.2948241421524178, y: -0.07897252364587554, z: -0.6011721977773161,duration:2,onComplete:function(){
+    camerarotation=false;
+  
+  
+    document.getElementById('guirazi').style.display='block';
+    let element2 = document.getElementById('guirazi')
+    element2.className = "zebi";
+    var bokehPass = new BokehPass(scene, camera, {
+      focus: 1,
+      aperture: 0.005,
+      maxblur: 5,
+      width: window.innerWidth,
+      height: window.innerHeight
+    });
+   
+    
+    composer.addPass(bokehPass);
+    
+  }})}})
+  
+
 
 document.getElementById('guirazi').onclick=function(){
   let element2 = document.getElementById('guirazi')
@@ -1390,7 +1548,6 @@ if(found.length>0 && !clickActive){
     scene.children[i].visible=false
   }
   controls.enabled=false
-  document.getElementsByClassName('nav')[0].style.bottom='95%'
 
   minPan = new THREE.Vector3( - 50, - 50, - 50 );
   maxPan = new THREE.Vector3( 50, 50, 50 );
@@ -1419,6 +1576,50 @@ clickActive=true
 }
 })
 
+window.addEventListener('touchstart', event => {
+
+
+
+  // THREE RAYCASTER
+ clickMouse.x = +(event.targetTouches[0].pageX / window.innerWidth) * 2 +-1;
+
+ clickMouse.y = -(event.targetTouches[0].pageY / window.innerHeight) * 2 + 1;
+  
+  const found = intersectcentro(clickMouse);
+  console.log(found);
+  if(found.length>0 && !clickActive){
+    for(let i=17;i<scene.children.length;i++){
+      scene.children[i].visible=false
+    }
+    controls.enabled=false
+  
+    minPan = new THREE.Vector3( - 50, - 50, - 50 );
+    maxPan = new THREE.Vector3( 50, 50, 50 );
+  gsap.to(controls.target,{x: -3.796378213051584, y: -0.4396040469354559, z: 0.05345614125205421,duration:1,ease:'power3.inOut'});
+  gsap.to(camera.position,{x: -1.8581519428151325, y: -0.013095914618873272, z: 0.6720316109863028,duration:2,delay:1 ,onComplete:  function (){
+    camerarotation=false
+    document.getElementById('guicentro').style.display='block';
+    let element2 = document.getElementById('guicentro')
+    element2.className = "zebi";
+    var bokehPass = new BokehPass(scene, camera, {
+      focus: 0.1,
+      aperture: 0.005,
+      maxblur: 5,
+      width: window.innerWidth,
+      height: window.innerHeight
+    });
+   
+    
+    // composer.addPass(bokehPass);
+    
+  
+  }})
+  
+  clickActive=true
+  
+  }
+  })
+  
 
 
 document.getElementById('guicentro').onclick=function(){
@@ -1478,7 +1679,6 @@ if(found.length>0 && !clickActive){
   }
   controls.maxPolarAngle=Math.PI
   controls.enabled=false
-  document.getElementsByClassName('nav')[0].style.bottom='95%'
 
   minPan = new THREE.Vector3( - 50, - 50, - 50 );
   maxPan = new THREE.Vector3( 50, 50, 50 );
@@ -1507,7 +1707,51 @@ clickActive=true
 }
 })
 
+window.addEventListener('touchstart', event => {
 
+
+
+  // THREE RAYCASTER
+
+ clickMouse.x = +(event.targetTouches[0].pageX / window.innerWidth) * 2 +-1;
+ clickMouse.y = -(event.targetTouches[0].pageY / window.innerHeight) * 2 + 1;
+
+  const found = intersectsamy(clickMouse);
+  console.log(found);
+  if(found.length>0 && !clickActive){
+    for(let i=17;i<scene.children.length;i++){
+      scene.children[i].visible=false
+    }
+    controls.maxPolarAngle=Math.PI
+    controls.enabled=false
+  
+    minPan = new THREE.Vector3( - 50, - 50, - 50 );
+    maxPan = new THREE.Vector3( 50, 50, 50 );
+  gsap.to(controls.target,{x: 3.747391035902513, y: 0.3010875571611033, z: 0.19304268038591438,duration:1,ease:'power3.inOut'});
+  gsap.to(camera.position,{x: 2, y: 0.3010875571611034, z: 0.053358642193187394,duration:2,delay:1 ,onComplete:  function (){
+    camerarotation=false
+    document.getElementById('guisamy').style.display='block';
+    let element2 = document.getElementById('guisamy')
+    element2.className = "zebi";
+    var bokehPass = new BokehPass(scene, camera, {
+      focus: 0.1,
+      aperture: 0.005,
+      maxblur: 5,
+      width: window.innerWidth,
+      height: window.innerHeight
+    });
+   
+    
+    // composer.addPass(bokehPass);
+    
+  
+  }})
+  
+  clickActive=true
+  
+  }
+  })
+  
 
 document.getElementById('electorono').onclick=function(){
   camerarotation=false
@@ -1633,7 +1877,6 @@ if(found.length>0 && !clickActive){
   for(let i=17;i<scene.children.length;i++){
     scene.children[i].visible=false
   }
-  document.getElementsByClassName('nav')[0].style.bottom='95%'
 
   controls.enabled=false
    minPan = new THREE.Vector3( - 1, - 1, - 1 );
@@ -1665,6 +1908,52 @@ clickActive=true
 }
 })
 
+
+window.addEventListener('touchstart', event => {
+
+
+
+  // THREE RAYCASTER
+ clickMouse.x = +(event.targetTouches[0].pageX / window.innerWidth) * 2 +-1;
+
+ clickMouse.y = -(event.targetTouches[0].pageY / window.innerHeight) * 2 + 1;
+  const found = intersectpalazo(clickMouse);
+  console.log(found);
+  if(found.length>0 && !clickActive){
+    for(let i=17;i<scene.children.length;i++){
+      scene.children[i].visible=false
+    }
+  
+    controls.enabled=false
+     minPan = new THREE.Vector3( - 1, - 1, - 1 );
+   maxPan = new THREE.Vector3( 1, 1, 1 );
+  // Vector3 {x: 0.9993218565801543, y: -0.17436976232855309, z: 0.4936554286869645, _gsap: GSCache}x: 0.9993218565801543y: -0.17436976232855309z: 0.4936554286869645_gsap: GSCache {id: 1, target: Vector3, harness: undefined, get: ƒ, set: ƒ}[[Prototype]]: Object position: 
+  // Vector3 {x: 0.6952679758442837, y: -0.07447583058929784, z: 0.5573174043485942, _gsap: GSCache}
+  gsap.to(controls.target,{x: 0.9993218565801543, y: -0.17436976232855309, z: 0.4936554286869645,duration:1,ease:'power3.inOut'});
+  gsap.to(camera.position,{x:0.6952679758442837,y:-0.07447583058929784,z:0.5573174043485942,duration:2,delay:1 ,onComplete:  function (){
+    camerarotation=false
+    document.getElementById('guipalazzo').style.display='block';
+    let element2 = document.getElementById('guipalazzo')
+    element2.className = "zebi";
+    var bokehPass = new BokehPass(scene, camera, {
+      focus:2,
+      aperture: 0.0005,
+      maxblur: 1,
+      width: window.innerWidth,
+      height: window.innerHeight
+    });
+   
+    
+    composer.addPass(bokehPass);
+    
+  
+  }})
+  
+  clickActive=true
+  
+  }
+  })
+  
 
 document.getElementById('guipalazzo').onclick=function(){
   let element2 = document.getElementById('guipalazzo')
