@@ -364,6 +364,110 @@ html, body {
 
     li:hover{background-color: rgba(255, 81, 0, 0.6);}
 
+
+
+
+    @media (min-width: 360px) {
+
+
+        
+        @keyframes zebi1{
+           0%{
+              width:0%;
+              height: auto;    //   transform: rotateX(90deg);
+          }
+          15%{
+              width:5%;
+              height: auto;    //   transform: rotateX(90deg);
+          }
+          30%{
+              width:10%;
+              height: auto;    //   transform: rotateX(0deg);
+          }
+          45%{
+              width:15%;
+              height: auto;    }
+              60%{  width:20%;
+                  height: auto;}
+                  75%{
+                      width:25%;
+                      height: auto;    //   transform: rotateX(90deg);
+                  }
+          100%{
+          //   display: none;
+          width:80%;
+          height: auto;    //   transform: rotateX(90deg);
+          }
+        }
+       
+       
+       
+               .cursor{display: none;}
+       
+               #chart {
+                   position: absolute !important;
+                   left:12% !important;
+                   width: 70% !important;
+               }
+       
+       
+       
+               #start-button{
+                   left: 30%;
+                   width: 40%;
+               }
+       
+       
+               ul {
+                   display: flex;
+                   flex-direction: row;
+                   flex-wrap: wrap;
+                   justify-content: space-between;
+                    width: 100%;
+                   position: absolute;
+                   z-index: 9999999;
+                   list-style: none;                                                                   
+                   text-align: center;
+                   left: 1%;
+                   li {
+                       padding-top: 5px;
+                       padding-bottom: 2px !important;
+                       text-align: center;
+                       transition: transform .1s linear,
+                       color .1s linear,
+                       background .15s linear;
+                       cursor: pointer;
+                       font-family: Saira;
+                     color: rgb(255, 255, 255,1);
+                       display: inline-block;
+                       margin-right: 12px !important;
+                       position:relative;
+                       top: -100px;
+                       margin-bottom: 10px !important;
+                       &:last-child {
+                           margin-right: 0;
+                       }
+                       a {
+                           text-decoration: none;
+                       }
+                       svg{
+                   position: inherit;
+                   z-index: 999999999;
+               }
+                   }
+               }
+           
+               li{
+                   :active{background-color: red;}
+                   border-radius: 10px;
+                   padding: 5px 14px;
+                   background-color: rgba(0,0,0,0.6);
+               }
+           }
+       
+
+
+
     @media (min-width: 400px) {
 
 
@@ -410,7 +514,7 @@ html, body {
 
 
         #start-button{
-            left: 28%;
+            left: 30%;
             width: 40%;
         }
 
@@ -688,11 +792,13 @@ html, body {
  }
  
  a {
-   position: absolute;
-   bottom: 2vmin;
-   right: 2vmin;
-   color: rgba(255,255,255,0.2);
-   text-decoration: none;
+    border: 2px gray solid;
+    border-radius: 10em;
+    background-color: lightgray;
+    bottom: 2vmin;
+    right: 2vmin;
+    color: rgba(255, 255, 255, 0.2);
+    text-decoration: none;
  }
  
  a:hover {
@@ -836,3 +942,216 @@ html, body {
    height: 70% !important;
 
   }
+
+  @import url('https://fonts.googleapis.com/css?family=Josefin+Sans:700');
+
+:root {
+	--dark: #333;
+	--light: #fff;
+	--neutral: #f6f6f6;
+	--neutral-dark: #d1d1d1;
+	--color: #5607d7;
+	--color-light: #941ed2;
+	--color-dark: #2719cd;
+	--font-stack: 'Josefin Sans', 'Montserrat', 'sans-serif';
+}
+
+// body {
+// 	display: flex;
+// 	align-items: center;
+// 	justify-content: center;
+// 	font-family: var(--font-stack);
+// }
+
+.soundMobile{
+    width: 7% !important;
+    border-radius: 50% !important;
+    padding: 2% 3% !important;
+}
+
+
+.hero__wrapper {
+    margin-left: -100%;
+    z-index: 999999999999;
+	display: none;
+	align-items: flex-end;
+	justify-content: center;
+	flex-wrap: wrap;
+	
+}
+
+.hero__header {
+	flex: 0 1 1px;
+	padding-right: 50px;
+	color: var(--dark);
+	font-size: 8vmax;
+}
+
+.menu__button {
+	--x: -50%;
+	--y: 0;
+	--z: 0;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background: rgba(0,0,0,0.6);
+	padding: 10px 20px;
+	border-radius: 28px;
+	box-shadow: 0 2px 40px -10px var(--color);
+	color: white;
+	font-size: 16px;
+	white-space: nowrap;
+	position: absolute;
+	bottom: 30px;
+	left: 50%;
+	transform: translate3d(var(--x), var(--y), var(--z));
+	cursor: pointer;
+	z-index: 105;
+	transition: .15s cubic-bezier(.33,1,.53,1);
+	&[hidden] {
+		--y: 200%;
+	}
+	div {
+		display: flex;
+		align-items: center;
+		width: 12px;
+		height: 12px;
+		margin-right: 20px;
+		div {
+			display: table;
+			height: 1px;
+			background: var(--light);
+			box-shadow: 0 4px 0 var(--light), 0 -4px 0 var(--light);
+		}
+	}
+}
+
+.menu__overlay {
+		width: 100%;
+		height: 100%;
+		background: rgba(#000, .1);
+		position: absolute;
+		z-index: 100;
+}
+
+.menu__body {
+	--x: 0;
+	--y: 0;
+	--z: 0;
+	display: block;
+	width: 100%;
+	background: rgba(0,0,0,0.8);
+	padding-bottom: 15px;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	box-shadow: 0px -9px 50px -30px black;
+	font-family: 'Montserrat', sans-serif;
+	position: absolute;
+	bottom: 0;
+	z-index: 105;
+	transform: translate3d(var(--x), var(--y), var(--z));
+	transition: .2s cubic-bezier(.33,1,.53,1);
+	&[hidden] {
+		--y: 150%;
+	}
+	> *:not(:last-child) {
+		border-bottom: 2px solid rgba(0,0,0,0.6);;
+	}
+}
+
+.menu__header {
+	display: flex;
+	justify-content: space-between;
+	padding: 15px 20px;
+	label {
+		div {
+			width: 15px;
+			height: 15px;
+			border: 2px solid white;
+			border-radius: 50%;
+			position: relative;
+			transform: rotate(5.5rad);
+			&:after {
+				content: '';
+				width: 2px;
+				height: 10px;
+				background: white;
+				position: absolute;
+				top: 100%;
+				left: 50%;
+				transform: translateX(-50%);
+			}
+		}
+	}
+	p {
+        color: white;
+		font-size: 18px;
+		font-weight: bold;
+		vertical-align: center;
+		white-space: nowrap;
+	}
+	h3 {
+		font-weight: normal;
+	}
+	button {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 25px;
+		height: 25px;
+		background: white;
+		border-radius: 50%;
+		cursor: pointer;
+		div {
+			width: 15px;
+			height: 3px;
+			background: rgba(0,0,0,0.6);;
+			position: relative;
+			transform: rotate(5.5rad);
+			&:before {
+				content: '';
+				width: 3px;
+				height: 15px;
+				background: rgba(0,0,0,0.6);;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
+		}
+	}
+}
+
+.menu__links {
+	display: flex;
+	padding: 10px 15px;
+	font-weight: bold;
+	overflow-x: auto;
+	a {
+		flex: 1 1 1px;
+		padding: 10px 8px;
+		color: var(--dark);
+		text-decoration: none;
+		white-space: nowrap;
+	}
+}
+
+.menu__contact {
+	display: flex;
+	padding: 8px;
+	svg {
+		width: 100%;
+		fill: var(--color);
+	}
+	a {
+		flex: 1 1 30%;
+		padding: 5px;
+		margin: 5px;
+		border-radius: 8px;
+		background: var(--neutral);
+		color: var(--color);
+		text-align: center;
+		font-size: 14px;
+		font-weight: bold;
+	}
+}

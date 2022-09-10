@@ -6,7 +6,7 @@ const path = require('path')
 module.exports = {
     entry: {
         sketch:path.resolve(__dirname, '../src/sketch.js'),
-        main:path.resolve(__dirname, '../src/script.min.js'),
+        main:path.resolve(__dirname, '../src/script.js'),
     },
 
     output:
