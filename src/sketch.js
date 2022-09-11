@@ -36,6 +36,25 @@ let sketch = function(p) {
 }
 
 p.draw = function() {
+  var touchstartX = 0;
+var touchstartY = 0;
+var touchendX = 0;
+var touchendY = 0;
+
+var gesuredZone = document.getElementById('p5Div');
+
+gesuredZone.addEventListener('touchstart', function(event) {
+    touchstartX = event.screenX;
+    touchstartY = event.screenY;
+}, false);
+
+gesuredZone.addEventListener('touchend', function(event) {
+    touchendX = event.screenX;
+    touchendY = event.screenY;
+}, false); 
+
+
+
   if (goalWaitPeriod) {
     // Screen Shakes (number 13 chosen for extra spookiness)
     p.translate(p.random(-13, 13), p.random(-13, 13));
@@ -47,11 +66,23 @@ p.draw = function() {
   p.line(width / 2, 0, width / 2, height);
 
   player.update();
+  if (touchendY < touchstartY) {
+     player.move(0, 7);
+   }
+   if (touchendY > touchstartY) {
+     player.move(0, -7);
+   }
   if (p.keyIsDown(p.UP_ARROW)) {
     player.move(0, -7);
   } else if (p.keyIsDown(p.DOWN_ARROW)) {
     player.move(0, 7);
   }
+
+
+
+
+
+
 
   player.show();
   if (isPlayerForcePush) {
@@ -89,7 +120,7 @@ p.draw = function() {
       width / 2 - 130,
       height / 2 - 40
     );
-    p.text("Exit and re-enter the room to play again!", width / 2 - 220, height / 2);
+    p.text("Exit and re-enter play ", width / 2 - 220, height / 2);
   } else {
     if (!goalWaitPeriod) {
       if (lightningForge.forgeIsFormed()) {

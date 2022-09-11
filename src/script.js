@@ -1113,6 +1113,7 @@ if(found.length>0 && !clickActive){
     for(let i=17;i<scene.children.length;i++){
       scene.children[i].visible=false
     }
+
   controls.enabled=false
   clickMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
   clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
@@ -1121,6 +1122,8 @@ if(found.length>0 && !clickActive){
   // target: Vector3 {x: -0.777754827125635, y: -0.5104806884919434, z: 0.7891928036025915, _gsap: GSCache} position: Vector3 {x: -0.6559559837447704, y: -0.4736632781692687, z: 0.7052941894292016, _gsap: GSCache}
 gsap.to(controls.target,{x: -0.777754827125635, y: -0.5104806884919434, z: 0.7891928036025915,duration:1,ease:'power3.inOut'});
 gsap.to(camera.position,{x: -0.6559559837447704, y: -0.4736632781692687, z: 0.7052941894292016,duration:3,delay:1,onComplete:  function (){
+ 
+
   camerarotation=false
   document.getElementById('guibazar').style.display='block';
   let element2 = document.getElementById('guibazar')
@@ -1161,9 +1164,11 @@ window.addEventListener('touchstart', event => {
   gsap.to(controls.target,{x: -0.777754827125635, y: -0.5104806884919434, z: 0.7891928036025915,duration:1,ease:'power3.inOut'});
   gsap.to(camera.position,{x: -0.6559559837447704, y: -0.4736632781692687, z: 0.7052941894292016,duration:3,delay:1,onComplete:  function (){
     camerarotation=false
+    document.getElementById('guibazar').style.top='70%'
+    document.getElementById('guibazar').style.width='100%'
     document.getElementById('guibazar').style.display='block';
     let element2 = document.getElementById('guibazar')
-    element2.className = "zebi";
+    element2.className = "zebiMobile";
     var bokehPass = new BokehPass(scene, camera, {
       focus: 0.5,
       aperture: 0.005,
@@ -1277,7 +1282,12 @@ window.arcade=false
             camerarotation=false
     window.arcade=false
              document.getElementById('p5Div').style.display='block';
+             let element3 = document.getElementById('p5Div')
+             element3.setAttribute("class", "p5DivMobile");
+             
                  document.getElementById('game').style.display='block';
+                 document.getElementById('game').style.width='100%';
+                 document.getElementById('game').style.height='60%';
         document.getElementById('close').style.display='block';
     
         
@@ -1399,10 +1409,10 @@ if(found.length>0 && !clickActive){
 gsap.to(camera.position,{x: -0.3197533397689743, y: -0.555449899400478, z: -0.1868991838525571,duration:2,onComplete:function(){
   clickActive=true
   camerarotation=false
-
+  document.getElementById('guimarcato').style.left='0px'
   document.getElementById('guimarcato').style.display='block';
   let element2 = document.getElementById('guimarcato')
-  element2.className = "zebi";
+  element2.className = "zebiMobile"; 
   var bokehPass = new BokehPass(scene, camera, {
     focus: 0.1,
     aperture: 0.005,
@@ -1512,14 +1522,16 @@ window.addEventListener('touchstart', event => {
     }
     controls.enabled=false
     clickActive=true
-    gsap.to(controls.target,{x: -0.8289567293538739, y: -0.3299689356758495, z: -0.45931347935989586,duration:2,ease:'power3.inOut'});
-  gsap.to(camera.position,{x: -0.2948241421524178, y: -0.07897252364587554, z: -0.6011721977773161,duration:2,onComplete:function(){
+    // target: Vector3 {x: -0.5, y: -0.329969, z: -0.459313, _gsap: GSCache} position: Vector3 {x: -0.26387782964571027, y: -0.2813195825151035, z: -0.4563573942906924, _gsap: GSCache}
+    gsap.to(controls.target,{x: -0.5, y: -0.329969, z: -0.459313,duration:2,ease:'power3.inOut'});
+  gsap.to(camera.position,{x: -0.26387782964571027, y: -0.2813195825151035, z: -0.4563573942906924,duration:2,onComplete:function(){
     camerarotation=false;
   
   
     document.getElementById('guirazi').style.display='block';
+    document.getElementById('guirazi').style.left='0px';
     let element2 = document.getElementById('guirazi')
-    element2.className = "zebi";
+    element2.className = "zebiMobile";
     var bokehPass = new BokehPass(scene, camera, {
       focus: 1,
       aperture: 0.005,
@@ -1631,12 +1643,13 @@ window.addEventListener('touchstart', event => {
   
     minPan = new THREE.Vector3( - 50, - 50, - 50 );
     maxPan = new THREE.Vector3( 50, 50, 50 );
-  gsap.to(controls.target,{x: -3.796378213051584, y: -0.4396040469354559, z: 0.05345614125205421,duration:1,ease:'power3.inOut'});
-  gsap.to(camera.position,{x: -1.8581519428151325, y: -0.013095914618873272, z: 0.6720316109863028,duration:2,delay:1 ,onComplete:  function (){
+  gsap.to(controls.target,{x: -3.671547834763972, y: -0.9084205372140165, z: -0.0759723809307472,duration:1,ease:'power3.inOut'});
+  gsap.to(camera.position,{x: -1.7266116802495075, y: -0.28730007135483526, z: -0.46673841152876183,duration:2,delay:1 ,onComplete:  function (){
     camerarotation=false
     document.getElementById('guicentro').style.display='block';
+    document.getElementById('guicentro').style.left='0px';
     let element2 = document.getElementById('guicentro')
-    element2.className = "zebi";
+    element2.className = "zebiMobile";
     var bokehPass = new BokehPass(scene, camera, {
       focus: 0.1,
       aperture: 0.005,
@@ -1753,8 +1766,10 @@ window.addEventListener('touchstart', event => {
   gsap.to(camera.position,{x: 2, y: 0.3010875571611034, z: 0.053358642193187394,duration:2,delay:1 ,onComplete:  function (){
     camerarotation=false
     document.getElementById('guisamy').style.display='block';
+    document.getElementById('guisamy').style.top='70%';
+    document.getElementById('guisamy').style.display='block';
     let element2 = document.getElementById('guisamy')
-    element2.className = "zebi";
+    element2.className = "zebiMobile"; 
     var bokehPass = new BokehPass(scene, camera, {
       focus: 0.1,
       aperture: 0.005,
@@ -1953,15 +1968,16 @@ window.addEventListener('touchstart', event => {
       scene.children[i].visible=false
     }
   
-    controls.enabled=false
+    controls.enabled=false;
      minPan = new THREE.Vector3( - 1, - 1, - 1 );
    maxPan = new THREE.Vector3( 1, 1, 1 );
-  gsap.to(controls.target,{x: 0.9993218565801543, y: -0.17436976232855309, z: 0.4936554286869645,duration:1,ease:'power3.inOut'});
-  gsap.to(camera.position,{x:0.6952679758442837,y:-0.07447583058929784,z:0.5573174043485942,duration:2,delay:1 ,onComplete:  function (){
+  gsap.to(controls.target,{x: 0.9679934151966311, y: -0.17769018640380224, z: 0.4203126863657274,duration:1,ease:'power3.inOut'});
+  gsap.to(camera.position,{x: 0.697229013258861, y: -0.07801472524063895, z: 0.5727329523450009,duration:2,delay:1 ,onComplete:  function (){
     camerarotation=false
     document.getElementById('guipalazzo').style.display='block';
+    document.getElementById('guipalazzo').style.left='0px';
     let element2 = document.getElementById('guipalazzo')
-    element2.className = "zebi";
+    element2.className = "zebiMobile";
     var bokehPass = new BokehPass(scene, camera, {
       focus:2,
       aperture: 0.0005,
@@ -2124,6 +2140,7 @@ camera.lookAt(new Vector3(0,0,0))}
       }
       
     }
+    // console.log('target:',controls.target,'position:',camera.position);
   }
 
 tick()

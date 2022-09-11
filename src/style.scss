@@ -851,6 +851,10 @@ html, body {
 }
 
 
+
+
+
+
   @keyframes myAnimation1{
       0%{
       opacity: 0;
@@ -934,12 +938,11 @@ html, body {
   }
 
   #defaultCanvas0{
-    
     position: relative;
-    left: 10%;
-    top: 5rem !important;
-   width: 80% !important;
-   height: 70% !important;
+    left: 2%;
+    top: 2rem;
+    width: 95% !important;
+    height: 50vh !important;
 
   }
 
@@ -1155,3 +1158,47 @@ html, body {
 		font-weight: bold;
 	}
 }
+
+
+.zebiMobile{
+    animation-name: zebi1Mobile;
+    animation-duration: 500ms;
+    animation-fill-mode: forwards;
+}
+
+@keyframes zebi1Mobile{
+    0%{
+       width:0%;
+       height: auto;    //   transform: rotateX(90deg);
+   }
+   15%{
+       width:5%;
+       height: auto;    //   transform: rotateX(90deg);
+   }
+   30%{
+       width:10%;
+       height: auto;    //   transform: rotateX(0deg);
+   }
+   45%{
+       width:15%;
+       height: auto;    }
+       60%{  width:20%;
+           height: auto;}
+           75%{
+               width:25%;
+               height: auto;    //   transform: rotateX(90deg);
+           }
+   100%{
+   //   display: none;
+   width:100%;
+   height: auto;    //   transform: rotateX(90deg);
+   }
+}
+
+
+.p5DivMobile{
+left: 5% !important;
+top:3rem !important;
+
+}
+
