@@ -1168,7 +1168,7 @@ window.addEventListener('touchstart', event => {
     document.getElementById('guibazar').style.width='100%'
     document.getElementById('guibazar').style.display='block';
     let element2 = document.getElementById('guibazar')
-    element2.className = "zebiMobile";
+    element2.className = "zebiMobile2";
     var bokehPass = new BokehPass(scene, camera, {
       focus: 0.5,
       aperture: 0.005,
@@ -1412,7 +1412,7 @@ gsap.to(camera.position,{x: -0.3197533397689743, y: -0.555449899400478, z: -0.18
   document.getElementById('guimarcato').style.left='0px'
   document.getElementById('guimarcato').style.display='block';
   let element2 = document.getElementById('guimarcato')
-  element2.className = "zebiMobile"; 
+  element2.className = "zebiMobile2"; 
   var bokehPass = new BokehPass(scene, camera, {
     focus: 0.1,
     aperture: 0.005,
@@ -1531,7 +1531,7 @@ window.addEventListener('touchstart', event => {
     document.getElementById('guirazi').style.display='block';
     document.getElementById('guirazi').style.left='0px';
     let element2 = document.getElementById('guirazi')
-    element2.className = "zebiMobile";
+    element2.className = "zebiMobile2";
     var bokehPass = new BokehPass(scene, camera, {
       focus: 1,
       aperture: 0.005,
@@ -1649,7 +1649,7 @@ window.addEventListener('touchstart', event => {
     document.getElementById('guicentro').style.display='block';
     document.getElementById('guicentro').style.left='0px';
     let element2 = document.getElementById('guicentro')
-    element2.className = "zebiMobile";
+    element2.className = "zebiMobile2";
     var bokehPass = new BokehPass(scene, camera, {
       focus: 0.1,
       aperture: 0.005,
@@ -1769,7 +1769,7 @@ window.addEventListener('touchstart', event => {
     document.getElementById('guisamy').style.top='70%';
     document.getElementById('guisamy').style.display='block';
     let element2 = document.getElementById('guisamy')
-    element2.className = "zebiMobile"; 
+    element2.className = "zebiMobile2"; 
     var bokehPass = new BokehPass(scene, camera, {
       focus: 0.1,
       aperture: 0.005,
@@ -1784,19 +1784,26 @@ window.addEventListener('touchstart', event => {
   
   }
   })
-  
+
+  var switchs = null;
+
+
 
 document.getElementById('electorono').onclick=function(){
+  
   camerarotation=false
   document.getElementById('guielectrono').style.display="block"
   let element2 = document.getElementById('guielectrono')
   element2.className = "zebi";
 }
 document.getElementById('storyelectronomobile').onclick=function(){
+  if(switchs === 2){  let element2 = document.getElementById('test2');
+  element2.className = "zebi6";}
+  switchs=1
   camerarotation=false
-  document.getElementById('guielectrono').style.display="block"
-  let element2 = document.getElementById('guielectrono')
-  element2.className = "zebi";
+  document.getElementById('test').style.display="block"
+  let element2 = document.getElementById('test')
+  element2.className = "zebiMobile";
 }
 
 document.getElementById('guielectrono').onclick=function(){
@@ -1815,21 +1822,31 @@ document.getElementById('storybazaro').onclick=function(){
 
 
 document.getElementById('storybazaromobile').onclick=function(){
+  if(switchs === 1){  let element2 = document.getElementById('test');
+  element2.className = "zebi6";}
+  switchs=2
   camerarotation=false
-  document.getElementById('guibazarstory').style.display="block"
-  let element2 = document.getElementById('guibazarstory')
-  element2.className = "zebi";
+  document.getElementById('test2').style.display="block"
+  let element2 = document.getElementById('test2')
+  element2.className = "zebiMobile";
 }
 
 
 
 
-document.getElementById('guibazarstory').onclick=function(){
-  document.getElementById('guibazarstory').style.display="block"
-  let element2 = document.getElementById('guibazarstory')
-  element2.className = "zebi5";
+document.getElementsByClassName('newclose')[0].onclick=function(){
+  let element2 = document.getElementById('test');
+  element2.className = "zebi6";
   camerarotation=true
+  switchs=null
 }
+document.getElementsByClassName('newclose')[1].onclick=function(){
+  let element2 = document.getElementById('test2');
+  element2.className = "zebi6";
+  camerarotation=true
+  switchs=null
+}
+
 
 
 
@@ -1977,7 +1994,7 @@ window.addEventListener('touchstart', event => {
     document.getElementById('guipalazzo').style.display='block';
     document.getElementById('guipalazzo').style.left='0px';
     let element2 = document.getElementById('guipalazzo')
-    element2.className = "zebiMobile";
+    element2.className = "zebiMobile2";
     var bokehPass = new BokehPass(scene, camera, {
       focus:2,
       aperture: 0.0005,

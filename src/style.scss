@@ -912,6 +912,47 @@ html, body {
     100%{ opacity: 0 ; z-index: -10;}
   }
 
+
+  .zebi6{
+    animation-name: zebi3;
+    animation-duration: 500ms;
+    animation-fill-mode: forwards;
+}
+
+
+  @keyframes zebi3{
+    0%{
+        width:80%;
+        height: 40%;    //   transform: rotateX(90deg);
+    }
+    15%{
+        width:60%;
+        height: 40%;    //   transform: rotateX(90deg);
+    }
+    30%{
+        width:40%;
+        height: 40%;    //   transform: rotateX(0deg);
+    }
+    45%{
+        width:20%;
+        height: 40%;    }
+        60%{  width:10%;
+            height: 40%;}
+            75%{
+                width:5%;
+                height: 40%;    //   transform: rotateX(90deg);
+            }
+            99%{
+    //   display: none;
+    width:0%;
+    height: 40%;    //   transform: rotateX(90deg);
+    }
+    100%{ opacity: 0 ; z-index: -10;}
+  }
+
+
+
+
   #guielectrono{
     cursor: pointer;
     display: none;
@@ -1169,23 +1210,61 @@ html, body {
 @keyframes zebi1Mobile{
     0%{
        width:0%;
-       height: auto;    //   transform: rotateX(90deg);
+       height: 40%;    //   transform: rotateX(90deg);
    }
    15%{
        width:5%;
-       height: auto;    //   transform: rotateX(90deg);
+       height: 40%;    //   transform: rotateX(90deg);
    }
    30%{
        width:10%;
-       height: auto;    //   transform: rotateX(0deg);
+       height: 40%;    //   transform: rotateX(0deg);
    }
    45%{
        width:15%;
-       height: auto;    }
+       height: 40%;    }
        60%{  width:20%;
-           height: auto;}
+           height: 40%;}
            75%{
                width:25%;
+               height: 40%;    //   transform: rotateX(90deg);
+           }
+   100%{
+   //   display: none;
+   width:80%;
+   height: 40%;    //   transform: rotateX(90deg);
+   }
+}
+
+
+
+.zebiMobile2{
+    animation-name: zebi2Mobile;
+    animation-duration: 500ms;
+    animation-fill-mode: forwards;
+}
+
+
+@keyframes zebi2Mobile{
+    0%{
+       width:0%;
+       height: auto;    //   transform: rotateX(90deg);
+   }
+   15%{
+       width:15%;
+       height: auto;    //   transform: rotateX(90deg);
+   }
+   30%{
+       width:30%;
+       height: auto;    //   transform: rotateX(0deg);
+   }
+   45%{
+       width:45%;
+       height: auto;    }
+       60%{  width:60%;
+           height: auto;}
+           75%{
+               width:75%;
                height: auto;    //   transform: rotateX(90deg);
            }
    100%{
@@ -1196,9 +1275,96 @@ html, body {
 }
 
 
+
+
 .p5DivMobile{
 left: 5% !important;
 top:3rem !important;
 
 }
 
+#test::-webkit-scrollbar {
+    width: 12px;               /* width of the entire scrollbar */
+  }
+
+#test2::-webkit-scrollbar {
+    width: 12px;               /* width of the entire scrollbar */
+  }
+
+.menu__links::-webkit-scrollbar {
+    width: 12px;               /* width of the entire scrollbar */
+  }
+  
+//   #test::-webkit-scrollbar-track {
+//     background: rgb(210, 210, 210);        /* color of the tracking area */
+//   }
+  
+  #test::-webkit-scrollbar-thumb {
+    background-color: rgb(7, 7, 8);    /* color of the scroll thumb */
+    border-radius: 20px;       /* roundness of the scroll thumb */
+    border: 3px solid rgba(255, 81, 0, 0.6);;  /* creates padding around scroll thumb */
+  }
+  #test2::-webkit-scrollbar-thumb {
+    background-color: rgb(7, 7, 8);    /* color of the scroll thumb */
+    border-radius: 20px;       /* roundness of the scroll thumb */
+    border: 3px solid rgba(255, 81, 0, 0.6);;  /* creates padding around scroll thumb */
+  }
+  .menu__links::-webkit-scrollbar-thumb {
+    background-color: rgb(7, 7, 8);    /* color of the scroll thumb */
+    border-radius: 20px;       /* roundness of the scroll thumb */
+    border: 3px solid rgba(255, 81, 0, 0.6);;  /* creates padding around scroll thumb */
+  }
+  .newclose{
+    width: 10%;
+    float: right;
+  }
+#test{
+    display: none;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    width: 80%;
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    padding: 1em 2em;
+    transform: translate(-50%,-50%);
+    border-radius: 1em;
+    font-size: 2vh;
+    overflow-x: visible; overflow-y: scroll;     height:30%;
+    scrollbar-width: thin;
+    scrollbar-color:  #90A4AE #CFD8DC;
+    z-index: 99999999999999999;
+
+
+   
+}
+#test2{
+    display: none;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    width: 80%;
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    padding: 1em 2em;
+    transform: translate(-50%,-50%);
+    border-radius: 1em;
+    font-size: 2vh;
+    overflow-x: visible; overflow-y: scroll;     height:30%;
+    scrollbar-width: thin;
+    scrollbar-color:  #90A4AE #CFD8DC;
+    z-index: 99999999999999999;
+
+
+   
+}
+span {
+font-weight: bolder;}
+p{ 
+  font-weight: 500 !important;
+  margin-top: 2vh;
+  font-family: Helvetica, Arial, sans-serif;
+  text-align: center;
+  line-height: 3vh;
+  margin-bottom: 5%;
+  letter-spacing: .2px;}
