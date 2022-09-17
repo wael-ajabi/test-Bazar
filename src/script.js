@@ -753,7 +753,7 @@ window.addEventListener('resize', () =>
 renderer.gammaOutput = !0
 renderer.gammaFactor = 10
 renderer.physicallyCorrectLights = false
-renderer.logarithmicDepthBuffer=false
+renderer.logarithmicDepthBuffer=true
 /**
  * Camera
  */
