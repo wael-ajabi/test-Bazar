@@ -784,7 +784,7 @@ let NEAR = 400
 //   NEAR,
 //   FAR
 // )
-var camera = new THREE.PerspectiveCamera(60, sizes.width / sizes.height, 0.005, 1000)
+var camera = new THREE.PerspectiveCamera(60, sizes.width / sizes.height, 0.005, 5000)
 
 camera.position.x = -5.647376005341269,
 camera.position.y = 0.9998205247861698,
@@ -1110,17 +1110,17 @@ document.getElementById('start-button').onclick=function(){
           height: window.innerHeight
         });
       
-
-        //   if (iOS) { // <-- Use the one here above
-        //     if (window.indexedDB) { console.log('hi');; }
-        //     if (window.SpeechSynthesisUtterance) { console.log('hi');; }
-        //     if (window.webkitAudioContext) { return 'iOS 6'; }
-        //     if (window.matchMedia) { console.log('hi');; }
-        //     if (window.history && 'pushState' in window.history) { console.log('hi');; }
-        //     console.log('hi');
-        //   }
+        var iOS = !window.MSStream && /iPad|iPhone|iPod/.test(navigator.userAgent);
+          if (iOS) { // <-- Use the one here above
+            if (window.indexedDB) { console.log('hi');; }
+            if (window.SpeechSynthesisUtterance) { console.log('hi');; }
+            if (window.webkitAudioContext) { return 'iOS 6'; }
+            if (window.matchMedia) { console.log('hi');; }
+            if (window.history && 'pushState' in window.history) { console.log('hi');; }
+            console.log('hi');
+          }
         
-        // else {  composer.addPass(bokehPass);; }
+        else {  composer.addPass(bokehPass);; }
         
 
 
