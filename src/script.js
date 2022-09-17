@@ -784,7 +784,7 @@ let NEAR = 400
 //   NEAR,
 //   FAR
 // )
-var camera = new THREE.PerspectiveCamera(60, sizes.width / sizes.height, 0.005, 500)
+var camera = new THREE.PerspectiveCamera(60, sizes.width / sizes.height, 0.005, 1000)
 
 camera.position.x = -5.647376005341269,
 camera.position.y = 0.9998205247861698,
