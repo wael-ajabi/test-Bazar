@@ -1125,7 +1125,7 @@ document.getElementById('start-button').onclick=function(){
 
 
         
-        composer.addPass(bokehPass);
+        // composer.addPass(bokehPass);
         
     controls.enabled=true
       controls.addEventListener("change", function() {
