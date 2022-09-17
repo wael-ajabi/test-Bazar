@@ -5,7 +5,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import Stats from 'three/examples/jsm/libs/stats.module'
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import * as dat from "dat.gui";
+// import * as dat from "dat.gui";
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { SAOPass  } from 'three/examples/jsm/postprocessing/SAOPass.js';
 			import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
@@ -16,7 +16,8 @@ import { SAOPass  } from 'three/examples/jsm/postprocessing/SAOPass.js';
             import {gsap} from "gsap";
 import { ReinhardToneMapping, Vector3 } from 'three';
            window.arcade1=false
-
+           const stats = Stats()
+           document.body.appendChild(stats.dom)
             let composer;
 
             const button = document.querySelector('.menu__button');
@@ -82,6 +83,27 @@ $$('li').forEach(el => el.addEventListener('mouseleave', function() {
 var soundcheck=true
 var tops=0
 document.addEventListener("DOMContentLoaded", () => {
+
+//   const element = document.getElementById("gui");
+// element.remove();
+// const element2 = document.getElementById("guirazi");
+// element2.remove();
+// const element3 = document.getElementById("guibazar");
+// element3.remove();
+// const element4 = document.getElementById("guicentro");
+// element4.remove();
+// const element5 = document.getElementById("guimarcato");
+// element5.remove();
+// const element6 = document.getElementById("guipalazzo");
+// element6.remove();
+// const element7 = document.getElementById("guisamy");
+// element7.remove();
+// const element8 = document.getElementById("guielectrono");
+// element8.remove();
+// const element9 = document.getElementById("guibazarstory");
+// element9.remove();
+
+
   if (window.innerWidth < 700) {
     tops=0
 
@@ -121,7 +143,6 @@ document.getElementById('sound').innerHTML=`<svg xmlns="http://www.w3.org/2000/s
 
 else{
   if (window.innerWidth < 700) {
-    console.log('zebi');
     document.getElementById('sound').style.backgroundColor='';
     mediaElement.play();
     soundcheck=true;
@@ -416,7 +437,7 @@ increase();
 
 
 // Debug
-const gui = new dat.GUI();
+// const gui = new dat.GUI();
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -452,22 +473,34 @@ const updateAllMaterials=()=>{
 
 
 // Renderer
+// let pixelRatio = window.devicePixelRatio
+// let AA = true
+// if (pixelRatio > 1) {
+//   AA = false
+// }
+
 const renderer = new THREE.WebGLRenderer({
-   canvas: canvas,
-   antialias:true
+  canvas: canvas,
+  antialias: true,
+  // powerPreference: "high-performance",
 })
+
+// const renderer = new THREE.WebGLRenderer({
+//    canvas: canvas,
+//    antialias:true
+// })
 renderer.toneMapping = THREE.LinearToneMapping
-gui.add(renderer,'toneMapping',{
-  NO: THREE.NoToneMapping,
-  Linear: THREE.LinearToneMapping,
-  Reinhard:ReinhardToneMapping,
-  Cineon:THREE.CineonToneMapping,
-  ACESFilmic:THREE.ACESFilmicToneMapping
-}).onFinishChange(()=>{
-  renderer.toneMapping=Number(renderer.toneMapping)
-  updateAllMaterials()
-})
-gui.add(renderer,'toneMappingExposure').min(0).max(10).step(0.001)
+// gui.add(renderer,'toneMapping',{
+//   NO: THREE.NoToneMapping,
+//   Linear: THREE.LinearToneMapping,
+//   Reinhard:ReinhardToneMapping,
+//   Cineon:THREE.CineonToneMapping,
+//   ACESFilmic:THREE.ACESFilmicToneMapping
+// }).onFinishChange(()=>{
+//   renderer.toneMapping=Number(renderer.toneMapping)
+//   updateAllMaterials()
+// })
+// gui.add(renderer,'toneMappingExposure').min(0).max(10).step(0.001)
 // renderer.toneMappingExposure = 2.3
 renderer.setSize(window.innerWidth, window.innerHeight)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
@@ -556,7 +589,7 @@ function createMarker(model, x,y,z,) {
 }
 
 
-gltfloader.load("./City_12_4_Final Version.glb", function (gltf) {
+gltfloader.load("./City_12_max compression.glb", function (gltf) {
   const textureLoader = new THREE.TextureLoader();
   //  mesh =gltf.scene.children[0].children[0].children[1].children[232]
     model=gltf.scene
@@ -577,8 +610,7 @@ gltfloader.load("./City_12_4_Final Version.glb", function (gltf) {
     
     }})
   mixer1 = new THREE.AnimationMixer(gltf.scene);
-  console.log(gltf.animations);
-  for (var i=0;i<34;i++){
+  for (var i=0;i<3;i++){
              action = mixer1.clipAction(gltf.animations[i]);
              action.play()
 
@@ -728,19 +760,38 @@ renderer.physicallyCorrectLights = false
 
 
 // Base camera
+let FOV
+let FAR
+let NEAR = 400
+
+// Mobile camera
+// if (window.innerWidth <= 768) {
+//   FOV = 50
+//   FAR = 1200
+//   // 769px - 1080px screen width camera
+// } else if (window.innerWidth >= 769 && window.innerWidth <= 1080) {
+//   FOV = 50
+//   FAR = 1475
+//   // > 1080px screen width res camera
+// } else {
+//   FOV = 40
+//   FAR = 1800
+// }
+
+// var camera = new THREE.PerspectiveCamera(
+//   FOV,
+//   window.innerWidth / window.innerHeight,
+//   NEAR,
+//   FAR
+// )
 var camera = new THREE.PerspectiveCamera(60, sizes.width / sizes.height, 0.005, 5000)
+
 camera.position.x = -5.647376005341269,
 camera.position.y = 0.9998205247861698,
 camera.position.z = 2.297861001350101
 
 camera.rotation.set(77,77,77)
-const cubeFolder1 = gui.addFolder('position');
 
-cubeFolder1.add(camera.position, 'x');
-cubeFolder1.add(camera.position, 'y');
-cubeFolder1.add(camera.position, 'z');
-
-cubeFolder1.open();
 // Lights
 var clientX = -300,
     clientY = -300,
@@ -785,7 +836,7 @@ pointLight3.intensity=5
 pointLight3.frustumCulled=true
 pointLight3.decay=1
 pointLight3.distance=10
-scene.add(pointLight3)
+// scene.add(pointLight3)
 
 
 const pointLight3Helper= new THREE.PointLightHelper(pointLight3)
@@ -804,15 +855,15 @@ pointLight4.distance=2.5
 scene.add(pointLight4)
 const pointLight4Helper= new THREE.PointLightHelper(pointLight4)
 
-                const cubeFolder2 = gui.addFolder('positionss');
-                cubeFolder2.add(pointLight4.position, 'x');
-                cubeFolder2.add(pointLight4.position, 'y');
-                cubeFolder2.add(pointLight4.position, 'z');
-                cubeFolder2.add(pointLight4.rotation, 'x');
-                cubeFolder2.add(pointLight4.rotation, 'y');
-                cubeFolder2.add(pointLight4.rotation, 'z');
+                // const cubeFolder2 = gui.addFolder('positionss');
+                // cubeFolder2.add(pointLight4.position, 'x');
+                // cubeFolder2.add(pointLight4.position, 'y');
+                // cubeFolder2.add(pointLight4.position, 'z');
+                // cubeFolder2.add(pointLight4.rotation, 'x');
+                // cubeFolder2.add(pointLight4.rotation, 'y');
+                // cubeFolder2.add(pointLight4.rotation, 'z');
 
-                cubeFolder2.open();
+                // cubeFolder2.open();
                 
 
 
@@ -996,6 +1047,7 @@ var myInterval=null
 controls.enabled=true
 
 document.getElementById('start-button').onclick=function(){
+  
   let element2 = document.getElementById('start-button')
   element2.className = "myelementfaster";
   setTimeout(() => {
@@ -1003,6 +1055,13 @@ document.getElementById('start-button').onclick=function(){
     element.remove();
     const elementt = document.getElementById("cover");
     elementt.remove();
+    
+    const elementtt = document.getElementById("chart");
+    elementtt.remove();
+    
+    const elementttt = document.getElementById("start-button");
+    elementttt.remove();
+    
   }, 3000);
   controls.enabled=false
   initsound();
@@ -1011,7 +1070,7 @@ document.getElementById('start-button').onclick=function(){
   
   
   // document.getElementById('load').style.display='none'
-  myInterval = setInterval(()=>{if(fog.density>0.39){return} ; if (fog.density<0.4){fonintensity+=0.01;fog.density=fonintensity }}, 100);
+  // myInterval = setInterval(()=>{if(fog.density>0.39){return} ; if (fog.density<0.4){fonintensity+=0.01;fog.density=fonintensity }}, 100);
   
   
       
@@ -1023,7 +1082,6 @@ document.getElementById('start-button').onclick=function(){
       gsap.to(camera.position,{x: -4.85107488034725, y: 0.50, z: 5.421262376769432,duration:10,delay:3,ease: "power1"})
       gsap.to(controls.target,{x: -0.32780258586027866, y: -0.2927804605540083, z: -0.12120864558705574,duration:7,delay:2});
       gsap.to(camera.position,{x: -0.9368241147924617, y: 0.44978222785543465,ease: "power1", z: -1.7328521118110993,duration:15,delay:8,onComplete:function(){
-       console.log(window.innerWidth);
         if (window.innerWidth < 700) {
           document.getElementsByClassName('hero__wrapper')[0].style.display='flex'
       }
@@ -1045,7 +1103,7 @@ document.getElementById('start-button').onclick=function(){
       
 
         var bokehPass = new BokehPass(scene, camera, {
-          focus: 8,
+          focus: 13,
           aperture: 0.001,
           maxblur: 500,
           width: window.innerWidth,
@@ -1062,7 +1120,7 @@ document.getElementById('start-button').onclick=function(){
         _v.sub(controls.target);
         camera.position.sub(_v);
     })
-clearInterval(myInterval)
+// clearInterval(myInterval)
 
       }})
     // controls.enablePan = false;
@@ -1211,6 +1269,8 @@ document.getElementById('guibazar').onclick=function(){
     document.getElementById('guibazar').style.display='none';
 
   }})
+  composer.removePass ( bokehPass ) 
+
     var bokehPass = new BokehPass(scene, camera, {
       focus: 8,
    aperture: 0.001,
@@ -1353,7 +1413,6 @@ window.addEventListener('click', event => {
   clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
 const found = intersectmercato(clickMouse);
-console.log(found);
 if(found.length>0 && !clickActive){
   for(let i=17;i<scene.children.length;i++){
     scene.children[i].visible=false
@@ -1394,7 +1453,6 @@ window.addEventListener('touchstart', event => {
  clickMouse.y = -(event.targetTouches[0].pageY / window.innerHeight) * 2 + 1;
 
 const found = intersectmercato(clickMouse);
-console.log(found);
 if(found.length>0 && !clickActive){
   for(let i=17;i<scene.children.length;i++){
     scene.children[i].visible=false
@@ -1447,6 +1505,10 @@ document.getElementById('guimarcato').onclick=function(){
     controls.maxPolarAngle = Math.PI*4/9
 
   }})
+
+  composer.removePass ( bokehPass ) 
+
+
     var bokehPass = new BokehPass(scene, camera, {
       focus: 8,
    aperture: 0.001,
@@ -1477,7 +1539,6 @@ clickMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
 clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
 const found = intersectrazzi(clickMouse);
-console.log(found);
 if(found.length>0 && !clickActive){
   for(let i=17;i<scene.children.length;i++){
     scene.children[i].visible=false
@@ -1515,7 +1576,6 @@ window.addEventListener('touchstart', event => {
  clickMouse.y = -(event.targetTouches[0].pageY / window.innerHeight) * 2 + 1;
   
   const found = intersectrazzi(clickMouse);
-  console.log(found);
   if(found.length>0 && !clickActive){
     for(let i=17;i<scene.children.length;i++){
       scene.children[i].visible=false
@@ -1563,6 +1623,10 @@ document.getElementById('guirazi').onclick=function(){
     camerarotation=true
     document.getElementById('guimarcato').style.display='none';
   }})
+
+  composer.removePass ( bokehPass ) 
+
+
     var bokehPass = new BokehPass(scene, camera, {
       focus: 8,
    aperture: 0.001,
@@ -1590,7 +1654,6 @@ clickMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
 clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
 const found = intersectcentro(clickMouse);
-console.log(found);
 if(found.length>0 && !clickActive){
   for(let i=17;i<scene.children.length;i++){
     scene.children[i].visible=false
@@ -1634,7 +1697,6 @@ window.addEventListener('touchstart', event => {
  clickMouse.y = -(event.targetTouches[0].pageY / window.innerHeight) * 2 + 1;
   
   const found = intersectcentro(clickMouse);
-  console.log(found);
   if(found.length>0 && !clickActive){
     for(let i=17;i<scene.children.length;i++){
       scene.children[i].visible=false
@@ -1682,6 +1744,10 @@ document.getElementById('guicentro').onclick=function(){
     camerarotation=true
     document.getElementById('guimarcato').style.display='none';
   }})
+
+  composer.removePass ( bokehPass ) 
+
+
     var bokehPass = new BokehPass(scene, camera, {
       focus: 8,
    aperture: 0.001,
@@ -1712,7 +1778,6 @@ clickMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
 clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
 const found = intersectsamy(clickMouse);
-console.log(found);
 if(found.length>0 && !clickActive){
   for(let i=17;i<scene.children.length;i++){
     scene.children[i].visible=false
@@ -1752,7 +1817,6 @@ window.addEventListener('touchstart', event => {
  clickMouse.y = -(event.targetTouches[0].pageY / window.innerHeight) * 2 + 1;
 
   const found = intersectsamy(clickMouse);
-  console.log(found);
   if(found.length>0 && !clickActive){
     for(let i=17;i<scene.children.length;i++){
       scene.children[i].visible=false
@@ -1935,7 +1999,6 @@ clickMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
 clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
 const found = intersectpalazo(clickMouse);
-console.log(found);
 if(found.length>0 && !clickActive){
   for(let i=17;i<scene.children.length;i++){
     scene.children[i].visible=false
@@ -1979,7 +2042,6 @@ window.addEventListener('touchstart', event => {
 
  clickMouse.y = -(event.targetTouches[0].pageY / window.innerHeight) * 2 + 1;
   const found = intersectpalazo(clickMouse);
-  console.log(found);
   if(found.length>0 && !clickActive){
     for(let i=17;i<scene.children.length;i++){
       scene.children[i].visible=false
@@ -2031,6 +2093,10 @@ document.getElementById('guipalazzo').onclick=function(){
     camerarotation=true
     document.getElementById('guimarcato').style.display='none';  
   }})
+
+  composer.removePass ( bokehPass ) 
+
+
     var bokehPass = new BokehPass(scene, camera, {
       focus: 8,
    aperture: 0.001,
@@ -2077,50 +2143,22 @@ var renderPass = new RenderPass( scene, camera );
       
  const saoPass = new SAOPass( scene, camera, sizes.width, sizes.height );
 composer.addPass( saoPass );
-saoPass.kernelRadius = 16;
-saoPass.intensity=0.0002;
-const postprocessing = {};
-
-const effectController = {
-
-  focus: 0,
-  aperture: 0,
-  maxblur: 0
-
-};
 
 // // Init gui
-				gui.add( saoPass.params, 'output', {
-					'Beauty': SAOPass.OUTPUT.Beauty,
-					'Beauty+SAO': SAOPass.OUTPUT.Default,
-					'SAO': SAOPass.OUTPUT.SAO,
-					'Depth': SAOPass.OUTPUT.Depth,
-					'Normal': SAOPass.OUTPUT.Normal
-				} ).onChange( function ( value ) {
-
-					saoPass.params.output = parseInt( value );
-
-				} );
-			let saoBias =	gui.add( saoPass.params, 'saoBias', - 1, 1 );
-      saoBias.setValue(2);
-			let saoIntensity=	gui.add( saoPass.params, 'saoIntensity', 0, 1 ).step(0.00001);
-      saoIntensity.setValue(0.00006)
-				gui.add( saoPass.params, 'saoScale', 0, 10 );
-			let saoKernelRadius=	gui.add( saoPass.params, 'saoKernelRadius', 1, 100 );
-      saoKernelRadius.setValue(15)
-				gui.add( saoPass.params, 'saoMinResolution', 0, 1 );
-				gui.add( saoPass.params, 'saoBlur' );
-			let saoBlurRadius=	gui.add( saoPass.params, 'saoBlurRadius', 0, 200 );
-      saoBlurRadius.setValue(102.1)
-			let saoBlurStdDev=	gui.add( saoPass.params, 'saoBlurStdDev', 0.5, 150 );
-      saoBlurStdDev.setValue(4)
-			let saoBlurDepthCutoff=	gui.add( saoPass.params, 'saoBlurDepthCutoff', 0.0, 10 );
-      saoBlurDepthCutoff.setValue(4.072)
-      gui.hide()
-
+        saoPass.params.saoKernelRadius=15
+        saoPass.params.saoBias=2;
+        
+        saoPass.params.saoBlurRadius=102.1
+        saoPass.params.saoBlurStdDev=4
+        saoPass.params.saoIntensity=0.00006;
+        saoPass.params.saoBlurDepthCutoff=4.072;
 // //cam animation
 const tick = () =>
 {
+  stats.update()
+  // console.log(renderer.info.render);
+
+
 if(camerarotation){
   var rotSpeed = .0007;
   var x = camera.position.x;
