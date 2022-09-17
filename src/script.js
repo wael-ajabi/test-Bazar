@@ -753,7 +753,7 @@ window.addEventListener('resize', () =>
 renderer.gammaOutput = !0
 renderer.gammaFactor = 10
 renderer.physicallyCorrectLights = false
-
+renderer.logarithmicDepthBuffer=false
 /**
  * Camera
  */
@@ -1103,7 +1103,7 @@ document.getElementById('start-button').onclick=function(){
       
 
         var bokehPass = new BokehPass(scene, camera, {
-          focus: 13,
+          focus: 8,
           aperture: 0.001,
           maxblur: 500,
           width: window.innerWidth,
@@ -1111,7 +1111,7 @@ document.getElementById('start-button').onclick=function(){
         });
         
         
-        // composer.addPass(bokehPass);
+        composer.addPass(bokehPass);
         
     controls.enabled=true
       controls.addEventListener("change", function() {
