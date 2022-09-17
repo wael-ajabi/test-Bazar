@@ -454,7 +454,7 @@ var fog = new THREE.FogExp2( new THREE.Color("rgb(188, 118, 067)"), fonintensity
     const color =  new THREE.Color("rgb(143, 76, 0)");  // white
     const near = 0.1;
     const far = 14.60;
-    scene.fog = new THREE.Fog(color, near, far);
+    // scene.fog = new THREE.Fog(color, near, far);
   
   
 const sizes = {
@@ -753,7 +753,7 @@ window.addEventListener('resize', () =>
 renderer.gammaOutput = !0
 renderer.gammaFactor = 10
 renderer.physicallyCorrectLights = false
-renderer.logarithmicDepthBuffer=true
+// renderer.logarithmicDepthBuffer=true
 /**
  * Camera
  */
