@@ -1109,7 +1109,21 @@ document.getElementById('start-button').onclick=function(){
           width: window.innerWidth,
           height: window.innerHeight
         });
+      
+
+          if (iOS) { // <-- Use the one here above
+            if (window.indexedDB) { console.log('hi');; }
+            if (window.SpeechSynthesisUtterance) { console.log('hi');; }
+            if (window.webkitAudioContext) { return 'iOS 6'; }
+            if (window.matchMedia) { console.log('hi');; }
+            if (window.history && 'pushState' in window.history) { console.log('hi');; }
+            console.log('hi');
+          }
         
+        else {  composer.addPass(bokehPass);; }
+        
+
+
         
         composer.addPass(bokehPass);
         
