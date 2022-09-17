@@ -1103,7 +1103,7 @@ document.getElementById('start-button').onclick=function(){
       
 
         var bokehPass = new BokehPass(scene, camera, {
-          focus: 8,
+          focus: 13,
           aperture: 0.001,
           maxblur: 500,
           width: window.innerWidth,
