@@ -132,10 +132,7 @@ var audio = null
 document.getElementById('sound').onclick=function(){
   
   if(soundcheck) {
-    if ( /(iPad|iPhone|iPod)/g.test( navigator.userAgent ) ) {
-      document.getElementById('sound').style.backgroundColor='red';
-      audio.pause()}
-    else{mediaElement.pause();}
+    mediaElement.pause();
     soundcheck=false ;
     if (window.innerWidth < 700) {
       document.getElementById('sound').style.backgroundColor='red';
@@ -151,11 +148,9 @@ document.getElementById('sound').innerHTML=`<svg xmlns="http://www.w3.org/2000/s
 
 else{
   if (window.innerWidth < 700) {
-    if ( /(iPad|iPhone|iPod)/g.test( navigator.userAgent ) ) {
+  
       document.getElementById('sound').style.backgroundColor='#00000099';
-      audio.play()}
-      else{mediaElement.play();}
-    document.getElementById('sound').style.backgroundColor='#00000099';
+    mediaElement.play();
     soundcheck=true;
   }
   else if (window.innerWidth > 700) {
@@ -1155,16 +1150,17 @@ document.getElementById('start-button').onclick=function(){
      audio = new THREE.Audio( listener );
     const file = './Space_1.mp3';
 
-    var iOS = !window.MSStream && /iPad|iPhone|iPod/.test(navigator.userAgent);
-    if (iOS) { // <-- Use the one here above
-        const loader = new THREE.AudioLoader();
-        loader.load( file, function ( buffer ) {
+    // var iOS = !window.MSStream && /iPad|iPhone|iPod/.test(navigator.userAgent);
+    // if (iOS) { // <-- Use the one here above
+    //     const loader = new THREE.AudioLoader();
+    //     loader.load( file, function ( buffer ) {
 
-            audio.setBuffer( buffer );
-            audio.play();
-          } );
+    //         audio.setBuffer( buffer );
+    //         audio.play();
+    //         console.log(audio);
+    //       } );
 
-    } else {
+    // } else {
 
          mediaElement = new Audio( file );
          mediaElement.loop=true;
@@ -1174,7 +1170,7 @@ document.getElementById('start-button').onclick=function(){
 
     }
 
-}
+
 const raycaster = new THREE.Raycaster(); // create once
 const clickMouse = new THREE.Vector2();  // create once
 /// bazar
