@@ -1155,14 +1155,13 @@ document.getElementById('start-button').onclick=function(){
      audio = new THREE.Audio( listener );
     const file = './Space_1.mp3';
 
-    if ( /(iPad|iPhone|iPod)/g.test( navigator.userAgent ) ) {
-
+    var iOS = !window.MSStream && /iPad|iPhone|iPod/.test(navigator.userAgent);
+    if (iOS) { // <-- Use the one here above
         const loader = new THREE.AudioLoader();
         loader.load( file, function ( buffer ) {
 
             audio.setBuffer( buffer );
             audio.play();
-            
           } );
 
     } else {
