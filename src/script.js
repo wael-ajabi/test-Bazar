@@ -126,11 +126,19 @@ tops=30
 }
 });
 
+var mediaElement=null;
+var audio = null
+
 document.getElementById('sound').onclick=function(){
   
-  if(soundcheck) {mediaElement.pause(); soundcheck=false ;
+  if(soundcheck) {
+    if ( /(iPad|iPhone|iPod)/g.test( navigator.userAgent ) ) {
+      document.getElementById('sound').style.backgroundColor='red';
+      audio.pause()}
+    else{mediaElement.pause();}
+    soundcheck=false ;
     if (window.innerWidth < 700) {
-      document.getElementById('sound').style.backgroundColor='rgba(255, 81, 0, 0.6);'
+      document.getElementById('sound').style.backgroundColor='red';
     }
     else if (window.innerWidth > 700) {
 
@@ -143,8 +151,11 @@ document.getElementById('sound').innerHTML=`<svg xmlns="http://www.w3.org/2000/s
 
 else{
   if (window.innerWidth < 700) {
-    document.getElementById('sound').style.backgroundColor='';
-    mediaElement.play();
+    if ( /(iPad|iPhone|iPod)/g.test( navigator.userAgent ) ) {
+      document.getElementById('sound').style.backgroundColor='#00000099';
+      audio.play()}
+      else{mediaElement.play();}
+    document.getElementById('sound').style.backgroundColor='#00000099';
     soundcheck=true;
   }
   else if (window.innerWidth > 700) {
@@ -610,7 +621,7 @@ gltfloader.load("./City_12_4_Final Version.glb", function (gltf) {
     
     }})
   mixer1 = new THREE.AnimationMixer(gltf.scene);
-  for (var i=0;i<3;i++){
+  for (var i=0;i<34;i++){
              action = mixer1.clipAction(gltf.animations[i]);
              action.play()
 
@@ -1042,7 +1053,6 @@ const geometry = new THREE.BufferGeometry();
   
 // }
   var camerarotation=false  
-var mediaElement=null;
 var myInterval=null
 controls.enabled=true
 
@@ -1102,6 +1112,20 @@ document.getElementById('start-button').onclick=function(){
         createMarker(model,2.1,0.5,0.06)
       
 
+        var iOS = !window.MSStream && /iPad|iPhone|iPod/.test(navigator.userAgent);
+          if (iOS) { // <-- Use the one here above
+            if (window.indexedDB) { console.log('hi');; }
+            if (window.SpeechSynthesisUtterance) { console.log('hi');; }
+            if (window.webkitAudioContext) { console.log('hi'); }
+            if (window.matchMedia) { console.log('hi');; }
+            if (window.history && 'pushState' in window.history) { console.log('hi');; }
+            console.log('hi');
+          }
+        
+        else {
+          
+          composer.removePass ( bokehPass ) 
+
         var bokehPass = new BokehPass(scene, camera, {
           focus: 8,
           aperture: 0.001,
@@ -1110,21 +1134,9 @@ document.getElementById('start-button').onclick=function(){
           height: window.innerHeight
         });
       
-        var iOS = !window.MSStream && /iPad|iPhone|iPod/.test(navigator.userAgent);
-          if (iOS) { // <-- Use the one here above
-            if (window.indexedDB) { console.log('hi');; }
-            if (window.SpeechSynthesisUtterance) { console.log('hi');; }
-            if (window.webkitAudioContext) { return 'iOS 6'; }
-            if (window.matchMedia) { console.log('hi');; }
-            if (window.history && 'pushState' in window.history) { console.log('hi');; }
-            console.log('hi');
-          }
-        
-        else {  composer.addPass(bokehPass);; }
-        
-
-
-        
+          
+          composer.addPass(bokehPass);; }
+              
         // composer.addPass(bokehPass);
         
     controls.enabled=true
@@ -1140,7 +1152,7 @@ document.getElementById('start-button').onclick=function(){
     // controls.enablePan = false;
     const listener = new THREE.AudioListener();
 
-    const audio = new THREE.Audio( listener );
+     audio = new THREE.Audio( listener );
     const file = './Space_1.mp3';
 
     if ( /(iPad|iPhone|iPod)/g.test( navigator.userAgent ) ) {
@@ -1182,7 +1194,7 @@ window.addEventListener('click', event => {
 const found = intersect(clickMouse);
 // console.log(found);p
 if(found.length>0 && !clickActive){
-    for(let i=17;i<scene.children.length;i++){
+    for(let i=16;i<scene.children.length;i++){
       scene.children[i].visible=false
     }
 
@@ -1200,6 +1212,8 @@ gsap.to(camera.position,{x: -0.6559559837447704, y: -0.4736632781692687, z: 0.70
   document.getElementById('guibazar').style.display='block';
   let element2 = document.getElementById('guibazar')
   element2.className = "zebi";
+  composer.removePass ( bokehPass ) 
+
   var bokehPass = new BokehPass(scene, camera, {
     focus: 0.5,
     aperture: 0.005,
@@ -1227,7 +1241,7 @@ window.addEventListener('touchstart', event => {
   // THREE RAYCASTER
   const found = intersect(clickMouse);
   if(found.length>0 && !clickActive){
-      for(let i=17;i<scene.children.length;i++){
+      for(let i=16;i<scene.children.length;i++){
         scene.children[i].visible=false
       }
     controls.enabled=false
@@ -1241,6 +1255,21 @@ window.addEventListener('touchstart', event => {
     document.getElementById('guibazar').style.display='block';
     let element2 = document.getElementById('guibazar')
     element2.className = "zebiMobile2";
+
+    var iOS = !window.MSStream && /iPad|iPhone|iPod/.test(navigator.userAgent);
+    if (iOS) { // <-- Use the one here above
+      if (window.indexedDB) { console.log('hi');; }
+      if (window.SpeechSynthesisUtterance) { console.log('hi');; }
+      if (window.webkitAudioContext) { console.log('hi'); }
+      if (window.matchMedia) { console.log('hi');; }
+      if (window.history && 'pushState' in window.history) { console.log('hi');; }
+      console.log('hi');
+    }
+  
+  else {
+    composer.removePass ( bokehPass ) 
+   
+
     var bokehPass = new BokehPass(scene, camera, {
       focus: 0.5,
       aperture: 0.005,
@@ -1248,10 +1277,10 @@ window.addEventListener('touchstart', event => {
       width: window.innerWidth,
       height: window.innerHeight
     });
-   
+
     
-    composer.addPass(bokehPass);
-    
+    composer.addPass(bokehPass);; }
+  
   
   }})
   
@@ -1272,7 +1301,7 @@ document.getElementById('guibazar').onclick=function(){
   gsap.to(controls.target,{x: -0.330176, y: -0.291718, z: -0.113545,duration:4,delay:0.2,ease:'power3.inOut'});
   
   gsap.to(camera.position,{x: -0.24905360247937205, y: 0.44321605716014717, z: -1.7252216405242373,delay:0.2,duration:4,onComplete:function(){  controls.enabled=true;
-    for(let i=17;i<scene.children.length;i++){
+    for(let i=16;i<scene.children.length;i++){
       scene.children[i].visible=true;
       
     }
@@ -1283,19 +1312,37 @@ document.getElementById('guibazar').onclick=function(){
     document.getElementById('guibazar').style.display='none';
 
   }})
-  composer.removePass ( bokehPass ) 
 
-    var bokehPass = new BokehPass(scene, camera, {
-      focus: 8,
-   aperture: 0.001,
-   maxblur: 500,
-   width: window.innerWidth,
-   height: window.innerHeight
- });
+
+
+  var iOS = !window.MSStream && /iPad|iPhone|iPod/.test(navigator.userAgent);
+  if (iOS) { // <-- Use the one here above
+    if (window.indexedDB) { console.log('hi');; }
+    if (window.SpeechSynthesisUtterance) { console.log('hi');; }
+    if (window.webkitAudioContext) { console.log('hi'); }
+    if (window.matchMedia) { console.log('hi');; }
+    if (window.history && 'pushState' in window.history) { console.log('hi');; }
+    console.log('hi');
+  }
+
+else {
+  composer.removePass ( bokehPass ) 
  
- 
- composer.addPass(bokehPass);
- 
+
+  var bokehPass = new BokehPass(scene, camera, {
+    focus: 8,
+ aperture: 0.001,
+ maxblur: 500,
+ width: window.innerWidth,
+ height: window.innerHeight
+});
+  
+  composer.addPass(bokehPass);; }
+
+
+
+
+
 };
 
 //arcade
@@ -1312,7 +1359,7 @@ window.addEventListener('click', event => {
 // THREE RAYCASTER
 const found = intersectArcade(clickMouse);
 if(found.length>0 && !clickActive){
-    for(let i=17;i<scene.children.length;i++){
+    for(let i=16;i<scene.children.length;i++){
       scene.children[i].visible=false
     }
     controls.enabled=false
@@ -1345,7 +1392,7 @@ window.arcade=false
     // THREE RAYCASTER
     const found = intersectArcade(clickMouse);
     if(found.length>0 && !clickActive){
-        for(let i=17;i<scene.children.length;i++){
+        for(let i=16;i<scene.children.length;i++){
           scene.children[i].visible=false
         }
         controls.enabled=false
@@ -1389,23 +1436,38 @@ document.getElementById('close').onclick=function(){
    document.getElementById('close').style.display='none';   gsap.to(controls.target,{x: -0.330176, y: -0.291718, z: -0.113545,duration:4,ease:'power3.inOut'});
    
    gsap.to(camera.position,{x: -0.24905360247937205, y: 0.44321605716014717, z: -1.7252216405242373,duration:4,onComplete:function(){  controls.enabled=true;
-     for(let i=17;i<scene.children.length;i++){
+     for(let i=16;i<scene.children.length;i++){
        scene.children[i].visible=true;
      
      }
    }})
      clickActive=false
 
- var bokehPass = new BokehPass(scene, camera, {
-   focus: 8,
-   aperture: 0.001,
-   maxblur: 500,
-   width: window.innerWidth,
-   height: window.innerHeight
- });
- 
- 
- composer.addPass(bokehPass);
+
+     var iOS = !window.MSStream && /iPad|iPhone|iPod/.test(navigator.userAgent);
+     if (iOS) { // <-- Use the one here above
+       if (window.indexedDB) { console.log('hi');; }
+       if (window.SpeechSynthesisUtterance) { console.log('hi');; }
+       if (window.webkitAudioContext) { console.log('hi'); }
+       if (window.matchMedia) { console.log('hi');; }
+       if (window.history && 'pushState' in window.history) { console.log('hi');; }
+       console.log('hi');
+     }
+   
+   else {
+     composer.removePass ( bokehPass ) 
+    
+   
+     var bokehPass = new BokehPass(scene, camera, {
+      focus: 8,
+      aperture: 0.001,
+      maxblur: 500,
+      width: window.innerWidth,
+      height: window.innerHeight
+    });
+        
+     composer.addPass(bokehPass);; }
+   
 
 }
 
@@ -1428,7 +1490,7 @@ window.addEventListener('click', event => {
 
 const found = intersectmercato(clickMouse);
 if(found.length>0 && !clickActive){
-  for(let i=17;i<scene.children.length;i++){
+  for(let i=16;i<scene.children.length;i++){
     scene.children[i].visible=false
   }
   controls.enabled=false
@@ -1445,6 +1507,8 @@ gsap.to(camera.position,{x: -0.3197533397689743, y: -0.555449899400478, z: -0.18
   document.getElementById('guimarcato').style.display='block';
   let element2 = document.getElementById('guimarcato')
   element2.className = "zebi";
+  composer.removePass ( bokehPass ) 
+
   var bokehPass = new BokehPass(scene, camera, {
     focus: 0.1,
     aperture: 0.005,
@@ -1468,7 +1532,7 @@ window.addEventListener('touchstart', event => {
 
 const found = intersectmercato(clickMouse);
 if(found.length>0 && !clickActive){
-  for(let i=17;i<scene.children.length;i++){
+  for(let i=16;i<scene.children.length;i++){
     scene.children[i].visible=false
   }
   controls.enabled=false
@@ -1484,7 +1548,24 @@ gsap.to(camera.position,{x: -0.3197533397689743, y: -0.555449899400478, z: -0.18
   document.getElementById('guimarcato').style.left='0px'
   document.getElementById('guimarcato').style.display='block';
   let element2 = document.getElementById('guimarcato')
-  element2.className = "zebiMobile2"; 
+  element2.className = "zebiMobile2";
+  
+  var iOS = !window.MSStream && /iPad|iPhone|iPod/.test(navigator.userAgent);
+  if (iOS) { // <-- Use the one here above
+    if (window.indexedDB) { console.log('hi');; }
+    if (window.SpeechSynthesisUtterance) { console.log('hi');; }
+    if (window.webkitAudioContext) { console.log('hi'); }
+    if (window.matchMedia) { console.log('hi');; }
+    if (window.history && 'pushState' in window.history) { console.log('hi');; }
+    console.log('hi');
+  }
+
+else {
+  composer.removePass ( bokehPass ) 
+ 
+
+  
+  
   var bokehPass = new BokehPass(scene, camera, {
     focus: 0.1,
     aperture: 0.005,
@@ -1492,9 +1573,11 @@ gsap.to(camera.position,{x: -0.3197533397689743, y: -0.555449899400478, z: -0.18
     width: window.innerWidth,
     height: window.innerHeight
   });
- 
+    
+  composer.addPass(bokehPass);; }
+
+
   
-  composer.addPass(bokehPass);
 }})
   
 }})
@@ -1507,7 +1590,7 @@ document.getElementById('guimarcato').onclick=function(){
   gsap.to(controls.target,{x: -0.330176, y: -0.291718, z: -0.113545,duration:4,delay:0.2,ease:'power3.inOut'});
   
   gsap.to(camera.position,{x: -0.24905360247937205, y: 0.44321605716014717, z: -1.7252216405242373,delay:0.2,duration:4,onComplete:function(){  controls.enabled=true;
-    for(let i=17;i<scene.children.length;i++){
+    for(let i=16;i<scene.children.length;i++){
       scene.children[i].visible=true;
       
     }
@@ -1520,19 +1603,32 @@ document.getElementById('guimarcato').onclick=function(){
 
   }})
 
+
+  var iOS = !window.MSStream && /iPad|iPhone|iPod/.test(navigator.userAgent);
+  if (iOS) { // <-- Use the one here above
+    if (window.indexedDB) { console.log('hi');; }
+    if (window.SpeechSynthesisUtterance) { console.log('hi');; }
+    if (window.webkitAudioContext) { console.log('hi'); }
+    if (window.matchMedia) { console.log('hi');; }
+    if (window.history && 'pushState' in window.history) { console.log('hi');; }
+    console.log('hi');
+  }
+
+else {
   composer.removePass ( bokehPass ) 
-
-
-    var bokehPass = new BokehPass(scene, camera, {
-      focus: 8,
-   aperture: 0.001,
-   maxblur: 500,
-   width: window.innerWidth,
-   height: window.innerHeight
- });
  
- 
- composer.addPass(bokehPass);
+
+  
+  
+  var bokehPass = new BokehPass(scene, camera, {
+    focus: 8,
+ aperture: 0.001,
+ maxblur: 500,
+ width: window.innerWidth,
+ height: window.innerHeight
+});
+  
+  composer.addPass(bokehPass);; }
  		
 };
 
@@ -1554,7 +1650,7 @@ clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
 const found = intersectrazzi(clickMouse);
 if(found.length>0 && !clickActive){
-  for(let i=17;i<scene.children.length;i++){
+  for(let i=16;i<scene.children.length;i++){
     scene.children[i].visible=false
   }
   controls.enabled=false
@@ -1567,6 +1663,8 @@ gsap.to(camera.position,{x: -0.2948241421524178, y: -0.07897252364587554, z: -0.
   document.getElementById('guirazi').style.display='block';
   let element2 = document.getElementById('guirazi')
   element2.className = "zebi";
+  composer.removePass ( bokehPass ) 
+
   var bokehPass = new BokehPass(scene, camera, {
     focus: 1,
     aperture: 0.005,
@@ -1591,7 +1689,7 @@ window.addEventListener('touchstart', event => {
   
   const found = intersectrazzi(clickMouse);
   if(found.length>0 && !clickActive){
-    for(let i=17;i<scene.children.length;i++){
+    for(let i=16;i<scene.children.length;i++){
       scene.children[i].visible=false
     }
     controls.enabled=false
@@ -1606,6 +1704,20 @@ window.addEventListener('touchstart', event => {
     document.getElementById('guirazi').style.left='0px';
     let element2 = document.getElementById('guirazi')
     element2.className = "zebiMobile2";
+
+    var iOS = !window.MSStream && /iPad|iPhone|iPod/.test(navigator.userAgent);
+    if (iOS) { // <-- Use the one here above
+      if (window.indexedDB) { console.log('hi');; }
+      if (window.SpeechSynthesisUtterance) { console.log('hi');; }
+      if (window.webkitAudioContext) { console.log('hi'); }
+      if (window.matchMedia) { console.log('hi');; }
+      if (window.history && 'pushState' in window.history) { console.log('hi');; }
+      console.log('hi');
+    }
+  
+  else {
+    composer.removePass ( bokehPass ) 
+   
     var bokehPass = new BokehPass(scene, camera, {
       focus: 1,
       aperture: 0.005,
@@ -1613,10 +1725,10 @@ window.addEventListener('touchstart', event => {
       width: window.innerWidth,
       height: window.innerHeight
     });
-   
     
-    composer.addPass(bokehPass);
-    
+    composer.addPass(bokehPass);; }
+  
+ 
   }})}})
   
 
@@ -1627,7 +1739,7 @@ document.getElementById('guirazi').onclick=function(){
   gsap.to(controls.target,{x: -0.330176, y: -0.291718, z: -0.113545,duration:4,delay:0.2,ease:'power3.inOut'});
   
   gsap.to(camera.position,{x: -0.24905360247937205, y: 0.44321605716014717, z: -1.7252216405242373,delay:0.2,duration:4,onComplete:function(){  controls.enabled=true;
-    for(let i=17;i<scene.children.length;i++){
+    for(let i=16;i<scene.children.length;i++){
       scene.children[i].visible=true;
       
     }
@@ -1640,17 +1752,30 @@ document.getElementById('guirazi').onclick=function(){
 
   composer.removePass ( bokehPass ) 
 
+  var iOS = !window.MSStream && /iPad|iPhone|iPod/.test(navigator.userAgent);
+  if (iOS) { // <-- Use the one here above
+    if (window.indexedDB) { console.log('hi');; }
+    if (window.SpeechSynthesisUtterance) { console.log('hi');; }
+    if (window.webkitAudioContext) { console.log('hi'); }
+    if (window.matchMedia) { console.log('hi');; }
+    if (window.history && 'pushState' in window.history) { console.log('hi');; }
+    console.log('hi');
+  }
 
-    var bokehPass = new BokehPass(scene, camera, {
-      focus: 8,
-   aperture: 0.001,
-   maxblur: 500,
-   width: window.innerWidth,
-   height: window.innerHeight
- });
+else {
+  composer.removePass ( bokehPass ) 
  
- 
- composer.addPass(bokehPass);
+  var bokehPass = new BokehPass(scene, camera, {
+    focus: 8,
+ aperture: 0.001,
+ maxblur: 500,
+ width: window.innerWidth,
+ height: window.innerHeight
+});
+
+  composer.addPass(bokehPass);; }
+
+
  		};
 
 function intersectcentro(pos) {
@@ -1669,7 +1794,7 @@ clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
 const found = intersectcentro(clickMouse);
 if(found.length>0 && !clickActive){
-  for(let i=17;i<scene.children.length;i++){
+  for(let i=16;i<scene.children.length;i++){
     scene.children[i].visible=false
   }
   controls.enabled=false
@@ -1712,7 +1837,7 @@ window.addEventListener('touchstart', event => {
   
   const found = intersectcentro(clickMouse);
   if(found.length>0 && !clickActive){
-    for(let i=17;i<scene.children.length;i++){
+    for(let i=16;i<scene.children.length;i++){
       scene.children[i].visible=false
     }
     controls.enabled=false
@@ -1748,7 +1873,7 @@ document.getElementById('guicentro').onclick=function(){
   gsap.to(controls.target,{x: -0.330176, y: -0.291718, z: -0.113545,duration:4,delay:0.2,ease:'power3.inOut'});
   
   gsap.to(camera.position,{x: -0.24905360247937205, y: 0.44321605716014717, z: -1.7252216405242373,delay:0.2,duration:4,onComplete:function(){  controls.enabled=true;
-    for(let i=17;i<scene.children.length;i++){
+    for(let i=16;i<scene.children.length;i++){
       scene.children[i].visible=true;
       
     }
@@ -1759,19 +1884,32 @@ document.getElementById('guicentro').onclick=function(){
     document.getElementById('guimarcato').style.display='none';
   }})
 
+  
+  var iOS = !window.MSStream && /iPad|iPhone|iPod/.test(navigator.userAgent);
+  if (iOS) { // <-- Use the one here above
+    if (window.indexedDB) { console.log('hi');; }
+    if (window.SpeechSynthesisUtterance) { console.log('hi');; }
+    if (window.webkitAudioContext) { console.log('hi'); }
+    if (window.matchMedia) { console.log('hi');; }
+    if (window.history && 'pushState' in window.history) { console.log('hi');; }
+    console.log('hi');
+  }
+
+else {
   composer.removePass ( bokehPass ) 
+ 
+  var bokehPass = new BokehPass(scene, camera, {
+    focus: 8,
+ aperture: 0.001,
+ maxblur: 500,
+ width: window.innerWidth,
+ height: window.innerHeight
+});
+
+  composer.addPass(bokehPass);; }
 
 
-    var bokehPass = new BokehPass(scene, camera, {
-      focus: 8,
-   aperture: 0.001,
-   maxblur: 500,
-   width: window.innerWidth,
-   height: window.innerHeight
- });
- 
- 
- composer.addPass(bokehPass);
+
  	
 };
 
@@ -1793,7 +1931,7 @@ clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
 const found = intersectsamy(clickMouse);
 if(found.length>0 && !clickActive){
-  for(let i=17;i<scene.children.length;i++){
+  for(let i=16;i<scene.children.length;i++){
     scene.children[i].visible=false
   }
   controls.maxPolarAngle=Math.PI
@@ -1832,7 +1970,7 @@ window.addEventListener('touchstart', event => {
 
   const found = intersectsamy(clickMouse);
   if(found.length>0 && !clickActive){
-    for(let i=17;i<scene.children.length;i++){
+    for(let i=16;i<scene.children.length;i++){
       scene.children[i].visible=false
     }
     controls.maxPolarAngle=Math.PI
@@ -1936,7 +2074,7 @@ document.getElementById('guisamy').onclick=function(){
   gsap.to(controls.target,{x: -0.330176, y: -0.291718, z: -0.113545,duration:4,delay:0.2,ease:'power3.inOut'});
   
   gsap.to(camera.position,{x: -0.24905360247937205, y: 0.44321605716014717, z: -1.7252216405242373,delay:0.2,duration:4,onComplete:function(){  controls.enabled=true;
-    for(let i=17;i<scene.children.length;i++){
+    for(let i=16;i<scene.children.length;i++){
       scene.children[i].visible=true;
       
     }
@@ -1947,17 +2085,29 @@ document.getElementById('guisamy').onclick=function(){
     camerarotation=true
     document.getElementById('guimarcato').style.display='none';
   }})
-    var bokehPass = new BokehPass(scene, camera, {
-      focus: 8,
-   aperture: 0.001,
-   maxblur: 500,
-   width: window.innerWidth,
-   height: window.innerHeight
- });
+  
+  var iOS = !window.MSStream && /iPad|iPhone|iPod/.test(navigator.userAgent);
+  if (iOS) { // <-- Use the one here above
+    if (window.indexedDB) { console.log('hi');; }
+    if (window.SpeechSynthesisUtterance) { console.log('hi');; }
+    if (window.webkitAudioContext) { console.log('hi'); }
+    if (window.matchMedia) { console.log('hi');; }
+    if (window.history && 'pushState' in window.history) { console.log('hi');; }
+    console.log('hi');
+  }
+
+else {
+  composer.removePass ( bokehPass ) 
  
- 
- composer.addPass(bokehPass);
- 	
+  var bokehPass = new BokehPass(scene, camera, {
+    focus: 8,
+ aperture: 0.001,
+ maxblur: 500,
+ width: window.innerWidth,
+ height: window.innerHeight
+});
+
+  composer.addPass(bokehPass);; } 	
 };
 
 
@@ -2014,7 +2164,7 @@ clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
 const found = intersectpalazo(clickMouse);
 if(found.length>0 && !clickActive){
-  for(let i=17;i<scene.children.length;i++){
+  for(let i=16;i<scene.children.length;i++){
     scene.children[i].visible=false
   }
 
@@ -2027,6 +2177,8 @@ gsap.to(camera.position,{x:0.6952679758442837,y:-0.07447583058929784,z:0.5573174
   document.getElementById('guipalazzo').style.display='block';
   let element2 = document.getElementById('guipalazzo')
   element2.className = "zebi";
+  composer.removePass ( bokehPass ) 
+
   var bokehPass = new BokehPass(scene, camera, {
     focus:2,
     aperture: 0.0005,
@@ -2057,7 +2209,7 @@ window.addEventListener('touchstart', event => {
  clickMouse.y = -(event.targetTouches[0].pageY / window.innerHeight) * 2 + 1;
   const found = intersectpalazo(clickMouse);
   if(found.length>0 && !clickActive){
-    for(let i=17;i<scene.children.length;i++){
+    for(let i=16;i<scene.children.length;i++){
       scene.children[i].visible=false
     }
   
@@ -2071,6 +2223,22 @@ window.addEventListener('touchstart', event => {
     document.getElementById('guipalazzo').style.left='0px';
     let element2 = document.getElementById('guipalazzo')
     element2.className = "zebiMobile2";
+
+    
+    var iOS = !window.MSStream && /iPad|iPhone|iPod/.test(navigator.userAgent);
+    if (iOS) { // <-- Use the one here above
+      if (window.indexedDB) { console.log('hi');; }
+      if (window.SpeechSynthesisUtterance) { console.log('hi');; }
+      if (window.webkitAudioContext) { console.log('hi'); }
+      if (window.matchMedia) { console.log('hi');; }
+      if (window.history && 'pushState' in window.history) { console.log('hi');; }
+      console.log('hi');
+    }
+  
+  else {
+    composer.removePass ( bokehPass ) 
+   
+  
     var bokehPass = new BokehPass(scene, camera, {
       focus:2,
       aperture: 0.0005,
@@ -2078,10 +2246,10 @@ window.addEventListener('touchstart', event => {
       width: window.innerWidth,
       height: window.innerHeight
     });
-   
-    
-    composer.addPass(bokehPass);
-    
+  
+    composer.addPass(bokehPass);; } 	
+
+
   
   }})
   
@@ -2097,7 +2265,7 @@ document.getElementById('guipalazzo').onclick=function(){
   gsap.to(controls.target,{x: -0.330176, y: -0.291718, z: -0.113545,duration:4,delay:1,ease:'power3.inOut'});
   
   gsap.to(camera.position,{x: -0.24905360247937205, y: 0.44321605716014717, z: -1.7252216405242373,delay:1,duration:4,onComplete:function(){  controls.enabled=true;
-    for(let i=17;i<scene.children.length;i++){
+    for(let i=16;i<scene.children.length;i++){
       scene.children[i].visible=true;
       
     }
@@ -2108,19 +2276,31 @@ document.getElementById('guipalazzo').onclick=function(){
     document.getElementById('guimarcato').style.display='none';  
   }})
 
+  var iOS = !window.MSStream && /iPad|iPhone|iPod/.test(navigator.userAgent);
+  if (iOS) { // <-- Use the one here above
+    if (window.indexedDB) { console.log('hi');; }
+    if (window.SpeechSynthesisUtterance) { console.log('hi');; }
+    if (window.webkitAudioContext) { console.log('hi'); }
+    if (window.matchMedia) { console.log('hi');; }
+    if (window.history && 'pushState' in window.history) { console.log('hi');; }
+    console.log('hi');
+  }
+
+else {
   composer.removePass ( bokehPass ) 
+ 
+  var bokehPass = new BokehPass(scene, camera, {
+    focus: 8,
+ aperture: 0.001,
+ maxblur: 500,
+ width: window.innerWidth,
+ height: window.innerHeight
+});
+
+  composer.addPass(bokehPass);; } 	
 
 
-    var bokehPass = new BokehPass(scene, camera, {
-      focus: 8,
-   aperture: 0.001,
-   maxblur: 500,
-   width: window.innerWidth,
-   height: window.innerHeight
- });
- 
- 
- composer.addPass(bokehPass);
+
  	
 };
 
