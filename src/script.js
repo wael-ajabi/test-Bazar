@@ -595,7 +595,7 @@ function createMarker(model, x,y,z,) {
 }
 
 
-gltfloader.load("./City_12_4_Final Version.glb", function (gltf) {
+gltfloader.load("./City_12_6.glb", function (gltf) {
   const textureLoader = new THREE.TextureLoader();
   //  mesh =gltf.scene.children[0].children[0].children[1].children[232]
     model=gltf.scene
