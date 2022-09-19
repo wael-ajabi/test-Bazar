@@ -448,17 +448,30 @@ increase();
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
 
+const renderer = new THREE.WebGLRenderer({
+  canvas: canvas,
+  antialias: true,
+  // powerPreference: "high-performance",
+})
 // Scene
 const scene = new THREE.Scene()
-scene.background = new THREE.Color( new THREE.Color("rgb(143, 76, 0)"));
 var fonintensity=0.2
 
 var fog = new THREE.FogExp2( new THREE.Color("rgb(188, 118, 067)"), fonintensity );
 // scene.fog = fog
+var color=null
+if (window.innerWidth < 700) {
+  color =  new THREE.Color("rgb(143, 58, 0)");  // white
+  scene.background = new THREE.Color( new THREE.Color("rgb(143, 58, 0)"));
+//   renderer.toneMapping = THREE.LinearToneMapping
+// renderer.toneMappingExposure = 0.07
 
-
-    const color =  new THREE.Color("rgb(143, 76, 0)");  // white
-    const near = 0.1;
+}
+else if (window.innerWidth > 700) {
+  color =  new THREE.Color("rgb(143, 76, 0)");  // white
+  scene.background = new THREE.Color( new THREE.Color("rgb(143, 76, 0)"));
+}
+  const near = 0.1;
     const far = 14.60;
     scene.fog = new THREE.Fog(color, near, far);
   
@@ -485,17 +498,12 @@ const updateAllMaterials=()=>{
 //   AA = false
 // }
 
-const renderer = new THREE.WebGLRenderer({
-  canvas: canvas,
-  antialias: true,
-  // powerPreference: "high-performance",
-})
 
 // const renderer = new THREE.WebGLRenderer({
 //    canvas: canvas,
 //    antialias:true
 // })
-renderer.toneMapping = THREE.LinearToneMapping
+//  
 // gui.add(renderer,'toneMapping',{
 //   NO: THREE.NoToneMapping,
 //   Linear: THREE.LinearToneMapping,
@@ -2332,7 +2340,12 @@ var renderPass = new RenderPass( scene, camera );
       
  const saoPass = new SAOPass( scene, camera, sizes.width, sizes.height );
 // composer.addPass( saoPass );
-
+if (window.innerWidth < 700) {
+// composer.addPass( saoPass );
+}
+else if (window.innerWidth > 700){
+composer.addPass( saoPass );
+}
 // // Init gui
         saoPass.params.saoKernelRadius=15
         saoPass.params.saoBias=2;
