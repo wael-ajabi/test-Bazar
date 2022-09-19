@@ -16,8 +16,8 @@ import { SAOPass  } from 'three/examples/jsm/postprocessing/SAOPass.js';
             import {gsap} from "gsap";
 import { ReinhardToneMapping, Vector3 } from 'three';
            window.arcade1=false
-           const stats = Stats()
-           document.body.appendChild(stats.dom)
+          //  const stats = Stats()
+          //  document.body.appendChild(stats.dom)
             let composer;
 
             const button = document.querySelector('.menu__button');
@@ -2344,7 +2344,7 @@ var renderPass = new RenderPass( scene, camera );
 // //cam animation
 const tick = () =>
 {
-  stats.update()
+  // stats.update()
   // console.log(renderer.info.render);
 
 
@@ -2365,7 +2365,7 @@ camera.lookAt(new Vector3(0,0,0))}
    
 
     // Render
-    
+    console.log(renderer.info.render);
     composer.render(scene,camera)
     window.requestAnimationFrame(tick)
     if(mixer1){
