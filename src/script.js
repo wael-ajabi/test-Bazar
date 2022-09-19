@@ -2380,7 +2380,7 @@ camera.lookAt(new Vector3(0,0,0))}
    
 
     // Render
-    console.log(renderer.info.render);
+    // console.log(renderer.info.render);
     composer.render(scene,camera)
     window.requestAnimationFrame(tick)
     if(mixer1){
