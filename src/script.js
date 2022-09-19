@@ -2331,7 +2331,7 @@ var renderPass = new RenderPass( scene, camera );
         composer.addPass(bloomPass);
       
  const saoPass = new SAOPass( scene, camera, sizes.width, sizes.height );
-composer.addPass( saoPass );
+// composer.addPass( saoPass );
 
 // // Init gui
         saoPass.params.saoKernelRadius=15
