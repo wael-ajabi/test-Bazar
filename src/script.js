@@ -460,17 +460,19 @@ var fonintensity=0.2
 var fog = new THREE.FogExp2( new THREE.Color("rgb(188, 118, 067)"), fonintensity );
 // scene.fog = fog
 var color=null
-if (window.innerWidth < 700) {
-  color =  new THREE.Color("rgb(143, 58, 0)");  // white
-  scene.background = new THREE.Color( new THREE.Color("rgb(143, 58, 0)"));
-//   renderer.toneMapping = THREE.LinearToneMapping
-// renderer.toneMappingExposure = 0.07
+// if (window.innerWidth < 700) {
+//   color =  new THREE.Color("rgb(143, 58, 0)");  // white
+//   scene.background = new THREE.Color( new THREE.Color("rgb(143, 58, 0)"));
+// //   renderer.toneMapping = THREE.LinearToneMapping
+// // renderer.toneMappingExposure = 0.07
 
-}
-else if (window.innerWidth > 700) {
-  color =  new THREE.Color("rgb(143, 76, 0)");  // white
-  scene.background = new THREE.Color( new THREE.Color("rgb(143, 76, 0)"));
-}
+// }
+// else if (window.innerWidth > 700) {
+//   color =  new THREE.Color("rgb(143, 76, 0)");  // white
+//   scene.background = new THREE.Color( new THREE.Color("rgb(143, 76, 0)"));
+// }
+color =  new THREE.Color("rgb(143, 76, 0)");  // white
+scene.background = new THREE.Color( new THREE.Color("rgb(143, 76, 0)"));
   const near = 0.1;
     const far = 14.60;
     scene.fog = new THREE.Fog(color, near, far);
@@ -761,11 +763,11 @@ window.addEventListener('resize', () =>
     // Update renderer
     renderer.setSize(sizes.width, sizes.height)
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-    renderer.gammaOutput = !0
-    renderer.gammaFactor = 2
+    // renderer.gammaOutput = !0
+    // renderer.gammaFactor = 2
 })
-renderer.gammaOutput = !0
-renderer.gammaFactor = 10
+// renderer.gammaOutput = !0
+// renderer.gammaFactor = 10
 renderer.physicallyCorrectLights = false
 // renderer.logarithmicDepthBuffer=true
 /**
