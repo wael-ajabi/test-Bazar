@@ -593,9 +593,9 @@ function createMarker(model, x,y,z,) {
   
   const spriteMaterialRear = new THREE.SpriteMaterial({ 
     map,
-    opacity: 0.3, 
+    opacity: 0.9, 
     transparent: true, 
-    depthTest: false
+    depthTest: true
   });
   
   const spriteRear = new THREE.Sprite( spriteMaterialRear );
