@@ -582,7 +582,7 @@ function createMarker(model, x,y,z,) {
   // const textureLoader = new TextureLoader();
   textureLoader.crossOrigin = "anonymous";
   
-  const map = textureLoader.load("eye.png2.png");
+  const map = textureLoader.load("246697.png");
   map.encoding = THREE.sRGBEncoding
   
   const spriteMaterialFront = new THREE.SpriteMaterial( { map } );
