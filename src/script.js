@@ -600,7 +600,7 @@ function createMarker(model, x,y,z,) {
   
   const spriteRear = new THREE.Sprite( spriteMaterialRear );
   spriteRear.position.set(x,y,z)
-  spriteRear.scale.set(0.09,0.09,0.09)
+  spriteRear.scale.set(0.04,0.04,0.04)
   
   scene.add(spriteFront, spriteRear)
 }
