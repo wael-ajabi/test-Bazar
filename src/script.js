@@ -589,7 +589,7 @@ function createMarker(model, x,y,z,) {
   
   const spriteFront = new THREE.Sprite( spriteMaterialFront );
   spriteFront.position.set(x,y,z)
-  spriteFront.scale.set(0.09,0.09,0.09)
+  spriteFront.scale.set(0.04,0.04,0.04)
   
   const spriteMaterialRear = new THREE.SpriteMaterial({ 
     map,
