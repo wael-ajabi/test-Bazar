@@ -580,8 +580,8 @@ var model=null
 function createMarker(model, x,y,z,) {
 
   const textureLoader = new THREE.TextureLoader();
-  textureLoader.crossOrigin = "anonymous";
-  
+  textureLoader.needsUpdate=true;
+  textureLoader.crossOrigin = "";
   const map = textureLoader.load("246697.png");
   map.encoding = THREE.sRGBEncoding
   
