@@ -579,7 +579,7 @@ var model=null
 
 function createMarker(model, x,y,z,) {
 
-  // const textureLoader = new TextureLoader();
+  const textureLoader = new THREE.TextureLoader();
   textureLoader.crossOrigin = "anonymous";
   
   const map = textureLoader.load("246697.png");
