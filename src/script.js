@@ -1110,12 +1110,12 @@ document.getElementById('start-button').onclick=function(){
         controls.maxDistance=4
         // canvas2 = null
         createMarker(model,-0.8,-0.4,0.8)
-        createMarker(model,-0.101,-0.4,-0.24)
-        createMarker(model,0.72,0.06,0.59)
-        createMarker(model,-0.8,-0.4,-0.41)
-        createMarker(model,0.88,-0.2,-0.43)
-        createMarker(model,-3.5,-0.05,-0.2)
-        createMarker(model,2.1,0.5,0.06)
+        // createMarker(model,-0.101,-0.4,-0.24)
+        // createMarker(model,0.72,0.06,0.59)
+        // createMarker(model,-0.8,-0.4,-0.41)
+        // createMarker(model,0.88,-0.2,-0.43)
+        // createMarker(model,-3.5,-0.05,-0.2)
+        // createMarker(model,2.1,0.5,0.06)
       
 
         var iOS = !window.MSStream && /iPad|iPhone|iPod/.test(navigator.userAgent);
