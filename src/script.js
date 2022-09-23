@@ -519,7 +519,7 @@ const updateAllMaterials=()=>{
 // gui.add(renderer,'toneMappingExposure').min(0).max(10).step(0.001)
 // renderer.toneMappingExposure = 2.3
 renderer.setSize(window.innerWidth, window.innerHeight)
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+renderer.setPixelRatio(window.devicePixelRatio)
 renderer.physicallyCorrectLights = !0
 renderer.shadowMap.enabled=false
 // renderer.shadowMap.type=THREE.PCFShadowMap
