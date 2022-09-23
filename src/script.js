@@ -518,7 +518,7 @@ const updateAllMaterials=()=>{
 // })
 // gui.add(renderer,'toneMappingExposure').min(0).max(10).step(0.001)
 // renderer.toneMappingExposure = 2.3
-renderer.setPixelRatio(window.devicePixelRatio*0.5)
+renderer.setPixelRatio(window.devicePixelRatio*2)
 renderer.setSize(window.innerWidth, window.innerHeight)
 renderer.physicallyCorrectLights = !0
 renderer.shadowMap.enabled=false
