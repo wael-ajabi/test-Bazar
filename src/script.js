@@ -579,11 +579,34 @@ var model=null
 
 function createMarker(model, x,y,z,) {
 
-  const textureLoader = new THREE.TextureLoader();
-  textureLoader.needsUpdate=true;
-  textureLoader.crossOrigin = "";
-  const map = textureLoader.load("téléchargement.png");
-  map.encoding = THREE.LinearEncoding;
+  const canvas3 = document.getElementById("number");
+  const ctx = canvas3.getContext("2d");
+  const j = 32;
+  const g = 32;
+  const radius = 30;
+  const startAngle = 0;
+  const endAngle = Math.PI * 2;
+  
+  ctx.fillStyle = "rgb(0, 0, 0)";
+  ctx.beginPath();
+  ctx.arc(j, g, radius, startAngle, endAngle);
+  ctx.fill();
+  
+  ctx.strokeStyle = "rgb(255, 255, 255)";
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.arc(j, g, radius, startAngle, endAngle);
+  ctx.stroke();
+  
+  ctx.fillStyle = "rgb(255, 255, 255)";
+  ctx.font = "32px sans-serif";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText("1", j, g);
+  
+ const map = new THREE.CanvasTexture(
+  document.querySelector("#number")
+  ); 
   
   const spriteMaterialFront = new THREE.SpriteMaterial( { map } );
   
