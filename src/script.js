@@ -518,8 +518,8 @@ const updateAllMaterials=()=>{
 // })
 // gui.add(renderer,'toneMappingExposure').min(0).max(10).step(0.001)
 // renderer.toneMappingExposure = 2.3
-renderer.setSize(window.innerWidth, window.innerHeight)
 renderer.setPixelRatio(window.devicePixelRatio)
+renderer.setSize(window.innerWidth, window.innerHeight)
 renderer.physicallyCorrectLights = !0
 renderer.shadowMap.enabled=false
 // renderer.shadowMap.type=THREE.PCFShadowMap
@@ -785,8 +785,8 @@ window.addEventListener('resize', () =>
     camera.updateProjectionMatrix()
 
     // Update renderer
-    renderer.setSize(sizes.width, sizes.height)
     renderer.setPixelRatio(window.devicePixelRatio)
+    renderer.setSize(sizes.width, sizes.height)
     // renderer.gammaOutput = !0
     // renderer.gammaFactor = 2
 })
