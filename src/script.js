@@ -972,13 +972,13 @@ const geometry = new THREE.BufferGeometry();
                 if (mixer1){mixer1.update()}
 				const textureLoader = new THREE.TextureLoader();
 
-				const sprite1 = textureLoader.load( './eye1.png' );
-				const sprite2 = textureLoader.load( './eye1.png' );
-				const sprite3 = textureLoader.load( './eye1.png' );
-				const sprite4 = textureLoader.load( './eye1.png' );
-				const sprite5 = textureLoader.load( './eye1.png' );
+				const sprite1 = textureLoader.load( './particle.png' );
+				const sprite2 = textureLoader.load( './particle.png' );
+				const sprite3 = textureLoader.load( './particle.png' );
+				const sprite4 = textureLoader.load( './particle.png' );
+				const sprite5 = textureLoader.load( './particle.png' );
 
-				for ( let i = 0; i < 25; i ++ ) {
+				for ( let i = 0; i < 2000 ; i ++ ) {
 
 					const x = Math.random() * 2000 - 1000;
 					const y = Math.random() * 2000 - 1000;
@@ -991,11 +991,11 @@ const geometry = new THREE.BufferGeometry();
 				geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
 
 				var parameters = [
-					[[ 1.0, 0.2, 0.5 ], sprite2, 20],
-					[[ 0.95, 0.2, 0.5 ], sprite3, 20 ],
-					[[ 0.90, 0.05, 0.5 ], sprite1, 20 ],
-					[[ 0.85, 0, 0.5 ], sprite5, 20 ],
-					[[ 0.80, 0, 0.5 ], sprite4, 20 ]
+					[[ 1.0, 0.2, 0.5 ], sprite2, 10],
+					[[ 0.95, 0.2, 0.5 ], sprite3, 10 ],
+					[[ 0.90, 0.05, 0.5 ], sprite1, 10 ],
+					[[ 0.85, 0, 0.5 ], sprite5, 10 ],
+					[[ 0.80, 0, 0.5 ], sprite4, 10 ]
 				];
 
 				for ( let i = 0; i < parameters.length; i ++ ) {
@@ -1005,7 +1005,7 @@ const geometry = new THREE.BufferGeometry();
 					const size = parameters[ i ][ 2 ];
                     var materials
 					 materials = new THREE.PointsMaterial( { size: size, map: sprite, blending: THREE.AdditiveBlending, depthTest: false, transparent: true } );
-					materials.color.set(0xffffff);
+					materials.color.set(0xA0522D);
                     materials.fog=false
 
 					const particles = new THREE.Points( geometry, materials );
