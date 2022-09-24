@@ -779,6 +779,8 @@ window.addEventListener('resize', () =>
     // Update sizes
     sizes.width = window.innerWidth
     sizes.height = window.innerHeight
+    renderer.setPixelRatio(window.devicePixelRatio)
+    composer.setPixelRatio(window.devicePixelRatio)
 
     renderer.setSize( window.innerWidth, window.innerHeight );
     composer.setSize( window.innerWidth, window.innerHeight );
@@ -2403,6 +2405,7 @@ camera.lookAt(new Vector3(0,0,0))}
 
     // Render
     // console.log(renderer.info.render);
+    renderer.clear();
     composer.render(scene,camera)
     window.requestAnimationFrame(tick)
     if(mixer1){
