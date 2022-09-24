@@ -1008,6 +1008,7 @@ const geometry = new THREE.BufferGeometry();
 					materials.color.set(0xA0522D);
                     materials.fog=false
 
+
 					const particles = new THREE.Points( geometry, materials );
 
           
@@ -2349,7 +2350,7 @@ let rt = new THREE.WebGLRenderTarget(innerWidth, innerHeight, {
   samples: 4
   
 });
-composer = new EffectComposer( renderer,rt   );
+composer = new EffectComposer( renderer  );
 
 var renderPass = new RenderPass( scene, camera );
 				composer.addPass( renderPass );
