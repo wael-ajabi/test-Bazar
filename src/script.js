@@ -2344,9 +2344,9 @@ const param = {
 };
 
 let rt = new THREE.WebGLRenderTarget(innerWidth, innerHeight, {
-  type: THREE.FloatType,
+  type: THREE.UnsignedByteType,
   minFilter: THREE.NearestFilter,
-  // magFilter: THREE.NearestFilter,
+  magFilter: THREE.NearestFilter,
   // samples: 4
   
 });
