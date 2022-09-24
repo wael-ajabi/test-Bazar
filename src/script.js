@@ -1007,7 +1007,7 @@ const geometry = new THREE.BufferGeometry();
 					 materials = new THREE.PointsMaterial( { size: size, map: sprite, blending: THREE.AdditiveBlending, depthTest: false, transparent: true } );
 					materials.color.set(0xA0522D);
                     materials.fog=false
-
+                    
 
 					const particles = new THREE.Points( geometry, materials );
 
@@ -2345,12 +2345,12 @@ const param = {
 
 let rt = new THREE.WebGLRenderTarget(innerWidth, innerHeight, {
   type: THREE.FloatType,
-  // minFilter: THREE.NearestFilter,
-  // magFilter: THREE.NearestFilter,
-  samples: 4
+  minFilter: THREE.NearestFilter,
+  magFilter: THREE.NearestFilter,
+  // samples: 4
   
 });
-composer = new EffectComposer( renderer ,rt  );
+composer = new EffectComposer( renderer,rt   );
 
 var renderPass = new RenderPass( scene, camera );
 				composer.addPass( renderPass );
