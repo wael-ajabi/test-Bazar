@@ -1085,7 +1085,8 @@ var myInterval=null
 controls.enabled=true
 
 document.getElementById('start-button').onclick=function(){
-  
+  createMarker(model,-0.8,-0.4,0.8)
+
   let element2 = document.getElementById('start-button')
   element2.className = "myelementfaster";
   setTimeout(() => {
