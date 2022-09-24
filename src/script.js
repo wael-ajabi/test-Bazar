@@ -578,34 +578,11 @@ var model=null
 
 function createMarker(model, x,y,z,) {
 
-  const canvas3 = document.getElementById("number");
-  const ctx = canvas3.getContext("2d");
-  const j = 32;
-  const g = 32;
-  const radius = 30;
-  const startAngle = 0;
-  const endAngle = Math.PI * 2;
+  // const textureLoader = new TextureLoader();
+  textureLoader.crossOrigin = "";
   
-  ctx.fillStyle = "rgb(0, 0, 0)";
-  ctx.beginPath();
-  ctx.arc(j, g, radius, startAngle, endAngle);
-  ctx.fill();
-  
-  ctx.strokeStyle = "rgb(255, 255, 255)";
-  ctx.lineWidth = 3;
-  ctx.beginPath();
-  ctx.arc(j, g, radius, startAngle, endAngle);
-  ctx.stroke();
-  
-  ctx.fillStyle = "rgb(255, 255, 255)";
-  ctx.font = "32px sans-serif";
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.fillText("1", j, g);
-  
- const map = new THREE.CanvasTexture(
-  document.querySelector("#number")
-  ); 
+  const map = textureLoader.load("eye1.png");
+  map.encoding = THREE.sRGBEncoding
   
   const spriteMaterialFront = new THREE.SpriteMaterial( { map } );
   
@@ -615,9 +592,9 @@ function createMarker(model, x,y,z,) {
   
   const spriteMaterialRear = new THREE.SpriteMaterial({ 
     map,
-    opacity: 0.9, 
+    opacity: 0.3, 
     transparent: true, 
-    depthTest: true
+    depthTest: false
   });
   
   const spriteRear = new THREE.Sprite( spriteMaterialRear );
@@ -629,7 +606,7 @@ function createMarker(model, x,y,z,) {
 
 
 gltfloader.load("./City_12_6.glb", function (gltf) {
-  // const textureLoader = new THREE.TextureLoader();
+  const textureLoader = new THREE.TextureLoader();
   //  mesh =gltf.scene.children[0].children[0].children[1].children[232]
     model=gltf.scene
   
@@ -778,14 +755,17 @@ window.addEventListener('resize', () =>
     // Update sizes
     sizes.width = window.innerWidth
     sizes.height = window.innerHeight
+
+    // Update camera
+    camera.aspect = sizes.width / sizes.height
+    camera.updateProjectionMatrix()
+
+    // Update renderer
     renderer.setPixelRatio(window.devicePixelRatio)
     composer.setPixelRatio(window.devicePixelRatio)
 
     renderer.setSize( window.innerWidth, window.innerHeight );
     composer.setSize( window.innerWidth, window.innerHeight );
-    
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
     // renderer.gammaOutput = !0
     // renderer.gammaFactor = 2
 })
@@ -978,7 +958,7 @@ const geometry = new THREE.BufferGeometry();
 				const sprite4 = textureLoader.load( './particle.png' );
 				const sprite5 = textureLoader.load( './particle.png' );
 
-				for ( let i = 0; i < 2000 ; i ++ ) {
+				for ( let i = 0; i < 25; i ++ ) {
 
 					const x = Math.random() * 2000 - 1000;
 					const y = Math.random() * 2000 - 1000;
@@ -991,11 +971,11 @@ const geometry = new THREE.BufferGeometry();
 				geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
 
 				var parameters = [
-					[[ 1.0, 0.2, 0.5 ], sprite2, 30],
-					[[ 0.95, 0.2, 0.5 ], sprite3, 30 ],
-					[[ 0.90, 0.05, 0.5 ], sprite1, 30 ],
-					[[ 0.85, 0, 0.5 ], sprite5, 30 ],
-					[[ 0.80, 0, 0.5 ], sprite4, 30 ]
+					[[ 1.0, 0.2, 0.5 ], sprite2, 5],
+					[[ 0.95, 0.2, 0.5 ], sprite3, 5 ],
+					[[ 0.90, 0.05, 0.5 ], sprite1, 5 ],
+					[[ 0.85, 0, 0.5 ], sprite5, 5 ],
+					[[ 0.80, 0, 0.5 ], sprite4, 5 ]
 				];
 
 				for ( let i = 0; i < parameters.length; i ++ ) {
@@ -1007,7 +987,6 @@ const geometry = new THREE.BufferGeometry();
 					 materials = new THREE.PointsMaterial( { size: size, map: sprite, blending: THREE.AdditiveBlending, depthTest: false, transparent: true } );
 					materials.color.set(0xA0522D);
                     materials.fog=false
-                    
 
 					const particles = new THREE.Points( geometry, materials );
 
@@ -1086,8 +1065,7 @@ var myInterval=null
 controls.enabled=true
 
 document.getElementById('start-button').onclick=function(){
-  createMarker(model,-0.8,-0.4,0.8)
-
+  
   let element2 = document.getElementById('start-button')
   element2.className = "myelementfaster";
   setTimeout(() => {
@@ -1134,12 +1112,12 @@ document.getElementById('start-button').onclick=function(){
         controls.maxDistance=4
         // canvas2 = null
         createMarker(model,-0.8,-0.4,0.8)
-        // createMarker(model,-0.101,-0.4,-0.24)
-        // createMarker(model,0.72,0.06,0.59)
-        // createMarker(model,-0.8,-0.4,-0.41)
-        // createMarker(model,0.88,-0.2,-0.43)
-        // createMarker(model,-3.5,-0.05,-0.2)
-        // createMarker(model,2.1,0.5,0.06)
+        createMarker(model,-0.101,-0.4,-0.24)
+        createMarker(model,0.72,0.06,0.59)
+        createMarker(model,-0.8,-0.4,-0.41)
+        createMarker(model,0.88,-0.2,-0.43)
+        createMarker(model,-3.5,-0.05,-0.2)
+        createMarker(model,2.1,0.5,0.06)
       
 
         var iOS = !window.MSStream && /iPad|iPhone|iPod/.test(navigator.userAgent);
@@ -1224,16 +1202,16 @@ window.addEventListener('click', event => {
 const found = intersect(clickMouse);
 // console.log(found);p
 if(found.length>0 && !clickActive){
-    // for(let i=16;i<scene.children.length;i++){
-    //   scene.children[i].visible=false
-    // }
+    for(let i=16;i<scene.children.length;i++){
+      scene.children[i].visible=false
+    }
 
   controls.enabled=false
   clickMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
   clickMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
   minPan = new THREE.Vector3( - 1, - 1, - 1 );
   maxPan = new THREE.Vector3( 1, 1, 1 );
-  // target: Vector3 {x: -0.777754827125635, y: -0.5104806884919434, z: 0.7891928036025915, _gsap: GSCache} position: Vector3 {x: -0.6559559837447704, y: -0.4736632781692687, z: 0.7052941894292016, _gsap: GSCache}
+  // target: Vector3 {x: -0.777754827125635, y: -0.5104806884919434, z: 0.7891928036025915, _gsap: GSCache} position: Vector3 {x: -0.6559559837447704, y: -0.4736632781692687, z: 0.7052941894292016, _gsap: GSCache}
 gsap.to(controls.target,{x: -0.777754827125635, y: -0.5104806884919434, z: 0.7891928036025915,duration:1,ease:'power3.inOut'});
 gsap.to(camera.position,{x: -0.6559559837447704, y: -0.4736632781692687, z: 0.7052941894292016,duration:3,delay:1,onComplete:  function (){
  
@@ -1271,9 +1249,9 @@ window.addEventListener('touchstart', event => {
   // THREE RAYCASTER
   const found = intersect(clickMouse);
   if(found.length>0 && !clickActive){
-      // for(let i=16;i<scene.children.length;i++){
-      //   scene.children[i].visible=false
-      // }
+      for(let i=16;i<scene.children.length;i++){
+        scene.children[i].visible=false
+      }
     controls.enabled=false
     minPan = new THREE.Vector3( - 1, - 1, - 1 );
     maxPan = new THREE.Vector3( 1, 1, 1 );
@@ -1724,7 +1702,7 @@ window.addEventListener('touchstart', event => {
     }
     controls.enabled=false
     clickActive=true
-    // target: Vector3 {x: -0.5, y: -0.329969, z: -0.459313, _gsap: GSCache} position: Vector3 {x: -0.26387782964571027, y: -0.2813195825151035, z: -0.4563573942906924, _gsap: GSCache}
+    // target: Vector3 {x: -0.5, y: -0.329969, z: -0.459313, _gsap: GSCache} position: Vector3 {x: -0.26387782964571027, y: -0.2813195825151035, z: -0.4563573942906924, _gsap: GSCache}
     gsap.to(controls.target,{x: -0.5, y: -0.329969, z: -0.459313,duration:2,ease:'power3.inOut'});
   gsap.to(camera.position,{x: -0.26387782964571027, y: -0.2813195825151035, z: -0.4563573942906924,duration:2,onComplete:function(){
     camerarotation=false;
@@ -2347,7 +2325,7 @@ let rt = new THREE.WebGLRenderTarget(innerWidth, innerHeight, {
   type: THREE.HalfFloatType,
   minFilter: THREE.NearestFilter,
   magFilter: THREE.NearestFilter,
-  // samples: 4
+  samples: 4
   
 });
 composer = new EffectComposer( renderer,rt   );
@@ -2381,14 +2359,12 @@ composer.addPass( saoPass );
         saoPass.params.saoBlurStdDev=4
         saoPass.params.saoIntensity=0.00006;
         saoPass.params.saoBlurDepthCutoff=4.072;
-        renderer.setPixelRatio(window.devicePixelRatio)
-        composer.setPixelRatio(window.devicePixelRatio)
-        
-        renderer.setSize( window.innerWidth, window.innerHeight );
-        composer.setSize( window.innerWidth, window.innerHeight );
-        
+// //cam animation
+renderer.setPixelRatio(window.devicePixelRatio)
+composer.setPixelRatio(window.devicePixelRatio)
 
-        // //cam animation
+renderer.setSize( window.innerWidth, window.innerHeight );
+composer.setSize( window.innerWidth, window.innerHeight );
 const tick = () =>
 {
   // stats.update()
@@ -2413,7 +2389,6 @@ camera.lookAt(new Vector3(0,0,0))}
 
     // Render
     // console.log(renderer.info.render);
-    renderer.clear();
     composer.render(scene,camera)
     window.requestAnimationFrame(tick)
     if(mixer1){
