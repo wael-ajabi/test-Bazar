@@ -1223,9 +1223,9 @@ window.addEventListener('click', event => {
 const found = intersect(clickMouse);
 // console.log(found);p
 if(found.length>0 && !clickActive){
-    for(let i=16;i<scene.children.length;i++){
-      scene.children[i].visible=false
-    }
+    // for(let i=16;i<scene.children.length;i++){
+    //   scene.children[i].visible=false
+    // }
 
   controls.enabled=false
   clickMouse.x = (event.clientX / window.innerWidth) * 2 - 1;
