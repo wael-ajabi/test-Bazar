@@ -991,11 +991,11 @@ const geometry = new THREE.BufferGeometry();
 				geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
 
 				var parameters = [
-					[[ 1.0, 0.2, 0.5 ], sprite2, 10],
-					[[ 0.95, 0.2, 0.5 ], sprite3, 10 ],
-					[[ 0.90, 0.05, 0.5 ], sprite1, 10 ],
-					[[ 0.85, 0, 0.5 ], sprite5, 10 ],
-					[[ 0.80, 0, 0.5 ], sprite4, 10 ]
+					[[ 1.0, 0.2, 0.5 ], sprite2, 30],
+					[[ 0.95, 0.2, 0.5 ], sprite3, 30 ],
+					[[ 0.90, 0.05, 0.5 ], sprite1, 30 ],
+					[[ 0.85, 0, 0.5 ], sprite5, 30 ],
+					[[ 0.80, 0, 0.5 ], sprite4, 30 ]
 				];
 
 				for ( let i = 0; i < parameters.length; i ++ ) {
