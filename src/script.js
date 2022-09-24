@@ -518,11 +518,6 @@ const updateAllMaterials=()=>{
 // })
 // gui.add(renderer,'toneMappingExposure').min(0).max(10).step(0.001)
 // renderer.toneMappingExposure = 2.3
-renderer.setPixelRatio(window.devicePixelRatio)
-composer.setPixelRatio(window.devicePixelRatio)
-
-renderer.setSize( window.innerWidth, window.innerHeight );
-composer.setSize( window.innerWidth, window.innerHeight );
 
 renderer.physicallyCorrectLights = !0
 renderer.shadowMap.enabled=false
@@ -2384,7 +2379,14 @@ composer.addPass( saoPass );
         saoPass.params.saoBlurStdDev=4
         saoPass.params.saoIntensity=0.00006;
         saoPass.params.saoBlurDepthCutoff=4.072;
-// //cam animation
+        renderer.setPixelRatio(window.devicePixelRatio)
+        composer.setPixelRatio(window.devicePixelRatio)
+        
+        renderer.setSize( window.innerWidth, window.innerHeight );
+        composer.setSize( window.innerWidth, window.innerHeight );
+        
+
+        // //cam animation
 const tick = () =>
 {
   // stats.update()
