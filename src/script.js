@@ -1270,9 +1270,9 @@ window.addEventListener('touchstart', event => {
   // THREE RAYCASTER
   const found = intersect(clickMouse);
   if(found.length>0 && !clickActive){
-      for(let i=16;i<scene.children.length;i++){
-        scene.children[i].visible=false
-      }
+      // for(let i=16;i<scene.children.length;i++){
+      //   scene.children[i].visible=false
+      // }
     controls.enabled=false
     minPan = new THREE.Vector3( - 1, - 1, - 1 );
     maxPan = new THREE.Vector3( 1, 1, 1 );
