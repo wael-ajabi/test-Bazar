@@ -2345,12 +2345,12 @@ const param = {
 
 let rt = new THREE.WebGLRenderTarget(innerWidth, innerHeight, {
   type: THREE.FloatType,
-  minFilter: THREE.NearestFilter,
-  magFilter: THREE.NearestFilter,
+  // minFilter: THREE.NearestFilter,
+  // magFilter: THREE.NearestFilter,
   samples: 4
   
 });
-composer = new EffectComposer( renderer  );
+composer = new EffectComposer( renderer ,rt  );
 
 var renderPass = new RenderPass( scene, camera );
 				composer.addPass( renderPass );
