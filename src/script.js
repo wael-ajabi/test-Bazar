@@ -5,7 +5,6 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import Stats from 'three/examples/jsm/libs/stats.module'
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
 // import * as dat from "dat.gui";
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { SAOPass  } from 'three/examples/jsm/postprocessing/SAOPass.js';
@@ -16,33 +15,6 @@ import { SAOPass  } from 'three/examples/jsm/postprocessing/SAOPass.js';
      
             import {gsap} from "gsap";
 import { ReinhardToneMapping, Vector3 } from 'three';
-
-const layers = {
-
-  'Toggle Name': function () {
-
-    camera.layers.toggle( 0 );
-
-  },
-  'Toggle Mass': function () {
-
-    camera.layers.toggle( 1 );
-
-  },
-  'Enable All': function () {
-
-    camera.layers.enableAll();
-
-  },
-
-  'Disable All': function () {
-
-    camera.layers.disableAll();
-
-  }
-
-};
-
            window.arcade1=false
           //  const stats = Stats()
           //  document.body.appendChild(stats.dom)
@@ -476,8 +448,6 @@ increase();
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
 
-
-
 const renderer = new THREE.WebGLRenderer({
   canvas: canvas,
   antialias: true,
@@ -486,12 +456,6 @@ const renderer = new THREE.WebGLRenderer({
 // Scene
 const scene = new THREE.Scene()
 var fonintensity=0.2
-
-const labelRenderer = new CSS2DRenderer();
-labelRenderer.setSize( window.innerWidth, window.innerHeight );
-labelRenderer.domElement.style.position = 'absolute';
-labelRenderer.domElement.style.top = '0px';
-document.body.appendChild( labelRenderer.domElement );
 
 var fog = new THREE.FogExp2( new THREE.Color("rgb(188, 118, 067)"), fonintensity );
 // scene.fog = fog
@@ -554,7 +518,7 @@ const updateAllMaterials=()=>{
 // })
 // gui.add(renderer,'toneMappingExposure').min(0).max(10).step(0.001)
 // renderer.toneMappingExposure = 2.3
-renderer.setPixelRatio(window.devicePixelRatio*2)
+renderer.setPixelRatio(window.devicePixelRatio)
 renderer.setSize(window.innerWidth, window.innerHeight)
 renderer.physicallyCorrectLights = !0
 renderer.shadowMap.enabled=false
@@ -615,74 +579,53 @@ var model=null
 
 function createMarker(model, x,y,z,) {
 
-//   const canvas3 = document.getElementById("number");
-//   const ctx = canvas3.getContext("2d");
-//   const j = 32;
-//   const g = 32;
-//   const radius = 30;
-//   const startAngle = 0;
-//   const endAngle = Math.PI * 2;
+  const canvas3 = document.getElementById("number");
+  const ctx = canvas3.getContext("2d");
+  const j = 32;
+  const g = 32;
+  const radius = 30;
+  const startAngle = 0;
+  const endAngle = Math.PI * 2;
   
-//   ctx.fillStyle = "rgb(0, 0, 0)";
-//   ctx.beginPath();
-//   ctx.arc(j, g, radius, startAngle, endAngle);
-//   ctx.fill();
+  ctx.fillStyle = "rgb(0, 0, 0)";
+  ctx.beginPath();
+  ctx.arc(j, g, radius, startAngle, endAngle);
+  ctx.fill();
   
-//   ctx.strokeStyle = "rgb(255, 255, 255)";
-//   ctx.lineWidth = 3;
-//   ctx.beginPath();
-//   ctx.arc(j, g, radius, startAngle, endAngle);
-//   ctx.stroke();
+  ctx.strokeStyle = "rgb(255, 255, 255)";
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.arc(j, g, radius, startAngle, endAngle);
+  ctx.stroke();
   
-//   ctx.fillStyle = "rgb(255, 255, 255)";
-//   ctx.font = "32px sans-serif";
-//   ctx.textAlign = "center";
-//   ctx.textBaseline = "middle";
-//   ctx.fillText("1", j, g);
+  ctx.fillStyle = "rgb(255, 255, 255)";
+  ctx.font = "32px sans-serif";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText("1", j, g);
   
-//  const map = new THREE.CanvasTexture(
-//   document.querySelector("#number")
-//   ); 
+ const map = new THREE.CanvasTexture(
+  document.querySelector("#number")
+  ); 
   
-//   const spriteMaterialFront = new THREE.SpriteMaterial( { map } );
+  const spriteMaterialFront = new THREE.SpriteMaterial( { map } );
   
-//   const spriteFront = new THREE.Sprite( spriteMaterialFront );
-//   spriteFront.position.set(x,y,z)
-//   spriteFront.scale.set(0.09,0.09,0.09)
+  const spriteFront = new THREE.Sprite( spriteMaterialFront );
+  spriteFront.position.set(x,y,z)
+  spriteFront.scale.set(0.09,0.09,0.09)
   
-//   const spriteMaterialRear = new THREE.SpriteMaterial({ 
-//     map,
-//     opacity: 0.9, 
-//     transparent: true, 
-//     depthTest: true
-//   });
+  const spriteMaterialRear = new THREE.SpriteMaterial({ 
+    map,
+    opacity: 0.9, 
+    transparent: true, 
+    depthTest: true
+  });
   
-//   const spriteRear = new THREE.Sprite( spriteMaterialRear );
-//   spriteRear.position.set(x,y,z)
-//   spriteRear.scale.set(0.09,0.09,0.09)
+  const spriteRear = new THREE.Sprite( spriteMaterialRear );
+  spriteRear.position.set(x,y,z)
+  spriteRear.scale.set(0.09,0.09,0.09)
   
-//   scene.add(spriteFront, spriteRear)
-
-
-
-const earthDiv = document.createElement( 'div' );
-earthDiv.className = 'label';
-earthDiv.textContent = 'Earth';
-earthDiv.style.marginTop = '-1em';
-const earthLabel = new CSS2DObject( earthDiv );
-earthLabel.position.set(-0.8,-0.4,0.8)
-cube.add( earthLabel );
-// earthLabel.layers.set( 1 );
-
-
-
-
-
-
-
-
-
-
+  scene.add(spriteFront, spriteRear)
 }
 
 
@@ -837,12 +780,6 @@ window.addEventListener('resize', () =>
     sizes.width = window.innerWidth
     sizes.height = window.innerHeight
 
-    // Update camera
-
-
-    // Update renderer
-    // renderer.setPixelRatio(window.devicePixelRatio*0.5)
-    // renderer.setSize(sizes.width, sizes.height)
     renderer.setSize( window.innerWidth, window.innerHeight );
     composer.setSize( window.innerWidth, window.innerHeight );
     
@@ -892,8 +829,7 @@ camera.position.y = 0.9998205247861698,
 camera.position.z = 2.297861001350101
 
 camera.rotation.set(77,77,77)
-camera.layers.enableAll();
-camera.layers.toggle( 1 );
+
 // Lights
 var clientX = -300,
     clientY = -300,
@@ -1148,15 +1084,7 @@ var myInterval=null
 controls.enabled=true
 
 document.getElementById('start-button').onclick=function(){
-
-  const earthDiv = document.createElement( 'div' );
-earthDiv.className = 'label';
-earthDiv.textContent = 'Earth';
-earthDiv.style.marginTop = '-1em';
-const earthLabel = new CSS2DObject( earthDiv );
-earthLabel.position.set(-0.8,-0.4,0.8)
-cube.add( earthLabel );
-
+  
   let element2 = document.getElementById('start-button')
   element2.className = "myelementfaster";
   setTimeout(() => {
@@ -2476,8 +2404,6 @@ camera.lookAt(new Vector3(0,0,0))}
     // Render
     // console.log(renderer.info.render);
     composer.render(scene,camera)
-    labelRenderer.render( scene, camera );
-
     window.requestAnimationFrame(tick)
     if(mixer1){
       
