@@ -2,7 +2,7 @@ import './style.scss'
 import * as THREE from 'three'
 import * as TWEEN from '@tweenjs/tween.js'
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-// import Stats from 'three/examples/jsm/libs/stats.module'
+import Stats from 'three/examples/jsm/libs/stats.module'
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 // import * as dat from "dat.gui";
@@ -16,8 +16,8 @@ import { SAOPass  } from 'three/examples/jsm/postprocessing/SAOPass.js';
             import {gsap} from "gsap";
 import { ReinhardToneMapping, Vector3 } from 'three';
            window.arcade1=false
-          //  const stats = Stats()
-          //  document.body.appendChild(stats.dom)
+           const stats = Stats()
+           document.body.appendChild(stats.dom)
             let composer;
 
             const button = document.querySelector('.menu__button');
@@ -2355,7 +2355,7 @@ if (window.innerWidth < 700) {
 // composer.addPass( saoPass );
 }
 else if (window.innerWidth > 700){
-composer.addPass( saoPass );
+// composer.addPass( saoPass );
 }
 // // Init gui
         saoPass.params.saoKernelRadius=15
@@ -2373,7 +2373,7 @@ renderer.setSize( window.innerWidth, window.innerHeight );
 composer.setSize( window.innerWidth, window.innerHeight );
 const tick = () =>
 {
-  // stats.update()
+  stats.update()
   // console.log(renderer.info.render);
 
 
