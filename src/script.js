@@ -2,7 +2,7 @@ import './style.scss'
 import * as THREE from 'three'
 import * as TWEEN from '@tweenjs/tween.js'
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import Stats from 'three/examples/jsm/libs/stats.module'
+// import Stats from 'three/examples/jsm/libs/stats.module'
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 // import * as dat from "dat.gui";
@@ -122,7 +122,7 @@ else if (window.innerWidth > 700) {
   <svg id="soundIcon" xmlns="http://www.w3.org/2000/svg" class="h-1 w-1" fill="#AB7C94" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
   <path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
 </svg>`
-tops=30
+tops=0
 }
 });
 
@@ -169,7 +169,7 @@ else{
 
                toolTimeline.staggerTo('li', duration, {
                  
-                 top:30,
+                 top:0,
                  ease:"Back.easeOut"
                }, .1, .9);
                
@@ -803,7 +803,7 @@ let NEAR = 400
 //   NEAR,
 //   FAR
 // )
-var camera = new THREE.PerspectiveCamera(60, sizes.width / sizes.height, 0.005, 5000)
+var camera = new THREE.PerspectiveCamera(60, sizes.width / sizes.height, 0.005, 1000)
 
 camera.position.x = -5.647376005341269,
 camera.position.y = 0.9998205247861698,
@@ -1115,7 +1115,13 @@ document.getElementById('start-button').onclick=function(){
         createMarker(model,-0.101,-0.4,-0.24)
         createMarker(model,0.72,0.06,0.59)
         createMarker(model,-0.8,-0.4,-0.41)
-        createMarker(model,0.88,-0.2,-0.43)
+
+        if (window.innerWidth < 700) {
+          // composer.addPass( saoPass );
+          }
+          else if (window.innerWidth > 700){
+            createMarker(model,0.88,-0.2,-0.43)
+          }
         createMarker(model,-3.5,-0.05,-0.2)
         createMarker(model,2.1,0.5,0.06)
       
@@ -1392,41 +1398,41 @@ window.arcade=false
   }
   })
 
-  window.addEventListener('touchstart', event => {
+  // window.addEventListener('touchstart', event => {
     
-   clickMouse.x = +(event.targetTouches[0].pageX / window.innerWidth) * 2 +-1;
+  //  clickMouse.x = +(event.targetTouches[0].pageX / window.innerWidth) * 2 +-1;
 
-   clickMouse.y = -(event.targetTouches[0].pageY / window.innerHeight) * 2 + 1;
-    // THREE RAYCASTER
-    const found = intersectArcade(clickMouse);
-    if(found.length>0 && !clickActive){
-        for(let i=16;i<scene.children.length;i++){
-          scene.children[i].visible=false
-        }
-        controls.enabled=false
-        minPan = new THREE.Vector3( - 1, - 1, - 1 );
-        maxPan = new THREE.Vector3( 1, 1, 1 );
-      gsap.to(controls.target,{x: 0.5, y: -0.2827338946525805, z: -0.16294125192244216,duration:1,ease:'power3.inOut'});
-      gsap.to(camera.position,{x: 0.4915825573682948, y: -0.27968787102465575, z: -0.15636529563801568,duration:3,delay:1,onComplete:  function (){
-            camerarotation=false
-    window.arcade=false
-             document.getElementById('p5Div').style.display='block';
-             let element3 = document.getElementById('p5Div')
-             element3.setAttribute("class", "p5DivMobile");
+  //  clickMouse.y = -(event.targetTouches[0].pageY / window.innerHeight) * 2 + 1;
+  //   // THREE RAYCASTER
+  //   const found = intersectArcade(clickMouse);
+  //   if(found.length>0 && !clickActive){
+  //       for(let i=16;i<scene.children.length;i++){
+  //         scene.children[i].visible=false
+  //       }
+  //       controls.enabled=false
+  //       minPan = new THREE.Vector3( - 1, - 1, - 1 );
+  //       maxPan = new THREE.Vector3( 1, 1, 1 );
+  //     gsap.to(controls.target,{x: 0.5, y: -0.2827338946525805, z: -0.16294125192244216,duration:1,ease:'power3.inOut'});
+  //     gsap.to(camera.position,{x: 0.4915825573682948, y: -0.27968787102465575, z: -0.15636529563801568,duration:3,delay:1,onComplete:  function (){
+  //           camerarotation=false
+  //   window.arcade=false
+  //            document.getElementById('p5Div').style.display='block';
+  //            let element3 = document.getElementById('p5Div')
+  //            element3.setAttribute("class", "p5DivMobile");
              
-                 document.getElementById('game').style.display='block';
-                 document.getElementById('game').style.width='100%';
-                 document.getElementById('game').style.height='60%';
-        document.getElementById('close').style.display='block';
+  //                document.getElementById('game').style.display='block';
+  //                document.getElementById('game').style.width='100%';
+  //                document.getElementById('game').style.height='60%';
+  //       document.getElementById('close').style.display='block';
     
         
       
-      }})
+  //     }})
     
-      clickActive=true
+  //     clickActive=true
       
-      }
-      })
+  //     }
+  //     })
     
 
   var minPan = new THREE.Vector3( - 0.5, - 0.5, - 0.5 );
